@@ -73,11 +73,13 @@ nav:
           - lst/files/skill.md
           - lst/files/race.md
           - lst/files/class.md
+          - lst/files/equipment.md
       - How to:
           - lst/howto/new-feat.md
           - lst/howto/new-skill.md
           - lst/howto/new-race.md
           - lst/howto/new-class.md
+          - lst/howto/new-equipment.md
       - Tag index: lst/reference/tag-index.md
   - Internals:
       - internals/load-pipeline.md

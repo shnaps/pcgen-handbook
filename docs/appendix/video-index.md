@@ -12,7 +12,7 @@ what order, and what goes wrong. The official documentation never covers that. T
 index exists because the playlist has no index of its own.
 
 The **Handbook page** column links to a page covering the same ground. A dash means
-the handbook does not cover that topic yet — 14 of the 25 videos have a page so far.
+the handbook does not cover that topic yet — 16 of the 25 videos have a page so far.
 The index is worth having either way, since it is the only index to this playlist.
 
 !!! warning "Recorded against 6.05/6.06"
@@ -39,8 +39,8 @@ The index is worth having either way, since it is the only index to this playlis
 
 | # | Video | Length | Handbook page |
 |---|---|---|---|
-| 6 | [Equipment Creation](https://www.youtube.com/watch?v=O8KhHtd5ih0) | 16:32 | — |
-| 9 | [Creating Custom Items](https://www.youtube.com/watch?v=J3omE2FIGs8) | 11:34 | — |
+| 6 | [Equipment Creation](https://www.youtube.com/watch?v=O8KhHtd5ih0) | 16:32 | [Add equipment](../lst/howto/new-equipment.md) |
+| 9 | [Creating Custom Items](https://www.youtube.com/watch?v=J3omE2FIGs8) | 11:34 | [Add equipment](../lst/howto/new-equipment.md) |
 | 10 | [Homebrew Class making](https://www.youtube.com/watch?v=qKY7GtBx4rI) | 15:58 | [Add a class](../lst/howto/new-class.md) |
 | 11 | [Making a Class from Scratch](https://www.youtube.com/watch?v=4qxvG07zC9o) | 21:02 | [Add a class](../lst/howto/new-class.md) |
 | 4 | [Rapid Demonstration of Race Entry](https://www.youtube.com/watch?v=VNSdgSb0Ep8) | 16:21 | [Add a race](../lst/howto/new-race.md) |
