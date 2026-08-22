@@ -65,6 +65,7 @@ nav:
       - start/how-loading-works.md
   - Data files:
       - lst/concepts/line-format.md
+      - lst/concepts/variables-and-formulas.md
       - File types:
           - lst/files/pcc.md
           - lst/files/ability.md
