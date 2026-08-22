@@ -188,3 +188,55 @@ For comparison, PCGen's own `navtokenindex.html` is hand-maintained and lists 15
 anchors, 17 of which are formula functions rather than tokens. The generated index and
 the hand-written one agree on the count by coincidence, not by construction.
 
+## 2026-08-22  source loading documented, and a correction
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. `tags.json` unchanged.
+- Three pages added: `lst/concepts/sources.md`, `lst/howto/publish-a-source.md`,
+  `internals/source-selection.md`. 56 pages total.
+
+### Correction to a published claim
+
+`keys-and-names.md` said the first object loaded wins a key clash. **That is wrong.**
+`LstObjectFileLoader.storeObject` allows an override by default and settles it by
+`SOURCEDATE`: the newer object survives and the other is forgotten. A new object with no
+date, or an older one, is the one discarded. Turning the preference off makes the clash
+an error naming both files instead.
+
+Found by a source read contradicting an earlier page, then confirmed by reading the
+method. Page corrected, and the rule is now stated in full on `sources.md`.
+
+### Measurements
+
+- **680 `.pcc` files** in shipped data, nested two to six directories deep.
+- **55 carry no `CAMPAIGN:` tag.** They are fragments included by `PCC:` and carry a
+  `KEY:` instead, so they never appear in the source list.
+- `PRECAMPAIGN` in 552 files, 843 uses, 124 of them negated. Four value forms:
+  `INCLUDES=` 327, `BOOKTYPE=` 262, a plain name 203, `INCLUDESBOOKTYPE=` 175.
+- `SHOWINMENU` in **11 files only**. Since `datatest` skips a `.pcc` without it, almost
+  no shipped source is covered by that harness.
+- `RANK` is written as a publication date, `YYYYMM`. `BOOKTYPE` is `Supplement` in 417
+  of 615 cases. `STATUS` is `BETA` 268 times against `RELEASE` 116.
+- `TYPE` depth: two levels 111 times, three 66, one 17.
+
+### The load order rule, written down
+
+Three rules in sequence, from `SourceFileLoader.loadCampaigns`: selected campaigns
+sorted by `RANK` **descending**, then file order as the tags appear in each PCC, then a
+**hard-coded sequence of file types** — data control, tables, variables, dynamic, global
+modifiers, ability categories, size, stat/save/alignment, proficiencies, skill,
+language, feat, ability, race, domain, spell, deity, class, template, equipment
+modifier, equipment, companion mod, kit, bioset.
+
+Data cannot reorder that last one. It is the reason a `.MOD` on a class cannot be
+written from a race file.
+
+### Other findings worth keeping
+
+- `HELP:` on a PCC parses and **nothing reads it**. The only reference to its storage key
+  is the token class itself.
+- `OPTION:` writes into the reader's own persistent settings, not a per-load scratch
+  area. A source changes a preference and it outlives the session.
+- A missing `PCC:` include is skipped silently, logged only.
+- `FORWARDREF` exists to declare references allowed to stay unresolved, which is how a
+  source refers to a book the reader may not own.
+

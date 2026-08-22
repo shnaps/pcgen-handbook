@@ -8,7 +8,7 @@ not estimated.
 
 ## Where the handbook stands
 
-53 pages. The LST data layer is covered for the file types people write most, the
+56 pages. The LST data layer is covered for the file types people write most, the
 cross-cutting tags are covered, and the internals section now runs from build to output.
 
 The generated [tag index](docs/lst/reference/tag-index.md) lists all 706 tags. What is

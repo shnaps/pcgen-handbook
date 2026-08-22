@@ -40,6 +40,7 @@ How the file format actually works.
 | [Line format](lst/concepts/line-format.md) | One line is one record. Tabs, fields and comments |
 | [Keys and names](lst/concepts/keys-and-names.md) | Four names per object, and which one references use |
 | [Modifying existing data](lst/concepts/modifying-data.md) | `.MOD`, `.COPY=` and `.FORGET` |
+| [Sources](lst/concepts/sources.md) | How PCGen finds, lists and orders what it loads |
 | [Data controls](lst/concepts/data-controls.md) | What must be declared before a file may use it |
 | [Prerequisites](lst/concepts/prerequisites.md) | The 129 `PRExxx` conditions and the one shape they share |
 | [Bonuses](lst/concepts/bonuses.md) | `BONUS:`, and the stacking rule that catches everyone |
@@ -79,6 +80,7 @@ three in order.
 
 | Page | What it covers |
 |---|---|
+| [Source selection](internals/source-selection.md) | From the dialog to the loader, and what sets load order |
 | [Load pipeline](internals/load-pipeline.md) | From a `.pcc` on disk to a loaded object, class by class |
 | [The token system](internals/token-system.md) | How every tag is a class, and why that matters |
 | [Plugin loading](internals/plugin-loading.md) | Why adding a tag needs no registration |

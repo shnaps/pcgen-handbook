@@ -69,6 +69,7 @@ nav:
       - lst/concepts/keys-and-names.md
       - lst/concepts/modifying-data.md
       - lst/concepts/archetypes.md
+      - lst/concepts/sources.md
       - lst/concepts/game-modes.md
       - lst/concepts/data-controls.md
       - lst/concepts/prerequisites.md
@@ -93,6 +94,7 @@ nav:
           - lst/howto/new-class.md
           - lst/howto/new-equipment.md
           - lst/howto/third-party-data.md
+          - lst/howto/publish-a-source.md
           - lst/howto/report-a-bug.md
       - Tag index: lst/reference/tag-index.md
   - Character sheets:
@@ -104,6 +106,7 @@ nav:
           - internals/building.md
           - internals/startup.md
       - Reading data:
+          - internals/source-selection.md
           - internals/load-pipeline.md
           - internals/token-system.md
           - internals/plugin-loading.md

@@ -47,16 +47,26 @@ without regard to case.
 
 ## Two objects, one key
 
-The first one loaded wins. Later objects with the same key are held aside and reported
-after loading:
+One of them is discarded. Which one depends on `SOURCEDATE`.
+
+By default PCGen allows the later definition to override the earlier, and settles it by date. The object
+whose `SOURCEDATE` is newer survives, and the other is forgotten. A new
+object with no date, or with an older one, loses. Nothing is reported either way.
+
+*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
+
+Turning that preference off makes the clash an error naming both files instead.
+
+Whatever survives that, a later check reports same-key objects that are not equal:
 
 ```text
 More than one Skill with key/name Sample Skill was built
 ```
 
-Every reference resolves to the first. The second is not merged and not replaced. It is
-unreachable. Identical duplicates are forgiven silently, which is why reloading
-the same file twice is harmless.
+Identical duplicates are forgiven silently, which is why reloading the same file twice
+is harmless.
+
+This matters most when two [sources](sources.md) are loaded together.
 
 Keys are unique per object type, so a skill and a feat may share one. Abilities are
 unique per category plus key, so a feat and a class ability may also share one.
