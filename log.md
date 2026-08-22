@@ -552,3 +552,36 @@ Field-anchored counts: `DESC` 100,395, `ASPECT` 11,774, `SAB` 11,297, `BENEFIT` 
 
 **Ownership.** Added aspect names not being validated to the schema table and to `OWNED`,
 tested against two strings it must catch and one it must not.
+
+## 2026-08-22  real failure messages
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Backlog item 5.
+- No new page. `start/when-it-breaks.md` rewritten in place, as the reviewer argued.
+
+**The named source did not hold what the item claimed.** The backlog pointed at
+"deliberately broken sets in `data/zen_test/pcgen_broken_tests/`". That path does not
+exist; the directory is one level down, under `pcgen_test_advanced/`. What it holds is
+five files, most of them commented out, covering two narrow cases — a `SPELLS:` with an
+invented `TIMEUNIT`, and a `SPELLKNOWN:` naming a fake qualifier. It is not a corpus of
+beginner mistakes.
+
+The `error.txt` files shipped under `data/35e/` are not PCGen output either. They are
+`prettylst.pl` reports from 2008, a third-party Perl tool. Quoting them would have taught
+messages PCGen never prints.
+
+**Where the real messages are.** `LstUtils` and `LanguageBundle.properties`. The symptom
+table now carries the text the loader actually writes, so a reader can search for it:
+`Invalid Token - does not contain a colon`, `Invalid Token - starts with a colon`,
+`Error parsing file <file> line <n>`, and the deprecation template.
+
+**The addition that matters most.** Three failures skip the line and let the load finish,
+so the run looks clean: `.COPY skipped`, `.MOD skipped`, and the duplicate-object warning.
+The first two are load-order problems, not spelling ones — the object has to exist before
+the line that changes it runs. Linked out to `sources.md` and `keys-and-names.md` rather
+than restating either, since `keys-and-names.md` owns duplicate resolution.
+
+**Two repairs made on the way.** The page pointed at
+`load-pipeline.md#verifying-a-dataset-loads`, but `testing.md` owns the harness; the link
+now goes to the owner. And the citation to `LanguageBundle.properties` failed
+`lint_wiki.py` because the sparse clone stopped at `code/src/java`. Widened it with
+`git sparse-checkout add code/src/resources` rather than dropping the citation.

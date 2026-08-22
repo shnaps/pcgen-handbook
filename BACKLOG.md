@@ -77,7 +77,7 @@ One reviewer ranked this second on that churn and the other sixth, arguing displ
 not what blocks a newcomer. Both hold: the churn is real, and the dependency on item 3 is
 real. It sits directly behind the tags that make an ability do anything.
 
-### 5. Verifying your data loads
+### 5. Verifying your data loads — done 2026-08-22, folded into `start/when-it-breaks.md`
 
 Nothing above is safe to write without a pass/fail loop, which is the argument that moved
 this up. Absorbs `datatest`, `config.ini`, the `SHOWINMENU` trap, and the deliberately

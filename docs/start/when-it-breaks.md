@@ -63,17 +63,39 @@ wrongly, or did not load at all.
 
 ## The common causes
 
-In rough order of how often they catch people:
+In rough order of how often they catch people. The middle column is the message text as
+the loader writes it, so it can be searched for.
 
-| Symptom | Cause |
+| Symptom | What the log says | Cause |
+|---|---|---|
+| Nothing loaded, no error | nothing | the PCC line is still commented out |
+| Campaign not in the source list | nothing | PCGen did not find the `.pcc`, or the game mode name is wrong |
+| One field rejected | `Invalid Token - does not contain a colon` | a stray word, or spaces where a tab belongs |
+| One field rejected | `Invalid Token - starts with a colon` | a missing tag name before the colon |
+| A line named with its number | `Error parsing file <file> line <n>` | the tag was found but its value would not parse |
+| A tag still works but complains | `<tag> deprecated. Tag was <text> in <object>` | the tag has a successor. See [what changed](../appendix/whats-changed.md) |
+| Object loads but does nothing | nothing | wrong [`TYPE`](../lst/concepts/types.md), or missing `CATEGORY` on an ability |
+| Reference not found | names a file you may not have edited | name mismatch, including a trailing space |
+| Worked yesterday, fails now | varies | you edited a file PCGen ships and an update replaced it |
+
+*Source: [`LstUtils.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstUtils.java)*
+
+## Lines that are skipped, not failed
+
+Three cases drop your line and carry on. The load finishes, so it looks like it worked.
+
+| Message | Means |
 |---|---|
-| Nothing loaded, no error | the PCC line is still commented out |
-| Campaign not in the source list | PCGen did not find the `.pcc`, or the game mode name is wrong |
-| Unknown tag error | typo, or a tag removed since the tutorial you followed |
-| Everything on one line failed | fields separated by spaces instead of tabs |
-| Object loads but does nothing | wrong `TYPE`, or missing `CATEGORY` on an ability |
-| Reference not found | name mismatch, including a trailing space |
-| Worked yesterday, fails now | you edited a file PCGen ships and an update replaced it |
+| `PObject <name> not found; .COPY skipped.` | the object you copied from did not load |
+| `PObject <name> not found; .MOD skipped.` | the object you modified did not load |
+| `WARNING: Duplicate object name: <key>` | two objects share a key. One of them is dropped |
+
+The first two usually mean a load-order problem rather than a spelling one. The object
+has to exist before the line that changes it runs. See
+[sources](../lst/concepts/sources.md) for the order files load in, and
+[keys and names](../lst/concepts/keys-and-names.md) for which duplicate survives.
+
+*Source: [`LanguageBundle.properties`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/resources/pcgen/lang/LanguageBundle.properties)*
 
 ## Narrowing it down
 
@@ -108,7 +130,8 @@ PCGen has no command that validates a dataset on its own. The nearest thing is t
 test harness its own CI runs, which loads data through the production loader and
 requires zero errors and zero warnings.
 
-That is covered in [the load pipeline](../internals/load-pipeline.md#verifying-a-dataset-loads).
+That is covered in [testing](../internals/testing.md), which owns the harness and the one
+trap that makes a green run meaningless.
 
 ## Related
 
