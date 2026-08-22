@@ -86,22 +86,8 @@ So one file defines a great deal of what the interface shows and how the rules b
 
 ## Optional rules
 
-`rules.lst` defines switches the user sees in preferences. Field 0 is `NAME:` with the
-key the rule is referred to by:
-
-```
-NAME:SampleOptionalRule	VAR:SYS_SAMPLERULE	DEFAULT:Yes	DESC:What the rule does.
-```
-
-| Tag | Is |
-|---|---|
-| `NAME` | the rule key, in field 0 |
-| `VAR` | the variable data checks against |
-| `DEFAULT` | `Yes` or `No` |
-| `DESC` | the text shown in preferences |
-
-Data then checks it with `PRERULE`, which is how one data set supports a rule being on
-or off.
+`rules.lst` defines the switches a reader sees in preferences, and data tests them with
+`PRERULE`. One page owns that: [rule toggles](rule-toggles.md).
 
 ## Migration
 

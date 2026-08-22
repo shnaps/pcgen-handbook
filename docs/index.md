@@ -20,14 +20,15 @@ supports, and you never need to touch Java to do it.
 
 ## Start here
 
-New to all of this? Read these three in order. About an hour, and you will have made
-a working change.
+New to all of this? Read these in order. About an hour, and you will have made a
+working change.
 
 | Page | What you get |
 |---|---|
 | [Set up](start/setup.md) | PCGen installed, and a folder of your own to work in |
 | [Your first change](start/first-change.md) | A feat you wrote, loaded and visible in PCGen |
 | [How loading works](start/how-loading-works.md) | Why that worked, so the next change is not guesswork |
+| [When it breaks](start/when-it-breaks.md) | Reading `pcgen.log`, and the failures you meet first |
 
 ## Data files
 
@@ -41,18 +42,48 @@ How the file format actually works.
 | [Keys and names](lst/concepts/keys-and-names.md) | Four names per object, and which one references use |
 | [Modifying existing data](lst/concepts/modifying-data.md) | `.MOD`, `.COPY=` and `.FORGET` |
 | [Sources](lst/concepts/sources.md) | How PCGen finds, lists and orders what it loads |
+| [Game modes](lst/concepts/game-modes.md) | What a rules system is made of, in `system/gameModes/` |
 | [Data controls](lst/concepts/data-controls.md) | What must be declared before a file may use it |
 | [Prerequisites](lst/concepts/prerequisites.md) | The 129 `PRExxx` conditions and the one shape they share |
 | [Rule toggles](lst/concepts/rule-toggles.md) | Optional rules the reader switches on, and `PRERULE` |
 | [Bonuses](lst/concepts/bonuses.md) | `BONUS:`, and the stacking rule that catches everyone |
 | [Choosers](lst/concepts/choosers.md) | `CHOOSE:`, and why it does nothing on its own |
+| [Archetypes](lst/concepts/archetypes.md) | Swapping out part of a class, the way real data does it |
 | [Variables and formulas](lst/concepts/variables-and-formulas.md) | `DEFINE`, `MODIFY` and the newer formula system |
+
+**File types** — one page per kind of `.lst` file
+
+| Page | Defines |
+|---|---|
+| [PCC](lst/files/pcc.md) | the campaign file that loads everything else |
+| [Ability](lst/files/ability.md) | feats and other abilities |
+| [Skill](lst/files/skill.md) | skills |
+| [Race](lst/files/race.md) | races |
+| [Class](lst/files/class.md) | classes, and their per-level lines |
+| [Template](lst/files/template.md) | changes applied on top of a character |
+| [Equipment](lst/files/equipment.md) | weapons, armour and gear |
+| [Deity](lst/files/deity.md) | deities |
+| [Domain](lst/files/domain.md) | domains |
+| [Spell](lst/files/spell.md) | spells |
+
+**How to** — one page per task
+
+| Page | Task |
+|---|---|
+| [Add a feat](lst/howto/new-feat.md) | the usual first change |
+| [Add a skill](lst/howto/new-skill.md) | a skill, with the two decisions it needs |
+| [Add a race](lst/howto/new-race.md) | a race |
+| [Add a class](lst/howto/new-class.md) | a class, including spellcasting |
+| [Add equipment](lst/howto/new-equipment.md) | a weapon, armour, a container |
+| [Use data someone else wrote](lst/howto/third-party-data.md) | installing and extending a source |
+| [Publish your own source](lst/howto/publish-a-source.md) | packaging yours for other people |
+| [Report a bug](lst/howto/report-a-bug.md) | where to file, and in which project |
 
 **Reference**
 
 | Page | What it covers |
 |---|---|
-| [Tag index](lst/reference/tag-index.md) | All 706 tags PCGen implements, read from the source |
+| [Tag index](lst/reference/tag-index.md) | All 706 tags PCGen implements — 693 current, 23 deprecated |
 
 ## Character sheets
 
@@ -92,7 +123,7 @@ three in order.
 | Page | What it covers |
 |---|---|
 | [The object model](internals/cdom-model.md) | What a race is in memory, and why it has no fields |
-| [The character model](internals/facets.md) | 248 facets, and why the character object holds nothing |
+| [The character model](internals/facets.md) | 234 facet classes, and why the character object holds nothing |
 | [The rules engine](internals/rules-engine.md) | How a number is computed, and the loop that repeats until it settles |
 
 **Program and output**

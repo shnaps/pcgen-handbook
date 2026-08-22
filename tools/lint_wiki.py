@@ -33,6 +33,38 @@ REQUIRED = {
 }
 
 
+# One fact, one owner. A claim explained on five pages goes stale on four of
+# them. Other pages may name the subject and link to the owner; they may not
+# re-explain it.
+OWNED = [
+    ("duplicate keys resolve by SOURCEDATE", "lst/concepts/keys-and-names.md",
+     r"(?i)(newer|later)[^.]{0,40}SOURCEDATE|SOURCEDATE[^.]{0,40}(wins|survives)"
+     r"|first (one )?loaded wins"),
+    ("datatest skips a PCC without SHOWINMENU", "internals/testing.md",
+     r"(?i)datatest[^.]{0,60}(skip|silen)|(skip|silen)[^.]{0,60}SHOWINMENU"),
+    ("the PCC FEAT tag is deprecated", "appendix/whats-changed.md",
+     r"(?i)`FEAT:`[^.]{0,50}deprecat|deprecat[^.]{0,50}`FEAT:`"),
+]
+
+
+def owned_facts(pages, docs):
+    """Pages other than the owner that re-explain a fact they do not own."""
+    out = []
+    for fact, owner, pattern in OWNED:
+        rx = re.compile(pattern)
+        for p in pages:
+            rel = str(p.relative_to(docs)).replace(chr(92), "/")
+            if rel == owner:
+                continue
+            text = p.read_text(encoding="utf-8")
+            if GENERATED in text:
+                continue
+            m = rx.search(text)
+            if m:
+                out.append((rel, fact, owner, m.group(0)[:60]))
+    return out
+
+
 def nav_paths():
     if not MKDOCS.exists():
         return set()
@@ -85,6 +117,8 @@ def main():
                     if section not in text:
                         missing_sections.append((p.relative_to(ROOT), section))
 
+    trespass = owned_facts(pages, DOCS)
+
     orphans = sorted(r for r in rel if r not in linked and r != "index.md")
     not_in_nav = sorted(r for r in rel if r not in nav)
 
@@ -118,7 +152,15 @@ def main():
         for page, section in missing_sections:
             print("  %-46s %s" % (page, section))
 
-    if not fail and not not_in_nav and not missing_sections:
+    if trespass:
+        print("")
+        print("%d page(s) re-explaining a fact another page owns:" % len(trespass))
+        for page, fact, owner, hit in trespass:
+            print("  %s" % page)
+            print("      %s -> owned by %s" % (fact, owner))
+            print("      matched: %s" % hit)
+
+    if not fail and not not_in_nav and not missing_sections and not trespass:
         print("clean")
     return 1 if fail else 0
 

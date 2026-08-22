@@ -81,13 +81,8 @@ DEITY:my_deities.lst
 
 ## Domains
 
-Domains are a separate file type, loaded with `DOMAIN:` in the PCC. They have only two
-tags of their own — `CSKILL` and `CCSKILL` — with everything else coming from global
-tags such as `BONUS` and `ABILITY`.
-
-`FEAT` on a domain is deprecated. Grant an ability instead.
-
 A deity's `DOMAINS` list names domains that must exist, so load the domain file too.
+Domains are a separate file type with its own page: [domain files](domain.md).
 
 ## Gotchas
 

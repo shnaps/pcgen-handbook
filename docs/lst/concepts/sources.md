@@ -174,9 +174,9 @@ producing errors for everyone who does not.
 
 Loading two campaigns that both define `Sample Skill` does not merge them.
 
-By default PCGen allows the override, and picks the winner by `SOURCEDATE`: the newer
-object replaces the older. A new object with no date, or an older one, is discarded
-instead. The reader is not told either way.
+Only one survives, and which one is decided by the `SOURCEDATE` your PCC sets. The
+reader is not told that it happened. [Keys and names](keys-and-names.md) gives the
+rule in full.
 
 *Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
 

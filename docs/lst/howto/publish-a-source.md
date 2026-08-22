@@ -135,8 +135,8 @@ it declares at least one `GAMEMODE`. `TYPE` plays no part.
 Only 11 of the 680 shipped `.pcc` files set it. It is for a source meant to be loaded on
 its own, not for one supplement among many.
 
-It also matters for testing. `datatest` skips a `.pcc` without it, so a source that never
-sets `SHOWINMENU` is never checked by that harness. See [testing](../../internals/testing.md).
+It also matters for testing: whether `datatest` covers your source at all depends on
+this tag. See [testing](../../internals/testing.md).
 
 ## 6. Depending on another source
 

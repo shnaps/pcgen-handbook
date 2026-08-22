@@ -100,15 +100,17 @@ Use `BASEITEM` on an item that is a variant of another.
 
 ## The finished file
 
+The weapon this page built, on its own line:
+
 ```
 # my_equipment.lst - example items
 # Invented content. Nothing from a published book.
 
-Sample Blade	TYPE:Weapon.Melee.Martial	DAMAGE:1d8	CRITMULT:x2	CRITRANGE:2	WIELD:OneHanded	COST:20	WT:4	PROFICIENCY:WEAPON|Sample Blade	SPROP:An example weapon.
-Sample Bow	TYPE:Weapon.Ranged.Martial	DAMAGE:1d6	CRITMULT:x3	CRITRANGE:1	WIELD:TwoHanded	RANGE:60	COST:75	WT:2
-Sample Mail	TYPE:Armor.Medium	ACCHECK:-4	MAXDEX:3	SPELLFAILURE:25	COST:150	WT:30
-Sample Pack	TYPE:Gear.Container	CONTAINS:50|Gear	COST:2	WT:2
+Sample Blade	TYPE:Weapon.Melee.Martial	DAMAGE:1d8	CRITMULT:x2	CRITRANGE:2	WIELD:OneHanded	PROFICIENCY:WEAPON|Sample Blade	COST:15	WT:4
 ```
+
+[Equipment files](../files/equipment.md) carries the full example, with the bow, the
+armour and the container beside it.
 
 ## Check it worked
 

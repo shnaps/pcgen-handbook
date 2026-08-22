@@ -87,6 +87,30 @@ what comes before and after · a concrete trace or example · source citations.
 
 Diagrams welcome where they show a real mechanism. Mermaid renders natively.
 
+## One fact, one owner
+
+Every material fact has exactly one page that explains it. Other pages may name the
+subject and link to the owner. They may not restate the rule.
+
+This is not a style preference. It is the failure this handbook was built to avoid,
+observed inside the handbook itself: the rule for resolving two objects with the same
+key was explained on five pages, and one of the five drifted into stating the opposite
+of the code. Every copy is a place a fact can go stale independently, and a correct
+copy looks exactly like a stale one.
+
+| Fact | Owner |
+|---|---|
+| Duplicate keys resolve by `SOURCEDATE` | `lst/concepts/keys-and-names.md` |
+| `datatest` skips a `.pcc` with no `SHOWINMENU` | `internals/testing.md` |
+| The PCC `FEAT:` tag is deprecated | `appendix/whats-changed.md` |
+
+`tools/lint_wiki.py` checks that table and reports any other page that re-explains an
+entry. Add a row when you notice a fact acquiring a second explanation.
+
+When two pages genuinely need the same fact, the reader-facing one keeps a sentence
+naming the consequence and links out. The owner keeps the rule, the citation and the
+edge cases.
+
 ## Linking rules
 
 - First mention of a tag on any page links to its reference page, if one exists.

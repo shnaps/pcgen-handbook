@@ -4,7 +4,7 @@ title: What changed since the videos
 
 # What changed since the videos
 
-The [video lessons](video-index.md) were recorded against PCGen 6.05 and 6.06. So were
+The [video lessons](credits.md) were recorded against PCGen 6.05 and 6.06. So were
 the homebrew template files PCGen still ships. Both teach things that have since been
 deprecated or removed.
 
@@ -106,6 +106,6 @@ scheduled job re-reads it weekly. See [decisions](https://github.com/shnaps/pcge
 
 ## Related
 
-- [Video index](video-index.md) — which video covers what
+- [Credits](credits.md) — the playlist, and why it is not a syntax source
 - [Tag index](../lst/reference/tag-index.md) — every tag currently implemented
 - [Credits](credits.md)

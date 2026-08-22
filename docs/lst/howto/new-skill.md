@@ -29,34 +29,18 @@ Four decisions, and they are the four you make every time:
 | How it groups, for prerequisites and choosers | `TYPE` |
 | Does armour interfere | `ACHECK` |
 
-## KEYSTAT is game mode dependent
-
-The value is a stat abbreviation *defined by the game mode*, not a fixed list. In
-`35e` those are the familiar six. A different game mode may define others.
+## The two values that need a decision
 
 ```
 Sample Athletics	KEYSTAT:STR	USEUNTRAINED:YES	ACHECK:YES	TYPE:General
 ```
 
-The stat is stored as a reference, so a name that does not exist is reported after
-loading rather than on the line itself. An error naming a stat usually means a typo
-here.
+`KEYSTAT` takes a stat abbreviation **the game mode defines**, not a fixed list. A name
+that does not exist is reported after loading, not on the line, so an error naming a
+stat usually means a typo here.
 
-*Source: [`KeystatToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/skill/KeystatToken.java)*
-
-## Armour check
-
-```
-ACHECK:NONE     armour never matters
-ACHECK:YES      the normal armour check penalty applies
-ACHECK:NONPROF  penalty only when not proficient with the armour worn
-ACHECK:DOUBLE   double the normal penalty
-ACHECK:WEIGHT   penalty scales with weight carried, not armour
-```
-
-`YES` is the one you want almost every time — 253 of the 262 uses in shipped data.
-
-*Source: [`SkillArmorCheck.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/enumeration/SkillArmorCheck.java)*
+`ACHECK` has five values and `YES` is right almost every time — 253 of the 262 uses in
+shipped data. [Skill files](../files/skill.md) lists all five.
 
 ## Trained-only and exclusive skills
 

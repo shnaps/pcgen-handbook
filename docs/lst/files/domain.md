@@ -129,9 +129,8 @@ Sample Deity	ALIGN:LG	DOMAINS:Sample Domain|Sample Order Domain
 **A domain named by a deity but never defined fails late.** The reference resolves after
 loading, so the error names the deity's file, not the missing domain.
 
-**Domain keys are global.** Two sources defining the same domain key collide, and the
-one with the newer `SOURCEDATE` wins. See
-[keys and names](../concepts/keys-and-names.md).
+**Domain keys are global.** Two sources defining the same domain key collide, and only
+one survives. [Keys and names](../concepts/keys-and-names.md) has the rule.
 
 **`CSKILL` is scoped to the granting class.** A character with two spellcasting classes
 gets the class skill only through the one that granted the domain.

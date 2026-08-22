@@ -8,119 +8,92 @@ not estimated.
 
 ## Where the handbook stands
 
-58 pages. The LST data layer is covered for the file types people write most, the
-cross-cutting tags are covered, and the internals section now runs from build to output.
+57 pages, after a two-reviewer structural audit on 2026-08-22 cut one and merged five
+sections into the page that owns them.
 
-The generated [tag index](docs/lst/reference/tag-index.md) lists all 706 tags. What is
-missing is hand-written explanation for the long tail, and whole subsystems that have
-one page or none.
+The generated [tag index](docs/lst/reference/tag-index.md) covers all 706 tags. What is
+missing is explanation for the long tail, and whole subsystems with one page or none.
 
-## Tier 1 — real gaps
+## Ranked, after cross-review
 
-### 1. Output tokens — index done, explanation not
+Two reviewers judged this independently — one on structure and coverage, one on whether
+the wiki shortens the path to safely changing the code — then attacked each other's
+verdicts. This order is what survived.
 
-**Done.** `tools/scan_output_tokens.py` reads the token classes and
-`tools/gen_output_index.py` writes
-[the index](docs/outputsheets/token-index.md): **154 tokens**, 49 of them deprecated,
-plus the 23 FreeMarker model keys. PCGen's own hand-maintained reference lists 154
-anchors, 17 of which are formula functions rather than tokens.
+### 1. `DEFINE:` and declaring a variable
 
-**Left to do.** The index answers *does this exist and where*. It cannot answer *what
-arguments does it take*, because no output token declares that anywhere readable — see
-the note at the end of this file. Hand-written pages for the twenty or so tokens a sheet
-author actually uses would fill that, and a page on writing a sheet would frame them.
+Both reviewers put it first, and one changed position to agree. `DEFINE:` is used
+**37,644 times across 1,290 files**; `MODIFY:` 3,005. `variables-and-formulas.md`
+covers only `MODIFY:` and says so in a section titled "What this page does not cover".
 
-### 2. Kit files
+The front page promises "`DEFINE`, `MODIFY` and the newer formula system". Two of the
+three are missing. A reader who needs a variable has a dead end, not a thin patch.
 
-`plugin/lsttokens/kit/` — 10 tokens plus 10 sub-object packages, and **47 test classes**,
-the richest test coverage of any uncovered file type. Kits are the starting-package
-mechanism: gear, abilities and class levels granted at creation.
+### 2. Granting: `ADD:`, `AUTO:` and `REMOVE:`
 
-Best effort-to-value ratio in this list. The tests do most of the work of establishing
-the syntax.
+`AUTO:` 7,723 uses, `ADD:` 3,826, 13 token classes with 13 tests. The tags appear as
+examples on twelve pages — race, template, domain, archetypes, new-class — and are
+explained on none.
 
-### 3. ADD: and AUTO:
+### 3. `TYPE`
 
-`plugin/lsttokens/add/` (8 classes) and `auto/` (5). These grant things to a character
-from any object type, so they appear on races, classes, templates and abilities alike.
-The handbook mentions them and explains neither.
+Appears in 23 of 57 pages and is defined in none of them. `equipment.md` says type
+decides everything about an item without saying what a type is. Dot syntax, `TYPE=`
+matching in choosers and prerequisites, and the three PCC levels belong on one page.
 
-One page covering both. 13 tests exist.
+### 4. Kit files
 
-### 4. Equipment modifier files
+`plugin/lsttokens/kit/` — 49 token classes and **47 tests**, the richest untouched
+specification in the repository. `KIT:` appears in 368 PCC files, more than `SKILL:`
+(277), `DEITY:` (129) or `DOMAIN:` (98), each of which has a full page.
 
-`plugin/lsttokens/equipmentmodifier/` — 15 classes, 14 tests. EQMOD entries are how
-masterwork, magic bonuses and special materials attach to equipment. The equipment page
-points at them and stops.
+### 5. Equipment modifiers
 
-### 5. FreeMarker sheet authoring
+`EQMOD:` 9,652 uses; 26 token classes, 14 tests. `equipment.md` gives it a paragraph.
 
-The current way to write a character sheet. PCGen documents it in four pages under
-`docs/freemarkeroutputpages/`, including a tutorial. The code is live in
-`pcgen/io/freemarker/` and `pcgen/output/`.
+### 6. Writing a character sheet
 
-Nothing in the handbook covers writing a sheet, only how sheets are executed.
+`outputsheets/` has 210 commits since 2023. The generated token index lists 154 tokens
+and states plainly that it cannot give their arguments. Nothing covers the FreeMarker
+side from the author's end.
 
-### 6. Data control and game mode depth
+### 7. Verifying your data loads
 
-Now partly covered by [data controls](docs/lst/concepts/data-controls.md).
-`plugin/lsttokens/gamemode/` still holds **66 classes across 11 sub-packages** —
-stat rolling, age sets, class types, unit sets, wield categories, tabs. The game modes
-page is thin against that.
+Absorbs `datatest`, `config.ini`, the `SHOWINMENU` trap, and the deliberately broken
+sets in `data/zen_test/pcgen_broken_tests/`. One reviewer argued this should replace the
+invented symptoms in `when-it-breaks.md` with real ones, rather than becoming a separate
+debugging page. Agreed.
 
-`system/gameModes/<mode>/miscinfo.lst` alone is documented upstream in a 120 KB page.
+### 8. Spell delivery outside a class list
 
-## Tier 2 — worth doing
+`SPELLS:` 8,422 uses, `SPELLKNOWN:` 5,450. Only `SPELLLEVEL:DOMAIN` is explained.
 
-### 7. What changed, from two real sources
+### 9. Ability display tags
 
-`plugin/lsttokens/deprecated/` holds **32 classes**, each naming its replacement. That
-is a complete, checkable deprecation map, and the tooling could generate it.
+The most-edited data files in three years are class ability files. Their lines are
+carried by `ASPECT` (11,861 uses), `SAB` (11,508), `BENEFIT` and `NATURALATTACKS`
+(6,483), each of which gets at most a table row.
 
-Separately, `installers/release-notes/` covers **5.10 through 6.09.05**, with older
-releases in `previous_releases/`. The handbook's `whats-changed.md` was written from tag
-scanning alone and has never read these.
+### 10. How a data set is laid out
 
-### 8. Debugging, taught from the broken data set
+The `_` and `__` prefix convention and the publisher directory shape. Cheapest item
+here.
 
-`data/zen_test/pcgen_test_advanced/pcgen_broken_tests/` is deliberately broken. It
-contains a malformed prerequisite, a bogus time unit on a `SPELLS:` entry, and an empty
-file. `zen_test/zen_test_broken_link/` demonstrates a dangling `PCC:` reference.
+## Rejected, with reasons
 
-Real errors with known causes, shipped in the repository. That is the material for a
-debugging page that shows actual messages rather than invented ones.
+**~150 hand-written tag pages.** The generated index already gives name, accepting class
+and implementing class. A hand-written page adds what the token test states, and 150 of
+them nearly triple the maintenance surface for the smallest marginal gain on this list.
+Both reviewers rejected it independently.
 
-### 9. How a data set is laid out
+**A companion-mod page.** `plugin/lsttokens/companionmod/` has 9 classes and **zero
+tests**, so syntax would have to be inferred from token classes alone. `DECISIONS.md`
+records that exact situation producing the `FEAT:`/`ABILITY:` error. Not worth the risk
+for a narrow feature.
 
-The convention across `data/` is consistent and nowhere written down:
-
-- `_name.pcc` — the campaign file others load
-- `prefix__datacontrols.lst` — declarations, double underscore
-- `prefix_feats.lst` — content, single underscore
-- `data/<gamemode>/<publisher>/<product>/` directory shape
-
-Worth a short page. Anyone reading a second data set benefits immediately.
-
-### 10. Companion mod files
-
-`plugin/lsttokens/companionmod/` — 9 classes, **no tests**. Familiars and animal
-companions scale through these. Writing the page means establishing the syntax from the
-token classes alone, so it costs more than the others.
-
-### 11. Small file types
-
-`subclass/` (3), `weaponprof/` (1), `sizeadjustment/` (4), `eqslot/` (4), `load/` (6),
-`paper/` (7), `rules/` (5), `level/` (4). Thin individually. One combined reference page
-covering the game mode support files would carry all of them.
-
-### 12. Hand-written tag pages
-
-The original plan's last item: `lst/reference/tags/`, about 150 pages for the tags that
-actually come up. Zero written. The generated index covers all 706 meanwhile, so this
-deepens rather than fills a gap.
-
-Lower here than in the original plan, because the subsystem gaps above leave a reader
-with nothing at all, while the tag index at least answers "does this exist and where".
+**A full game-mode file reference.** `game-modes.md` plus the generated index cover the
+ground. Reproducing a 120 KB `miscinfo.lst` page is not documentation, it is
+transcription.
 
 ## Not worth covering
 

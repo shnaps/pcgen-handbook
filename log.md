@@ -294,3 +294,60 @@ occurrence, including those appended inside other tags, gives 239,482. `prerequi
 uses the field-level figures and they check out exactly, including "about 13,000 negated
 across 33 tags" against a measured 13,365 across 33.
 
+## 2026-08-22  two-reviewer structural audit
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. `tags.json` unchanged.
+- Two independent reviewers read the whole wiki against the source: one judging
+  structure and coverage, one judging whether the wiki shortens the path to safely
+  changing the code. They then cross-reviewed each other's verdicts and had to defend or
+  concede each with evidence.
+
+### The finding that matters
+
+**The handbook had no rule for which page owns a fact.** Duplicate-key resolution was
+explained on five pages. `datatest` on seven. `SHOWINMENU` on six. Every copy read
+correctly, which is the problem: nothing looked wrong, so nothing prompted a fix.
+
+Then one copy drifted. `lst/files/domain.md` said two sources with the same key resolve
+by first-loaded-wins, the opposite of what `keys-and-names.md` and `sources.md` said and
+the opposite of `LstObjectFileLoader.storeObject`. `lint_wiki.py` passed clean over it.
+
+This is the failure `DECISIONS.md` was written to prevent, reproduced inside the
+handbook that diagnosed it.
+
+**Fixed structurally, not just locally.** `WIKI-SCHEMA.md` gains a "one fact, one owner"
+rule with a table of owned facts, and `lint_wiki.py` now reports any page re-explaining
+a fact it does not own. The check caught three pages on its first run — two of them
+sentences written minutes earlier while removing the duplication it was built to find.
+
+### Acted on
+
+- **Cut** `appendix/video-index.md`. Its only unique content was a caption measurement
+  already in `credits.md`, and every how-to links its own video directly.
+- **Merged into their owners**: the `rules.lst` table from `game-modes.md`, the token
+  registration mechanism from `load-pipeline.md`, the `datatest` section from
+  `load-pipeline.md`, the domains section from `deity.md`, the contribution workflow
+  from `report-a-bug.md`, and duplicated example blocks from `new-skill.md` and
+  `new-equipment.md`.
+- **`index.md` made a real navigation contract.** It listed 35 of 57 pages while
+  `DECISIONS.md` calls it the contract. The 22 missing were mostly the file-type and
+  how-to pages — the half a data author needs most. Three pages went orphan when
+  `video-index.md` was cut, which is how the gap surfaced.
+
+### Kept against a reviewer's advice, with reasons
+
+- `internals/plugin-loading.md`. One reviewer wanted it merged. It is the only page
+  carrying the `TokenLibrary` routing table and the "a scan of the classes is
+  exhaustive" argument, which is the stated justification for `scan_tokens.py` and
+  therefore for the project's whole method. The duplicated summary in `load-pipeline.md`
+  was cut instead.
+- `lst/files/domain.md` and `lst/howto/new-skill.md`. Merging either would break a
+  one-page-per-file-type rule and a complete how-to series. The duplication was removed;
+  the pages stayed.
+
+### Twelve claims audited against the source
+
+Six confirmed, three wrong, three misleading — all corrected in the preceding entry. The
+telling part is which: **every error was a numeral**, and `check_examples.py` and
+`lint_wiki.py` were green throughout. Neither tool validates a number.
+

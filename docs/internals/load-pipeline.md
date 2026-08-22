@@ -136,11 +136,10 @@ detected by whatever pointed at your object.
 
 ## Where tokens come from
 
-Token classes are not registered anywhere. `plugins.gradle` jars each plugin package
-separately, `PluginClassLoader` scans `*plugins.jar` at startup, and `TokenLibrary`
-claims every class implementing a token interface.
+Token classes are not registered anywhere. They are jarred per package and claimed at
+startup, which [plugin loading](plugin-loading.md) covers in full.
 
-Adding a tag means adding a class to `plugin/lsttokens/` and nothing else.
+What matters here is the size of each family:
 
 | Package | Classes | Provides |
 |---|---|---|
@@ -155,30 +154,8 @@ Counts read from the source at the pinned commit.
 
 ## Verifying a dataset loads
 
-PCGen has no "validate this PCC" command. The headless CLI (`--exportsheet` with
-`--character`) only exports characters.
-
-What does work is the test harness PCGen's own CI runs:
-
-```sh
-./gradlew datatest
-```
-
-That runs `DataLoadTest`, which loads datasets through `SourceFileLoader` and asserts
-**zero errors and zero warnings**.
-
-To point it at your own data, put a `config.ini` at the repository root:
-
-```ini
-pccFilesPath=/absolute/path/to/your/data
-```
-
-!!! warning "SHOWINMENU is required"
-    `DataLoadTest` selects campaigns that are shown in the menu or belong to a game
-    mode's default set. A `.pcc` without `SHOWINMENU:YES` is skipped silently — the
-    test passes without testing anything.
-
-*Source: [`DataLoadTest.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/slowtest/pcgen/persistence/lst/DataLoadTest.java)*
+PCGen has no "validate this PCC" command. The test harness is the substitute, and
+[testing](testing.md) owns that subject, traps included.
 
 ## Related
 

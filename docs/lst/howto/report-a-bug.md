@@ -56,19 +56,9 @@ ago.
 
 ## Fixing it yourself
 
-Data bugs are approachable, which is the reason this handbook exists. The project's
-workflow is:
-
-1. Take a ticket from `CODE` or `DATA`, or file one for what you intend to do.
-2. Branch in your fork, named after the ticket — the project suggests forms like
-   `fix_data_3322`.
-3. Make the change and check the build passes.
-4. Open a pull request from your fork and respond to review.
-
-There is no contributor licence agreement and no sign-off requirement.
-
-PCGen's own README points new data contributors at the same
-[video playlist](../../appendix/video-index.md) this handbook is built from.
+Data bugs are approachable, which is the reason this handbook exists. The workflow —
+ticket, branch, build, pull request — is the same one code changes follow, and
+[contributing](../../internals/contributing.md) covers it.
 
 ## Asking first
 
