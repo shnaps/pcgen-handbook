@@ -1,0 +1,72 @@
+site_name: PCGen Handbook
+site_description: How PCGen works underneath - data files, code, and how to change them.
+site_url: https://shnaps.github.io/pcgen-handbook/
+repo_url: https://github.com/shnaps/pcgen-handbook
+repo_name: shnaps/pcgen-handbook
+edit_uri: edit/main/docs/
+copyright: Licensed under LGPL-2.1. Not an official PCGen project.
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - content.code.copy
+    - content.action.edit
+    - search.highlight
+    - search.suggest
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Start here:
+      - start/setup.md
+      - start/first-change.md
+      - start/how-loading-works.md
+  - Data files:
+      - lst/concepts/line-format.md
+      - Tag index: lst/reference/tag-index.md
+  - Internals:
+      - internals/load-pipeline.md
+  - Appendix:
+      - appendix/credits.md

@@ -1,0 +1,31 @@
+name: Drift check
+
+# PCGen changes under us. This re-reads the token classes weekly and opens an
+# issue when a tag this handbook cites has been added, removed or changed.
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Scan upstream and diff
+        id: scan
+        run: python tools/ingest.py --report drift-report.md
+      - name: Open an issue if anything moved
+        if: steps.scan.outputs.changed == 'true'
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Upstream drift: ${{ steps.scan.outputs.summary }}"
+          content-filepath: drift-report.md
+          labels: drift

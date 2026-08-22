@@ -1,0 +1,20 @@
+# Raw research sources. Never published.
+# Transcripts are the video author's material; the PCGen clone is upstream's.
+work/
+
+# Build output
+site/
+.cache/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
