@@ -57,3 +57,18 @@ Format:
   every video tutorial predate the change.
 - Method note worth keeping: **the shipped homebrew templates are not a reliable
   teacher.** Verify against the token class, not against the templates.
+
+## 2026-08-22  widened the checkout, corrected two claims
+
+- Sparse checkout widened from `data/35e` + `data/zen_test` (2.3 MB) to all of `data`
+  and `system` (151 MB, **6,311 `.lst` files** across 19 game modes). The narrow
+  sample was too small to support claims about how tags are used in practice.
+- **Correction: `KEY:` usage.** An earlier grep reported zero uses and I described the
+  tag as an occasional tool for when a display name might change. The grep was faulty.
+  Counted properly: **71,566 uses across 1,296 files.** Setting a key is normal
+  practice in real data, not an edge case. `new-feat.md` corrected.
+- `OUTPUTNAME` confirmed at roughly 14,000 uses, supporting the earlier finding that it
+  is current rather than superseded, despite older tutorials calling it the old way.
+- Standing caveat: `check_examples.py` validates tag *names* against `tags.json` but
+  not their *arguments*. Value syntax has to be checked by hand against shipped data or
+  the token class. Both errors caught so far were in argument syntax, not tag names.

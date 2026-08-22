@@ -69,6 +69,8 @@ nav:
           - lst/files/pcc.md
           - lst/files/ability.md
           - lst/files/skill.md
+          - lst/files/race.md
+          - lst/files/class.md
       - How to:
           - lst/howto/new-feat.md
           - lst/howto/new-skill.md
