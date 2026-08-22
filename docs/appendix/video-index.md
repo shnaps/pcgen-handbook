@@ -12,7 +12,7 @@ what order, and what goes wrong. The official documentation never covers that. T
 index exists because the playlist has no index of its own.
 
 The **Handbook page** column links to a page covering the same ground. A dash means
-the handbook does not cover that topic yet — 9 of the 25 videos have a page so far.
+the handbook does not cover that topic yet — 14 of the 25 videos have a page so far.
 The index is worth having either way, since it is the only index to this playlist.
 
 !!! warning "Recorded against 6.05/6.06"
@@ -41,11 +41,11 @@ The index is worth having either way, since it is the only index to this playlis
 |---|---|---|---|
 | 6 | [Equipment Creation](https://www.youtube.com/watch?v=O8KhHtd5ih0) | 16:32 | — |
 | 9 | [Creating Custom Items](https://www.youtube.com/watch?v=J3omE2FIGs8) | 11:34 | — |
-| 10 | [Homebrew Class making](https://www.youtube.com/watch?v=qKY7GtBx4rI) | 15:58 | — |
-| 11 | [Making a Class from Scratch](https://www.youtube.com/watch?v=4qxvG07zC9o) | 21:02 | — |
-| 4 | [Rapid Demonstration of Race Entry](https://www.youtube.com/watch?v=VNSdgSb0Ep8) | 16:21 | — |
-| 21 | [Homebrew race (Lamia)](https://www.youtube.com/watch?v=fuiReDpK5k0) | 11:40 | — |
-| 22 | [Shabti Race & Cavalier Order](https://www.youtube.com/watch?v=Hlr6tVMX7DI) | 15:01 | — |
+| 10 | [Homebrew Class making](https://www.youtube.com/watch?v=qKY7GtBx4rI) | 15:58 | [Add a class](../lst/howto/new-class.md) |
+| 11 | [Making a Class from Scratch](https://www.youtube.com/watch?v=4qxvG07zC9o) | 21:02 | [Add a class](../lst/howto/new-class.md) |
+| 4 | [Rapid Demonstration of Race Entry](https://www.youtube.com/watch?v=VNSdgSb0Ep8) | 16:21 | [Add a race](../lst/howto/new-race.md) |
+| 21 | [Homebrew race (Lamia)](https://www.youtube.com/watch?v=fuiReDpK5k0) | 11:40 | [Add a race](../lst/howto/new-race.md) |
+| 22 | [Shabti Race & Cavalier Order](https://www.youtube.com/watch?v=Hlr6tVMX7DI) | 15:01 | [Add a race](../lst/howto/new-race.md) |
 | 25 | [Deities — adding and using](https://www.youtube.com/watch?v=DWZqd6iF-64) | 6:45 | — |
 | 3 | [Adding Archetypes](https://www.youtube.com/watch?v=7f4E4m1jH9Y) | 10:11 | — |
 | 5 | [Making New Class Archetypes](https://www.youtube.com/watch?v=lAoIBKSomVQ) | 6:28 | — |

@@ -76,6 +76,8 @@ nav:
       - How to:
           - lst/howto/new-feat.md
           - lst/howto/new-skill.md
+          - lst/howto/new-race.md
+          - lst/howto/new-class.md
       - Tag index: lst/reference/tag-index.md
   - Internals:
       - internals/load-pipeline.md
