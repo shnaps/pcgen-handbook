@@ -79,6 +79,77 @@ carried by `ASPECT` (11,861 uses), `SAB` (11,508), `BENEFIT` and `NATURALATTACKS
 The `_` and `__` prefix convention and the publisher directory shape. Cheapest item
 here.
 
+## Internals gaps, measured against the Java tree
+
+The ranked list above scores what a data author needs. It says nothing about what a
+developer changing PCGen's Java needs, because neither reviewer measured that. This
+section does, on 2026-08-22 at commit `d262f8b4`.
+
+Method: every package under `code/src/java/pcgen/` and `code/src/java/plugin/` by line
+count, class count and commits since 2023-01-01, set against the packages the seventeen
+`docs/internals/` pages actually cite. Churn is the ranking signal — a package nobody
+changes is a package nobody needs explained.
+
+The section is not thin overall. At 17 pages and 14,568 words it is larger than the rest
+of the handbook combined. The gaps are specific.
+
+### 1. Prerequisites as code
+
+`plugin/pretokens/` is **215 classes and 18,973 lines, changed in 138 commits since
+2023** — the third-most-changed tree in the repository, ahead of `lsttokens` at 95. It
+has **79 test files**. No internals page cites it once. Seven data pages cite it as the
+implementing class and stop there.
+
+Every prerequisite is a triple: `parser/PreAlignParser`, `test/PreAlignTester`,
+`writer/PreAlignWriter`, against `PrerequisiteTest` and `AbstractPrerequisiteTest` in
+`pcgen/core/prereq/`. Adding a `PRExxx` means writing three classes and knowing which
+does what. Nothing in the handbook says so.
+
+Highest-value internals page not yet written.
+
+### 2. Facets, past the concept
+
+`cdom/facet/` is **248 classes and 34,187 lines**; `cdom/` overall is the most-changed
+package at 223 commits. `internals/facets.md` is 885 words and seven citations. It
+explains what a facet is and how one registers. It does not cover the facet families,
+the event ordering between them, or which to extend for a new stored fact.
+
+The largest ratio of subsystem to page in the handbook.
+
+### 3. Export tokens and the output model
+
+`plugin/exporttokens/` is 140 classes and 13,683 lines. `pcgen/output/` adds 71 classes.
+`internals/output-and-saving.md` cites `pcgen/io/exporttoken` — the smaller, older half —
+and one FreeMarker class. This is the internals half of ranked item 6 and should be
+written with it.
+
+### 4. Bonus resolution
+
+`core/BonusManager` plus `plugin/bonustokens/`, 55 classes. Cited once across internals,
+from five data pages. How a `BONUS:` is parsed, stacked and applied is the mechanism
+behind a large share of the data language and has no page.
+
+### 5. Choosers and qualifiers
+
+`cdom/choiceset/`, `core/chooser/`, `plugin/primitive/` and `plugin/qualifier/` — about
+4,300 lines with **40 test files** between the last two. Zero internals citations. The
+tests make this cheap to write correctly.
+
+### 6. The Swing tab layer
+
+`gui2/tabs/` is 61 classes and 22,334 lines; `gui2/facade/` is 30 classes and 17,108.
+`internals/ui-layer.md` is 846 words and stops at the Swing-versus-JavaFX split, which it
+does cover correctly. Ranked last here because `gui2` is being migrated to `gui3` — 24
+commits against 13 since 2024 — so a deep page documents code that is moving.
+
+### Measured and not worth a page
+
+| Package | Why not |
+|---|---|
+| `core/term`, 129 classes | the JEP-era variable path. `rules-engine.md` already frames both formula systems and names `VariableProcessor`; a page would document the half being replaced |
+| `gui2/converter`, 33 classes | a standalone `PCGenDataConvert.main` migration tool, not a subsystem anyone extends |
+| `core/namegen`, `io/migration` | small, self-contained, no churn |
+
 ## Rejected, with reasons
 
 **~150 hand-written tag pages.** The generated index already gives name, accepting class

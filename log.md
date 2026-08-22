@@ -351,3 +351,32 @@ Six confirmed, three wrong, three misleading — all corrected in the preceding 
 telling part is which: **every error was a numeral**, and `check_examples.py` and
 `lint_wiki.py` were green throughout. Neither tool validates a number.
 
+
+## 2026-08-22  internals coverage measured against the Java tree
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No page content changed.
+- The two-reviewer audit scored coverage from a data author's seat. Nothing had scored
+  `docs/internals/` against the code it documents, so the question "is internals thin"
+  had no measured answer.
+
+Counted every package under `code/src/java/pcgen/` and `code/src/java/plugin/` by lines,
+classes and commits since 2023-01-01, then extracted the packages the seventeen internals
+pages cite and subtracted.
+
+**Internals is the largest section, not the smallest.** 17 pages, 14,568 words — more
+than `start/`, `lst/`, `outputsheets/` and `appendix/` together. The audit had also moved
+content *out* of it: token registration and `datatest` were merged away, and one reviewer
+argued to cut `plugin-loading.md` entirely.
+
+**The real gap is prerequisites.** `plugin/pretokens/` is 215 classes, 18,973 lines and
+138 commits since 2023 — more changed than `lsttokens` at 95, and third in the whole
+repository. It carries 79 test files. Seven data pages cite it as an implementing class.
+No internals page cites it at all. A `PRExxx` is a parser, a tester and a writer against
+`AbstractPrerequisiteTest`, and the handbook never says so.
+
+Five smaller gaps behind it, and three packages measured and rejected. Ranked in
+`BACKLOG.md` under "Internals gaps, measured against the Java tree".
+
+Churn was used as the ranking signal rather than size. `cdom/facet/` is the biggest
+subsystem-to-page ratio in the handbook — 248 classes against 885 words — but a package
+nobody changes is a page nobody needs.
