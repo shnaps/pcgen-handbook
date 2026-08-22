@@ -76,6 +76,7 @@ nav:
       - lst/concepts/prerequisites.md
       - lst/concepts/rule-toggles.md
       - lst/concepts/bonuses.md
+      - lst/concepts/granting.md
       - lst/concepts/choosers.md
       - lst/concepts/declaring-variables.md
       - lst/concepts/variables-and-formulas.md

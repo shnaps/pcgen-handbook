@@ -489,3 +489,33 @@ the error text finds nothing. Recorded in `whats-changed.md`.
 **Ownership.** Added `BONUS:VAR` applying only to a declared variable to the schema table
 and to `OWNED`. Tested the pattern against three strings before committing this time —
 two it must catch, one it must not.
+
+## 2026-08-22  granting things
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Backlog item 3.
+- New page `lst/concepts/granting.md`. 60 pages.
+
+**The item shrank from three tags to two.** `REMOVE:` registers one subtoken,
+`REMOVE:FEAT`, and both it and its parent `RemoveLst` sit in
+`plugin/lsttokens/deprecated/`. The subtoken reports that feat-based tokens are
+deprecated in favour of ability-based ones.
+
+The feat-to-ability move gave `ADD:FEAT` a successor in `ADD:ABILITY` and left `REMOVE`
+without one. There is no `REMOVE:ABILITY`. So the page teaches `AUTO` and `ADD`, and
+`whats-changed.md` gains a section saying `REMOVE` has no current form. The backlog item
+named three tags because the first-pass count did not check the package.
+
+**Two measurement corrections.** A naive `ADD:[A-Za-z]+` scan reported `ADD:SKILLPOINTS`
+194 times and `ADD:HITDIE` 18 times. Both are false — the matches come from inside
+`DONOTADD:SKILLPOINTS`, a different tag. A `REMOVE:` scan reported 342 uses; the real
+figure is 35, the rest being `.REMOVE.` inside `TYPE:` and `ALTTYPE:`.
+
+Field-anchored counts, splitting lines on tabs and skipping comments: `AUTO:` 7,448
+fields, `ADD:` 3,678, `REMOVE:` 35. Substring counting inflated two of the three.
+
+**The facts worth the page.** A `PRExxx` in an `AUTO` must be the last argument, and
+`.CLEAR` must be the first — each has its own hard failure. `%LIST` lets an `AUTO` grant
+whatever a chooser on the same object selected. `ADD:ABILITY` takes an optional leading
+count and the parser tells the forms apart by counting pipes. Nature must be `NORMAL` or
+`VIRTUAL`; `AUTOMATIC` and `ANY` are rejected by name, which is the code stating the
+division between the two tags.

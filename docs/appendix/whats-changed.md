@@ -85,6 +85,20 @@ notice asking for a `DEFINE` of 0 and a bonus instead. `MAXLEVELSTAT=` is exempt
 
 *Source: [`DefineLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/DefineLst.java)*
 
+## REMOVE has no current form
+
+`REMOVE:` registers one subtoken, `REMOVE:FEAT`, and both its parent and its subtoken sit
+in `plugin/lsttokens/deprecated/`. The subtoken reports that feat-based tokens are
+deprecated in favour of ability-based ones.
+
+There is no `REMOVE:ABILITY`. The feat-to-ability move gave `ADD:FEAT` a successor in
+`ADD:ABILITY` and left `REMOVE` without one.
+
+Shipped data uses it 35 times, all `REMOVE:FEAT`. See
+[granting things](../lst/concepts/granting.md) for the tags that are current.
+
+*Source: [`RemoveLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/deprecated/RemoveLst.java)*
+
 ## Deprecated by file type
 
 | File type | Deprecated tags |

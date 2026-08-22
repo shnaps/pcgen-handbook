@@ -60,7 +60,7 @@ non-zero, non-`MAXLEVELSTAT=` formula. Those forms go to `appendix/whats-changed
 99.7% one shape, this is roughly a third of the page originally planned, which is why it
 sits below `TYPE` without loss.
 
-### 3. Granting: `ADD:`, `AUTO:` and `REMOVE:`
+### 3. Granting: `ADD:`, `AUTO:` and `REMOVE:` — written 2026-08-22, `lst/concepts/granting.md`
 
 `plugin/lsttokens/add/` 8 classes, `auto/` 5, with 8 and 5 tests. The tags appear as
 unexplained examples on twelve pages — race, template, domain, archetypes, new-class.
