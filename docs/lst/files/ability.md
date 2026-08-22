@@ -49,6 +49,9 @@ expect it.
 
 *Source: [`plugin/lsttokens/ability/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/ability)*
 
+`BENEFIT` and `ASPECT` share their placeholder grammar with `DESC`. See
+[text the player reads](../concepts/display-text.md).
+
 Two more exist and are deprecated: `APPLIEDNAME` and `MODIFYFEATCHOICE`.
 
 ### CATEGORY

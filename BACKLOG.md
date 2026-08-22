@@ -67,7 +67,7 @@ unexplained examples on twelve pages — race, template, domain, archetypes, new
 
 Ranked above display tags because an ability must work before it reads well.
 
-### 4. Ability display tags
+### 4. Ability display tags — written 2026-08-22, `lst/concepts/display-text.md`
 
 **139 of the 189 commits to `data/` since 2023 touch ability files — 74%.** The single
 strongest churn signal measured anywhere in this backlog. `ASPECT` has 11,861 uses, `SAB`

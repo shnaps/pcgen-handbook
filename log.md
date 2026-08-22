@@ -519,3 +519,36 @@ whatever a chooser on the same object selected. `ADD:ABILITY` takes an optional 
 count and the parser tells the forms apart by counting pipes. Nature must be `NORMAL` or
 `VIRTUAL`; `AUTOMATIC` and `ANY` are rejected by name, which is the code stating the
 division between the two tags.
+
+## 2026-08-22  text the player reads
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Backlog item 4.
+- New page `lst/concepts/display-text.md`. 61 pages.
+
+**The item was scoped wrong twice, in opposite directions.**
+
+Too narrow: the backlog named `ASPECT`, `SAB`, `BENEFIT` and `NATURALATTACKS` and missed
+`DESC`, which is written **100,395** times — more than the other four together, and second
+only to `TYPE` in the whole data language. `DESC` appeared as an example on eighteen pages
+and was explained on none of them, the same silent gap that put `TYPE` first.
+
+Too wide: `NATURALATTACKS` is not display text. It grants natural weapons. It belongs with
+race and template content and was dropped from this page.
+
+**The fact that made it one page rather than four.** `BENEFIT`, `SAB` and `TEMPDESC` all
+construct the same `Description` object as `DESC`. One placeholder grammar covers all
+four: `%1` and `%{1}` for positional variables, `%%` for a literal percent, and the named
+`%NAME`, `%CHOICE`, `%LIST` and `%FEAT=`. Documenting them separately would have produced
+four copies of one grammar, which is what `WIKI-SCHEMA.md` exists to stop.
+
+**Two failures that are not errors.** A `%` with no digits after it is read as an
+unescaped literal, so the text renders wrong and nothing is logged. And `AspectName` is a
+case-insensitive map built on demand, so a misspelt aspect name is not rejected — it
+creates a second aspect nothing reads, and the sheet shows a blank. Shipped data carries
+**226 distinct aspect names** and the code registers none of them.
+
+Field-anchored counts: `DESC` 100,395, `ASPECT` 11,774, `SAB` 11,297, `BENEFIT` 5,438,
+`TEMPDESC` 1,035. The backlog's 11,861 and 11,508 were close but counted substrings.
+
+**Ownership.** Added aspect names not being validated to the schema table and to `OWNED`,
+tested against two strings it must catch and one it must not.

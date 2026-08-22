@@ -50,6 +50,9 @@ OWNED = [
     ("BONUS:VAR applies only to a declared variable", "lst/concepts/declaring-variables.md",
      r"(?i)BONUS:VAR[^.]{0,60}(only|not)[^.]{0,40}(declar|DEFINE)"
      r"|(without|no) [^.]{0,20}DEFINE[^.]{0,40}BONUS:VAR[^.]{0,40}(nothing|ignored|skipped)"),
+    ("aspect names are not validated", "lst/concepts/display-text.md",
+     r"(?i)aspect name[^.]{0,50}(not validated|invented|nothing (validates|registers))"
+     r"|nothing validates[^.]{0,20}aspect"),
 ]
 
 

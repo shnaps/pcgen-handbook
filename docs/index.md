@@ -49,6 +49,7 @@ How the file format actually works.
 | [Rule toggles](lst/concepts/rule-toggles.md) | Optional rules the reader switches on, and `PRERULE` |
 | [Bonuses](lst/concepts/bonuses.md) | `BONUS:`, and the stacking rule that catches everyone |
 | [Granting things](lst/concepts/granting.md) | `AUTO` gives it, `ADD` asks the player to pick |
+| [Text the player reads](lst/concepts/display-text.md) | `DESC`, `ASPECT`, `BENEFIT`, `SAB` and one shared grammar |
 | [Choosers](lst/concepts/choosers.md) | `CHOOSE:`, and why it does nothing on its own |
 | [Archetypes](lst/concepts/archetypes.md) | Swapping out part of a class, the way real data does it |
 | [Declaring a variable](lst/concepts/declaring-variables.md) | `DEFINE`, and the bonus that does nothing without it |
