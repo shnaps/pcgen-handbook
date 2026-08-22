@@ -84,6 +84,7 @@ nav:
           - lst/howto/new-race.md
           - lst/howto/new-class.md
           - lst/howto/new-equipment.md
+          - lst/howto/third-party-data.md
       - Tag index: lst/reference/tag-index.md
   - Internals:
       - internals/load-pipeline.md

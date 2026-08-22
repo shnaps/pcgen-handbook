@@ -12,7 +12,7 @@ what order, and what goes wrong. The official documentation never covers that. T
 index exists because the playlist has no index of its own.
 
 The **Handbook page** column links to a page covering the same ground. A dash means
-the handbook does not cover that topic yet — 22 of the 25 videos have a page so far.
+the handbook does not cover that topic yet — 24 of the 25 videos have a page so far.
 The index is worth having either way, since it is the only index to this playlist.
 
 !!! warning "Recorded against 6.05/6.06"
@@ -32,8 +32,8 @@ The index is worth having either way, since it is the only index to this playlis
 | 7 | [PCGen Walk Through](https://www.youtube.com/watch?v=n6omGHtAW1Q) | 29:21 | [Set up](../start/setup.md) |
 | 14 | [Understanding the Documentation](https://www.youtube.com/watch?v=xhwa6EkNuNo) | 5:57 | [Tag index](../lst/reference/tag-index.md) |
 | 17 | [Loading Books (Basic and Advanced)](https://www.youtube.com/watch?v=pTvhiliRJYI) | 5:45 | [PCC files](../lst/files/pcc.md) |
-| 24 | [Install or use 3rd Party Sources](https://www.youtube.com/watch?v=yYzOJzUVNP0) | 6:41 | — |
-| 13 | [Install OOC data, and create your own](https://www.youtube.com/watch?v=HY3jsMl3jo4) | 5:19 | — |
+| 24 | [Install or use 3rd Party Sources](https://www.youtube.com/watch?v=yYzOJzUVNP0) | 6:41 | [Use data someone else wrote](../lst/howto/third-party-data.md) |
+| 13 | [Install OOC data, and create your own](https://www.youtube.com/watch?v=HY3jsMl3jo4) | 5:19 | [Use data someone else wrote](../lst/howto/third-party-data.md) |
 
 ## Making things
 
