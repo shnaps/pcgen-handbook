@@ -30,10 +30,11 @@ tools/scan_tokens.py   →  tags.json      every tag PCGen implements
 tools/gen_index.py     →  tag index page
 tools/check_examples.py   every tag used in an example must exist upstream
 tools/check_style.py      sentence length, banned filler
+tools/lint_wiki.py        orphans, nav gaps, broken source citations
 tools/ingest.py           re-scan upstream, diff, report drift
 ```
 
-`check_examples.py` and `check_style.py` run on every push. `ingest.py` runs weekly
+`check_examples.py`, `check_style.py` and `lint_wiki.py` run on every push. `ingest.py` runs weekly
 and opens an issue when a tag the handbook cites is added, removed or changed.
 
 Currently tracking PCGen `6.09.08.RC1` at commit

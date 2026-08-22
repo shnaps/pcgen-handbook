@@ -101,7 +101,8 @@ Second Sample Feat	TYPE:General	DESC:Does nothing at all.
 
 Two feats. Each is one line. Fields separated by tabs.
 
-## Next
+## Related
 
 - [How loading works](../../start/how-loading-works.md) — what PCGen does with these lines
+- [Modifying existing data](modifying-data.md) — `.MOD`, `.COPY` and `.FORGET`
 - [Tag index](../reference/tag-index.md) — every tag, and where each one is legal

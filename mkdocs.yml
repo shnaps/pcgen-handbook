@@ -98,5 +98,6 @@ nav:
       - internals/testing.md
   - Appendix:
       - appendix/whats-changed.md
+      - appendix/glossary.md
       - appendix/video-index.md
       - appendix/credits.md

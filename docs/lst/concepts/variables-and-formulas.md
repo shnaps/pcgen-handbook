@@ -132,6 +132,7 @@ against:
 
 ## Related
 
+- [The formula system](../../internals/formula-system.md) — how it works underneath
 - [Tag index](../reference/tag-index.md) — every current tag
 - [What changed](../../appendix/whats-changed.md) — including this as an undocumented addition
 - Video: [Formula System ORDEREDPAIR](https://www.youtube.com/watch?v=Oicxs-dI7gU) covers

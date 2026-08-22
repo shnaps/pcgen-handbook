@@ -44,7 +44,13 @@ For changing PCGen itself, not just its data.
 
 | Page | What it covers |
 |---|---|
+| [Repository layout](internals/architecture.md) | Where everything is, and how it builds |
 | [Load pipeline](internals/load-pipeline.md) | From a `.pcc` on disk to a loaded object, class by class |
+| [The token system](internals/token-system.md) | How every tag is a class, and why that matters |
+| [Plugin loading](internals/plugin-loading.md) | Why adding a tag needs no registration |
+| [The formula system](internals/formula-system.md) | The two modules behind `MODIFY` |
+| [Adding a tag](internals/adding-a-tag.md) | Writing one, with its test |
+| [Testing](internals/testing.md) | Token tests, and checking a dataset loads clean |
 
 ## Why this exists
 
@@ -61,4 +67,5 @@ is generated from PCGen's own Java classes, and a scheduled job re-reads them an
 reports when something changes. Explanations are written by hand; facts come from the
 code.
 
-See [credits](appendix/credits.md) for sources.
+See the [glossary](appendix/glossary.md) for how terms are used here, and
+[credits](appendix/credits.md) for sources.
