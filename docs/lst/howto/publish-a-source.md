@@ -149,13 +149,14 @@ are used in shipped data:
 
 | Form | Matches | Uses |
 |---|---|---|
-| `INCLUDES=Name` | that source, or a source that includes it | 327 |
+| `INCLUDES=Name` | that source, or a source that includes it | 829 |
 | `BOOKTYPE=Supplement` | any source of that book type | 262 |
-| a plain name | that source | 203 |
-| `INCLUDESBOOKTYPE=Core Rules` | book type, following inclusions | 175 |
+| a plain name | that source | 245 |
+| `INCLUDESBOOKTYPE=Core Rules` | book type, following inclusions | 180 |
 
-124 of the 843 uses are negated with `!`, which is how a source says "do not load me
-alongside that one".
+189 of the 1,516 uses are negated with `!`, which is how a source says "do not load
+me alongside that one". 967 of them stand as a line of their own; the rest are
+appended inside another tag.
 
 *Source: [`PreCampaignTester.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/test/PreCampaignTester.java)*
 

@@ -143,7 +143,8 @@ Sample Toughness	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:YES	DESC:Grants extra
 | Second taking does nothing | `STACK:NO` — that is what it means |
 | Nothing matches a reference to it | trailing space in the name |
 
-PCGen writes load errors to `logs/` in the install folder, with the file and line.
+PCGen writes load errors to `pcgen.log`, in the folder it was started from, with
+the file and line.
 Read that before guessing.
 
 ## Related

@@ -29,7 +29,7 @@ Everything you care about lives in the folder PCGen was installed to.
 | `system/` | game mode rules — stats, sizes, load limits |
 | `outputsheets/` | character sheet templates |
 | `docs/` | PCGen's own documentation |
-| `logs/` | error output — you will need this |
+| `pcgen.log` | error output — you will need this |
 
 Open `data/`. Each subfolder is a game mode: `35e`, `pathfinder`, `5e` and others.
 

@@ -138,9 +138,9 @@ reader that part of the source did not arrive.
 PRECAMPAIGN:1,INCLUDES=Testburg
 ```
 
-An ordinary prerequisite, so the count comes first. It tests what is currently selected,
-not what exists on disk. Used 843 times in shipped data, 124 of them negated to refuse a
-combination.
+An ordinary prerequisite, so the count comes first. It tests what is currently
+selected, not what exists on disk. Used 1,516 times across 585 shipped `.pcc` files,
+189 of them negated to refuse a combination.
 
 See [publish your own source](../howto/publish-a-source.md) for the four value forms.
 

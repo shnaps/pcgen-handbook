@@ -21,7 +21,7 @@ include 'PCGen-base', 'PCGen-Formula'
 | Module | Holds | Java files |
 |---|---|---|
 | `PCGen-base` | generic utilities with no formula knowledge — collections, format managers, maths, graphs | ~210 |
-| `PCGen-Formula` | the formula language itself — parser, visitors, scopes, solver | ~215 |
+| `PCGen-Formula` | the formula language itself — parser, visitors, scopes, solver | 144 |
 
 The split is deliberate. `PCGen-base` knows nothing about formulas, and `PCGen-Formula`
 knows nothing about PCGen's game objects. PCGen glues both to its own model in

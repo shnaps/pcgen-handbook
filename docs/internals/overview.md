@@ -132,7 +132,7 @@ Three edges are genuinely one-directional:
 - `pluginmgr` depends on `core` and `cdom`, not the reverse.
 - `gui2` and `gui3` depend on `facade`, and `facade` barely depends on them.
 
-The one that surprises people: **`core` imports the Swing interface.** Nine files do,
+The one that surprises people: **`core` imports the Swing interface.** Eight files do,
 including `Globals`. Domain logic reaching into the window is the reverse of every
 diagram anyone would draw.
 

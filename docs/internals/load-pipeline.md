@@ -40,7 +40,7 @@ parsed, not because its data is valid.
 extends `LstLineFileLoader` and handles one PCC line at a time. Each line is a tag,
 dispatched to a class in
 [`plugin/lsttokens/campaign/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/campaign)
-— 57 of them.
+— 56 of them.
 
 File-reference tags mostly extend `AbstractBasicCampaignToken`, which turns the value
 into a `CampaignSourceEntry` and files it on the `Campaign` under a `ListKey`. The
@@ -149,7 +149,7 @@ Adding a tag means adding a class to `plugin/lsttokens/` and nothing else.
 | `plugin/bonustokens` | 55 | `BONUS:` subtypes |
 | `plugin/primitive` | 23 | chooser primitives |
 | `plugin/qualifier` | 22 | chooser qualifiers |
-| `plugin/modifier` | 15 | formula system operators |
+| `plugin/modifier` | 14 | formula system operators |
 
 Counts read from the source at the pinned commit.
 

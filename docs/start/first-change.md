@@ -111,7 +111,7 @@ Almost always one of these:
 | Error on load | A tag name is wrong, or fields are separated by spaces |
 | Feat appears, no bonus | `BONUS:` typo — check the `\|` characters |
 
-PCGen writes load errors to a log file in `logs/` inside the install folder. It names
+PCGen writes load errors to `pcgen.log`, in the folder it was started from. It names
 the file and line number. Read it before guessing.
 
 The quickest check: undo your change, confirm it loads clean, then redo it one field

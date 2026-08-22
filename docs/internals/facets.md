@@ -6,7 +6,7 @@ title: The character model
 
 Loaded game data lives in [`CDOMObject` instances](cdom-model.md). A character is a
 different thing: a set of choices, plus everything those choices imply. PCGen holds it
-in 248 classes called facets, and almost none of it in the character object.
+in 234 facet classes, and almost none of it in the character object.
 
 All paths are relative to the PCGen repository root, at commit
 [`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
