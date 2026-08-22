@@ -44,6 +44,9 @@ OWNED = [
      r"(?i)datatest[^.]{0,60}(skip|silen)|(skip|silen)[^.]{0,60}SHOWINMENU"),
     ("the PCC FEAT tag is deprecated", "appendix/whats-changed.md",
      r"(?i)`FEAT:`[^.]{0,50}deprecat|deprecat[^.]{0,50}`FEAT:`"),
+    ("dots in a TYPE match mean and, not or", "lst/concepts/types.md",
+     r"(?i)dots?[^.]{0,40}TYPE[^.]{0,40}mean[^.]{0,25}and"
+     r"|every listed type must[^.]{0,25}(match|present)"),
 ]
 
 

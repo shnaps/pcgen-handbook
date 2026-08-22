@@ -103,6 +103,7 @@ copy looks exactly like a stale one.
 | Duplicate keys resolve by `SOURCEDATE` | `lst/concepts/keys-and-names.md` |
 | `datatest` skips a `.pcc` with no `SHOWINMENU` | `internals/testing.md` |
 | The PCC `FEAT:` tag is deprecated | `appendix/whats-changed.md` |
+| Dots in a `TYPE=` match mean and, not or | `lst/concepts/types.md` |
 
 `tools/lint_wiki.py` checks that table and reports any other page that re-explains an
 entry. Add a row when you notice a fact acquiring a second explanation.

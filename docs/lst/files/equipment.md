@@ -29,10 +29,11 @@ TYPE:Armor.Medium
 TYPE:Gear
 ```
 
-Dot-separated, and it is not just labelling. `TYPE` determines which other tags mean
-anything, how proficiency is matched, and where the item appears in the interface.
+On equipment, the type decides which other tags mean anything, how proficiency is
+matched, and where the item appears in the interface.
 
-Get this right first. A weapon without a weapon type will not behave as a weapon.
+Get this right first. A weapon without a weapon type will not behave as a weapon. See
+[types](../concepts/types.md) for the syntax and the operators.
 
 ## Weapons
 

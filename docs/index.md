@@ -40,6 +40,7 @@ How the file format actually works.
 |---|---|
 | [Line format](lst/concepts/line-format.md) | One line is one record. Tabs, fields and comments |
 | [Keys and names](lst/concepts/keys-and-names.md) | Four names per object, and which one references use |
+| [Types](lst/concepts/types.md) | The label almost every other tag matches on |
 | [Modifying existing data](lst/concepts/modifying-data.md) | `.MOD`, `.COPY=` and `.FORGET` |
 | [Sources](lst/concepts/sources.md) | How PCGen finds, lists and orders what it loads |
 | [Game modes](lst/concepts/game-modes.md) | What a rules system is made of, in `system/gameModes/` |

@@ -67,6 +67,7 @@ nav:
   - Data files:
       - lst/concepts/line-format.md
       - lst/concepts/keys-and-names.md
+      - lst/concepts/types.md
       - lst/concepts/modifying-data.md
       - lst/concepts/archetypes.md
       - lst/concepts/sources.md
