@@ -73,6 +73,7 @@ nav:
       - lst/concepts/game-modes.md
       - lst/concepts/data-controls.md
       - lst/concepts/prerequisites.md
+      - lst/concepts/rule-toggles.md
       - lst/concepts/bonuses.md
       - lst/concepts/choosers.md
       - lst/concepts/variables-and-formulas.md
@@ -112,6 +113,7 @@ nav:
           - internals/plugin-loading.md
           - internals/formula-system.md
       - The model:
+          - internals/rules-engine.md
           - internals/cdom-model.md
           - internals/facets.md
       - Program and output:

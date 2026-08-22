@@ -43,6 +43,7 @@ How the file format actually works.
 | [Sources](lst/concepts/sources.md) | How PCGen finds, lists and orders what it loads |
 | [Data controls](lst/concepts/data-controls.md) | What must be declared before a file may use it |
 | [Prerequisites](lst/concepts/prerequisites.md) | The 129 `PRExxx` conditions and the one shape they share |
+| [Rule toggles](lst/concepts/rule-toggles.md) | Optional rules the reader switches on, and `PRERULE` |
 | [Bonuses](lst/concepts/bonuses.md) | `BONUS:`, and the stacking rule that catches everyone |
 | [Choosers](lst/concepts/choosers.md) | `CHOOSE:`, and why it does nothing on its own |
 | [Variables and formulas](lst/concepts/variables-and-formulas.md) | `DEFINE`, `MODIFY` and the newer formula system |
@@ -92,6 +93,7 @@ three in order.
 |---|---|
 | [The object model](internals/cdom-model.md) | What a race is in memory, and why it has no fields |
 | [The character model](internals/facets.md) | 248 facets, and why the character object holds nothing |
+| [The rules engine](internals/rules-engine.md) | How a number is computed, and the loop that repeats until it settles |
 
 **Program and output**
 

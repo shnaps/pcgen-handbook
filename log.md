@@ -240,3 +240,57 @@ written from a race file.
 - `FORWARDREF` exists to declare references allowed to stay unresolved, which is how a
   source refers to a book the reader may not own.
 
+## 2026-08-22  the rules engine and rule toggles
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. `tags.json` unchanged.
+- Two pages added: `internals/rules-engine.md` and `lst/concepts/rule-toggles.md`.
+  58 pages total. These close the gap between the tag pages and the formula system page:
+  the tags were documented, the calculation that reads them was not.
+
+### The convergence loop
+
+`PlayerCharacter.calcActiveBonuses` does not compute once. It rebuilds the whole bonus
+map repeatedly until two consecutive results match, logs an error at 29 passes and gives
+up at 31. The reason is stated in a source comment and nowhere else: a variable can carry
+a prerequisite that depends on a second variable whose value is not correct until the map
+is complete.
+
+There is no dirty flag. Every mutation rebuilds everything.
+
+### Two of everything
+
+- **Two evaluators.** JEP handles `DEFINE:` and `BONUS:` values; PCGen-Formula handles
+  `MODIFY:`. Which one runs is fixed when the tag is parsed, not chosen at runtime.
+- **Two variable stores.** A `DEFINE:` value lives under a `VariableKey` reached through
+  `PlayerCharacter.getVariable`. A `MODIFY:` value lives in `SolverManager`'s own store,
+  reached through `VariableContext`. Neither sees the other.
+
+Both pairs run on the same character at the same time.
+
+### Rule toggles
+
+339 entries across the 19 shipped game modes, but only **35 distinct names** — game modes
+mostly offer the same toggles. `PARM:` is used 221 times against `VAR:` 119, and 60
+entries carry `EXCLUDE:`.
+
+Measured in data: `PRERULE` is used **12,775 times across 139 files, but only 148 of
+those as a field of its own.** It is almost always appended inside a `BONUS:` value, which
+is the shape a data author should copy.
+
+A toggle's `VAR:` is a lookup key, not a character variable. `PREVAR` and `BONUS:` cannot
+read it. Data has exactly one lever, `PRERULE`; everything else is a hardcoded check in
+Java, which is why a data set cannot add a toggle the engine honours.
+
+### Another stale header found upstream
+
+Shipped `rules.lst` files claim in their header that the reader-visible label is looked up
+in `Language.properties`, with `DESC:` as a fallback. The preferences panel reads `DESC:`
+directly and no such lookup exists anywhere. Recorded on the page.
+
+### Measurement note, no correction needed
+
+Re-counted prerequisites two ways. Field-level positive uses total 100,575; counting every
+occurrence, including those appended inside other tags, gives 239,482. `prerequisites.md`
+uses the field-level figures and they check out exactly, including "about 13,000 negated
+across 33 tags" against a measured 13,365 across 33.
+
