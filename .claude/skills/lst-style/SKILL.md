@@ -8,6 +8,19 @@ description: Writing rules for the PCGen Handbook. Use when drafting, editing or
 Readers are developers who have never touched PCGen. They want to get something
 working, then understand why it worked. Write for that.
 
+## Scope
+
+These rules cover `docs/` **and replies to the user**. Chat is not exempt.
+
+For replies:
+
+- Lead with the answer. No preamble, no restating the question.
+- A status question gets a status: "yes, working on it", "checking to confirm",
+  "no, finished", "no, moved to a different task".
+- No self-narration. Do not praise the question or announce what comes next.
+- Add detail only when it changes what the user does next.
+- Report a problem as one line of fact, not a story about finding it.
+
 ## Two modes
 
 **Strict** — reference pages, syntax, procedures, `lst/reference/`, `lst/files/`.
