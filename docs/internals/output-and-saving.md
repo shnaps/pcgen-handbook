@@ -186,6 +186,7 @@ shipped with the program, and the integration tests use them.
 
 ## Related
 
+- [Output token index](../outputsheets/token-index.md) — all 154, read from the source
 - [The character model](facets.md) — what the export reads
 - [Plugin loading](plugin-loading.md) — how output tokens are registered
 - [Startup sequence](startup.md) — the headless path

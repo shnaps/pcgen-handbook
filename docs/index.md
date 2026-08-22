@@ -52,6 +52,15 @@ How the file format actually works.
 |---|---|
 | [Tag index](lst/reference/tag-index.md) | All 706 tags PCGen implements, read from the source |
 
+## Character sheets
+
+A separate system from the data files, with its own tags.
+
+| Page | What it covers |
+|---|---|
+| [Output token index](outputsheets/token-index.md) | All 154 output tokens, read from the source |
+| [Output and saving](internals/output-and-saving.md) | How a sheet is run, and the `.pcg` save format |
+
 ## Internals
 
 For changing PCGen itself, not just its data. New to the code base? Read the first

@@ -160,3 +160,31 @@ Headline numbers from it: PCGen documents **164 output tokens** the handbook has
 reference for; `plugin/lsttokens/kit/` has 47 test classes and no page;
 `installers/release-notes/` covers **5.10 through 6.09.05** and has never been read.
 
+## 2026-08-22  output tokens indexed from source
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. `tags.json` unchanged.
+- Two tools added: `scan_output_tokens.py` and `gen_output_index.py`, and a new
+  `outputsheets/` section holding the generated index.
+
+**154 output tokens**, 49 of them deprecated. 17 classes in `pcgen/io/exporttoken/`,
+140 in `plugin/exporttokens/`, 3 abstract helpers skipped. No duplicate names.
+
+The scan was possible for the same reason the LST scan is: **80 of the 154 return a
+string literal from `getTokenName()` and 74 return a constant declared in the same
+file. None are computed.** Also collected the 23 FreeMarker model keys, registered
+under literal names from about 15 files across the tree.
+
+Two things the source will not give up, and the page says so rather than guessing:
+
+- **Argument syntax.** There is no sub-token registry. `Token.java` declares a
+  separator constant that nothing else uses, and each class parses its own remainder
+  with a tokenizer and an if/else chain. `STAT.0.MOD` is one name and two arguments
+  that exist only inside that chain.
+- **What replaces a deprecated token.** The only signal is the package name — no
+  annotation, no javadoc tag, no logged message. The LST side logs a migration message
+  from the token itself; this side gives a directory.
+
+For comparison, PCGen's own `navtokenindex.html` is hand-maintained and lists 154
+anchors, 17 of which are formula functions rather than tokens. The generated index and
+the hand-written one agree on the count by coincidence, not by construction.
+

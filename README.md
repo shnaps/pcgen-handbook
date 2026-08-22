@@ -28,6 +28,8 @@ to. Those declarations are the specification, so the handbook reads them directl
 ```
 tools/scan_tokens.py   →  tags.json      every tag PCGen implements
 tools/gen_index.py     →  tag index page
+tools/scan_output_tokens.py → output-tokens.json   every output token
+tools/gen_output_index.py   → output token index page
 tools/check_examples.py   every tag used in an example must exist upstream
 tools/check_style.py      sentence length, banned filler
 tools/lint_wiki.py        orphans, nav gaps, broken source citations

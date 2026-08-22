@@ -95,6 +95,8 @@ nav:
           - lst/howto/third-party-data.md
           - lst/howto/report-a-bug.md
       - Tag index: lst/reference/tag-index.md
+  - Character sheets:
+      - outputsheets/token-index.md
   - Internals:
       - Getting oriented:
           - internals/overview.md

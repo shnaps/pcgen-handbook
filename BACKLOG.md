@@ -8,7 +8,7 @@ not estimated.
 
 ## Where the handbook stands
 
-52 pages. The LST data layer is covered for the file types people write most, the
+53 pages. The LST data layer is covered for the file types people write most, the
 cross-cutting tags are covered, and the internals section now runs from build to output.
 
 The generated [tag index](docs/lst/reference/tag-index.md) lists all 706 tags. What is
@@ -17,18 +17,18 @@ one page or none.
 
 ## Tier 1 — real gaps
 
-### 1. Output token reference
+### 1. Output tokens — index done, explanation not
 
-PCGen's own docs describe **164 output tokens** across ten category pages, roughly
-430 KB. The source holds 17 classes in `pcgen/io/exporttoken/` and 140 in
-`plugin/exporttokens/`, 49 of them deprecated.
+**Done.** `tools/scan_output_tokens.py` reads the token classes and
+`tools/gen_output_index.py` writes
+[the index](docs/outputsheets/token-index.md): **154 tokens**, 49 of them deprecated,
+plus the 23 FreeMarker model keys. PCGen's own hand-maintained reference lists 154
+anchors, 17 of which are formula functions rather than tokens.
 
-The handbook has one page on the whole system. A developer writing a character sheet has
-nothing to look things up in.
-
-This is a separate system from LST tags, and readers confuse the two constantly. Whether
-an index can be generated the way `tags.json` is depends on how the token classes declare
-their names — see the note at the end of this file.
+**Left to do.** The index answers *does this exist and where*. It cannot answer *what
+arguments does it take*, because no output token declares that anywhere readable — see
+the note at the end of this file. Hand-written pages for the twenty or so tokens a sheet
+author actually uses would fill that, and a page on writing a sheet would frame them.
 
 ### 2. Kit files
 
@@ -149,15 +149,27 @@ original prose, cites the implementing class, and uses invented example content.
 | `docs/listfilepages/rulesguide/` — 3 worked examples | how rules are modelled in data |
 | `system/gameModes/` — 20 modes | what a game mode is made of |
 
-## Open question: can output tokens be indexed automatically?
+## Answered: output tokens can be indexed, up to a point
 
 `tools/scan_tokens.py` works because every LST token declares `getTokenName()` as a
-string literal. Output tokens declare `getTokenName()` too, but they parse the rest of
-the marker themselves — `STAT.0.MOD` is one token name and two arguments, with no
-sub-token registry to read.
+literal. Output tokens turned out to be the same: of 154 classes, **80 return a literal
+and 74 return a constant declared in the same file. None are computed.** Three abstract
+helpers declare no name and are skipped. Zero duplicate names.
 
-If the names are literals, a scanner is cheap and the reference at the top of this list
-becomes mostly generated. If a meaningful share are computed, or if the argument grammar
-lives only in comments, the page has to be written by hand and stays expensive.
+So the scanner was written, and the name, class, package, origin and deprecation flag are
+generated. The FreeMarker model keys came along with it — all 23 are registered under
+literal names, though from 15 or so files scattered across the tree rather than one
+package.
 
-Settling this decides how item 1 gets built.
+Two things stay hand-written, and this is why the reference is only half solved:
+
+- **Argument grammar.** There is no sub-token registry. `Token.java` declares a
+  separator constant that nothing else uses, and each class parses its own remainder
+  with a tokenizer and an if/else chain. `STAT.0.MOD` is one name and two arguments that
+  exist only as literals inside that chain. Extracting them means reading each class.
+- **Deprecation replacements.** The only signal is the package name. No annotation, no
+  javadoc tag, no logged message, and nothing naming a successor. Where the LST side gets
+  a migration message from the token itself, this side gets a directory.
+
+Both facts are worth keeping: they are the difference between a system designed to be
+read and one that merely can be.

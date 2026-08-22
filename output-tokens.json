@@ -1,0 +1,1487 @@
+{
+  "pinned_sha": "d262f8b44952860ff857132035fb32d8d11361fa",
+  "pcgen_version": "6.09.08.RC1",
+  "token_count": 154,
+  "tokens": [
+    {
+      "token": "ABILITY",
+      "class": "AbilityToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/AbilityToken.java"
+    },
+    {
+      "token": "ABILITYALL",
+      "class": "AbilityAllToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/AbilityAllToken.java"
+    },
+    {
+      "token": "ABILITYALLLIST",
+      "class": "AbilityAllListToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/AbilityAllListToken.java"
+    },
+    {
+      "token": "ABILITYAUTO",
+      "class": "AbilityAutoToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/AbilityAutoToken.java"
+    },
+    {
+      "token": "ABILITYAUTOLIST",
+      "class": "AbilityAutoListToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/AbilityAutoListToken.java"
+    },
+    {
+      "token": "ABILITYLIST",
+      "class": "AbilityListToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/AbilityListToken.java"
+    },
+    {
+      "token": "AC",
+      "class": "ACToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/ACToken.java"
+    },
+    {
+      "token": "ACCHECK",
+      "class": "ACCheckToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/ACCheckToken.java"
+    },
+    {
+      "token": "AGE",
+      "class": "AgeToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/AgeToken.java"
+    },
+    {
+      "token": "ALIGNMENT",
+      "class": "AlignmentToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/AlignmentToken.java"
+    },
+    {
+      "token": "ALTHP",
+      "class": "AltHPToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/AltHPToken.java"
+    },
+    {
+      "token": "ARMOR",
+      "class": "ArmorToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/ArmorToken.java"
+    },
+    {
+      "token": "ATTACK",
+      "class": "AttackToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/AttackToken.java"
+    },
+    {
+      "token": "BASEMOVEMENT",
+      "class": "BaseMovementToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/BaseMovementToken.java"
+    },
+    {
+      "token": "BIO",
+      "class": "BioToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/BioToken.java"
+    },
+    {
+      "token": "BIRTHDAY",
+      "class": "BirthdayToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/BirthdayToken.java"
+    },
+    {
+      "token": "BIRTHPLACE",
+      "class": "BirthplaceToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/BirthplaceToken.java"
+    },
+    {
+      "token": "BONUS",
+      "class": "BonusToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/BonusToken.java"
+    },
+    {
+      "token": "BONUSLIST",
+      "class": "BonusListToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/BonusListToken.java"
+    },
+    {
+      "token": "BR",
+      "class": "BRToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/BRToken.java"
+    },
+    {
+      "token": "CAMPAIGNHISTORY",
+      "class": "CampaignHistoryToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/CampaignHistoryToken.java"
+    },
+    {
+      "token": "CASTERLEVEL",
+      "class": "CasterLevelToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/CasterLevelToken.java"
+    },
+    {
+      "token": "CATCHPHRASE",
+      "class": "CatchPhraseToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/CatchPhraseToken.java"
+    },
+    {
+      "token": "CHARACTERTYPE",
+      "class": "CharactertypeToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/CharactertypeToken.java"
+    },
+    {
+      "token": "CHECK",
+      "class": "CheckToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/deprecated/CheckToken.java"
+    },
+    {
+      "token": "CLASS",
+      "class": "ClassToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/deprecated/ClassToken.java"
+    },
+    {
+      "token": "CLASSABB",
+      "class": "ClassAbbToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/ClassAbbToken.java"
+    },
+    {
+      "token": "CLASSLIST",
+      "class": "ClassListToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/ClassListToken.java"
+    },
+    {
+      "token": "COLOR",
+      "class": "ColorToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/ColorToken.java"
+    },
+    {
+      "token": "CR",
+      "class": "CRToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/CRToken.java"
+    },
+    {
+      "token": "DAMAGE",
+      "class": "DamageToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/DamageToken.java"
+    },
+    {
+      "token": "DEFENSE",
+      "class": "DefenseToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/DefenseToken.java"
+    },
+    {
+      "token": "DEITY",
+      "class": "DeityToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/deprecated/DeityToken.java"
+    },
+    {
+      "token": "DESC",
+      "class": "DescToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/DescToken.java"
+    },
+    {
+      "token": "DIR",
+      "class": "DirToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/DirToken.java"
+    },
+    {
+      "token": "DOMAIN",
+      "class": "DomainToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/deprecated/DomainToken.java"
+    },
+    {
+      "token": "DR",
+      "class": "DRToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/DRToken.java"
+    },
+    {
+      "token": "ECL",
+      "class": "EclToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/EclToken.java"
+    },
+    {
+      "token": "ENDMANUALWHITESPACE",
+      "class": "EndManualWhitespaceToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/EndManualWhitespaceToken.java"
+    },
+    {
+      "token": "EQ",
+      "class": "EqToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/EqToken.java"
+    },
+    {
+      "token": "EQCONTAINER",
+      "class": "EqContainerToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/EqContainerToken.java"
+    },
+    {
+      "token": "EQCONTAINERS",
+      "class": "EqContainersToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/EqContainersToken.java"
+    },
+    {
+      "token": "EQCONTAINERW",
+      "class": "EqContainerwToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/EqContainerwToken.java"
+    },
+    {
+      "token": "EQSET",
+      "class": "EqSetToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/EqSetToken.java"
+    },
+    {
+      "token": "EQTYPE",
+      "class": "EqTypeToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/EqTypeToken.java"
+    },
+    {
+      "token": "EXP",
+      "class": "ExpToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/ExpToken.java"
+    },
+    {
+      "token": "EXPORT",
+      "class": "ExportToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/deprecated/ExportToken.java"
+    },
+    {
+      "token": "FACE",
+      "class": "FaceToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/FaceToken.java"
+    },
+    {
+      "token": "FAVOREDCLASS",
+      "class": "FavoredClassToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/FavoredClassToken.java"
+    },
+    {
+      "token": "FAVOREDLIST",
+      "class": "FavoredListToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/FavoredListToken.java"
+    },
+    {
+      "token": "FEAT",
+      "class": "FeatToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/FeatToken.java"
+    },
+    {
+      "token": "FEATALL",
+      "class": "FeatAllToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/FeatAllToken.java"
+    },
+    {
+      "token": "FEATALLLIST",
+      "class": "FeatAllListToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/FeatAllListToken.java"
+    },
+    {
+      "token": "FEATAUTO",
+      "class": "FeatAutoToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/FeatAutoToken.java"
+    },
+    {
+      "token": "FEATAUTOLIST",
+      "class": "FeatAutoListToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/FeatAutoListToken.java"
+    },
+    {
+      "token": "FEATLIST",
+      "class": "FeatListToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/FeatListToken.java"
+    },
+    {
+      "token": "FEATPOINTS",
+      "class": "FeatPointsToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/FeatPointsToken.java"
+    },
+    {
+      "token": "FOLLOWER",
+      "class": "FollowerToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/FollowerToken.java"
+    },
+    {
+      "token": "FOLLOWERLIST",
+      "class": "FollowerListToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/FollowerListToken.java"
+    },
+    {
+      "token": "FOLLOWEROF",
+      "class": "FollowerOfToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/FollowerOfToken.java"
+    },
+    {
+      "token": "FOLLOWERTYPE",
+      "class": "FollowerTypeToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/FollowerTypeToken.java"
+    },
+    {
+      "token": "GAMEMODE",
+      "class": "GameModeToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/GameModeToken.java"
+    },
+    {
+      "token": "GENDER",
+      "class": "GenderToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/GenderToken.java"
+    },
+    {
+      "token": "GOLD",
+      "class": "GoldToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/GoldToken.java"
+    },
+    {
+      "token": "HANDED",
+      "class": "HandedToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/HandedToken.java"
+    },
+    {
+      "token": "HEIGHT",
+      "class": "HeightToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/HeightToken.java"
+    },
+    {
+      "token": "HITDICE",
+      "class": "HitDiceToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/HitDiceToken.java"
+    },
+    {
+      "token": "HP",
+      "class": "HPToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/HPToken.java"
+    },
+    {
+      "token": "HPROLL",
+      "class": "HPRollToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/HPRollToken.java"
+    },
+    {
+      "token": "INITIATIVEBONUS",
+      "class": "InitiativeBonusToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/InitiativeBonusToken.java"
+    },
+    {
+      "token": "INITIATIVEMISC",
+      "class": "InitiativeMiscToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/InitiativeMiscToken.java"
+    },
+    {
+      "token": "INITIATIVEMOD",
+      "class": "InitiativeModToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/InitiativeModToken.java"
+    },
+    {
+      "token": "INTERESTS",
+      "class": "InterestsToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/InterestsToken.java"
+    },
+    {
+      "token": "INVALIDTEXT",
+      "class": "InvalidTextToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/InvalidTextToken.java"
+    },
+    {
+      "token": "LANGUAGES",
+      "class": "LanguagesToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/LanguagesToken.java"
+    },
+    {
+      "token": "LENGTH",
+      "class": "LengthToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/LengthToken.java"
+    },
+    {
+      "token": "LEVEL",
+      "class": "LevelToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/LevelToken.java"
+    },
+    {
+      "token": "LOCATION",
+      "class": "LocationToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/LocationToken.java"
+    },
+    {
+      "token": "MANUALWHITESPACE",
+      "class": "ManualWhitespaceToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/ManualWhitespaceToken.java"
+    },
+    {
+      "token": "MAXCCSKILLLEVEL",
+      "class": "MaxCCSkillLevelToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/MaxCCSkillLevelToken.java"
+    },
+    {
+      "token": "MAXDEX",
+      "class": "MaxDexToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/MaxDexToken.java"
+    },
+    {
+      "token": "MAXSKILLLEVEL",
+      "class": "MaxSkillLevelToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/MaxSkillLevelToken.java"
+    },
+    {
+      "token": "MAXSPELLLEVEL",
+      "class": "MaxSpellLevelToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/MaxSpellLevelToken.java"
+    },
+    {
+      "token": "MISC",
+      "class": "MiscToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/deprecated/MiscToken.java"
+    },
+    {
+      "token": "MOVE",
+      "class": "MoveToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/MoveToken.java"
+    },
+    {
+      "token": "MOVEMENT",
+      "class": "MovementToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/pcgen/io/exporttoken/MovementToken.java"
+    },
+    {
+      "token": "NAME",
+      "class": "NameToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/NameToken.java"
+    },
+    {
+      "token": "NOTE",
+      "class": "NoteToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/NoteToken.java"
+    },
+    {
+      "token": "PAPERINFO",
+      "class": "PaperInfoToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/PaperInfoToken.java"
+    },
+    {
+      "token": "PERSONALITY1",
+      "class": "Personality1Token",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/Personality1Token.java"
+    },
+    {
+      "token": "PERSONALITY2",
+      "class": "Personality2Token",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/Personality2Token.java"
+    },
+    {
+      "token": "PHOBIAS",
+      "class": "PhobiasToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/PhobiasToken.java"
+    },
+    {
+      "token": "PIPE",
+      "class": "PipeToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/PipeToken.java"
+    },
+    {
+      "token": "PLAYERNAME",
+      "class": "PlayerNameToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/PlayerNameToken.java"
+    },
+    {
+      "token": "POOL",
+      "class": "PoolToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/PoolToken.java"
+    },
+    {
+      "token": "PORTRAIT",
+      "class": "PortraitToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/PortraitToken.java"
+    },
+    {
+      "token": "PROHIBITEDLIST",
+      "class": "ProhibitedListToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/ProhibitedListToken.java"
+    },
+    {
+      "token": "RACE",
+      "class": "RaceToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/deprecated/RaceToken.java"
+    },
+    {
+      "token": "RACESUBTYPE",
+      "class": "RaceSubTypeToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/RaceSubTypeToken.java"
+    },
+    {
+      "token": "RACETYPE",
+      "class": "RaceTypeToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/RaceTypeToken.java"
+    },
+    {
+      "token": "REACH",
+      "class": "ReachToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/ReachToken.java"
+    },
+    {
+      "token": "REGION",
+      "class": "RegionToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/RegionToken.java"
+    },
+    {
+      "token": "RESIDENCE",
+      "class": "ResidenceToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/ResidenceToken.java"
+    },
+    {
+      "token": "SIZE",
+      "class": "SizeToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/SizeToken.java"
+    },
+    {
+      "token": "SIZELONG",
+      "class": "SizeLongToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/SizeLongToken.java"
+    },
+    {
+      "token": "SIZEMOD",
+      "class": "SizeModToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SizeModToken.java"
+    },
+    {
+      "token": "SKILL",
+      "class": "SkillToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/SkillToken.java"
+    },
+    {
+      "token": "SKILLLEVEL",
+      "class": "SkillLevelToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SkillLevelToken.java"
+    },
+    {
+      "token": "SKILLLISTMODS",
+      "class": "SkillListModsToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SkillListModsToken.java"
+    },
+    {
+      "token": "SKILLPOINTS",
+      "class": "SkillpointsToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/SkillpointsToken.java"
+    },
+    {
+      "token": "SKILLSIT",
+      "class": "SkillSitToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SkillSitToken.java"
+    },
+    {
+      "token": "SKILLSUBSET",
+      "class": "SkillSubsetToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SkillSubsetToken.java"
+    },
+    {
+      "token": "SKILLTYPE",
+      "class": "SkillTypeToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SkillTypeToken.java"
+    },
+    {
+      "token": "SPACE",
+      "class": "SpaceToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/SpaceToken.java"
+    },
+    {
+      "token": "SPECIALABILITY",
+      "class": "SpecialAbilityToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpecialAbilityToken.java"
+    },
+    {
+      "token": "SPECIALLIST",
+      "class": "SpecialListToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpecialListToken.java"
+    },
+    {
+      "token": "SPEECHTENDENCY",
+      "class": "SpeechTendancyToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/SpeechTendancyToken.java"
+    },
+    {
+      "token": "SPELLBOOK",
+      "class": "SpellBookToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/SpellBookToken.java"
+    },
+    {
+      "token": "SPELLBOOKNAME",
+      "class": "SpellBookNameToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/SpellBookNameToken.java"
+    },
+    {
+      "token": "SPELLFAILURE",
+      "class": "SpellFailureToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpellFailureToken.java"
+    },
+    {
+      "token": "SPELLLISTBOOK",
+      "class": "SpellListBookToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpellListBookToken.java"
+    },
+    {
+      "token": "SPELLLISTCAST",
+      "class": "SpellListCastToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpellListCastToken.java"
+    },
+    {
+      "token": "SPELLLISTCLASS",
+      "class": "SpellListClassToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpellListClassToken.java"
+    },
+    {
+      "token": "SPELLLISTDC",
+      "class": "SpellListDcToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpellListDcToken.java"
+    },
+    {
+      "token": "SPELLLISTDCSTAT",
+      "class": "SpellListDcStatToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpellListDcStatToken.java"
+    },
+    {
+      "token": "SPELLLISTKNOWN",
+      "class": "SpellListKnownToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpellListKnownToken.java"
+    },
+    {
+      "token": "SPELLLISTMEMORIZE",
+      "class": "SpellListMemorizeToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpellListMemorizeToken.java"
+    },
+    {
+      "token": "SPELLLISTTYPE",
+      "class": "SpellListTypeToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpellListTypeToken.java"
+    },
+    {
+      "token": "SPELLMEM",
+      "class": "SpellMemToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SpellMemToken.java"
+    },
+    {
+      "token": "SR",
+      "class": "SRToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/SRToken.java"
+    },
+    {
+      "token": "STAT",
+      "class": "StatToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/StatToken.java"
+    },
+    {
+      "token": "SUBREGION",
+      "class": "SubRegionToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/SubRegionToken.java"
+    },
+    {
+      "token": "TABNAME",
+      "class": "TabNameToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/TabNameToken.java"
+    },
+    {
+      "token": "TEMPBONUS",
+      "class": "TempBonusToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/TempBonusToken.java"
+    },
+    {
+      "token": "TEMPLATE",
+      "class": "TemplateToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/deprecated/TemplateToken.java"
+    },
+    {
+      "token": "TEMPLATELIST",
+      "class": "TemplateListToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/TemplateListToken.java"
+    },
+    {
+      "token": "TEXT",
+      "class": "TextToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/TextToken.java"
+    },
+    {
+      "token": "TOTAL",
+      "class": "TotalToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/TotalToken.java"
+    },
+    {
+      "token": "TOTALLEVELS",
+      "class": "TotalLevelsToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/TotalLevelsToken.java"
+    },
+    {
+      "token": "TYPE",
+      "class": "TypeToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/TypeToken.java"
+    },
+    {
+      "token": "UNITSET",
+      "class": "UnitSetToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/UnitSetToken.java"
+    },
+    {
+      "token": "VABILITY",
+      "class": "VAbilityToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/VAbilityToken.java"
+    },
+    {
+      "token": "VABILITYLIST",
+      "class": "VAbilityListToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/VAbilityListToken.java"
+    },
+    {
+      "token": "VAR",
+      "class": "VarToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/VarToken.java"
+    },
+    {
+      "token": "VFEAT",
+      "class": "VFeatToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/VFeatToken.java"
+    },
+    {
+      "token": "VFEATLIST",
+      "class": "VFeatListToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/VFeatListToken.java"
+    },
+    {
+      "token": "VISION",
+      "class": "VisionToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/VisionToken.java"
+    },
+    {
+      "token": "WEAPON",
+      "class": "WeaponToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/WeaponToken.java"
+    },
+    {
+      "token": "WEAPONH",
+      "class": "WeaponhToken",
+      "package": "pcgen.io.exporttoken",
+      "origin": "core",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/pcgen/io/exporttoken/WeaponhToken.java"
+    },
+    {
+      "token": "WEAPONO",
+      "class": "WeaponoToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/WeaponoToken.java"
+    },
+    {
+      "token": "WEAPONP",
+      "class": "WeaponpToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "constant",
+      "path": "code/src/java/plugin/exporttokens/WeaponpToken.java"
+    },
+    {
+      "token": "WEAPONPROFS",
+      "class": "WeaponProfsToken",
+      "package": "plugin.exporttokens.deprecated",
+      "origin": "plugin",
+      "deprecated": true,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/deprecated/WeaponProfsToken.java"
+    },
+    {
+      "token": "WEIGHT",
+      "class": "WeightToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/WeightToken.java"
+    },
+    {
+      "token": "XPAWARD",
+      "class": "XPAwardToken",
+      "package": "plugin.exporttokens",
+      "origin": "plugin",
+      "deprecated": false,
+      "resolved": "literal",
+      "path": "code/src/java/plugin/exporttokens/XPAwardToken.java"
+    }
+  ],
+  "freemarker_models": [
+    {
+      "key": "abilities",
+      "registered_in": "code/src/java/pcgen/cdom/facet/GrantedAbilityFacet.java"
+    },
+    {
+      "key": "ageset",
+      "registered_in": "code/src/java/pcgen/cdom/facet/analysis/AgeSetFacet.java"
+    },
+    {
+      "key": "alignment",
+      "registered_in": "code/src/java/pcgen/cdom/facet/FacetInitialization.java"
+    },
+    {
+      "key": "checks",
+      "registered_in": "code/src/java/pcgen/cdom/facet/model/CheckFacet.java"
+    },
+    {
+      "key": "classes",
+      "registered_in": "code/src/java/pcgen/cdom/facet/model/ClassFacet.java"
+    },
+    {
+      "key": "companionmods",
+      "registered_in": "code/src/java/pcgen/cdom/facet/model/CompanionModFacet.java"
+    },
+    {
+      "key": "deity",
+      "registered_in": "code/src/java/pcgen/cdom/facet/FacetInitialization.java"
+    },
+    {
+      "key": "domains",
+      "registered_in": "code/src/java/pcgen/cdom/facet/model/DomainFacet.java"
+    },
+    {
+      "key": "equipment.all",
+      "registered_in": "code/src/java/pcgen/cdom/facet/EquipmentFacet.java"
+    },
+    {
+      "key": "equipment.equipped",
+      "registered_in": "code/src/java/pcgen/cdom/facet/EquippedEquipmentFacet.java"
+    },
+    {
+      "key": "favoredclass",
+      "registered_in": "code/src/java/pcgen/cdom/facet/analysis/FavoredClassFacet.java"
+    },
+    {
+      "key": "gender",
+      "registered_in": "code/src/java/pcgen/cdom/facet/fact/GenderFacet.java"
+    },
+    {
+      "key": "hasanyfavoredclass",
+      "registered_in": "code/src/java/pcgen/cdom/facet/analysis/HasAnyFavoredClassFacet.java"
+    },
+    {
+      "key": "kits",
+      "registered_in": "code/src/java/pcgen/cdom/facet/KitFacet.java"
+    },
+    {
+      "key": "languages",
+      "registered_in": "code/src/java/pcgen/cdom/facet/model/LanguageFacet.java"
+    },
+    {
+      "key": "race",
+      "registered_in": "code/src/java/pcgen/cdom/facet/model/RaceFacet.java"
+    },
+    {
+      "key": "reach",
+      "registered_in": "code/src/java/pcgen/cdom/facet/analysis/ReachFacet.java"
+    },
+    {
+      "key": "sizeadjustment",
+      "registered_in": "code/src/java/pcgen/cdom/facet/model/SizeFacet.java"
+    },
+    {
+      "key": "skills",
+      "registered_in": "code/src/java/pcgen/cdom/facet/model/SkillFacet.java"
+    },
+    {
+      "key": "stats",
+      "registered_in": "code/src/java/pcgen/cdom/facet/model/StatFacet.java"
+    },
+    {
+      "key": "templates",
+      "registered_in": "code/src/java/pcgen/cdom/facet/model/TemplateFacet.java"
+    },
+    {
+      "key": "version",
+      "registered_in": "code/src/java/pcgen/system/PCGenPropBundle.java"
+    },
+    {
+      "key": "weaponprofs",
+      "registered_in": "code/src/java/pcgen/cdom/facet/model/WeaponProfModelFacet.java"
+    }
+  ]
+}
