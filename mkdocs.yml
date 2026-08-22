@@ -66,6 +66,7 @@ nav:
       - start/when-it-breaks.md
   - Data files:
       - lst/concepts/line-format.md
+      - lst/concepts/modifying-data.md
       - lst/concepts/archetypes.md
       - lst/concepts/game-modes.md
       - lst/concepts/prerequisites.md
