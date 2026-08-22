@@ -423,3 +423,37 @@ citations by package name, not by path prefix. Both errors passed every existing
 `check_style.py`, `lint_wiki.py` and `mkdocs build --strict` were green throughout, as
 they were for the twelve numeral errors in the first audit. No tool here validates a
 number.
+
+## 2026-08-22  types page
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Backlog item 1.
+- New page `lst/concepts/types.md`. 58 pages.
+
+The gap was real: `TYPE` is set 197,550 times and matched 63,926 times in shipped data,
+appears on 23 of 57 pages, and was explained on none.
+
+**Two facts had no possible other owner.**
+
+Dots change meaning depending on side. `TYPE:Weapon.Melee` sets two separate types.
+`TYPE=Weapon.Melee` matches objects carrying both — `AbstractReferenceManufacturer` tests
+each type and breaks at the first miss. Setting is a list, matching is an AND.
+
+Negation works in one place and not the other. `TokenUtilities.getTypeOrPrimitive` rejects
+`!TYPE=` and `!TYPE.` outright, logs `!TYPE not supported in token` and returns null, so
+the tag is dropped. `ChoiceSetLoadUtilities` handles `!TYPE.` and wraps it in a
+`NegatingPrimitive`. `choosers.md` already documented the working form. Without the page
+those two read as a contradiction.
+
+**A trap found while reading the source.** `TYPE:` in a `.pcc` is a different token class
+entirely. `campaign/TypeToken.java` stores three dot-separated positions — data producer,
+data format, campaign setting — and omitting a position resets it rather than leaving it
+alone. Two classes register the name `TYPE` and the file being loaded picks which runs.
+
+**Ownership.** `equipment.md` kept the consequence and links out; its explanation of the
+dot syntax was removed. Added a row to the `WIKI-SCHEMA.md` table and to `OWNED` in
+`lint_wiki.py`.
+
+Note on that check: the first version of the pattern was written with `\b` word
+boundaries that reached the file as literal backspace bytes, so the rule matched nothing.
+It passed `lint_wiki.py` cleanly, because a dead rule and a satisfied rule look identical.
+Test an ownership pattern against a string it should catch before trusting it.

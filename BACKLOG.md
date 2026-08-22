@@ -29,7 +29,7 @@ Counts are measured at commit `d262f8b4`. Data usage counts exclude comments and
 fields on tabs across 7,028 `.lst` and `.pcc` files. Churn is commits, not file-touches —
 the distinction that invalidated the first pass.
 
-### 1. `TYPE`
+### 1. `TYPE` — written 2026-08-22, `lst/concepts/types.md`
 
 **282,966 uses**: 197,550 as its own field, 21,490 embedded in other fields, 63,926 as
 `TYPE=`. The most-used construct in the data language. It appears in 23 of 57 pages and
