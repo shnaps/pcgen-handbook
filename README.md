@@ -39,7 +39,7 @@ and opens an issue when a tag the handbook cites is added, removed or changed.
 
 Currently tracking PCGen `6.09.08.RC1` at commit
 [`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa)
-— 706 tags indexed.
+— 693 current tags indexed, with 23 deprecated ones listed separately.
 
 ## Building locally
 
