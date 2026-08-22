@@ -16,12 +16,17 @@ You need a working folder from [Set up](setup.md). This page assumes
 
 ## 1. Write the feat
 
-Open `my_feats.lst` in your folder. Ignore the commented notes for now.
+Open `my_abilities.lst` in your folder. Ignore the commented notes for now.
+
+!!! note "Not `my_feats.lst`"
+    Feats are a *category of ability* in current PCGen, so they go in the abilities
+    file. The separate feats file still works but is deprecated. See
+    [the note below](#about-the-old-feat-file).
 
 Add one line at the bottom:
 
 ```
-Sample Feat	TYPE:General	DESC:Grants a small bonus to Climb.	BONUS:SKILL|Climb|2
+Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a small bonus to Climb.	BONUS:SKILL|Climb|2
 ```
 
 !!! danger "Those gaps are tabs"
@@ -36,9 +41,13 @@ Reading it left to right:
 | Part | Meaning |
 |---|---|
 | `Sample Feat` | the name. First field, no tag. |
+| `CATEGORY:FEAT` | this ability is a feat. Required — see below. |
 | `TYPE:General` | a general feat, so it appears in the normal feat list |
 | `DESC:...` | the description shown in PCGen |
 | `BONUS:SKILL\|Climb\|2` | +2 to Climb while the character has this feat |
+
+`CATEGORY:` is what makes this a feat rather than some other kind of ability. Leave it
+out and PCGen loads the line but the feat never appears where you expect.
 
 Save the file.
 
@@ -46,20 +55,20 @@ Save the file.
 
 Writing the file is not enough. PCGen only reads files a `.pcc` names.
 
-Open `my__campaign.pcc`. Find the line naming the feats file. It will be commented
+Open `my__campaign.pcc`. Find the line naming the abilities file. It will be commented
 out, like most lines in the template:
 
 ```
-#FEAT:my_feats.lst
+#ABILITY:my_abilities.lst
 ```
 
 Remove the `#`:
 
 ```
-FEAT:my_feats.lst
+ABILITY:my_abilities.lst
 ```
 
-<!-- src: code/src/java/plugin/lsttokens/campaign/FeatToken.java -->
+<!-- src: code/src/java/plugin/lsttokens/campaign/AbilityToken.java -->
 
 That single character is the difference between a file PCGen loads and a file PCGen
 ignores. Most first attempts fail here.
@@ -97,7 +106,8 @@ Almost always one of these:
 | Symptom | Cause |
 |---|---|
 | Campaign not in the source list | PCGen did not find the `.pcc`, or rejected it |
-| Campaign loads, feat missing | The `FEAT:` line is still commented out |
+| Campaign loads, feat missing | The `ABILITY:` line is still commented out |
+| Campaign loads, feat still missing | `CATEGORY:FEAT` is missing from the line |
 | Error on load | A tag name is wrong, or fields are separated by spaces |
 | Feat appears, no bonus | `BONUS:` typo — check the `\|` characters |
 
@@ -106,6 +116,29 @@ the file and line number. Read it before guessing.
 
 The quickest check: undo your change, confirm it loads clean, then redo it one field
 at a time.
+
+## About the old feat file
+
+Older tutorials, and the template files PCGen still ships, put feats in `my_feats.lst`
+and load them with `FEAT:` in the PCC. That still works, and PCGen will still load it.
+
+It is deprecated. PCGen's own message when it sees the tag says to use `ABILITY:` and
+put `CATEGORY:` entries in the data file instead. Its own test data does exactly that
+— even the file named `..._feats.lst` is loaded with `ABILITY:`.
+
+| Old | Current |
+|---|---|
+| `FEAT:my_feats.lst` in the PCC | `ABILITY:my_abilities.lst` |
+| no category tag on the line | `CATEGORY:FEAT` on the line |
+
+Feats became one category of ability. Abilities cover feats, class features, racial
+traits and anything else a character can have, and the category says which kind.
+
+Worth knowing because the shipped template dates from 2005 and every video tutorial
+predates the change. If you follow one of those and it works, nothing is broken — but
+new data should use `ABILITY:`.
+
+*Source: [`CampaignFeatToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/deprecated/CampaignFeatToken.java) — in the `deprecated` package*
 
 ## Next
 
