@@ -73,4 +73,5 @@ nav:
   - Internals:
       - internals/load-pipeline.md
   - Appendix:
+      - appendix/video-index.md
       - appendix/credits.md
