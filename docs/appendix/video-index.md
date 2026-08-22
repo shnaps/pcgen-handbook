@@ -12,7 +12,7 @@ what order, and what goes wrong. The official documentation never covers that. T
 index exists because the playlist has no index of its own.
 
 The **Handbook page** column links to a page covering the same ground. A dash means
-the handbook does not cover that topic yet — 17 of the 25 videos have a page so far.
+the handbook does not cover that topic yet — 18 of the 25 videos have a page so far.
 The index is worth having either way, since it is the only index to this playlist.
 
 !!! warning "Recorded against 6.05/6.06"
@@ -56,7 +56,7 @@ The index is worth having either way, since it is the only index to this playlis
 |---|---|---|---|
 | 12 | [Gamemode](https://www.youtube.com/watch?v=9vbBuuCmVjU) | 27:54 | — |
 | 19 | [Create additional Ability Scores](https://www.youtube.com/watch?v=2P9KYV3cD8s) | 4:25 | — |
-| 8 | [Debugging Tips and Demo](https://www.youtube.com/watch?v=7yr-q27WeKY) | 11:23 | — |
+| 8 | [Debugging Tips and Demo](https://www.youtube.com/watch?v=7yr-q27WeKY) | 11:23 | [When it breaks](../start/when-it-breaks.md) |
 | 15 | [How to Submit a Bug or Feature Request](https://www.youtube.com/watch?v=kKWRIkU1LZ8) | 11:27 | — |
 
 ## Version-specific
