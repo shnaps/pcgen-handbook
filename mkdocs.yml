@@ -89,7 +89,13 @@ nav:
           - lst/howto/report-a-bug.md
       - Tag index: lst/reference/tag-index.md
   - Internals:
+      - internals/architecture.md
       - internals/load-pipeline.md
+      - internals/token-system.md
+      - internals/plugin-loading.md
+      - internals/formula-system.md
+      - internals/adding-a-tag.md
+      - internals/testing.md
   - Appendix:
       - appendix/whats-changed.md
       - appendix/video-index.md
