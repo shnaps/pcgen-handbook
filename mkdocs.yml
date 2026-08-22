@@ -66,10 +66,14 @@ nav:
       - start/when-it-breaks.md
   - Data files:
       - lst/concepts/line-format.md
+      - lst/concepts/keys-and-names.md
       - lst/concepts/modifying-data.md
       - lst/concepts/archetypes.md
       - lst/concepts/game-modes.md
+      - lst/concepts/data-controls.md
       - lst/concepts/prerequisites.md
+      - lst/concepts/bonuses.md
+      - lst/concepts/choosers.md
       - lst/concepts/variables-and-formulas.md
       - File types:
           - lst/files/pcc.md
@@ -77,8 +81,11 @@ nav:
           - lst/files/skill.md
           - lst/files/race.md
           - lst/files/class.md
+          - lst/files/template.md
           - lst/files/equipment.md
           - lst/files/deity.md
+          - lst/files/domain.md
+          - lst/files/spell.md
       - How to:
           - lst/howto/new-feat.md
           - lst/howto/new-skill.md
@@ -90,6 +97,7 @@ nav:
       - Tag index: lst/reference/tag-index.md
   - Internals:
       - Getting oriented:
+          - internals/overview.md
           - internals/architecture.md
           - internals/building.md
           - internals/startup.md
