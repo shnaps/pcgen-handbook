@@ -12,7 +12,7 @@ what order, and what goes wrong. The official documentation never covers that. T
 index exists because the playlist has no index of its own.
 
 The **Handbook page** column links to a page covering the same ground. A dash means
-the handbook does not cover that topic yet — 16 of the 25 videos have a page so far.
+the handbook does not cover that topic yet — 17 of the 25 videos have a page so far.
 The index is worth having either way, since it is the only index to this playlist.
 
 !!! warning "Recorded against 6.05/6.06"
@@ -46,7 +46,7 @@ The index is worth having either way, since it is the only index to this playlis
 | 4 | [Rapid Demonstration of Race Entry](https://www.youtube.com/watch?v=VNSdgSb0Ep8) | 16:21 | [Add a race](../lst/howto/new-race.md) |
 | 21 | [Homebrew race (Lamia)](https://www.youtube.com/watch?v=fuiReDpK5k0) | 11:40 | [Add a race](../lst/howto/new-race.md) |
 | 22 | [Shabti Race & Cavalier Order](https://www.youtube.com/watch?v=Hlr6tVMX7DI) | 15:01 | [Add a race](../lst/howto/new-race.md) |
-| 25 | [Deities — adding and using](https://www.youtube.com/watch?v=DWZqd6iF-64) | 6:45 | — |
+| 25 | [Deities — adding and using](https://www.youtube.com/watch?v=DWZqd6iF-64) | 6:45 | [Deity files](../lst/files/deity.md) |
 | 3 | [Adding Archetypes](https://www.youtube.com/watch?v=7f4E4m1jH9Y) | 10:11 | — |
 | 5 | [Making New Class Archetypes](https://www.youtube.com/watch?v=lAoIBKSomVQ) | 6:28 | — |
 

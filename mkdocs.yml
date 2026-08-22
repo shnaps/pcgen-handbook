@@ -74,6 +74,7 @@ nav:
           - lst/files/race.md
           - lst/files/class.md
           - lst/files/equipment.md
+          - lst/files/deity.md
       - How to:
           - lst/howto/new-feat.md
           - lst/howto/new-skill.md
