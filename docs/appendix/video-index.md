@@ -11,6 +11,10 @@ The playlist is the only place the actual *workflow* is shown: which file to ope
 what order, and what goes wrong. The official documentation never covers that. This
 index exists because the playlist has no index of its own.
 
+The **Handbook page** column links to a page covering the same ground. A dash means
+the handbook does not cover that topic yet — 9 of the 25 videos have a page so far.
+The index is worth having either way, since it is the only index to this playlist.
+
 !!! warning "Recorded against 6.05/6.06"
     Handbook pages are written against current `master`. Where a video shows something
     that has since changed, the handbook gives the current behaviour and says so.
@@ -21,39 +25,39 @@ index exists because the playlist has no index of its own.
 
 ## Getting started
 
-| # | Video | Length | Covered here |
+| # | Video | Length | Handbook page |
 |---|---|---|---|
 | 1 | [Homebrew Basics 1 — PCC File explanation](https://www.youtube.com/watch?v=LhGkqdXNtOw) | 9:45 | [PCC files](../lst/files/pcc.md) |
 | 2 | [Homebrew Basics 2 — Simple Feats & Skills](https://www.youtube.com/watch?v=9tha4tQ1zNk) | 16:04 | [Ability files](../lst/files/ability.md), [Skill files](../lst/files/skill.md) |
 | 7 | [PCGen Walk Through](https://www.youtube.com/watch?v=n6omGHtAW1Q) | 29:21 | [Set up](../start/setup.md) |
 | 14 | [Understanding the Documentation](https://www.youtube.com/watch?v=xhwa6EkNuNo) | 5:57 | [Tag index](../lst/reference/tag-index.md) |
 | 17 | [Loading Books (Basic and Advanced)](https://www.youtube.com/watch?v=pTvhiliRJYI) | 5:45 | [PCC files](../lst/files/pcc.md) |
-| 24 | [Install or use 3rd Party Sources](https://www.youtube.com/watch?v=yYzOJzUVNP0) | 6:41 | planned |
-| 13 | [Install OOC data, and create your own](https://www.youtube.com/watch?v=HY3jsMl3jo4) | 5:19 | planned |
+| 24 | [Install or use 3rd Party Sources](https://www.youtube.com/watch?v=yYzOJzUVNP0) | 6:41 | — |
+| 13 | [Install OOC data, and create your own](https://www.youtube.com/watch?v=HY3jsMl3jo4) | 5:19 | — |
 
 ## Making things
 
-| # | Video | Length | Covered here |
+| # | Video | Length | Handbook page |
 |---|---|---|---|
-| 6 | [Equipment Creation](https://www.youtube.com/watch?v=O8KhHtd5ih0) | 16:32 | planned |
-| 9 | [Creating Custom Items](https://www.youtube.com/watch?v=J3omE2FIGs8) | 11:34 | planned |
-| 10 | [Homebrew Class making](https://www.youtube.com/watch?v=qKY7GtBx4rI) | 15:58 | planned |
-| 11 | [Making a Class from Scratch](https://www.youtube.com/watch?v=4qxvG07zC9o) | 21:02 | planned |
-| 4 | [Rapid Demonstration of Race Entry](https://www.youtube.com/watch?v=VNSdgSb0Ep8) | 16:21 | planned |
-| 21 | [Homebrew race (Lamia)](https://www.youtube.com/watch?v=fuiReDpK5k0) | 11:40 | planned |
-| 22 | [Shabti Race & Cavalier Order](https://www.youtube.com/watch?v=Hlr6tVMX7DI) | 15:01 | planned |
-| 25 | [Deities — adding and using](https://www.youtube.com/watch?v=DWZqd6iF-64) | 6:45 | planned |
-| 3 | [Adding Archetypes](https://www.youtube.com/watch?v=7f4E4m1jH9Y) | 10:11 | planned |
-| 5 | [Making New Class Archetypes](https://www.youtube.com/watch?v=lAoIBKSomVQ) | 6:28 | planned |
+| 6 | [Equipment Creation](https://www.youtube.com/watch?v=O8KhHtd5ih0) | 16:32 | — |
+| 9 | [Creating Custom Items](https://www.youtube.com/watch?v=J3omE2FIGs8) | 11:34 | — |
+| 10 | [Homebrew Class making](https://www.youtube.com/watch?v=qKY7GtBx4rI) | 15:58 | — |
+| 11 | [Making a Class from Scratch](https://www.youtube.com/watch?v=4qxvG07zC9o) | 21:02 | — |
+| 4 | [Rapid Demonstration of Race Entry](https://www.youtube.com/watch?v=VNSdgSb0Ep8) | 16:21 | — |
+| 21 | [Homebrew race (Lamia)](https://www.youtube.com/watch?v=fuiReDpK5k0) | 11:40 | — |
+| 22 | [Shabti Race & Cavalier Order](https://www.youtube.com/watch?v=Hlr6tVMX7DI) | 15:01 | — |
+| 25 | [Deities — adding and using](https://www.youtube.com/watch?v=DWZqd6iF-64) | 6:45 | — |
+| 3 | [Adding Archetypes](https://www.youtube.com/watch?v=7f4E4m1jH9Y) | 10:11 | — |
+| 5 | [Making New Class Archetypes](https://www.youtube.com/watch?v=lAoIBKSomVQ) | 6:28 | — |
 
 ## Going deeper
 
-| # | Video | Length | Covered here |
+| # | Video | Length | Handbook page |
 |---|---|---|---|
-| 12 | [Gamemode](https://www.youtube.com/watch?v=9vbBuuCmVjU) | 27:54 | planned |
-| 19 | [Create additional Ability Scores](https://www.youtube.com/watch?v=2P9KYV3cD8s) | 4:25 | planned |
-| 8 | [Debugging Tips and Demo](https://www.youtube.com/watch?v=7yr-q27WeKY) | 11:23 | planned |
-| 15 | [How to Submit a Bug or Feature Request](https://www.youtube.com/watch?v=kKWRIkU1LZ8) | 11:27 | planned |
+| 12 | [Gamemode](https://www.youtube.com/watch?v=9vbBuuCmVjU) | 27:54 | — |
+| 19 | [Create additional Ability Scores](https://www.youtube.com/watch?v=2P9KYV3cD8s) | 4:25 | — |
+| 8 | [Debugging Tips and Demo](https://www.youtube.com/watch?v=7yr-q27WeKY) | 11:23 | — |
+| 15 | [How to Submit a Bug or Feature Request](https://www.youtube.com/watch?v=kKWRIkU1LZ8) | 11:27 | — |
 
 ## Version-specific
 
