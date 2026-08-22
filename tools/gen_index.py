@@ -40,12 +40,17 @@ def main():
 
     written = {p.stem.upper() for p in TAGS_DIR.glob("*.md")} if TAGS_DIR.exists() else set()
 
+    # Deprecated tags are kept out of the main tables. The handbook documents what to
+    # write now; what not to write lives on one page of its own.
+    current = [t for t in tokens if not t["deprecated"]]
+    deprecated = [t for t in tokens if t["deprecated"]]
+
     by_family = defaultdict(lambda: defaultdict(list))
-    for t in tokens:
+    for t in current:
         by_family[t["family"]][t["full_tag"]].append(t)
 
-    uniq = len({t["full_tag"] for t in tokens})
-    dep = len({t["full_tag"] for t in tokens if t["deprecated"]})
+    uniq = len({t["full_tag"] for t in current})
+    dep = len({t["full_tag"] for t in deprecated})
 
     L = []
     L.append("---")
@@ -61,11 +66,15 @@ def main():
     L.append("!!! info \"What this is built from\"")
     L.append("    PCGen `%s`, commit [`%s`](%s/%s)." % (ver, sha[:12], GH.replace("/blob", "/tree"), sha))
     L.append("")
-    L.append("    %d tags, %d of them deprecated. Generated, not hand-written, so it" % (uniq, dep))
-    L.append("    matches the code rather than the published docs.")
+    L.append("    %d current tags. Generated, not hand-written, so it matches the" % uniq)
+    L.append("    code rather than the published docs.")
     L.append("")
     L.append("Tags with a linked name have a full page. The rest list what the code says:")
     L.append("what accepts them, and the class that implements them.")
+    L.append("")
+    L.append("A further **%d tags are deprecated** and are deliberately left out of the" % dep)
+    L.append("tables below. Do not write new data with them. They are listed on")
+    L.append("[what changed](../../appendix/whats-changed.md) instead.")
     L.append("")
 
     for fam in ["lst", "pre", "bonus", "primitive", "qualifier", "modifier"]:
@@ -76,8 +85,8 @@ def main():
         L.append("")
         L.append(FAMILY_BLURB[fam])
         L.append("")
-        L.append("| Tag | Applies to | Implemented by | Status |")
-        L.append("|---|---|---|---|")
+        L.append("| Tag | Applies to | Implemented by |")
+        L.append("|---|---|---|")
         for tag in sorted(groups):
             rows = groups[tag]
             applies = ", ".join(sorted({r["applies_to"] or "any" for r in rows}))
@@ -90,12 +99,7 @@ def main():
             cls = "[`%s`](%s/%s/%s)" % (classes[0], GH, sha, first["source"])
             if len(classes) > 1:
                 cls += " +%d" % (len(classes) - 1)
-            if any(r["deprecated"] for r in rows):
-                v = next((r["deprecated_version"] for r in rows if r["deprecated_version"]), None)
-                status = "deprecated (%s)" % v if v else "deprecated"
-            else:
-                status = ""
-            L.append("| %s | %s | %s | %s |" % (link, applies, cls, status))
+            L.append("| %s | %s | %s |" % (link, applies, cls))
         L.append("")
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
