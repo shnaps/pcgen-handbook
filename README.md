@@ -52,7 +52,7 @@ To refresh the tag data from upstream:
 
 ```sh
 git clone --depth 1 --filter=blob:none --sparse https://github.com/PCGen/pcgen.git work/pcgen-src
-git -C work/pcgen-src sparse-checkout set code/src/java code/src/test code/src/slowtest docs data/zen_test data/35e/homebrew system/gameModes
+git -C work/pcgen-src sparse-checkout set code/src/java code/src/test code/src/slowtest code/gradle code/standards docs data system PCGen-base PCGen-Formula
 git -C work/pcgen-src rev-parse HEAD > PCGEN-SHA
 python tools/scan_tokens.py && python tools/gen_index.py
 ```
@@ -64,7 +64,7 @@ python tools/scan_tokens.py && python tools/gen_index.py
 ```
 docs/start/      getting from nothing to a working change
 docs/lst/        the data file format
-docs/internals/  how the loader and token system work
+docs/internals/  building, startup, the object model, the loader and the token system
 docs/appendix/   credits, glossary
 WIKI-SCHEMA.md   what each page type must contain
 log.md           record of upstream scans

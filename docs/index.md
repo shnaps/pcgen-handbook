@@ -40,17 +40,47 @@ How the file format actually works.
 
 ## Internals
 
-For changing PCGen itself, not just its data.
+For changing PCGen itself, not just its data. New to the code base? Read the first
+three in order.
+
+**Getting oriented**
 
 | Page | What it covers |
 |---|---|
 | [Repository layout](internals/architecture.md) | Where everything is, and how it builds |
+| [Building from source](internals/building.md) | Compile it, run it, and what each Gradle task does |
+| [Startup sequence](internals/startup.md) | Launch to main window, task by task |
+
+**Reading data**
+
+| Page | What it covers |
+|---|---|
 | [Load pipeline](internals/load-pipeline.md) | From a `.pcc` on disk to a loaded object, class by class |
 | [The token system](internals/token-system.md) | How every tag is a class, and why that matters |
 | [Plugin loading](internals/plugin-loading.md) | Why adding a tag needs no registration |
 | [The formula system](internals/formula-system.md) | The two modules behind `MODIFY` |
+
+**The model**
+
+| Page | What it covers |
+|---|---|
+| [The object model](internals/cdom-model.md) | What a race is in memory, and why it has no fields |
+| [The character model](internals/facets.md) | 248 facets, and why the character object holds nothing |
+
+**Program and output**
+
+| Page | What it covers |
+|---|---|
+| [The interface layer](internals/ui-layer.md) | Swing, JavaFX, and a boundary that leaks |
+| [Output and saving](internals/output-and-saving.md) | Character sheets, output tokens and the `.pcg` format |
+
+**Changing PCGen**
+
+| Page | What it covers |
+|---|---|
 | [Adding a tag](internals/adding-a-tag.md) | Writing one, with its test |
 | [Testing](internals/testing.md) | Token tests, and checking a dataset loads clean |
+| [Contributing](internals/contributing.md) | The standards a change meets, and the ones nobody checks |
 
 ## Why this exists
 

@@ -72,3 +72,42 @@ Format:
 - Standing caveat: `check_examples.py` validates tag *names* against `tags.json` but
   not their *arguments*. Value syntax has to be checked by hand against shipped data or
   the token class. Both errors caught so far were in argument syntax, not tag names.
+
+## 2026-08-22  internals expanded to the wider code base
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`, version `6.09.08.RC1`.
+  No re-scan; `tags.json` unchanged.
+- Sparse checkout widened again to add `code/gradle` and `code/standards`, so build and
+  style citations resolve for `lint_wiki.py` like source citations already did.
+- Seven pages added to `internals/`, taking it from 7 to 14. Scope moves past the LST
+  loader for the first time: `building.md`, `startup.md`, `cdom-model.md`, `facets.md`,
+  `ui-layer.md`, `output-and-saving.md`, `contributing.md`.
+- Facts were gathered by seven scoped source reads, one per page, and each numeric claim
+  was re-counted directly before it shipped.
+
+### Measurements taken, all at the pinned commit
+
+- `PlayerCharacter.java` is 9,910 lines and holds a `CharID` plus about 107 facet
+  references. Character state lives in one static map in `AbstractStorageFacet`, keyed
+  by character and facet class. 248 facet classes.
+- `pcgen/gui2` 241 files, `pcgen/gui3` 54, `pcgen/facade/core` 33.
+- Export tokens: 17 classes in `pcgen/io/exporttoken/`, 140 in `plugin/exporttokens/`,
+  49 of those deprecated. Unrelated to LST tokens, and easy to confuse with them.
+
+### Finding: the facade boundary is documented but not maintained
+
+`CharacterFacade` states that the interface layer may operate only through the facade
+interfaces. Measured: **93 of 241 `gui2` files import `pcgen.core` directly**, 26 of
+them inside `gui2/facade/` and 67 outside it. `PCGenFrame` is one of the 67, and 14 of
+the 33 `facade/core` interfaces import core classes themselves.
+
+Recorded on `ui-layer.md` as a measurement rather than repeating the stated rule. Same
+failure mode this handbook exists for: a documented claim the code stopped honouring.
+
+### Finding: the style checks gate nothing
+
+Checkstyle and PMD are unhooked from the build with `sourceSets = []`. PMD and SpotBugs
+both set `ignoreFailures`. CI runs `build`, `testCoverage`, `itest`, `datatest` and
+`slowtest`, and never `allReports`. So a change breaking every configured style rule
+still goes green. On `contributing.md`.
+
