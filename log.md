@@ -111,3 +111,52 @@ both set `ignoreFailures`. CI runs `build`, `testCoverage`, `itest`, `datatest` 
 `slowtest`, and never `allReports`. So a change breaking every configured style rule
 still goes green. On `contributing.md`.
 
+## 2026-08-22  data layer widened, and a survey of what is left
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No re-scan; `tags.json`
+  unchanged.
+- Eight pages added: `bonuses`, `choosers`, `keys-and-names`, `data-controls`,
+  `files/template`, `files/spell`, `files/domain`, `internals/overview`. 52 pages total.
+
+### Corrections to my own measurements
+
+- **`BONUS:` counts were inflated.** The pattern `BONUS:([A-Z]+)` also matches inside
+  `TEMPBONUS:`, so `BONUS:PC` and `BONUS:ANYPC` appeared as real subtypes. Neither
+  exists — no class in `plugin/bonustokens/` handles either name. Recounted with a
+  boundary: **174,114 `BONUS:` uses in 2,937 files**, and 3,243 `TEMPBONUS:` uses.
+- Caught by a source read disagreeing with the corpus number, which is the check that
+  is supposed to catch this.
+
+### Measurements taken
+
+- `CHOOSE:` about 11,200 uses, and 5,421 of them are `CHOOSE:NOCHOICE` — a chooser that
+  presents nothing, written to satisfy the rule that `MULT:YES` requires a chooser.
+- Naming tags: `KEY:` 71,572 uses in 1,296 files, `OUTPUTNAME` 14,097, `SORTKEY` 12,268
+  (7,716 of them on abilities), `NAMEISPI` 6,496. `.MOD` on 56,733 lines.
+- Templates: 8,040 lines in 359 files, `VISIBLE` on 6,397 of them. Spells: 36,510 lines,
+  `CLASSES:` on 25,399. Domains: 904 lines, `SPELLLEVEL:DOMAIN` on 864.
+- Only **5 of PCGen's 54 code controls** are set by any shipped game mode.
+
+### Finding: the package layering is not a hierarchy
+
+Import counts at the pinned commit: `cdom` and `core` import each other 288 and 185
+files deep; `rules` and `persistence` both ways; `gui2` and `gui3` both ways. Nine files
+in `pcgen.core` import the Swing interface package.
+
+Three edges are genuinely one-directional: `output` and `pluginmgr` depend downward
+only, and the interface depends on `facade` rather than the reverse.
+
+Recorded on `internals/overview.md` as measured fact. The two seams that hold are the
+two a tool enforces — plugin jars and the Java module boundary. The two that leak are
+policed by convention.
+
+### Survey
+
+`BACKLOG.md` added at the repository root: a ranked list of what to cover next, what to
+leave alone, and which upstream sources supply topics. Built from four scoped reads of
+`docs/`, `data/`, `system/` and `plugin/lsttokens/`.
+
+Headline numbers from it: PCGen documents **164 output tokens** the handbook has no
+reference for; `plugin/lsttokens/kit/` has 47 test classes and no page;
+`installers/release-notes/` covers **5.10 through 6.09.05** and has never been read.
+
