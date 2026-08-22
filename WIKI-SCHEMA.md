@@ -104,6 +104,7 @@ copy looks exactly like a stale one.
 | `datatest` skips a `.pcc` with no `SHOWINMENU` | `internals/testing.md` |
 | The PCC `FEAT:` tag is deprecated | `appendix/whats-changed.md` |
 | Dots in a `TYPE=` match mean and, not or | `lst/concepts/types.md` |
+| `BONUS:VAR` applies only to a declared variable | `lst/concepts/declaring-variables.md` |
 
 `tools/lint_wiki.py` checks that table and reports any other page that re-explains an
 entry. Add a row when you notice a fact acquiring a second explanation.

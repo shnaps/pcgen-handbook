@@ -45,7 +45,7 @@ Dot syntax is a real grammar, so the page is short and fully citable: `TypeLst.j
 mid-string. The owning page must carry the Java half — `ListKey.TYPE` and `TYPE=`
 resolution through `cdom/reference`, 9 commits since 2023 — because no other page can.
 
-### 2. `DEFINE:X|0`, and `BONUS:VAR` with it
+### 2. `DEFINE:X|0`, and `BONUS:VAR` with it — written 2026-08-22, `lst/concepts/declaring-variables.md`
 
 **37,179 `DEFINE:` fields, and 37,077 of them — 99.7% — are the `|0` form.** The value
 arrives separately through `BONUS:VAR`, at 83,023 uses.

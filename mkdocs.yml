@@ -77,6 +77,7 @@ nav:
       - lst/concepts/rule-toggles.md
       - lst/concepts/bonuses.md
       - lst/concepts/choosers.md
+      - lst/concepts/declaring-variables.md
       - lst/concepts/variables-and-formulas.md
       - File types:
           - lst/files/pcc.md

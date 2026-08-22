@@ -63,6 +63,28 @@ levels. Shipped data uses `BASEAB` about 2,100 times and `BAB` not at all.
     [tag index](../lst/reference/tag-index.md) is generated from the source, so it does
     not list them.
 
+## DEFINE lost two forms
+
+`DEFINE` is still current, but two of its argument forms are rejected at parse time. Both
+handled stats, and both moved to `DEFINESTAT`.
+
+| Gone | Use instead |
+|---|---|
+| `DEFINE:LOCK.<stat>` | `DEFINESTAT:LOCK` or `DEFINESTAT:NONSTAT` |
+| `DEFINE:UNLOCK.<stat>` | `DEFINESTAT:STAT` or `DEFINESTAT:UNLOCK` |
+
+`DEFINESTAT` takes six subtokens: `LOCK`, `UNLOCK`, `NONSTAT`, `STAT`, `MINVALUE` and
+`MAXVALUE`.
+
+The error text for the `LOCK` case names `DEFINESTAT:LOCL|`, which is a typo in the
+source. There is no `LOCL` subtoken. Read it as `LOCK`.
+
+A third form still loads but warns. `DEFINE` with a non-zero value logs a deprecation
+notice asking for a `DEFINE` of 0 and a bonus instead. `MAXLEVELSTAT=` is exempt. See
+[declaring a variable](../lst/concepts/declaring-variables.md) for the form to write.
+
+*Source: [`DefineLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/DefineLst.java)*
+
 ## Deprecated by file type
 
 | File type | Deprecated tags |

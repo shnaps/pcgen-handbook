@@ -47,6 +47,9 @@ OWNED = [
     ("dots in a TYPE match mean and, not or", "lst/concepts/types.md",
      r"(?i)dots?[^.]{0,40}TYPE[^.]{0,40}mean[^.]{0,25}and"
      r"|every listed type must[^.]{0,25}(match|present)"),
+    ("BONUS:VAR applies only to a declared variable", "lst/concepts/declaring-variables.md",
+     r"(?i)BONUS:VAR[^.]{0,60}(only|not)[^.]{0,40}(declar|DEFINE)"
+     r"|(without|no) [^.]{0,20}DEFINE[^.]{0,40}BONUS:VAR[^.]{0,40}(nothing|ignored|skipped)"),
 ]
 
 

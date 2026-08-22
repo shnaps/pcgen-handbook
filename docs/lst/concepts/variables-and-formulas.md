@@ -122,9 +122,10 @@ that is shown as `VarHolder`.
 Being honest about the edges, since there is no upstream documentation to check
 against:
 
-- **How variables get declared.** Game modes define them, and `DATACONTROL` and the
-  `VARIABLE` file tags are involved. The exact declaration syntax is not covered here
-  because it was not verified.
+- **How variables get declared for this system.** Game modes define them, and
+  `DATACONTROL` and the `VARIABLE` file tags are involved. The exact declaration syntax
+  is not covered here because it was not verified. The older system declares with
+  `DEFINE` — see [declaring a variable](declaring-variables.md).
 - **Formula syntax itself.** What may appear in `<instructions>` is a language of its
   own, implemented in the separate `PCGen-Formula` module.
 - **When to prefer this over `BONUS`.** Most shipped data still uses `BONUS`. There is

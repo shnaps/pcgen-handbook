@@ -457,3 +457,35 @@ Note on that check: the first version of the pattern was written with `\b` word
 boundaries that reached the file as literal backspace bytes, so the rule matched nothing.
 It passed `lint_wiki.py` cleanly, because a dead rule and a satisfied rule look identical.
 Test an ownership pattern against a string it should catch before trusting it.
+
+## 2026-08-22  declaring a variable
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Backlog item 2.
+- New page `lst/concepts/declaring-variables.md`. 59 pages.
+
+The reviewers' split held up. `DEFINE` has one shape worth teaching — 37,077 of its
+37,179 uses are `DEFINE:X|0` — so the page teaches that and sends the rest to
+`appendix/whats-changed.md`.
+
+**The fact that justifies the page.** `PlayerCharacter.getVariable` looks a name up as a
+declared variable key. On a hit it resolves the declared value and then adds
+`getTotalBonusTo("VAR", name)`. On a miss it falls back to evaluating the name as a
+formula and sets `includeBonus = false`.
+
+So a `BONUS:VAR` naming a variable that no `DEFINE` declared contributes nothing, and
+nothing is logged. That is why data declares at zero and bonuses carry the value. Neither
+tag's own page could state this — it lives in the join between them.
+
+**Declarations do not stack.** `VariableFacet.getVariableValue` resolves every
+declaration of a name and keeps one, min or max by a flag. `VariableProcessor:537` passes
+`true`, so a formula reading a variable gets the highest declaration. Bonuses stack;
+declarations do not. Declaring at zero sets a floor and leaves the arithmetic to bonuses.
+
+**A typo worth documenting.** The parse failure for `DEFINE:LOCK.` names
+`DEFINESTAT:LOCL|` as the replacement. `DefineStatLst` accepts `LOCK`, `UNLOCK`,
+`NONSTAT`, `STAT`, `MINVALUE` and `MAXVALUE`. There is no `LOCL`, so a reader searching
+the error text finds nothing. Recorded in `whats-changed.md`.
+
+**Ownership.** Added `BONUS:VAR` applying only to a declared variable to the schema table
+and to `OWNED`. Tested the pattern against three strings before committing this time —
+two it must catch, one it must not.
