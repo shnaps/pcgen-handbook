@@ -529,6 +529,7 @@ Conditions that gate whether something applies. Valid on most objects.
 
 | Tag | Applies to | Implemented by |
 |---|---|---|
+| `PREABILITY` | any | [`PreAbilityParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAbilityParser.java) |
 | `PREAGESET` | any | [`PreAgeSetParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAgeSetParser.java) |
 | `PREAGESETEQ` | any | [`PreAgeSetParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAgeSetParser.java) |
 | `PREAGESETGT` | any | [`PreAgeSetParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAgeSetParser.java) |
@@ -536,6 +537,7 @@ Conditions that gate whether something applies. Valid on most objects.
 | `PREAGESETLT` | any | [`PreAgeSetParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAgeSetParser.java) |
 | `PREAGESETLTEQ` | any | [`PreAgeSetParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAgeSetParser.java) |
 | `PREAGESETNEQ` | any | [`PreAgeSetParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAgeSetParser.java) |
+| `PREALIGN` | any | [`PreAlignParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAlignParser.java) |
 | `PREARMORTYPE` | any | [`PreArmorTypeParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreArmorTypeParser.java) |
 | `PREATT` | any | [`PreAttackParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAttackParser.java) |
 | `PREBASESIZE` | any | [`PreBaseSizeParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreBaseSizeParser.java) |
@@ -557,12 +559,16 @@ Conditions that gate whether something applies. Valid on most objects.
 | `PREDEITY` | any | [`PreDeityParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreDeityParser.java) |
 | `PREDEITYALIGN` | any | [`PreDeityAlignParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreDeityAlignParser.java) |
 | `PREDEITYDOMAIN` | any | [`PreDeityDomainParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreDeityDomainParser.java) |
+| `PREDOMAIN` | any | [`PreDomainParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreDomainParser.java) |
 | `PREDR` | any | [`PreDamageReductionParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreDamageReductionParser.java) |
 | `PREEQUIP` | any | [`PreEquipParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreEquipParser.java) |
 | `PREEQUIPBOTH` | any | [`PreEquipBothParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreEquipBothParser.java) |
 | `PREEQUIPPRIMARY` | any | [`PreEquipPrimaryParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreEquipPrimaryParser.java) |
 | `PREEQUIPSECONDARY` | any | [`PreEquipSecondaryParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreEquipSecondaryParser.java) |
 | `PREEQUIPTWOWEAPON` | any | [`PreEquipTwoWeaponParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreEquipTwoWeaponParser.java) |
+| `PREFACT` | any | [`PreFactParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreFactParser.java) |
+| `PREFACTSET` | any | [`PreFactSetParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreFactSetParser.java) |
+| `PREFEAT` | any | [`PreAbilityParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAbilityParser.java) |
 | `PREGENDER` | any | [`PreGenderParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreGenderParser.java) |
 | `PREHANDS` | any | [`PreHandsParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreHandsParser.java) |
 | `PREHANDSEQ` | any | [`PreHandsParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreHandsParser.java) |
@@ -652,12 +658,6 @@ Conditions that gate whether something applies. Valid on most objects.
 | `PREVISION` | any | [`PreVisionParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreVisionParser.java) |
 | `PREWEAPONPROF` | any | [`PreWeaponProfParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreWeaponProfParser.java) |
 | `PREWIELD` | any | [`PreWieldParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreWieldParser.java) |
-| `PREability` | any | [`PreAbilityParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAbilityParser.java) |
-| `PREalign` | any | [`PreAlignParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAlignParser.java) |
-| `PREdomain` | any | [`PreDomainParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreDomainParser.java) |
-| `PREfact` | any | [`PreFactParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreFactParser.java) |
-| `PREfactset` | any | [`PreFactSetParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreFactSetParser.java) |
-| `PREfeat` | any | [`PreAbilityParser`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/parser/PreAbilityParser.java) |
 
 ## Bonuses (`BONUS:`)
 

@@ -8500,6 +8500,18 @@
       "full_tag": "XTRASKILLPTSPERLVL"
     },
     {
+      "tag": "PREABILITY",
+      "family": "pre",
+      "parent": null,
+      "applies_to": "any",
+      "class": "PreAbilityParser",
+      "source": "code/src/java/plugin/pretokens/parser/PreAbilityParser.java",
+      "deprecated": false,
+      "deprecated_version": null,
+      "note": null,
+      "full_tag": "PREABILITY"
+    },
+    {
       "tag": "PREAGESET",
       "family": "pre",
       "parent": null,
@@ -8582,6 +8594,18 @@
       "deprecated_version": null,
       "note": null,
       "full_tag": "PREAGESETNEQ"
+    },
+    {
+      "tag": "PREALIGN",
+      "family": "pre",
+      "parent": null,
+      "applies_to": "any",
+      "class": "PreAlignParser",
+      "source": "code/src/java/plugin/pretokens/parser/PreAlignParser.java",
+      "deprecated": false,
+      "deprecated_version": null,
+      "note": null,
+      "full_tag": "PREALIGN"
     },
     {
       "tag": "PREARMORTYPE",
@@ -8836,6 +8860,18 @@
       "full_tag": "PREDEITYDOMAIN"
     },
     {
+      "tag": "PREDOMAIN",
+      "family": "pre",
+      "parent": null,
+      "applies_to": "any",
+      "class": "PreDomainParser",
+      "source": "code/src/java/plugin/pretokens/parser/PreDomainParser.java",
+      "deprecated": false,
+      "deprecated_version": null,
+      "note": null,
+      "full_tag": "PREDOMAIN"
+    },
+    {
       "tag": "PREDR",
       "family": "pre",
       "parent": null,
@@ -8906,6 +8942,42 @@
       "deprecated_version": null,
       "note": null,
       "full_tag": "PREEQUIPTWOWEAPON"
+    },
+    {
+      "tag": "PREFACT",
+      "family": "pre",
+      "parent": null,
+      "applies_to": "any",
+      "class": "PreFactParser",
+      "source": "code/src/java/plugin/pretokens/parser/PreFactParser.java",
+      "deprecated": false,
+      "deprecated_version": null,
+      "note": null,
+      "full_tag": "PREFACT"
+    },
+    {
+      "tag": "PREFACTSET",
+      "family": "pre",
+      "parent": null,
+      "applies_to": "any",
+      "class": "PreFactSetParser",
+      "source": "code/src/java/plugin/pretokens/parser/PreFactSetParser.java",
+      "deprecated": false,
+      "deprecated_version": null,
+      "note": null,
+      "full_tag": "PREFACTSET"
+    },
+    {
+      "tag": "PREFEAT",
+      "family": "pre",
+      "parent": null,
+      "applies_to": "any",
+      "class": "PreAbilityParser",
+      "source": "code/src/java/plugin/pretokens/parser/PreAbilityParser.java",
+      "deprecated": false,
+      "deprecated_version": null,
+      "note": null,
+      "full_tag": "PREFEAT"
     },
     {
       "tag": "PREGENDER",
@@ -9974,78 +10046,6 @@
       "deprecated_version": null,
       "note": null,
       "full_tag": "PREWIELD"
-    },
-    {
-      "tag": "PREability",
-      "family": "pre",
-      "parent": null,
-      "applies_to": "any",
-      "class": "PreAbilityParser",
-      "source": "code/src/java/plugin/pretokens/parser/PreAbilityParser.java",
-      "deprecated": false,
-      "deprecated_version": null,
-      "note": null,
-      "full_tag": "PREability"
-    },
-    {
-      "tag": "PREalign",
-      "family": "pre",
-      "parent": null,
-      "applies_to": "any",
-      "class": "PreAlignParser",
-      "source": "code/src/java/plugin/pretokens/parser/PreAlignParser.java",
-      "deprecated": false,
-      "deprecated_version": null,
-      "note": null,
-      "full_tag": "PREalign"
-    },
-    {
-      "tag": "PREdomain",
-      "family": "pre",
-      "parent": null,
-      "applies_to": "any",
-      "class": "PreDomainParser",
-      "source": "code/src/java/plugin/pretokens/parser/PreDomainParser.java",
-      "deprecated": false,
-      "deprecated_version": null,
-      "note": null,
-      "full_tag": "PREdomain"
-    },
-    {
-      "tag": "PREfact",
-      "family": "pre",
-      "parent": null,
-      "applies_to": "any",
-      "class": "PreFactParser",
-      "source": "code/src/java/plugin/pretokens/parser/PreFactParser.java",
-      "deprecated": false,
-      "deprecated_version": null,
-      "note": null,
-      "full_tag": "PREfact"
-    },
-    {
-      "tag": "PREfactset",
-      "family": "pre",
-      "parent": null,
-      "applies_to": "any",
-      "class": "PreFactSetParser",
-      "source": "code/src/java/plugin/pretokens/parser/PreFactSetParser.java",
-      "deprecated": false,
-      "deprecated_version": null,
-      "note": null,
-      "full_tag": "PREfactset"
-    },
-    {
-      "tag": "PREfeat",
-      "family": "pre",
-      "parent": null,
-      "applies_to": "any",
-      "class": "PreAbilityParser",
-      "source": "code/src/java/plugin/pretokens/parser/PreAbilityParser.java",
-      "deprecated": false,
-      "deprecated_version": null,
-      "note": null,
-      "full_tag": "PREfeat"
     },
     {
       "tag": "ABILITY",

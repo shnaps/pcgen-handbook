@@ -139,12 +139,15 @@ def main():
         if not pkg.startswith("plugin."):
             continue
 
-        # PRExxx: one parser class can declare several kinds
+        # PRExxx: one parser class can declare several kinds.
+        # kindsHandled() casing is inconsistent in the source ("ability", "RACE"), but
+        # PreParserFactory lowercases for lookup, so matching is case-insensitive.
+        # Data and convention are uppercase, so normalise to that.
         if pkg.startswith("plugin.pretokens.parser"):
             for k in m_strarray(body, "kindsHandled"):
                 tokens.append(
                     {
-                        "tag": "PRE" + k,
+                        "tag": "PRE" + k.upper(),
                         "family": "pre",
                         "parent": None,
                         "applies_to": "any",
