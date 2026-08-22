@@ -86,6 +86,7 @@ nav:
           - lst/howto/new-class.md
           - lst/howto/new-equipment.md
           - lst/howto/third-party-data.md
+          - lst/howto/report-a-bug.md
       - Tag index: lst/reference/tag-index.md
   - Internals:
       - internals/load-pipeline.md
