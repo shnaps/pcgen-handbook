@@ -28,7 +28,7 @@ A name, the stat it keys off, and whether you can try it without training.
 | `ACHECK` | `NONE`, `YES`, `NONPROF` | how armour check penalty applies |
 | `CLASSES` | class list | which classes treat it as a class skill |
 | `SITUATION` | text | named situational variants of the skill |
-| `VISIBLE` | `YES`, `NO`, `DISPLAY`, `EXPORT` | where the skill shows up |
+| `VISIBLE` | see [below](#visible) | where the skill shows up |
 
 *Source: [`plugin/lsttokens/skill/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/skill)*
 
@@ -58,10 +58,19 @@ loading rather than at the line itself.
 
 ### VISIBLE
 
-Controls where the skill appears. `YES` is the normal case. `DISPLAY` shows it in the
-program but keeps it off exported sheets, and `EXPORT` does the reverse.
+Controls where the skill appears. Several values are aliases for the same thing:
 
-Use `NO` for skills that exist only to be referenced by something else.
+| Value | Means |
+|---|---|
+| `YES`, `ALWAYS` | visible everywhere. The normal case. |
+| `DISPLAY`, `GUI` | shown in the program, kept off exported sheets |
+| `EXPORT`, `CSHEET` | on exported sheets only, hidden in the program |
+| `NO` | hidden. For skills that exist only to be referenced. |
+
+A `|READONLY` suffix marks the skill as not directly assignable. It is rejected with
+`EXPORT` and `CSHEET`.
+
+*Source: [`skill/VisibleToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/skill/VisibleToken.java)*
 
 ### SITUATION
 
