@@ -31,11 +31,16 @@ def strip_noise(text):
     text = re.sub(r"```.*?```", "", text, flags=re.S)
     text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
     text = re.sub(r"^\|.*$", "", text, flags=re.M)        # tables
-    text = re.sub(r"^\s*[-*+]\s+", "", text, flags=re.M)  # list bullets
+    # Each bullet is its own unit. Removing the marker outright would glue a run of
+    # short bullets into one very long "sentence".
+    text = re.sub(r"^\s*[-*+]\s+", "\n\n", text, flags=re.M)
     text = re.sub(r"^#{1,6}\s+.*$", "", text, flags=re.M)  # headings
     text = re.sub(r"`[^`]*`", "X", text)                   # inline code
     text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)   # links
     text = re.sub(r"^\s*!!!.*$", "", text, flags=re.M)     # admonition openers
+    # Emphasis markers hide sentence ends: "**Done.** Next" must split at the period.
+    text = re.sub(r"\*\*([^*]*)\*\*", r"\1", text)
+    text = re.sub(r"(?<!\*)\*([^*\n]+)\*(?!\*)", r"\1", text)
     return text
 
 

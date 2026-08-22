@@ -65,6 +65,10 @@ nav:
       - start/how-loading-works.md
   - Data files:
       - lst/concepts/line-format.md
+      - File types:
+          - lst/files/pcc.md
+          - lst/files/ability.md
+          - lst/files/skill.md
       - Tag index: lst/reference/tag-index.md
   - Internals:
       - internals/load-pipeline.md
