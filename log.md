@@ -380,3 +380,46 @@ Five smaller gaps behind it, and three packages measured and rejected. Ranked in
 Churn was used as the ranking signal rather than size. `cdom/facet/` is the biggest
 subsystem-to-page ratio in the handbook — 248 classes against 885 words — but a package
 nobody changes is a page nobody needs.
+
+## 2026-08-22  second cross-review, and a retraction
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No page content changed.
+- Two reviewers re-ranked the whole backlog as one list — one from the data author's
+  seat, one from a Java developer's — then cross-reviewed.
+
+**The preceding entry's internals ranking was wrong, and is retracted.** Two errors, both
+mine, both caught by a reviewer.
+
+**The churn figures were file-touches, not commits.** `git log --name-only` prints one
+line per file per commit; counting those lines counts files. `plugin/pretokens` is **4
+commits since 2023, not 138**, and **130 of the 138 touches are one PMD sweep**,
+`7f818006e3`, dropping a redundant `implements`. The remaining three are a Java 17 move, a
+file relocation and a fork merge. The inflation is not uniform — pretokens runs 34 files
+per commit against `cdom`'s 7 — so it does not cancel out in a ranking. It promoted a
+subsystem with essentially no real work to first place.
+
+**The citation extraction produced a false negative.** It matched only paths prefixed
+`code/src/java/` and missed every bare `plugin/...` citation. `adding-a-tag.md:25`,
+`load-pipeline.md:147` and `plugin-loading.md:20` all cite `plugin/pretokens`, and
+`prerequisites.md:144-151` already carries the parser/test/writer table the entry called
+missing.
+
+Three of six internals gaps did not survive. Prerequisites-as-code and bonus resolution
+were dropped outright, export tokens merged into the output item.
+
+**What the reviewers converged on.** `TYPE` takes first place from `DEFINE:` on a
+principle worth keeping: **a silent gap outranks an admitted one.** An admitted gap sends
+the reader elsewhere; a silent gap sends them into a wrong edit. `variables-and-formulas.md`
+says plainly that it does not cover declaring a variable. `equipment.md` says type decides
+everything about an item and never says what a type is. The second is the worse failure,
+and `TYPE` is used 282,966 times against `DEFINE:`'s 37,179.
+
+`DEFINE:` also shrank. 99.7% of its uses are one form, `DEFINE:X|0`; `LOCK.` and `UNLOCK.`
+hard-fail to `DEFINESTAT` and non-zero values call `deprecationPrint`. The page teaches
+one shape and sends the rest to `appendix/whats-changed.md`.
+
+**Method note for the next audit.** Rank on commits, never on `--name-only` lines. Extract
+citations by package name, not by path prefix. Both errors passed every existing check —
+`check_style.py`, `lint_wiki.py` and `mkdocs build --strict` were green throughout, as
+they were for the twelve numeral errors in the first audit. No tool here validates a
+number.

@@ -14,141 +14,156 @@ sections into the page that owns them.
 The generated [tag index](docs/lst/reference/tag-index.md) covers all 706 tags. What is
 missing is explanation for the long tail, and whole subsystems with one page or none.
 
-## Ranked, after cross-review
+`docs/internals/` is 17 pages and 14,568 words — larger than every other section
+combined. Its gaps are specific, not general, and they are ranked below alongside the
+data-side gaps rather than in a list of their own.
 
-Two reviewers judged this independently — one on structure and coverage, one on whether
-the wiki shortens the path to safely changing the code — then attacked each other's
-verdicts. This order is what survived.
+## Ranked, after two cross-reviews
 
-### 1. `DEFINE:` and declaring a variable
+Two reviewers judged this independently — one from the data author's seat, one from the
+seat of a developer changing the Java — then attacked each other's verdicts and had to
+defend or concede each with evidence. Second pass on 2026-08-22, after the first pass's
+internals ranking was found to rest on a broken measurement. This order is what survived.
 
-Both reviewers put it first, and one changed position to agree. `DEFINE:` is used
-**37,644 times across 1,290 files**; `MODIFY:` 3,005. `variables-and-formulas.md`
-covers only `MODIFY:` and says so in a section titled "What this page does not cover".
+Counts are measured at commit `d262f8b4`. Data usage counts exclude comments and split
+fields on tabs across 7,028 `.lst` and `.pcc` files. Churn is commits, not file-touches —
+the distinction that invalidated the first pass.
 
-The front page promises "`DEFINE`, `MODIFY` and the newer formula system". Two of the
-three are missing. A reader who needs a variable has a dead end, not a thin patch.
+### 1. `TYPE`
 
-### 2. Granting: `ADD:`, `AUTO:` and `REMOVE:`
+**282,966 uses**: 197,550 as its own field, 21,490 embedded in other fields, 63,926 as
+`TYPE=`. The most-used construct in the data language. It appears in 23 of 57 pages and
+is defined in none of them, internals included.
 
-`AUTO:` 7,723 uses, `ADD:` 3,826, 13 token classes with 13 tests. The tags appear as
-examples on twelve pages — race, template, domain, archetypes, new-class — and are
-explained on none.
+`equipment.md` tells the reader type decides everything about an item without saying what
+a type is. Both reviewers converged on the principle behind this: **a silent gap outranks
+an admitted one.** An admitted gap sends the reader elsewhere. A silent gap sends them
+into a wrong edit.
 
-### 3. `TYPE`
+Dot syntax is a real grammar, so the page is short and fully citable: `TypeLst.java:47`
+`.CLEAR`, `:76` the dot split, `:83` `.ADD.`, `:92` `.REMOVE.`, `:100` rejecting `.CLEAR`
+mid-string. The owning page must carry the Java half — `ListKey.TYPE` and `TYPE=`
+resolution through `cdom/reference`, 9 commits since 2023 — because no other page can.
 
-Appears in 23 of 57 pages and is defined in none of them. `equipment.md` says type
-decides everything about an item without saying what a type is. Dot syntax, `TYPE=`
-matching in choosers and prerequisites, and the three PCC levels belong on one page.
+### 2. `DEFINE:X|0`, and `BONUS:VAR` with it
 
-### 4. Kit files
+**37,179 `DEFINE:` fields, and 37,077 of them — 99.7% — are the `|0` form.** The value
+arrives separately through `BONUS:VAR`, at 83,023 uses.
 
-`plugin/lsttokens/kit/` — 49 token classes and **47 tests**, the richest untouched
-specification in the repository. `KIT:` appears in 368 PCC files, more than `SKILL:`
-(277), `DEITY:` (129) or `DOMAIN:` (98), each of which has a full page.
+The gap is admitted: `variables-and-formulas.md:125-127` says declaring a variable is not
+covered, `bonuses.md:129` points at the missing page, and `docs/index.md:52` promises
+`DEFINE`.
 
-### 5. Equipment modifiers
+**Teach one form.** `DefineLst.java:65-68` hard-fails `UNLOCK.` and `:96-101` hard-fails
+`LOCK.`, both redirecting to `DEFINESTAT`; `:85-90` calls `deprecationPrint` on any
+non-zero, non-`MAXLEVELSTAT=` formula. Those forms go to `appendix/whats-changed.md`. At
+99.7% one shape, this is roughly a third of the page originally planned, which is why it
+sits below `TYPE` without loss.
 
-`EQMOD:` 9,652 uses; 26 token classes, 14 tests. `equipment.md` gives it a paragraph.
+### 3. Granting: `ADD:`, `AUTO:` and `REMOVE:`
 
-### 6. Writing a character sheet
+`plugin/lsttokens/add/` 8 classes, `auto/` 5, with 8 and 5 tests. The tags appear as
+unexplained examples on twelve pages — race, template, domain, archetypes, new-class.
 
-`outputsheets/` has 210 commits since 2023. The generated token index lists 154 tokens
-and states plainly that it cannot give their arguments. Nothing covers the FreeMarker
-side from the author's end.
+Ranked above display tags because an ability must work before it reads well.
 
-### 7. Verifying your data loads
+### 4. Ability display tags
 
-Absorbs `datatest`, `config.ini`, the `SHOWINMENU` trap, and the deliberately broken
-sets in `data/zen_test/pcgen_broken_tests/`. One reviewer argued this should replace the
-invented symptoms in `when-it-breaks.md` with real ones, rather than becoming a separate
-debugging page. Agreed.
+**139 of the 189 commits to `data/` since 2023 touch ability files — 74%.** The single
+strongest churn signal measured anywhere in this backlog. `ASPECT` has 11,861 uses, `SAB`
+11,508; each gets at most a table row today.
 
-### 8. Spell delivery outside a class list
+One reviewer ranked this second on that churn and the other sixth, arguing display text is
+not what blocks a newcomer. Both hold: the churn is real, and the dependency on item 3 is
+real. It sits directly behind the tags that make an ability do anything.
+
+### 5. Verifying your data loads
+
+Nothing above is safe to write without a pass/fail loop, which is the argument that moved
+this up. Absorbs `datatest`, `config.ini`, the `SHOWINMENU` trap, and the deliberately
+broken sets in `data/zen_test/pcgen_broken_tests/`. Replaces the invented symptoms in
+`when-it-breaks.md` with real ones rather than becoming a separate page.
+`internals/testing.md` is 553 words, the shortest internals page.
+
+### 6. Facets, past the concept
+
+`cdom/facet/` is 248 classes and 34,187 lines across **18 commits since 2023**, twelve of
+them since 2025. `internals/facets.md` is 885 words: it gives 4 of 14 base classes and the
+extension pattern in three lines. The largest subsystem-to-page ratio in the handbook.
+
+Highest-ranked internals item. It sits below the data items because those cover facts no
+page owns at all, while this one deepens a page that exists and is correct.
+
+### 7. The output side, both halves
+
+`docs/outputsheets/` holds only the generated index, which states it cannot give token
+arguments. Nothing covers the FreeMarker side from the author's end, and nothing covers
+adding an output token from the code side. One subsystem, one work item — not two.
+
+### 8. Equipment modifiers
+
+`EQMOD:` 12,086 uses; 26 classes, 14 tests. `equipment.md` gives it a paragraph. Ranked on
+usage: no measurable commit churn on eqmod data files since 2023.
+
+### 9. Choosers and qualifiers
+
+`cdom/choiceset/`, `core/chooser/`, `plugin/primitive/` and `plugin/qualifier/` — about
+4,300 lines with **40 test files** between the last two, and zero internals citations for
+`cdom/choiceset` or `core/chooser`. `choosers.md` covers the data face only. The tests make
+this cheap to write correctly.
+
+### 10. Spell delivery outside a class list
 
 `SPELLS:` 8,422 uses, `SPELLKNOWN:` 5,450. Only `SPELLLEVEL:DOMAIN` is explained.
 
-### 9. Ability display tags
+### 11. Tab binding — a section, not a page
 
-The most-edited data files in three years are class ability files. Their lines are
-carried by `ASPECT` (11,861 uses), `SAB` (11,508), `BENEFIT` and `NATURALATTACKS`
-(6,483), each of which gets at most a table row.
+How a tab binds to `CharacterFacade`, added to `internals/ui-layer.md`, which already owns
+the boundary fact.
 
-### 10. How a data set is laid out
+`gui2` out-churns its own replacement: 30 commits since 2023 against `gui3`'s 16, and 21
+against 12 since 2025. One reviewer moved to drop this on staleness and conceded — the old
+layer is still where work lands, and `ui-layer.md:42` already records that nothing suggests
+it is changing soon. The other conceded that a page documenting 39,442 moving lines is
+still wrong. A section is what survived both.
 
-The `_` and `__` prefix convention and the publisher directory shape. Cheapest item
-here.
+### 12. Kit files
 
-## Internals gaps, measured against the Java tree
+`plugin/lsttokens/kit/` has 49 classes and 47 tests, but **7 data commits since 2023
+across 314 `STARTPACK:` files**, and the files are dominated by machine-generated monster
+packs. Kits consume `TYPE`, `PRE` and `ABILITY` — downstream of items 1 to 4, not a
+substitute for them.
 
-The ranked list above scores what a data author needs. It says nothing about what a
-developer changing PCGen's Java needs, because neither reviewer measured that. This
-section does, on 2026-08-22 at commit `d262f8b4`.
+Both reviewers demoted this from fourth independently. Class and test counts measure
+specification size, not reader need.
 
-Method: every package under `code/src/java/pcgen/` and `code/src/java/plugin/` by line
-count, class count and commits since 2023-01-01, set against the packages the seventeen
-`docs/internals/` pages actually cite. Churn is the ranking signal — a package nobody
-changes is a package nobody needs explained.
+### 13. How a data set is laid out
 
-The section is not thin overall. At 17 pages and 14,568 words it is larger than the rest
-of the handbook combined. The gaps are specific.
+The `_` and `__` prefix convention and the publisher directory shape. Two paragraphs
+merged into `lst/concepts/sources.md`, which already owns discovery and load order. Not a
+page — a page would break "one fact, one owner".
 
-### 1. Prerequisites as code
+## Dropped in the second cross-review, with reasons
 
-`plugin/pretokens/` is **215 classes and 18,973 lines, changed in 138 commits since
-2023** — the third-most-changed tree in the repository, ahead of `lsttokens` at 95. It
-has **79 test files**. No internals page cites it once. Seven data pages cite it as the
-implementing class and stop there.
+**Prerequisites as code.** Ranked first among internals gaps in the first pass, on two
+errors. Its 138 "commits" were file-touches; the real figure is **4 commits since 2023**,
+and **130 of the 138 touches are one PMD sweep**, `7f818006e3`, dropping a redundant
+`implements`. The remaining three are a Java 17 move, a file relocation and a fork merge.
+The claim that no internals page cites `plugin/pretokens` was also false —
+`adding-a-tag.md:25`, `load-pipeline.md:147` and `plugin-loading.md:20` all do, and
+`prerequisites.md:144-151` already carries the parser/test/writer table said to be missing.
+Both reviewers dropped it. Nothing is owed here.
 
-Every prerequisite is a triple: `parser/PreAlignParser`, `test/PreAlignTester`,
-`writer/PreAlignWriter`, against `PrerequisiteTest` and `AbstractPrerequisiteTest` in
-`pcgen/core/prereq/`. Adding a `PRExxx` means writing three classes and knowing which
-does what. Nothing in the handbook says so.
+**Bonus resolution.** `rules-engine.md:71-107` already owns it: the two-stage
+`buildActiveBonusMap`, static-then-recursive order, the bonus-type key format,
+`getTotalBonusTo`, and per-pass prerequisite re-testing. A second page is the exact
+duplication `WIKI-SCHEMA.md` forbids. The only remainder is `plugin/bonustokens/` — 55
+classes, 3 commits, and **zero tests**, which is the condition used to reject the
+companion-mod page.
 
-Highest-value internals page not yet written.
-
-### 2. Facets, past the concept
-
-`cdom/facet/` is **248 classes and 34,187 lines**; `cdom/` overall is the most-changed
-package at 223 commits. `internals/facets.md` is 885 words and seven citations. It
-explains what a facet is and how one registers. It does not cover the facet families,
-the event ordering between them, or which to extend for a new stored fact.
-
-The largest ratio of subsystem to page in the handbook.
-
-### 3. Export tokens and the output model
-
-`plugin/exporttokens/` is 140 classes and 13,683 lines. `pcgen/output/` adds 71 classes.
-`internals/output-and-saving.md` cites `pcgen/io/exporttoken` — the smaller, older half —
-and one FreeMarker class. This is the internals half of ranked item 6 and should be
-written with it.
-
-### 4. Bonus resolution
-
-`core/BonusManager` plus `plugin/bonustokens/`, 55 classes. Cited once across internals,
-from five data pages. How a `BONUS:` is parsed, stacked and applied is the mechanism
-behind a large share of the data language and has no page.
-
-### 5. Choosers and qualifiers
-
-`cdom/choiceset/`, `core/chooser/`, `plugin/primitive/` and `plugin/qualifier/` — about
-4,300 lines with **40 test files** between the last two. Zero internals citations. The
-tests make this cheap to write correctly.
-
-### 6. The Swing tab layer
-
-`gui2/tabs/` is 61 classes and 22,334 lines; `gui2/facade/` is 30 classes and 17,108.
-`internals/ui-layer.md` is 846 words and stops at the Swing-versus-JavaFX split, which it
-does cover correctly. Ranked last here because `gui2` is being migrated to `gui3` — 24
-commits against 13 since 2024 — so a deep page documents code that is moving.
-
-### Measured and not worth a page
-
-| Package | Why not |
-|---|---|
-| `core/term`, 129 classes | the JEP-era variable path. `rules-engine.md` already frames both formula systems and names `VariableProcessor`; a page would document the half being replaced |
-| `gui2/converter`, 33 classes | a standalone `PCGenDataConvert.main` migration tool, not a subsystem anyone extends |
-| `core/namegen`, `io/migration` | small, self-contained, no churn |
+**Export tokens as a separate internals item.** `output-and-saving.md:72` already cites
+`plugin/exporttokens/` and its 140 classes and `:89` cites `pcgen/output/model/`. Merged
+into item 7.
 
 ## Rejected, with reasons
 
