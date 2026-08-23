@@ -71,7 +71,7 @@ PREVARGTEQ:SampleVariable,4
     ```
 
     That means one stat from the list at 13 **or higher**. Shipped data writes it this
-    way about 4,100 times and never writes `PRESTATGTEQ` at all.
+    way 3,338 times and never writes `PRESTATGTEQ` at all.
 
     Check how real data writes a prerequisite before reaching for a suffixed variant.
 
@@ -88,7 +88,7 @@ PREMULT:1,[PRERACE:1,Sample Folk],[PREABILITY:1,CATEGORY=FEAT,Sample Feat]
 Each bracketed group is a complete prerequisite. The leading count says how many groups
 must pass, so `1` is OR and a count equal to the number of groups is AND.
 
-`PREMULT` is the second most used prerequisite overall, at about 15,900 uses. Nesting
+`PREMULT` is the second most used prerequisite overall, at 15,808 uses. Nesting
 is where real data spends most of its complexity.
 
 ## The ones you will actually meet
@@ -97,10 +97,10 @@ Ranked by use in shipped data:
 
 | Tag | Uses | Checks |
 |---|---|---|
-| `PREABILITY` | 16,400 | has an ability, by category |
-| `PREMULT` | 15,900 | combines other prerequisites |
+| `PREABILITY` | 16,302 | has an ability, by category |
+| `PREMULT` | 15,808 | combines other prerequisites |
 | `PREVARGTEQ` | 9,800 | a variable is at least some value |
-| `PRECLASS` | 7,200 | has levels in a class |
+| `PRECLASS` | 7,127 | has levels in a class |
 | `PRETYPE` | 4,600 | the object has a type |
 | `PRETEXT` | 3,600 | free text shown to the reader, always passes |
 

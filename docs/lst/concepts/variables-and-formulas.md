@@ -59,7 +59,7 @@ split by the argument separator.
 | `MIN` | numbers |
 | `MAX` | numbers |
 
-`SET` is by far the most used — about 1,726 uses in shipped data against 181 for `ADD`.
+`SET` is by far the most used — 1,703 uses in shipped data against 142 for `ADD`.
 The rest are rare enough that shipped data barely demonstrates them.
 
 Each operator is a separate class under `plugin/modifier/`. They are grouped by the

@@ -34,7 +34,8 @@ plainly that feat-based tokens are deprecated and to use ability-based ones.
 | `ADD:FEAT`, `ADD:VFEAT` | `ADD:ABILITY` |
 | `AUTO:FEAT` | `AUTO:ABILITY` |
 | `REMOVE:FEAT` | `REMOVE:ABILITY` |
-| `CHOOSE:FEAT`, `CHOOSE:FEATSELECTION` | `CHOOSE:ABILITY` |
+| `CHOOSE:FEAT` | `CHOOSE:ABILITY` |
+| `CHOOSE:FEATSELECTION` | `CHOOSE:ABILITYSELECTION` |
 | `MODIFYFEATCHOICE` | — |
 
 Old data still loads. PCGen logs a deprecation warning for each one.
@@ -58,7 +59,7 @@ appears in every class tutorial. It was removed over its behaviour around epic c
 levels. Shipped data uses `BASEAB` about 2,100 times and `BAB` not at all.
 
 !!! warning "The official docs still list some of these"
-    `ACVALUE`, `ACABBREV`, `BABABBREV` and `DISPLAYVARIABLE` are still in PCGen's
+    `ACABBREV`, `BABABBREV` and `DISPLAYVARIABLE` are still in PCGen's
     published tag documentation. They are not in the code. This handbook's
     [tag index](../lst/reference/tag-index.md) is generated from the source, so it does
     not list them.
@@ -133,9 +134,10 @@ part of this system.
 
 ## Why this drift exists
 
-PCGen's tag documentation mostly stopped carrying version markers around 6.03. Its last
-stable release is from February 2023, while development continues on `master`. Nobody
-has resolved a documentation ticket since 2018.
+PCGen's tag documentation mostly stopped carrying version markers around 6.03. Releases
+since have come off the 6.09 and 7.00 lines, which the project's own notes call alpha,
+while development continues on `master`. Nobody has resolved a documentation ticket
+since 2018.
 
 That is the reason this handbook reads the Java source rather than the docs, and why a
 scheduled job re-reads it weekly. See [decisions](https://github.com/shnaps/pcgen-handbook/blob/main/DECISIONS.md).

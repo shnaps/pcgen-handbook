@@ -22,7 +22,7 @@ flowchart TD
     E --> F["TokenSupport<br/><i>dispatch TAG:value</i>"]
     F --> G["DeferredToken<br/><i>post-load work</i>"]
     G --> H["reference resolution"]
-    H --> I["PostDeferredToken<br/>PostValidationToken"]
+    H --> I["PostValidationToken<br/>PostDeferredToken"]
 ```
 
 ## 1. Discovery
@@ -56,8 +56,9 @@ protected ListKey<CampaignSourceEntry> getListKey() { return ListKey.FILE_SKILL;
 So `SKILL:my_skills.lst` means "add this path to `FILE_SKILL`". `RACE:` maps to
 `FILE_RACE`, `CLASS:` to `FILE_CLASS`, and so on. The PCC is a routing table.
 
-`CampaignSourceEntry` resolves the path, including the `*/` prefix meaning
-data-root-relative, and the optional `|PRExxx` suffix that conditionally includes a
+`CampaignSourceEntry` resolves the path. `*/` tries the homebrew directory, then the
+vendor directory, then the data directory, while `@` goes straight to the data
+directory. It also handles the optional `|PRExxx` suffix that conditionally includes a
 file.
 
 `PCC:` pulls in another campaign; `CampaignLoader.initRecursivePccFiles` flattens
@@ -81,7 +82,7 @@ Classes, abilities, kits and companion mods have their own loaders.
 
 [`LstObjectFileLoader`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)
 reads each file and processes it a line at a time. It also implements `.MOD`, `.COPY`
-and `.FORGET`, and honours the PCC's `LSTEXCLUDE`.
+and `.FORGET`, and honours a file's `(INCLUDE:` or `(EXCLUDE:` suffix. `LSTEXCLUDE` is applied a stage earlier, by `SourceFileLoader.stripLstExcludes`, which drops those files before any object loader sees them.
 
 Reading is done by
 [`LstFileLoader`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstFileLoader.java),
@@ -129,7 +130,7 @@ loading finishes first, then:
 1. `DeferredToken.process` — per-token work needing the whole file set.
 2. Reference resolution — every `CDOMReference` is matched to its target. Unresolved
    names are reported here.
-3. `PostDeferredToken`, then `PostValidationToken`, each ordered by `getPriority()`.
+3. `PostValidationToken`, then `PostDeferredToken`, each ordered by `getPriority()`.
 
 This is why an error can name a file you did not edit: the dangling reference is
 detected by whatever pointed at your object.

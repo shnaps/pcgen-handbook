@@ -1222,3 +1222,61 @@ to the display name when the tag is absent.
 
 Two rounds of correction on one section is the cost of writing before measuring. The
 sequence today was: write, audit, fix, audit the fix. Only the last step was cheap.
+
+## 2026-08-23  auditing day one, which nobody had ever checked
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No new pages.
+- Four reviewers on disjoint sets, 25 pages written 2026-08-21. **Thirty-four errors.**
+  One page came back clean.
+
+The audits so far had all covered recent work. The 25 pages from the first day had never
+been checked against the source — `log.md:801-804` records the verification pass as
+covering "the nine new data pages", and the earlier whole-wiki read at `:300` was a
+structural review whose output was the backlog. So the foundation was the only unexamined
+material left, and it is the part a newcomer reads first.
+
+**The worst error was an instruction to fix something that is not broken.**
+`first-change.md` told the reader to find the `ABILITY:` line in the shipped template,
+which "will be commented out, like most lines", and remove the `#`. That line is live.
+So are the twenty other file tags around it. The claim traces to a 2005 readme still
+shipped as `how_to_use_this.txt`, which the handbook repeated without opening the file.
+The page then blamed the same imaginary comment in its troubleshooting table, and
+`how-loading-works.md` built a paragraph on it.
+
+That is the failure this project exists to correct, reproduced inside it: a stale
+upstream document copied instead of the code being read.
+
+**And the deprecated form got in anyway.** `how-loading-works.md` used `FEAT:` in its
+example PCC and explained it as how you name a feats file. `CampaignFeatToken` is in
+`plugin/lsttokens/deprecated/`, no shipped `.pcc` uses `FEAT:` at all, and the previous
+page in the same section warns against it. `DECISIONS.md` already records this exact tag
+as the project's original cautionary tale.
+
+**Three how-to errors would stop a reader's data working.** `MULT:YES` with no `CHOOSE`
+throws on grant, and the finished example on the page had that shape. `SPELLLIST` does
+not declare a class's own list — it picks from another class's and its argument must name
+a class that exists, so the caster example pointed at nothing. `PROFICIENCY:ARMOR|Medium`
+names no object, because armour profs are per item: `Padded`, `Hide`.
+
+**The reference pages contradicted themselves.** `class.md` listed `DOMAIN` as deprecated
+and then listed it as a current level tag eleven lines later. `race.md` documented `MOVE`
+as replacing when it appends to a list with no clear, and gave `MONNONSKILLHD` as a race
+tag when it is a `PCClass` token.
+
+**Every count was wrong in the same direction.** Not one measured number came out lower
+than published. `KEY` 71,500 to 74,678. `COST` 44,000 to 45,469. `DOMAINS` 2,100 to 4,587.
+`PRESTAT` 4,100 to 3,338 — the exception, and the reason is instructive: that one had been
+counted by substring, which double-counted nesting inside `PREMULT`. Rounded estimates
+written before the method existed, and every one of them looked exactly like a measurement.
+
+**The log levels were unusable.** `when-it-breaks.md` gave `LST_ERROR`, `LST_WARNING`,
+`LST_INFO`. Those are Java constant identifiers. The log writes `LSTERROR`, `LSTWARN`,
+`LSTINFO`, so a reader following the page would search their log and find nothing. It also
+omitted `Illegal Token`, which is what a misspelt tag actually produces.
+
+**One page was clean.** `line-format.md`. It is the most mechanical page in the handbook,
+which is the only pattern visible in the results.
+
+**Rate.** Thirty-four errors across 25 pages, against eleven across nine and thirteen
+across two in earlier passes. Unaudited material runs at roughly one and a half errors per
+page and does not improve on its own.
