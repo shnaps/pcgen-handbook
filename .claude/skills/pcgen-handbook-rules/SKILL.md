@@ -1,6 +1,6 @@
 ---
-name: lst-style
-description: PCGen Handbook rules - terminology, provenance, and how to scope work on this repo. Use when drafting, editing or reviewing any page under docs/, and when scoping a research agent against the PCGen source. Layers on top of the plain-writing skill, which carries the sentence and word rules.
+name: pcgen-handbook-rules
+description: How to work on the PCGen Handbook repo - terminology, provenance and citation rules, the checks that must pass before a commit, and how to scope a research agent against the PCGen source. Use when drafting, editing or reviewing any page under docs/, when citing PCGen code, when measuring usage counts, and before committing. Layers on top of the plain-writing skill, which carries the sentence and word rules.
 ---
 
 # PCGen Handbook rules

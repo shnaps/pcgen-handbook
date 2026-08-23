@@ -1,7 +1,7 @@
 # Wiki schema
 
 What a page of each type must contain, how pages link, and how the handbook is kept
-current. The style skill in `.claude/skills/lst-style/` covers *how to write a
+current. The skill in `.claude/skills/pcgen-handbook-rules/` covers *how to write a
 sentence*. This covers *what a page is*.
 
 ## Three layers
