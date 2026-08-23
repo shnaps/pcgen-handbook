@@ -22,25 +22,34 @@ A three-reviewer verification pass on 2026-08-22 found eleven errors in the new 
 reopened the queue. All four items it raised are done. A second audit on 2026-08-23 found
 eight more in that day's own edits, all fixed.
 
-**Two items are open**, from the code expert's survey on 2026-08-23. Both are sections on
-pages that already exist, not new pages.
+Two items came out of the code expert's survey on 2026-08-23. Both were sections on pages
+that already existed, and both are now written. **Nothing is open.**
 
-## Open, from the code survey
+## Written, from the code survey
 
 A code expert walked the Java tree for what a developer needs and the handbook does not
 carry. The two design reviewers then judged each finding on reader need rather than size,
 and the survey conceded two of its four proposals. What follows is what survived.
 
-### 1. The property vocabulary of the FreeMarker model — `output-and-saving.md`
+### 1. The property vocabulary of the FreeMarker model — done 2026-08-23, `output-and-saving.md`
 
 `pcgen/output/` holds 42 classes across `actor`, `base`, `wrapper`, `factory` and
 `publish`, with **zero handbook citations**. `output-and-saving.md:93` opens the
 FreeMarker engine and stops before the property list, so a sheet author writing
 `<#list pc.skills as skill>` has nowhere to learn what may follow the dot.
 
-The vocabulary is closed and registered in one method. `CDOMWrapperInfoFacet.java:81-87`
-sets `key`, `displayname`, `type`, `desc`, `benefit` and `outputname` on
-`CDOMObject`/`PObject`, and `:106` overrides `type` for `Equipment`.
+The vocabulary is closed and registered in one method. Measured when the section was
+written, `CDOMWrapperInfoFacet.initialize` sets **nine** names, not the six first
+reported: `key`, `displayname`, `type`, `source`, `info` and `visibleto` on `CDOMObject`,
+`desc` and `benefit` on `PObject`, and `outputname` on seventeen concrete classes one at
+a time. `type` is overridden for `Equipment`.
+
+Two facts came out of writing it that the survey did not have. Lookup walks up the
+superclass chain and stops at `Object`, which is why `outputname` is registered
+seventeen times and `key` once. And this half **fails loudly** — an unregistered property
+throws a `TemplateModelException` naming the type and the key, where a missing output
+token substitutes an empty string and an unknown JEP name reads as zero. Of the three
+vocabularies a sheet touches, only this one says you were wrong.
 
 **The fact that earns the section** is the pairing, not the list. Six fixed keys sit
 beside an open set that data grows on its own: `FactDefinition` and
@@ -56,7 +65,7 @@ enumerated once and stay true.
 
 Home: a section in `output-and-saving.md`, before `## Where sheets live`.
 
-### 2. Solver View, the variable debugger nobody knows ships — the data side
+### 2. Solver View, the variable debugger nobody knows ships — done 2026-08-23, `variables-and-formulas.md`
 
 Three classes in `pcgen/gui2/solverview/`, launched from `PCGenActionMap.java:303` under
 Tools, bound to Ctrl-F11. Zero handbook citations. It shows a variable's scope, the
@@ -70,10 +79,14 @@ and nothing at all about a `DEFINE:` or `BONUS:VAR` value. Putting it on
 confusion that page exists to prevent. A debugger is also a workflow, and that page is
 anatomy.
 
-So the procedure goes beside `MODIFY` on the data side, in
+So the procedure went beside `MODIFY` on the data side, in
 `lst/concepts/variables-and-formulas.md`, with the launch path stated — a reader who
 cannot find the menu item cannot use the tool. The newer-engine half of
 `formula-system.md` carries one pointer line.
+
+The section gives the five columns it shows — Modification Type, Modification, Resulting
+Value, Priority, Source — because reading Resulting Value down the table is the whole
+technique. It answers which modifier made the number wrong, not what the number is.
 
 This pairs with a fact the 2026-08-23 audit established: JEP fails silently to zero and
 has no inspector, while the newer engine ships one.

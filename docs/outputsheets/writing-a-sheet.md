@@ -118,7 +118,11 @@ A model is built from the character and handed to FreeMarker, keyed by the same
 `CharID` the [facets](../internals/facets.md) use. Its 23 top-level keys are listed in
 the [token index](token-index.md).
 
-Treat it as untested ground. The keys are real. Each is registered by the facet that owns
+What follows the dot on an object is a second and separate vocabulary, closed and
+registered in one place. [Output and saving](../internals/output-and-saving.md#what-a-template-may-ask-an-object-for)
+lists it, including the properties a `FACT:` adds by itself.
+
+Treat the top-level keys as untested ground. They are real. Each is registered by the facet that owns
 it, through `OutputDB.register` — see [adding a facet](../internals/facets.md#adding-a-facet).
 Nothing PCGen ships reads them, so there are no working examples to copy, and no sheet
 would break if one changed.

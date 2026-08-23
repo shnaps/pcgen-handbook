@@ -103,6 +103,11 @@ command tests under `plugin/jepcommands/`, and three under `pcgen/core/term/`.
 
 ## PCGen-Formula, the newer engine
 
+This half has a debugger. **Tools > Solver View** lists every modifier applied to one
+variable and the value after each step, launched from `PCGenActionMap.java:303`. It reads
+this engine only — [variables and formulas](../lst/concepts/variables-and-formulas.md)
+covers using it.
+
 ### Two modules
 
 `settings.gradle` is three lines, and two of them are this:

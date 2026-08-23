@@ -120,6 +120,62 @@ Six custom directives and functions bridge back to the old world:
 `pcstring` matters most. It means a FreeMarker sheet can call any legacy token, so the
 old system is not going away while sheets still use it.
 
+## What a template may ask an object for
+
+The data model's 23 top-level keys hand back objects. An object then answers a second
+vocabulary, and it is a different mechanism: the part after the dot in
+`${skill.keyname}`.
+
+That vocabulary is closed, and one method sets it.
+`CDOMWrapperInfoFacet.initialize` registers an `OutputActor` under a class and a name:
+
+| Property | Registered on | Gives |
+|---|---|---|
+| `key` | `CDOMObject` | the object's key |
+| `displayname` | `CDOMObject` | the name as written |
+| `outputname` | 17 named classes | the name after output formatting |
+| `type` | `CDOMObject`, overridden for `Equipment` | its types |
+| `source` | `CDOMObject` | a nested model of the source it came from |
+| `info` | `CDOMObject` | a nested model of its info fields |
+| `visibleto` | `CDOMObject` | its visibility, queried by view |
+| `desc`, `benefit` | `PObject` | the description and the benefit text |
+
+`outputname` is registered on seventeen concrete classes one at a time while `key` is
+registered once, because lookup walks up the superclass chain. `getActor` tries the
+object's own class, then its parent, and stops at `Object`.
+
+### Data grows the set
+
+`FACT:` and `FACTSET:` add properties without any Java. Loading either definition calls
+`activateOutput`, which registers an actor under the fact name lowercased, on the class
+the fact applies to. A game mode that defines `FACT:Region` gives every template
+`${obj.region}`.
+
+The name is not namespaced, so it can collide with a fixed property or an earlier fact.
+A collision is **not merged**. The second registration is refused and the fact is dropped
+from output with an error print, while the rest of the definition loads normally.
+
+*Source: [`FactDefinition.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/content/fact/FactDefinition.java)*
+
+### This half fails loudly
+
+Ask for a property nothing registered and `CDOMObjectModel.proc` throws a
+`TemplateModelException` naming both the type and the key. Export stops.
+
+That is worth knowing because the other two paths do the opposite. A missing output token
+substitutes an empty string, and an unknown name in a
+[JEP formula](formula-system.md) reads as zero. Of the three vocabularies a sheet touches,
+only this one tells you that you were wrong.
+
+### Adding one in Java
+
+Write an `OutputActor<T>` in `pcgen/output/actor/` — 16 classes, each a single `process`
+method returning a `TemplateModel` — then register it in `CDOMWrapperInfoFacet`.
+`pcgen/output/` is 42 classes across `actor`, `base`, `wrapper`, `factory` and `publish`.
+Its tests are in `code/src/itest/`.
+
+*Source: [`CDOMWrapperInfoFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/CDOMWrapperInfoFacet.java)*
+
 ## Where sheets live
 
 `outputsheets/` is organised by game mode, then output type:

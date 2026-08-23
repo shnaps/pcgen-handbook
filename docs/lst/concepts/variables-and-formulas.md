@@ -112,6 +112,30 @@ can name a variable.
 Shipped data uses `MODIFYOTHER` with movement modes as the grouping, which is how
 movement gets adjusted across a set of modes at once.
 
+## Seeing what a variable resolved to
+
+PCGen ships a debugger for this system and does not advertise it. Open **Tools > Solver
+View**, or press Ctrl-F11, with a character loaded.
+
+Pick a scope from the chooser, type a variable name, and it lists every modifier that
+touched that variable, in the order they were applied:
+
+| Column | Shows |
+|---|---|
+| Modification Type | the kind of modifier |
+| Modification | what it did |
+| Resulting Value | the value after that step |
+| Priority | where [`PRIORITY`](#priority) put it |
+| Source | the object the modifier came from |
+
+This answers the question a `MODIFY` bug actually raises, which is not what the value is
+but which modifier made it that. Reading the Resulting Value column down the table shows
+where a number went wrong.
+
+It covers this system only. Solver View reads the newer engine, so a variable declared
+with `DEFINE` and fed by `BONUS:VAR` does not appear here at all. Those have no inspector
+— see [declaring a variable](declaring-variables.md).
+
 ## Where the tags are legal
 
 Both apply to objects that hold variables. In the [tag index](../reference/tag-index.md)

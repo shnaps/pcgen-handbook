@@ -1092,3 +1092,46 @@ What went in is the useful residue — `ui-layer.md` now says tab tables render 
 **Method note.** Every number in the survey was re-measured before it reached the backlog,
 including the ones nobody disputed. Two of the reviewers' own claims did not survive that:
 one in this round, one in the audit earlier the same day.
+
+## 2026-08-23  writing the two survey items
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No new pages.
+- Two sections, one pointer line each, on pages that already owned the ground.
+
+**The property vocabulary.** `output-and-saving.md` now covers what may follow the dot on
+an object, which is the gap a sheet author hits immediately after the top-level keys.
+
+The survey and the reviewer both said six fixed keys. Measuring
+`CDOMWrapperInfoFacet.initialize` while writing gave **nine**: `key`, `displayname`,
+`type`, `source`, `info` and `visibleto` on `CDOMObject`, `desc` and `benefit` on
+`PObject`, and `outputname` on seventeen concrete classes. The reviewer had cited a line
+range that stopped three lines short. That is the fourth number this week that was right
+in shape and wrong in value, and the only reason it did not ship is that the rule says
+measure before writing, not after reviewing.
+
+Writing it also turned up two facts nobody had. `getActor` walks up the superclass chain
+and stops at `Object`, which explains the asymmetry — `outputname` registered seventeen
+times, `key` once. And `CDOMObjectModel.proc` throws a `TemplateModelException` naming the
+type and the key when nothing is registered.
+
+**That last one is the fact the section is built around.** A sheet touches three
+vocabularies and they fail three different ways. A missing output token substitutes an
+empty string. An unknown JEP name reads as zero. An unregistered property stops the export
+and says what was wrong. Three subsystems, three answers to the same mistake, and only one
+of them tells the truth. The page says so.
+
+**Solver View.** `variables-and-formulas.md` now has the procedure, with the menu path and
+Ctrl-F11, because a tool nobody can find is not documented. The section gives the five
+columns — Modification Type, Modification, Resulting Value, Priority, Source — since
+reading Resulting Value down the table is the technique. It answers which modifier made
+the number wrong rather than what the number is.
+
+It closes with what it cannot do. A `DEFINE`-declared variable fed by `BONUS:VAR` never
+appears, because the debugger reads the newer engine only. Pairing the tool with its blind
+spot is the point: the engine 99.7% of shipped data runs on has no inspector at all.
+
+`formula-system.md` carries one pointer line in its newer-engine half. The procedure is
+not there, for the reason the cross-review established — that page is anatomy, and putting
+a `MODIFY` debugger beside the JEP section would undo the separation the page opens with.
+
+**Nothing is open.**
