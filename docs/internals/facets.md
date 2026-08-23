@@ -73,6 +73,45 @@ and reports removal only when the last source goes away.
 
 That is what stops a character losing a language they still have another reason to know.
 
+### The other ten
+
+The fourteen form a tree, and the split that matters is one level up.
+`AbstractStorageFacet` stores. `AbstractDataFacet` extends it and adds the event
+broadcast. **A facet that does not extend `AbstractDataFacet` cannot be listened to.**
+
+| Base | Extends | Holds |
+|---|---|---|
+| `AbstractStorageFacet` | — | the root. Cache access, and nothing else |
+| `AbstractDataFacet` | storage | the root of everything that fires events |
+| `AbstractSingleSourceListFacet` | data | several values, each with exactly one source |
+| `AbstractItemConvertingFacet` | data | several values, converted on the way in |
+| `AbstractCNASEnforcingFacet` | data | ability selections, with their own ordering rules |
+| `AbstractScopeFacet` | storage | values keyed by a scope as well as an id |
+| `AbstractAssociationFacet` | scope | one association per source |
+| `AbstractSubScopeFacet` | storage | the same, two scopes deep |
+| `AbstractSubAssociationFacet` | scope | one association, two scopes deep |
+| `AbstractScopeFacetConsolidator` | list | flattens a scoped facet into a plain list |
+
+The difference between `AbstractSourcedListFacet` and `AbstractSingleSourceListFacet` is
+the one to get right. Both track where a value came from. The single-source version
+assumes one owner and replaces it. The sourced version keeps a set, and that is what
+makes the removal behaviour above work.
+
+## Adding a facet
+
+Four things, in order:
+
+1. **Pick the base by how the value is held**, not by what it means. One or none, a
+   list, a list with sources, a list gated by prerequisites.
+2. **Implement `copyContents(source, copy)`.** It is the one abstract method on
+   `AbstractStorageFacet`. Copying a character calls it, and the contract is a deep
+   copy — after it returns, changing one character must not touch the other.
+3. **Register it with Spring**, so `FacetLibrary` finds a bean rather than falling back
+   to reflection and logging an error.
+4. **Wire the listeners** in `FacetInitialization`, by hand, alongside the other fifty.
+
+*Source: [`AbstractStorageFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/base/AbstractStorageFacet.java)*
+
 ## Getting a facet
 
 ```java
@@ -99,6 +138,27 @@ raceFacet.addDataFacetChangeListener(charObjectFacet);
 
 Around fifty facets are fetched and connected there by hand. Reading that method is the
 fastest way to see the dependency graph.
+
+### The order events arrive in
+
+Listeners are held in a `TreeMap` keyed by an integer priority, so priorities fire in
+ascending order. Within one priority, listeners fire in the order they registered — the
+list is built by prepending and read back to front.
+
+Almost everything uses the default priority of zero. Four places do not, and they are
+the ordering rules of the character model stated in code:
+
+| Priority | Facet | Why it waits |
+|---|---|---|
+| 1 | `NaturalEquipSetFacet` | after natural weapons exist |
+| 1000 | `BonusActiviationFacet` | after the granting facets have run |
+| 2000 | `MovementResultFacet` | after bonuses are active |
+| 5000 | `CalcBonusFacet` | last, once everything else settled |
+
+A new listener at the default priority runs before all four. If it depends on bonuses
+being active, it needs a number above 1000.
+
+*Source: [`AbstractDataFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/base/AbstractDataFacet.java)*
 
 The event contract is two methods and two constants:
 

@@ -585,3 +585,35 @@ than restating either, since `keys-and-names.md` owns duplicate resolution.
 now goes to the owner. And the citation to `LanguageBundle.properties` failed
 `lint_wiki.py` because the sparse clone stopped at `code/src/java`. Widened it with
 `git sparse-checkout add code/src/resources` rather than dropping the citation.
+
+## 2026-08-22  facets, past the concept
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Backlog item 6.
+- No new page. `internals/facets.md` extended, 885 words to 1,356.
+
+A second facets page would have been the duplication `WIKI-SCHEMA.md` forbids, so the
+three named gaps were filled in place.
+
+**The fourteen bases are a tree, and one edge decides everything.**
+`AbstractStorageFacet` stores; `AbstractDataFacet` extends it and adds the event
+broadcast. A facet that does not extend `AbstractDataFacet` cannot be listened to. The
+page now names all fourteen with what each holds, and calls out the pair most easily
+confused: `AbstractSourcedListFacet` keeps a set of sources, `AbstractSingleSourceListFacet`
+assumes one owner and replaces it. The first is what makes the shared-language behaviour
+already on the page work.
+
+**Event order is deterministic and documented in code, not in docs.** Listeners live in a
+`TreeMap` keyed by an integer priority, so priorities fire ascending. Within one priority
+they fire in registration order — the array is built by prepending and read back to
+front, which cancels out.
+
+Four registrations use a non-zero priority, and together they are the character model's
+ordering rules: `NaturalEquipSetFacet` at 1, `BonusActiviationFacet` at 1000,
+`MovementResultFacet` at 2000, `CalcBonusFacet` at 5000. Everything else defaults to zero
+and therefore runs before all four. That is the fact a developer adding a listener needs
+and could not get from the old page.
+
+**Adding a facet is four steps.** Pick the base by how the value is held, implement
+`copyContents` — the one abstract method, contract is a deep copy — register with Spring
+so `FacetLibrary` does not fall back to reflection, then wire listeners by hand in
+`FacetInitialization`.

@@ -85,7 +85,7 @@ broken sets in `data/zen_test/pcgen_broken_tests/`. Replaces the invented sympto
 `when-it-breaks.md` with real ones rather than becoming a separate page.
 `internals/testing.md` is 553 words, the shortest internals page.
 
-### 6. Facets, past the concept
+### 6. Facets, past the concept — done 2026-08-22, `internals/facets.md` extended
 
 `cdom/facet/` is 248 classes and 34,187 lines across **18 commits since 2023**, twelve of
 them since 2025. `internals/facets.md` is 885 words: it gives 4 of 14 base classes and the
