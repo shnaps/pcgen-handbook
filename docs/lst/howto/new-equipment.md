@@ -40,7 +40,7 @@ At this point the item exists and can be bought.
 ## 3. A weapon
 
 ```
-Sample Blade	TYPE:Weapon.Melee.Martial	DAMAGE:1d8	CRITMULT:x2	CRITRANGE:2	WIELD:OneHanded	COST:20	WT:4
+Sample Blade	TYPE:Weapon.Melee.Martial	DAMAGE:1d8	CRITMULT:x2	CRITRANGE:2	WIELD:OneHanded	COST:15	WT:4
 ```
 
 | Tag | Note |
@@ -70,8 +70,12 @@ Point several items at one proficiency to group them.
 ## 5. Armour
 
 ```
-Sample Mail	TYPE:Armor.Medium	ACCHECK:-4	MAXDEX:3	SPELLFAILURE:25	COST:150	WT:30	PROFICIENCY:ARMOR|Medium
+Sample Mail	TYPE:Armor.Medium	ACCHECK:-4	MAXDEX:3	SPELLFAILURE:25	COST:150	WT:30	PROFICIENCY:ARMOR|Sample Mail
 ```
+
+`PROFICIENCY:ARMOR` names an `ArmorProf` object, not an armour category. Create one the
+way step 4 creates a weapon proficiency. Shipped armour profs are per item — `Padded`,
+`Hide` — so `Medium` is not a name you can point at.
 
 `ACCHECK` is written **negative**. A positive number gives a bonus.
 
@@ -83,7 +87,7 @@ The AC bonus comes from a `BONUS`, not from a dedicated tag.
 Sample Pack	TYPE:Gear.Container	CONTAINS:50|Gear	COST:2	WT:2
 ```
 
-`CONTAINS` sets the capacity and what may go in.
+`CONTAINS` sets a **weight** capacity and what may go in, not a number of items.
 
 ## 7. Variants without repetition
 

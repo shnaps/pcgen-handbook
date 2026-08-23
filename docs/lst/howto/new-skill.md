@@ -39,7 +39,7 @@ Sample Athletics	KEYSTAT:STR	USEUNTRAINED:YES	ACHECK:YES	TYPE:General
 that does not exist is reported after loading, not on the line, so an error naming a
 stat usually means a typo here.
 
-`ACHECK` has five values and `YES` is right almost every time — 253 of the 262 uses in
+`ACHECK` has five values and `YES` is right almost every time — 242 of the 251 uses in
 shipped data. [Skill files](../files/skill.md) lists all five.
 
 ## Trained-only and exclusive skills
@@ -87,7 +87,7 @@ usual choice, because a class is where someone looks to see what it can do.
 # my_skills.lst - example skills
 # Invented content. Nothing from a published book.
 
-Sample Skill	KEYSTAT:INT	USEUNTRAINED:YES	ACHECK:NONE	TYPE:General	DESC:An example skill.
+Sample Skill	KEYSTAT:INT	USEUNTRAINED:YES	ACHECK:YES	TYPE:General	DESC:An example skill.
 Sample Athletics	KEYSTAT:STR	USEUNTRAINED:YES	ACHECK:YES	TYPE:General	DESC:An example skill affected by armour.
 Sample Craft	KEYSTAT:INT	USEUNTRAINED:NO	ACHECK:NONE	EXCLUSIVE:YES	TYPE:General.Craft	DESC:An example trained-only skill.
 ```

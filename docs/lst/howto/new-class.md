@@ -92,10 +92,10 @@ with level.
 
 ## Spellcasting
 
-A caster needs the stat, the list, and per-level counts:
+A caster needs the stat, a spell type, and per-level counts:
 
 ```
-CLASS:Sample Caster	HD:6	TYPE:Base	SPELLSTAT:INT	SPELLLIST:1|Sample List
+CLASS:Sample Caster	HD:6	TYPE:Base	SPELLSTAT:INT	MEMORIZE:YES	FACT:SpellType|Arcane
 1	CAST:1,0
 2	CAST:2,1
 ```
@@ -104,6 +104,10 @@ CLASS:Sample Caster	HD:6	TYPE:Base	SPELLSTAT:INT	SPELLLIST:1|Sample List
 takes the same shape for spells known.
 
 `MEMORIZE:YES` for prepared casters, `NO` for spontaneous.
+
+Do not reach for `SPELLLIST` here. It does not declare a class's own list — it picks
+from another class's, and its argument must name a class that already exists. A class
+casts from its own list without it.
 
 ## The finished file
 
@@ -151,7 +155,7 @@ uses — but the classes that need it need it badly.
 | No skill points | `STARTSKILLPTS` missing |
 | Skills not class skills | `CSKILL` missing, or names do not resolve |
 | Feature never appears | granted on a level the character has not reached |
-| Spells not castable | `SPELLSTAT` or `SPELLLIST` missing |
+| Spells not castable | `SPELLSTAT` or `FACT:SpellType` missing |
 
 ## Related
 

@@ -33,7 +33,7 @@ Sample Folk	RACETYPE:Humanoid	SIZE:M	MOVE:Walk,30	TYPE:Base	BONUS:STAT|INT|2	BON
 
 One `BONUS:STAT` per stat. Negative values need no special syntax.
 
-This is the most common tag in shipped data by a wide margin — about 29,500 uses.
+`BONUS:STAT` is one of the most-used constructs in shipped data, at 31,969 uses.
 
 ## 3. Languages
 
@@ -70,8 +70,9 @@ ABILITY:FEAT|AUTOMATIC|Sample Feat
 | `AUTOMATIC` | granted, not chosen, and costs nothing |
 | `Sample Feat` | what to grant |
 
-`VIRTUAL` instead of `AUTOMATIC` grants it without it counting as possessed for
-prerequisites.
+`VIRTUAL` instead of `AUTOMATIC` grants it without checking the ability's own
+prerequisites. The character still possesses it, and it still satisfies a `PREABILITY`
+elsewhere.
 
 To let the reader choose instead:
 

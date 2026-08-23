@@ -58,7 +58,9 @@ resolves to nothing and the bonus quietly does nothing.
 | `YES` | `NO` | repeatable, each taking must pick something different |
 | `YES` | `YES` | repeatable, and the effects add up |
 
-`MULT:YES` with no `CHOOSE` is usually a mistake — repeated takings would be identical.
+`MULT:YES` needs a `CHOOSE`. Granting one without it throws — `AbilitySelection with
+MULT:YES Ability … must have choices`. When the point is to stack rather than to choose,
+write `CHOOSE:NOCHOICE`, which is what PCGen's own generated feat template does.
 
 *Source: [`MultToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/ability/MultToken.java), [`StackToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/ability/StackToken.java)*
 
@@ -94,7 +96,7 @@ The key is written bare in the reference. There is no prefix.
 *Source: [`KeyLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/KeyLst.java)*
 
 !!! tip "Setting a key is normal practice, not an edge case"
-    `KEY` appears about **71,500 times across 1,296 files** in PCGen's shipped data.
+    `KEY` appears **74,678 times across 1,299 files** in PCGen's shipped data.
     Real data sets set keys routinely rather than relying on display names.
 
     A common convention is to encode the distinguishing part into the key, so related
@@ -120,7 +122,7 @@ There are 129 `PRExxx` tags, and they behave the same way wherever they appear. 
 
 Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a small bonus to Climb.	BONUS:SKILL|Climb|2
 Sample Focus	CATEGORY:FEAT	KEY:SampleFocus_Basic	TYPE:General	MULT:YES	STACK:NO	CHOOSE:SKILL|ALL	DESC:Grants a bonus to one chosen skill.	BONUS:SKILL|%LIST|2
-Sample Toughness	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:YES	DESC:Grants extra hit points.	BONUS:HP|CURRENTMAX|3
+Sample Toughness	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:YES	CHOOSE:NOCHOICE	DESC:Grants extra hit points.	BONUS:HP|CURRENTMAX|3
 ```
 
 ## Check it worked
@@ -136,7 +138,7 @@ Sample Toughness	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:YES	DESC:Grants extra
 | Symptom | Cause |
 |---|---|
 | Feat missing entirely | `CATEGORY:FEAT` missing, or the PCC line still commented out |
-| Feat exists but not in the normal list | `TYPE:General` missing |
+| Feat exists but not in the normal list | `CATEGORY:FEAT` missing, so it is not a feat |
 | No prompt to choose | `CHOOSE:` missing or malformed |
 | Chooses, but the bonus does nothing | `%LIST` used with no `CHOOSE` on the same line |
 | Cannot take it a second time | `MULT:YES` missing |
