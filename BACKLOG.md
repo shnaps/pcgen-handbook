@@ -8,19 +8,76 @@ not estimated.
 
 ## Where the handbook stands
 
-57 pages, after a two-reviewer structural audit on 2026-08-22 cut one and merged five
-sections into the page that owns them.
+**66 pages.** The generated [tag index](docs/lst/reference/tag-index.md) covers all 706
+tags. What is missing is explanation for the long tail.
 
-The generated [tag index](docs/lst/reference/tag-index.md) covers all 706 tags. What is
-missing is explanation for the long tail, and whole subsystems with one page or none.
-
-`docs/internals/` is 17 pages — larger than every other section combined. Its gaps were
-specific, not general, and were ranked below alongside the data-side gaps rather than in
-a list of their own.
+`docs/internals/` is 18 pages — larger than every other section combined.
 
 **All thirteen ranked items are done, 2026-08-22.** Nine became pages, four were folded
-into pages that already owned the ground. What follows is the record of what was decided
-and why, not a queue.
+into pages that already owned the ground. That section below is the record of what was
+decided and why, not a queue.
+
+A three-reviewer verification pass on 2026-08-22 then found eleven errors in the new
+pages and opened the queue again. What is still open is at the top.
+
+## Open
+
+From the three-reviewer verification pass, 2026-08-22. Ranked.
+
+### 1. The JEP formula engine — EXTEND `internals/formula-system.md`
+
+**The handbook documents the formula engine the data barely uses and not the one it runs
+on.** `formula-system.md` is 730 words entirely about `PCGen-Formula` and `MODIFY`, with
+zero mentions of JEP, PJEP, `jepcommands` or `core/term`. `overview.md` points at it for
+JEP. Every `DEFINE:X|0` and `BONUS:VAR` — 37,076 and 83,023 uses — evaluates through PJEP.
+
+Churn 7 commits since 2023. Tests 0.
+
+Scope, as the cross-review settled it:
+
+- Extend, but replace the opening. As it stands the page opens on Gradle subprojects, so
+  appending JEP staples two topics together. Open on the fork instead: two engines, and
+  which one runs is decided when the tag is parsed.
+- **Include** the 14 functions in `plugin/jepcommands/`. A closed set, plugin-registered
+  at `PJEP.java:84-91`, and it answers "what can I write".
+- **Do not** table the 95 terms. `TermEvaluatorBuilderPCVar` declares 80 and
+  `TermEvaluatorBuilderEQVar` 15. Give the mechanism — `EvaluatorFactory` builds two
+  vocabularies, PC and EQ, from regex enums — plus six or eight representative terms and
+  a pointer. A 95-row table is transcription, rejected on the same ground as the 150 tag
+  pages below.
+- The fact a data author needs: the vocabulary inside a `BONUS:` value is closed and
+  matched by regex, so a name that is not in it is not an error, it is a variable.
+- The fact a code changer needs: a new function is a `PCGenCommand` in
+  `plugin/jepcommands/`, a new term is an enum constant plus a `TermEvaluator` class in
+  `pcgen/core/term/`, and `PJEP.java:99` adds `cl` outside both.
+
+### 2. Where facades are implemented — EXTEND `internals/ui-layer.md`
+
+`pcgen/gui2/facade/` is 30 classes, 9 commits, 1 test, and zero handbook citations.
+`CharacterFacadeImpl` is 4,097 lines. `ui-layer.md` names the 33 interfaces and counts the
+package in its leak table, but never says this is where you edit to add a facade method.
+Two sentences.
+
+### 3. The LST converter — EXTEND `internals/adding-a-tag.md`
+
+`pcgen/gui2/converter/` 9 classes plus `plugin/converter/` 28, 10 commits, 0 tests, zero
+citations. `adding-a-tag.md` says deprecation means moving the class to `deprecated/`. It
+omits that a `ConvertPlugin` can rewrite the data instead. One paragraph.
+
+### 4. `load-pipeline.md` hides two dispatchers
+
+Its table labels all 653 `plugin/lsttokens` files "data and game mode tags" in one row.
+The count is right. Game mode tokens use a different registry, which
+[adding a tag](docs/internals/adding-a-tag.md) now explains. One row, split in two.
+
+### Corrections owed to this file
+
+- The `data/zen_test/` row below promises "small complete data sets, and broken ones". The
+  broken subset is five files under `pcgen_test_advanced/pcgen_broken_tests/`, most of
+  them commented out, covering two narrow cases. Verified 2026-08-22.
+- The `docs/listfilepages/lstfileclass/` row is safe for topic ordering only. `FEAT:`
+  appears in 9 of its 25 lessons and `VFEAT` in 6, against `ABILITY:` in 6. Never take
+  syntax from it.
 
 ## Ranked, after two cross-reviews
 
@@ -29,9 +86,11 @@ seat of a developer changing the Java — then attacked each other's verdicts an
 defend or concede each with evidence. Second pass on 2026-08-22, after the first pass's
 internals ranking was found to rest on a broken measurement. This order is what survived.
 
-Counts are measured at commit `d262f8b4`. Data usage counts exclude comments and split
-fields on tabs across 7,028 `.lst` and `.pcc` files. Churn is commits, not file-touches —
-the distinction that invalidated the first pass.
+Counts are measured at commit `d262f8b4`, by the method now pinned in `WIKI-SCHEMA.md`.
+Churn is commits, not file-touches — the distinction that invalidated the first pass.
+
+Some figures quoted in this section predate that method and were restated on the pages
+themselves. The pages are correct; treat this section as the reasoning, not the numbers.
 
 ### 1. `TYPE` — written 2026-08-22, `lst/concepts/types.md`
 
