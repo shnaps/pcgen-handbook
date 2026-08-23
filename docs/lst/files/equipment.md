@@ -18,7 +18,7 @@ Sample Gear	TYPE:Gear	COST:5	WT:1
 
 A name, what kind of thing it is, what it costs, what it weighs.
 
-`COST` and `WT` appear on nearly every item — about 44,000 and 29,500 uses in shipped
+`COST` and `WT` appear on nearly every item — 45,469 and 29,954 uses in shipped
 data.
 
 ## TYPE decides everything

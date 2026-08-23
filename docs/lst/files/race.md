@@ -7,7 +7,7 @@ title: Race files
 A race file defines what a character *is* — size, movement, type, and whatever the race
 grants. Loaded by `RACE:` in a [PCC](pcc.md).
 
-Races have 22 tags of their own plus the global set. Most of a race's interesting
+Races have 23 tags of their own plus the global set. Most of a race's interesting
 behaviour comes from global tags such as `BONUS`, `AUTO` and `ADD`, not from
 race-specific ones.
 
@@ -40,14 +40,14 @@ What it is, how big, how fast.
 | `WEAPONBONUS` | a weapon list | weapons the race is treated as proficient with |
 | `MONSTERCLASS` | class and levels | monster class levels the race starts with |
 | `MONCSKILL`, `MONCCSKILL` | skill lists | class and cross-class skills for monster levels |
-| `MONNONSKILLHD` | a formula | hit dice granting no skill points |
+| `FACE` | two numbers | the space the race occupies |
 | `SKILLMULT` | a number | multiplier on skill points |
 | `XTRASKILLPTSPERLVL` | a number | extra skill points per level |
 | `ROLE` | text | intended role, for display |
 
 *Source: [`plugin/lsttokens/race/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/race)*
 
-Two are deprecated: `CHOOSE` and `FEAT`.
+`FEAT` is deprecated on a race. So is `CHOOSE:LANGAUTO`, but only that form — plain `CHOOSE` is current.
 
 ### MOVE
 
@@ -62,8 +62,8 @@ The mode name comes from the game mode, so which modes exist depends on it.
 
 ### SIZE
 
-A size code such as `M` or `L`. It also accepts a formula, which is how races that
-size themselves from something else are written.
+A size code such as `M` or `L`, and nothing else. The value must resolve to a size that
+already exists, so a formula here fails to load.
 
 ### LEVELADJUSTMENT
 
@@ -113,8 +113,9 @@ oddly wherever something filters by type — which is a lot of places.
 **`SIZE` affects more than it looks.** Reach, carrying capacity, weapon sizing and
 several bonuses key off it. Changing size on an existing race has wide effects.
 
-**`MOVE` replaces rather than adds.** Writing it twice does not give two movement
-modes. Put every mode in one tag, comma separated.
+**`MOVE` adds rather than replaces.** It appends to a list with no clear, so writing it
+twice leaves both sets in place. That is convenient when you mean it and a silent
+duplicate when you do not.
 
 **`LEVELADJUSTMENT` is easy to overspend.** It applies to everything keyed to effective
 level, so a small number is a large change.

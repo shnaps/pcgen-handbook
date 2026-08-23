@@ -40,7 +40,7 @@ here.
 | `TYPE` | where it sits in the source tree. **Maximum three levels**, separated by `.` |
 | `RANK` | sort order among sources. A number. |
 | `BOOKTYPE` | free-text classification, such as `Homebrew` or `Core Rulebook` |
-| `SHOWINMENU` | whether it appears in the source list. Takes `YES`. |
+| `SHOWINMENU` | whether it appears in the source list. Takes `YES` or `NO`. |
 | `SETTING`, `GENRE` | descriptive grouping |
 | `SOURCELONG`, `SOURCESHORT`, `SOURCEWEB`, `SOURCEDATE` | where the material came from |
 | `PUBNAMELONG`, `PUBNAMESHORT`, `PUBNAMEWEB` | publisher |
@@ -108,7 +108,7 @@ Paths are relative to the PCC's own folder by default.
 | `my_skills.lst` | same folder as the PCC |
 | `sub/my_skills.lst` | a subfolder |
 | `*/_universal/races.lst` | relative to the **data root**, not this folder |
-| `@/some/path.lst` | relative to the PCGen install root |
+| `@/some/path.lst` | relative to the data directory |
 
 The `*/` form is how shared data is reused across campaigns.
 

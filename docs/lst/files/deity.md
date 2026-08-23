@@ -27,7 +27,7 @@ Sample Deity	ALIGN:LG	DOMAINS:Sample Domain
 
 *Source: [`plugin/lsttokens/deity/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/deity)*
 
-`DOMAINS` and `DEITYWEAP` are the two you will use most, at about 2,100 and 1,100 uses
+`DOMAINS` and `DEITYWEAP` are the two you will use most, at 4,587 and 1,107 uses
 in shipped data.
 
 ## Descriptive fields use FACT
@@ -46,7 +46,7 @@ Everything descriptive moved to `FACT` and `FACTSET`.
 `FACT` holds one value. `FACTSET` holds several, which is why pantheon and race use it
 — a deity can belong to more than one.
 
-Shipped data uses `FACTSET:Pantheon` about 1,160 times and `FACT:Symbol` about 725
+Shipped data uses `FACTSET:Pantheon` 1,157 times and `FACT:Symbol` 741
 times. This is the normal way to write a deity now, not an edge case.
 
 These facts are declared in a data control file before use. PCGen ships declarations
