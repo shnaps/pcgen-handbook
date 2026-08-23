@@ -95,6 +95,7 @@ A separate system from the data files, with its own tags.
 
 | Page | What it covers |
 |---|---|
+| [Writing a character sheet](outputsheets/writing-a-sheet.md) | FreeMarker, and the four things a real sheet uses |
 | [Output token index](outputsheets/token-index.md) | All 154 output tokens, read from the source |
 | [Output and saving](internals/output-and-saving.md) | How a sheet is run, and the `.pcg` save format |
 

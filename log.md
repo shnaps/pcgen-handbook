@@ -617,3 +617,35 @@ and could not get from the old page.
 `copyContents` — the one abstract method, contract is a deep copy — register with Spring
 so `FacetLibrary` does not fall back to reflection, then wire listeners by hand in
 `FacetInitialization`.
+
+## 2026-08-22  writing a character sheet
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Backlog item 7.
+- New page `outputsheets/writing-a-sheet.md`. 62 pages.
+
+Only the author's half was missing. `internals/output-and-saving.md` already carried the
+engine choice, the token contract and the registration paths, so the code side needed
+nothing and the two halves did not need merging after all.
+
+**The measurement that shaped the page.** Across all 27 shipped FreeMarker sheets:
+6,988 `pcstring` calls, 1,531 `pcvar`/`pchasvar`, 878 `@loop`, 44 `pcboolean`, and
+**zero direct reads of the data model**.
+
+The first count of model use returned 39, all of them `checks`. Every one turned out to
+be a `<@loop>` index variable named `checks` interpolated into a legacy token string, not
+the model key of the same name. The real figure is zero.
+
+So the honest advice is that FreeMarker is only the templating layer. The vocabulary is
+still the 154 output tokens, and the 23 model keys are registered but have no working
+example behind them and no sheet that would break if one changed.
+
+**A claim I wrote and had to retract before committing.** The page said `pcvar` cannot
+read a variable no `DEFINE` declared. Wrong: `PCVarFunction` calls
+`getVariableValue(formula, "")`, the formula path, which is why `COUNT[CLASSES]-1` works
+at all.
+
+The real trap is the reverse and sharper. `pchasvar` calls `hasVariable`, which is
+`variableFacet.contains(VariableKey.valueOf(name))` — true only for a declared variable,
+and false for a built-in. So guarding a block with `pchasvar` can hide a value `pcvar`
+would have printed. Checking the class before committing turned a wrong sentence into the
+page's best gotcha.

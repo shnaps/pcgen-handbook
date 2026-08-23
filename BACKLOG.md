@@ -94,7 +94,7 @@ extension pattern in three lines. The largest subsystem-to-page ratio in the han
 Highest-ranked internals item. It sits below the data items because those cover facts no
 page owns at all, while this one deepens a page that exists and is correct.
 
-### 7. The output side, both halves
+### 7. The output side, both halves — written 2026-08-22, `outputsheets/writing-a-sheet.md`
 
 `docs/outputsheets/` holds only the generated index, which states it cannot give token
 arguments. Nothing covers the FreeMarker side from the author's end, and nothing covers

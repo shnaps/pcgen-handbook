@@ -103,6 +103,7 @@ nav:
           - lst/howto/report-a-bug.md
       - Tag index: lst/reference/tag-index.md
   - Character sheets:
+      - outputsheets/writing-a-sheet.md
       - outputsheets/token-index.md
   - Internals:
       - Getting oriented:
