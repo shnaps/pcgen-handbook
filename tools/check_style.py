@@ -1,7 +1,7 @@
 """Check handbook prose against the project style rules.
 
 Sentence length, banned filler, and the terminology rules from
-.claude/skills/pcgen-handbook-rules/. Code blocks, tables and generated pages are skipped.
+CLAUDE.md. Code blocks, tables and generated pages are skipped.
 
 Exit 1 on any banned word. Long sentences warn but do not fail.
 """
