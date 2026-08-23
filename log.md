@@ -750,3 +750,50 @@ slow tab is paid while the reader is looking at something else.
 That is also the constraint on adding a tab: expensive work belongs in `restoreModels`,
 where it is timed and feeds the ordering, and no character state may live in the tab's
 own fields.
+
+## 2026-08-22  kits, data set layout, and the end of the ranked list
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Backlog items 12 and 13.
+- New page `lst/files/kit.md`. Layout section merged into `lst/concepts/sources.md`.
+  66 pages. **All thirteen ranked items are done.**
+
+### Kits
+
+Bigger than the reviewers' demotion implied on the data side: **6,922 `STARTPACK` lines
+across 309 files**, and the owned lines run to 18,574 `SKILL`, 13,080 `ABILITY` and 8,793
+`GEAR`. The demotion still stands on its own reasoning, which was reader need rather than
+size, and the reviewers were right that the bulk is generated monster variants.
+
+**The structural fact is that a kit file is not one line per object.** `STARTPACK` opens a
+kit and every following line belongs to it until the next `STARTPACK`. A line put in the
+wrong place joins the kit above it and stays valid, so nothing warns.
+
+`APPLY` was worth checking rather than guessing. `PERMANENT` records the kit on the
+character and refuses a second application. `INSTANT` is not saved with the character and
+may be applied repeatedly.
+
+### Data set layout
+
+**The convention is thinner than the backlog claimed.** It called for "the `_` and `__`
+prefix convention" as though it were a system. Shipped data has four files using it —
+`__stats.lst`, `__align.lst`, `__saves.lst`, `__size.lst` — and three top-level
+directories, `_universal`, `_images` and `publisher_logos`. Nothing in the loader treats
+any of them specially.
+
+So the section says what is true: `data/<system>/<publisher>/<product>/`, twenty-three
+top-level directories, 34 publishers under `35e` alone, and most `.pcc` files four or five
+levels deep. The underscore is a sorting hint, not a mechanism, and the page says so
+rather than implying a rule.
+
+Merged into `sources.md`, which already owned discovery and load order, as the
+cross-review decided.
+
+### The ranked list is finished
+
+Nine items became pages. Four were folded into pages that already owned the ground —
+`when-it-breaks.md`, `facets.md`, `ui-layer.md` and `sources.md`. That ratio is worth
+noting: a third of a backlog written as "pages to add" was better served by extending
+what existed.
+
+Six of the thirteen carried a wrong number or a wrong scope, all caught by measuring
+before writing rather than by review afterwards.

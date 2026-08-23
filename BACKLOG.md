@@ -14,9 +14,13 @@ sections into the page that owns them.
 The generated [tag index](docs/lst/reference/tag-index.md) covers all 706 tags. What is
 missing is explanation for the long tail, and whole subsystems with one page or none.
 
-`docs/internals/` is 17 pages and 14,568 words — larger than every other section
-combined. Its gaps are specific, not general, and they are ranked below alongside the
-data-side gaps rather than in a list of their own.
+`docs/internals/` is 17 pages — larger than every other section combined. Its gaps were
+specific, not general, and were ranked below alongside the data-side gaps rather than in
+a list of their own.
+
+**All thirteen ranked items are done, 2026-08-22.** Nine became pages, four were folded
+into pages that already owned the ground. What follows is the record of what was decided
+and why, not a queue.
 
 ## Ranked, after two cross-reviews
 
@@ -127,7 +131,7 @@ layer is still where work lands, and `ui-layer.md:42` already records that nothi
 it is changing soon. The other conceded that a page documenting 39,442 moving lines is
 still wrong. A section is what survived both.
 
-### 12. Kit files
+### 12. Kit files — written 2026-08-22, `lst/files/kit.md`
 
 `plugin/lsttokens/kit/` has 49 classes and 47 tests, but **7 data commits since 2023
 across 314 `STARTPACK:` files**, and the files are dominated by machine-generated monster
@@ -137,7 +141,7 @@ substitute for them.
 Both reviewers demoted this from fourth independently. Class and test counts measure
 specification size, not reader need.
 
-### 13. How a data set is laid out
+### 13. How a data set is laid out — done 2026-08-22, merged into `lst/concepts/sources.md`
 
 The `_` and `__` prefix convention and the publisher directory shape. Two paragraphs
 merged into `lst/concepts/sources.md`, which already owns discovery and load order. Not a

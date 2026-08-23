@@ -68,6 +68,7 @@ How the file format actually works.
 | [Template](lst/files/template.md) | changes applied on top of a character |
 | [Equipment](lst/files/equipment.md) | weapons, armour and gear |
 | [Equipment modifiers](lst/files/equipment-modifier.md) | masterwork, materials, enchantments and charges |
+| [Kits](lst/files/kit.md) | a bundle applied in one step |
 | [Deity](lst/files/deity.md) | deities |
 | [Domain](lst/files/domain.md) | domains |
 | [Spell](lst/files/spell.md) | spells |

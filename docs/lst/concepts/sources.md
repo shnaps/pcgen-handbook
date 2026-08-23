@@ -30,6 +30,45 @@ The two extra roots exist so bought and homemade data survive a PCGen upgrade th
 replaces `data/`. Put your own work in `homebrewdata/`. See
 [setup](../../start/setup.md).
 
+## How a data set is laid out
+
+The tree under `data/` is a convention, not a rule the loader enforces. It follows the
+same three levels almost everywhere:
+
+```
+data/<system>/<publisher>/<product>/
+```
+
+Twenty-three directories sit at the top. Most name a system — `35e`, `3e`, `5e`,
+`pathfinder`, `modern`, `starfinder`. `35e` alone holds 34 publishers.
+
+Most `.pcc` files land four or five levels deep. A product directory holds its `.pcc` and
+the `.lst` files that `.pcc` loads.
+
+### Directories that start with an underscore
+
+Three at the top level are shared rather than owned by a publisher:
+
+| Directory | Holds |
+|---|---|
+| `_universal` | data any source may load, such as a common race list |
+| `_images` | artwork |
+| `publisher_logos` | logos, referenced by `.pcc` files |
+
+The underscore keeps them sorted to the top. Nothing in the loader treats them specially,
+so a source reaches them the same way it reaches anything else — by
+[path](#depending-on-another-source).
+
+A handful of `.lst` files use the same prefix inside a product directory, `__stats.lst`
+and `__align.lst` among them. It means the same thing there: read this first, it is the
+foundation the rest builds on. Four files in shipped data do it, so treat it as a hint
+and not a system.
+
+### `homebrew` and `customsources`
+
+Both exist at the top level for data that is not a published product. `homebrew` is where
+your own work goes if you keep it inside the install.
+
 ## Not every PCC is a source
 
 Parsing a `.pcc` makes a campaign object. It does not make an entry in the list.
