@@ -15,8 +15,8 @@ supports, and you never need to touch Java to do it.
 
 !!! warning "Unofficial"
     Not run by the PCGen project. Written against PCGen `6.09.08.RC1` on the `master`
-    branch. The last tagged release is from February 2023, and most people working on
-    PCGen now run a nightly build.
+    branch. The newest tagged release is `7.00.001` from February 2026, and most people
+    working on PCGen run a nightly build.
 
 ## Start here
 
@@ -90,7 +90,7 @@ How the file format actually works.
 
 | Page | What it covers |
 |---|---|
-| [Tag index](lst/reference/tag-index.md) | All 706 tags PCGen implements — 693 current, 23 deprecated |
+| [Tag index](lst/reference/tag-index.md) | Every tag PCGen implements — 693 current, and 23 deprecated ones left out |
 
 ## Character sheets
 
@@ -125,7 +125,7 @@ three in order.
 | [The token system](internals/token-system.md) | How every tag is a class, and why that matters |
 | [How a chooser resolves](internals/choosers.md) | `CHOOSE:` from string to list, primitives and qualifiers |
 | [Plugin loading](internals/plugin-loading.md) | Why adding a tag needs no registration |
-| [The formula system](internals/formula-system.md) | The two modules behind `MODIFY` |
+| [The formula system](internals/formula-system.md) | Both engines: JEP, which the data runs on, and `PCGen-Formula` behind `MODIFY` |
 
 **The model**
 

@@ -12,9 +12,9 @@ Get a build from [pcgen.org](https://pcgen.org) or from the
 [nightly builds](https://github.com/PCGen/pcgen/releases).
 
 !!! tip "Prefer a nightly"
-    The newest tagged release is from February 2023. Development continues on `master`,
-    so most people working on PCGen data run a nightly build. This handbook documents
-    `6.09.08.RC1`.
+    The newest tagged release is `7.00.001`, from February 2026. Development continues
+    on `master`, so most people working on PCGen data run a nightly build. This handbook
+    documents `6.09.08.RC1`.
 
 PCGen needs Java. Recent builds bundle it, so try running it before installing Java
 separately.

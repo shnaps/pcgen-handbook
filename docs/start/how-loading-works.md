@@ -36,14 +36,15 @@ belongs to, and **which data files to load**.
 ```
 CAMPAIGN:Testburg
 GAMEMODE:35e
-FEAT:my_feats.lst
+ABILITY:my_abilities.lst
 ```
 
 Each file-reference tag is a separate instruction, filed under the kind of data it
-points at. `FEAT:` says "this is a feats file". `SKILL:` says "this is a skills file".
+points at. `ABILITY:` says "this is an abilities file". `SKILL:` says "this is a skills
+file".
 
-A line that is commented out is not an instruction. That is the whole reason removing
-the `#` mattered.
+A line starting with `#` is a comment and not an instruction. Commenting a line out is
+how you narrow down a broken load.
 
 ### 3. Read the data files
 

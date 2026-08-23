@@ -47,7 +47,8 @@ Reading it left to right:
 | `BONUS:SKILL\|Climb\|2` | +2 to Climb while the character has this feat |
 
 `CATEGORY:` is what makes this a feat rather than some other kind of ability. Leave it
-out and PCGen loads the line but the feat never appears where you expect.
+out and the line is rejected outright, with `A Category is required for an Ability` in
+the log.
 
 Save the file.
 
@@ -55,14 +56,7 @@ Save the file.
 
 Writing the file is not enough. PCGen only reads files a `.pcc` names.
 
-Open `my__campaign.pcc`. Find the line naming the abilities file. It will be commented
-out, like most lines in the template:
-
-```
-#ABILITY:my_abilities.lst
-```
-
-Remove the `#`:
+Open `my__campaign.pcc` and find the line naming the abilities file:
 
 ```
 ABILITY:my_abilities.lst
@@ -70,8 +64,10 @@ ABILITY:my_abilities.lst
 
 <!-- src: code/src/java/plugin/lsttokens/campaign/AbilityToken.java -->
 
-That single character is the difference between a file PCGen loads and a file PCGen
-ignores. Most first attempts fail here.
+The shipped template already has this line live, along with the twenty other file tags
+around it, so there is nothing to uncomment. Check it is there and matches your file
+name. A `#` at the start of a line makes it a comment, and PCGen skips it. That is worth
+knowing before you start commenting lines out to narrow a problem down.
 
 While you are in the file, check `CAMPAIGN:` near the top. That name is what you will
 look for in PCGen's source list. Change it to something you will recognise:
@@ -106,8 +102,8 @@ Almost always one of these:
 | Symptom | Cause |
 |---|---|
 | Campaign not in the source list | PCGen did not find the `.pcc`, or rejected it |
-| Campaign loads, feat missing | The `ABILITY:` line is still commented out |
-| Campaign loads, feat still missing | `CATEGORY:FEAT` is missing from the line |
+| Campaign loads, feat missing | The `ABILITY:` line does not name your file |
+| Campaign loads, feat still missing | `CATEGORY:FEAT` is missing, so the line was rejected |
 | Error on load | A tag name is wrong, or fields are separated by spaces |
 | Feat appears, no bonus | `BONUS:` typo — check the `\|` characters |
 
@@ -119,8 +115,9 @@ at a time.
 
 ## About the old feat file
 
-Older tutorials, and the template files PCGen still ships, put feats in `my_feats.lst`
-and load them with `FEAT:` in the PCC. That still works, and PCGen will still load it.
+Older tutorials put feats in `my_feats.lst` and load them with `FEAT:` in the PCC. That
+still works, and PCGen will still load it. The shipped template does not do this — it
+names `my_feats.lst` with `ABILITY:`, and no `.pcc` in `data/` uses `FEAT:` at all.
 
 It is deprecated. PCGen's own message when it sees the tag says to use `ABILITY:` and
 put `CATEGORY:` entries in the data file instead. Its own test data does exactly that

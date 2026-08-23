@@ -24,23 +24,27 @@ window. That is the reliable way to read them.
 
 PCGen adds three levels of its own for data problems, on top of the usual ones:
 
-| Level | Means |
+| Level in the log | Means |
 |---|---|
-| `LST_ERROR` | the line failed. That data is not loaded. |
-| `LST_WARNING` | the line loaded, but something is wrong or deprecated |
-| `LST_INFO` | informational, usually safe to ignore |
+| `LSTERROR` | the line failed. That data is not loaded. |
+| `LSTWARN` | the line loaded, but something is wrong or deprecated |
+| `LSTINFO` | informational, usually safe to ignore |
+
+Search the log for those spellings. The Java constants are named `LST_ERROR`,
+`LST_WARNING` and `LST_INFO`, but the log writes the shorter names above. PCGen's own
+log window labels them Data Errors, Data Warnings and Data Info.
 
 Data loading logs at `LSTWARN` by default, so errors and warnings both appear without
 you changing anything.
 
-Deprecation notices arrive as warnings. They mean your data works today and will not
-forever — see [what changed](../appendix/whats-changed.md).
+Deprecation notices arrive as warnings, when the preference for them is on. They mean
+your data works today and will not forever — see [what changed](../appendix/whats-changed.md).
 
 *Source: [`Logging.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/util/Logging.java)*
 
 ## Turning up the detail
 
-Levels are set in `logging.properties` in the install folder. The `pcgen` and `plugin`
+Levels are set in `logging.properties`. PCGen looks beside `options.ini` first, then in the install folder. The `pcgen` and `plugin`
 entries control data loading.
 
 Raising the detail is worth it when a load succeeds but the result is wrong, because
@@ -68,13 +72,15 @@ the loader writes it, so it can be searched for.
 
 | Symptom | What the log says | Cause |
 |---|---|---|
-| Nothing loaded, no error | nothing | the PCC line is still commented out |
+| Nothing loaded, no error | nothing | the PCC does not name your file, or the line is commented out |
 | Campaign not in the source list | nothing | PCGen did not find the `.pcc`, or the game mode name is wrong |
+| A tag name is not recognised | `Illegal Token '<tag>'` | a misspelt tag, or one not legal on that line type |
 | One field rejected | `Invalid Token - does not contain a colon` | a stray word, or spaces where a tab belongs |
 | One field rejected | `Invalid Token - starts with a colon` | a missing tag name before the colon |
 | A line named with its number | `Error parsing file <file> line <n>` | the tag was found but its value would not parse |
 | A tag still works but complains | `<tag> deprecated. Tag was <text> in <object>` | the tag has a successor. See [what changed](../appendix/whats-changed.md) |
-| Object loads but does nothing | nothing | wrong [`TYPE`](../lst/concepts/types.md), or missing `CATEGORY` on an ability |
+| Object loads but does nothing | nothing | wrong [`TYPE`](../lst/concepts/types.md) |
+| An ability is missing entirely | `A Category is required for an Ability` | no `CATEGORY:` on the line, so it was rejected |
 | Reference not found | names a file you may not have edited | name mismatch, including a trailing space |
 | Worked yesterday, fails now | varies | you edited a file PCGen ships and an update replaced it |
 
