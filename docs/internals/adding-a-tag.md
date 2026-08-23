@@ -8,6 +8,12 @@ Writing a new LST tag is one class and one test. There is no registry to update.
 
 Read [the token system](token-system.md) first — this page assumes the interfaces.
 
+!!! warning "This page covers one of three contracts"
+    Everything below is the **CDOM token** contract, used by data tags and by the
+    object-scoped packages. Game mode tokens and `BONUS:` subtypes are different
+    classes with different method names and a different registry. See
+    [three contracts](#three-contracts) before you start on either.
+
 ## Before you start
 
 Most things do not need a new tag. `BONUS`, `ADD`, `CHOOSE` and the formula system
@@ -28,6 +34,27 @@ The package decides which jar the class lands in, and nothing else registers it.
 
 A class in the wrong package is not loaded, and nothing reports it. The tag is just
 unknown.
+
+### Three contracts
+
+The table above routes by package. Two of those destinations do not use the interfaces
+the rest of this page describes.
+
+| Writing | Extends or implements | Its methods | Found through |
+|---|---|---|---|
+| a data tag | `AbstractNonEmptyToken`, `CDOMPrimaryToken` | `parseNonEmptyToken`, `unparse`, `getTokenClass` | `TokenLibrary` |
+| a game mode tag | `GameModeLstToken` | `parse(GameMode, String, URI)` | `TokenStore` |
+| a `BONUS:` subtype | `BonusObj` | `parseToken`, `unparseToken`, `getBonusHandled` | `Bonus` |
+
+`plugin/lsttokens/gamemode/` holds 77 classes and `gamemode/codecontrol/` a further 43.
+`plugin/bonustokens/` holds 55. None of them has a `parseNonEmptyToken`.
+
+The game mode side is a separate registry, not a separate base class on the same one.
+`GameModeLoader` reads `TokenStore`, which `TokenLibrary` knows nothing about.
+
+*Source: [`GameModeLstToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/GameModeLstToken.java)*
+
+*Source: [`BonusObj.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/bonus/BonusObj.java)*
 
 ## 2. Pick a base class
 
@@ -61,14 +88,14 @@ public class ExampleToken extends AbstractNonEmptyToken<Skill>
     @Override
     protected ParseResult parseNonEmptyToken(LoadContext context, Skill skill, String value)
     {
-        context.getObjectContext().put(skill, ObjectKey.EXAMPLE, value);
+        context.getObjectContext().put(skill, StringKey.EXAMPLE, value);
         return ParseResult.SUCCESS;
     }
 
     @Override
     public String[] unparse(LoadContext context, Skill skill)
     {
-        String v = context.getObjectContext().getString(skill, ObjectKey.EXAMPLE);
+        String v = context.getObjectContext().getString(skill, StringKey.EXAMPLE);
         return v == null ? null : new String[]{v};
     }
 
@@ -80,7 +107,30 @@ public class ExampleToken extends AbstractNonEmptyToken<Skill>
 }
 ```
 
-Four things to get right:
+### The key does not exist yet
+
+`StringKey.EXAMPLE` in that example has to be declared before the class compiles.
+`StringKey` is an enum in `pcgen/cdom/enumeration/`, so declaring one means adding a word
+to the list.
+
+The key classes have different shapes, which matters when you copy an example:
+
+| Class | Shape | Holds |
+|---|---|---|
+| `StringKey` | an enum | a plain string |
+| `IntegerKey` | an enum | a number |
+| `ObjectKey` | `public static final` fields, typed | anything else |
+
+`getString` takes a `StringKey` and nothing else. Passing an `ObjectKey` does not
+compile, which is the mistake to expect when moving between the two.
+
+**Consider a `FACT:` instead.** `StringKey`'s own javadoc says a `FACT:` token is
+preferred over a new `StringKey` token. A fact is declared in data with `FACTDEF` and
+needs no Java at all. Reach for a new key only when the value has behaviour attached.
+
+*Source: [`StringKey.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/enumeration/StringKey.java)*
+
+## 4. Four things to get right
 
 1. **`getTokenName()` returns a literal.** The scanner in this repository, and anything
    else reading the tags, depends on it being readable without running the code.
@@ -90,7 +140,7 @@ Four things to get right:
    [the token system](token-system.md).
 4. **`unparse` returns `null` when nothing was set.** Not an empty array.
 
-## 4. Make failure useful
+## 5. Make failure useful
 
 The message in a `Fail` is what a data author sees in the log:
 
@@ -102,19 +152,41 @@ Name the tag and show the offending value. Most of the diagnosis in
 [when it breaks](../start/when-it-breaks.md) comes down to whether this message was
 written well.
 
-## 5. Write the test
+## 6. Write the test
 
-Mirror the package under `code/src/test/plugin/lsttokens/`, extend the matching base,
-and assert three things:
+Mirror the package under `code/src/test/plugin/lsttokens/` and extend the matching base.
 
-- valid input parses
-- the round trip reproduces the input exactly
-- invalid input fails, one case per way of being wrong
+**You write no `@Test` methods.** The bases carry them, including the round trip. What
+you write is overrides that tell the base what it is testing:
 
-The round trip is the important one, and it is what will catch an `unparse` that does
-not match the parse.
+```java
+public class ExampleTokenTest extends AbstractIntegerTokenTestCase<Race>
+{
+    static HandsToken token = new HandsToken();
+    static CDOMTokenLoader<Race> loader = new CDOMTokenLoader<>();
 
-## 6. Check the build knows the package
+    @Override
+    public Class<Race> getCDOMClass() { return Race.class; }
+
+    @Override
+    public CDOMLoader<Race> getLoader() { return loader; }
+
+    @Override
+    public CDOMPrimaryToken<Race> getToken() { return token; }
+}
+```
+
+`AbstractTokenTestCase` declares the hooks every test supplies: `getCDOMClass`,
+`getLoader`, `getToken`, `isCDOMEqual`, `getLegalValue`, `getAlternateLegalValue` and
+`getConsolidationRule`. A typed base such as `AbstractIntegerTokenTestCase` supplies most
+of them and asks for a key and a few flags instead.
+
+The round trip is the assertion that matters, and it is inherited. It catches an
+`unparse` that does not match the parse.
+
+*Source: [`HandsTokenTest.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/test/plugin/lsttokens/race/HandsTokenTest.java)*
+
+## 7. Check the build knows the package
 
 If you added a **new package** rather than a class in an existing one, add a jar task
 in `code/gradle/plugins.gradle`. `PluginBuildTest` fails when a package has no

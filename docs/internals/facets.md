@@ -99,18 +99,73 @@ makes the removal behaviour above work.
 
 ## Adding a facet
 
-Four things, in order:
+Worked example. A facet that stores one derived value and recomputes it when the race
+changes.
 
-1. **Pick the base by how the value is held**, not by what it means. One or none, a
-   list, a list with sources, a list gated by prerequisites.
-2. **Implement `copyContents(source, copy)`.** It is the one abstract method on
-   `AbstractStorageFacet`. Copying a character calls it, and the contract is a deep
-   copy — after it returns, changing one character must not touch the other.
-3. **Register it with Spring**, so `FacetLibrary` finds a bean rather than falling back
-   to reflection and logging an error.
-4. **Wire the listeners** in `FacetInitialization`, by hand, alongside the other fifty.
+**1. Pick the base by how the value is held**, not by what it means. One or none, a list,
+a list with sources, a list gated by prerequisites.
 
-*Source: [`AbstractStorageFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/base/AbstractStorageFacet.java)*
+```java
+public class SampleTerrainFacet extends AbstractItemFacet<CharID, String>
+        implements DataFacetChangeListener<CharID, Race>
+```
+
+**2. Do not implement `copyContents`.** It is abstract on `AbstractStorageFacet`, but all
+four bases above already implement it. You write one only when you extend
+`AbstractStorageFacet` directly. The contract is a deep copy. After it returns, changing
+one character must not touch the other.
+
+**3. Take dependencies as plain setters.** No annotation. Spring injects them.
+
+```java
+public void setRaceFacet(RaceFacet raceFacet)
+{
+    this.raceFacet = raceFacet;
+}
+```
+
+**4. Wire yourself in `init()`.** This is the method Spring calls, and it is where the
+listener registration goes.
+
+```java
+public void init()
+{
+    raceFacet.addDataFacetChangeListener(this);
+    OutputDB.register("sampleterrain", this);
+}
+```
+
+`OutputDB.register` is optional and is how a facet becomes a top-level key in a
+[character sheet](../outputsheets/writing-a-sheet.md).
+
+**5. Declare the bean** in `code/src/resources/applicationContext.xml`, under the
+alphabetical comment for its letter:
+
+```xml
+<bean id="sampleTerrainFacet" class="pcgen.cdom.facet.analysis.SampleTerrainFacet">
+    <property name="raceFacet" ref="raceFacet"/>
+</bean>
+```
+
+The file's root element sets `default-init-method="init"`. That single attribute is what
+calls step 4. Without a bean, `FacetLibrary` falls back to reflection and logs an error.
+
+**6. Write the test** against the matching support base, such as
+`code/src/test/pcgen/cdom/testsupport/AbstractItemFacetTest.java`.
+
+### `FacetInitialization` is the older path
+
+The long method described above still exists and still runs, but it is now the minority.
+Measured at the pinned commit:
+
+| Wiring | Facets |
+|---|---|
+| own `init()`, called by Spring | 109 |
+| `addDataFacetChangeListener` calls in `FacetInitialization` | 42 |
+
+Read `FacetInitialization` to see the dependency graph. Write new wiring in `init()`.
+
+*Source: [`AgeSetFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/analysis/AgeSetFacet.java)*
 
 ## Getting a facet
 
@@ -136,8 +191,9 @@ raceFacet.addDataFacetChangeListener(charObjectFacet);
 
 *Source: [`FacetInitialization.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/FacetInitialization.java)*
 
-Around fifty facets are fetched and connected there by hand. Reading that method is the
-fastest way to see the dependency graph.
+Forty-two listener registrations are made there by hand. Reading that method is the
+fastest way to see the dependency graph. It is no longer where most wiring lives. See
+[adding a facet](#adding-a-facet).
 
 ### The order events arrive in
 
