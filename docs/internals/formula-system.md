@@ -18,10 +18,13 @@ For the data-side view, see
 ## JEP, the engine the data runs on
 
 Every `DEFINE:X|0` and every `BONUS:VAR` value is a JEP expression. That is 37,076 and
-83,023 uses of shipped data respectively, against a `MODIFY` count in the low thousands.
+81,422 uses in shipped data respectively, against 1,845 for `MODIFY`.
 
-JEP is an external expression parser. PCGen subclasses it as `PJEP` and adds three things:
-its own functions, its own variable vocabulary, and a cache.
+JEP is an external expression parser. PCGen subclasses it as `PJEP`, and what `PJEP` adds
+is the functions. It sets two variables of its own, `TRUE` and `FALSE`, and
+`ClassLevelCommand` injects `CL` for the length of one expression. The term vocabulary
+belongs to `EvaluatorFactory` and the result cache to `VariableProcessor`; `PJEP` only
+reports whether a result may be cached.
 
 *Source: [`PJEP.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/util/PJEP.java)*
 
@@ -40,12 +43,13 @@ its own functions, its own variable vocabulary, and a cache.
 | `VAR` | read a variable by name |
 | `MASTERVAR` | read one from a master, for companions |
 | `CLASSLEVEL` | levels in a named class |
-| `PCLEVEL` | a level total |
+| `CHARBONUSTO` | a bonus total the character has, by category and name |
 | `SKILLINFO` | a fact about a skill |
 | `ROLL` | dice |
 
 A fifteenth, `cl`, is added directly in `PJEP` rather than through the plugin loader, so
-it does not appear in that package.
+it does not appear in that package. It is deprecated and logs a warning when it runs.
+Write `CLASSLEVEL` instead.
 
 ### The variable vocabulary is a closed set matched by regex
 
@@ -62,13 +66,21 @@ Each is an enum. A constant carries a regex and the keys it answers to, so
 `ACHECK`. The factory concatenates every pattern into one alternation at construction and
 matches an incoming name against it.
 
-**A name that does not match is not an error.** It falls through and is treated as a
-variable, which is the same path a `DEFINE`-declared name takes. So a misspelt term
-silently becomes a variable nobody declared, and
-[reads as zero](../lst/concepts/declaring-variables.md).
+**A name that matches no term is not an error, and nothing is logged.** `lookupVariable`
+tries the declared variables first, then the terms, then the export tokens. When all three
+miss it returns null and the JEP pass abandons the whole value. The raw text then goes to
+the old fallback parser, which understands only `+ - * /` and `.IF.`.
+
+What the reader sees depends on the rest of the value. In plain arithmetic the unmatched
+name [reads as zero](../lst/concepts/declaring-variables.md) and the rest still computes.
+In a value using a JEP function, a comparison or nested parentheses, the fallback parser
+fails too and the whole value collapses to zero.
 
 That is the single most useful fact on this page for a data author. The vocabulary is
-closed, and getting a name wrong fails quietly rather than loudly.
+closed, a misspelt term never announces itself, and the `BONUS:VAR` applies a wrong number
+rather than failing.
+
+*Source: [`VariableProcessor.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/VariableProcessor.java)*
 
 *Source: [`EvaluatorFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/term/EvaluatorFactory.java)*
 
@@ -85,7 +97,9 @@ description is transcription, and the enums stay correct on their own.
 `pcgen/core/term/` is 129 classes, one per term family. `VariableProcessorPC` is where a
 name reaches `EvaluatorFactory.PC` and becomes a value.
 
-There are no tests for either package.
+Both packages have tests, in `code/src/slowtest/` rather than `code/src/test/`: five
+command tests under `plugin/jepcommands/`, and three under `pcgen/core/term/`.
+`EvaluatorFactoryTest` is 294 KB and exercises the term vocabulary name by name.
 
 ## PCGen-Formula, the newer engine
 

@@ -145,7 +145,7 @@ and nothing else — they are separate registries with separate contracts, which
 
 | Package | Classes | Provides |
 |---|---|---|
-| `plugin/lsttokens` | 496 | data tags, through `TokenLibrary` |
+| `plugin/lsttokens`, less `gamemode` | 496 | data tags, through `TokenLibrary` |
 | `plugin/lsttokens/gamemode` | 157 | game mode tags, through `TokenStore` |
 | `plugin/pretokens` | 215 | `PRExxx`, split into parser, test and writer |
 | `plugin/bonustokens` | 55 | `BONUS:` subtypes |

@@ -103,7 +103,12 @@ core class instead.
 `pcgen/gui2/facade/` holds them, 30 classes. `CharacterFacadeImpl` alone is 4,097 lines.
 
 This is the package to edit when a widget needs something the facade does not expose. The
-interface goes in `pcgen/facade/core/`, the implementation here.
+interface goes in `pcgen/facade/core/`.
+
+The implementation does not always go here, and that is the same lapse the section above
+describes. `Ability`, `Equipment`, `DataSet` and `Spell` in `pcgen/core/` implement their
+own facade interfaces directly, so the core object is its own view model. Follow the
+package when you add a facade method. Expect to find existing ones elsewhere.
 
 ## How a tab binds to a character
 

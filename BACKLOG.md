@@ -29,7 +29,7 @@ From the three-reviewer verification pass, 2026-08-22. All four done 2026-08-23.
 **The handbook documents the formula engine the data barely uses and not the one it runs
 on.** `formula-system.md` is 730 words entirely about `PCGen-Formula` and `MODIFY`, with
 zero mentions of JEP, PJEP, `jepcommands` or `core/term`. `overview.md` points at it for
-JEP. Every `DEFINE:X|0` and `BONUS:VAR` — 37,076 and 83,023 uses — evaluates through PJEP.
+JEP. Every `DEFINE:X|0` and `BONUS:VAR` — 37,076 and 81,422 uses — evaluates through PJEP.
 
 Churn 7 commits since 2023. Tests 0.
 
@@ -101,8 +101,8 @@ resolution through `cdom/reference`, 9 commits since 2023 — because no other p
 
 ### 2. `DEFINE:X|0`, and `BONUS:VAR` with it — written 2026-08-22, `lst/concepts/declaring-variables.md`
 
-**37,179 `DEFINE:` fields, and 37,077 of them — 99.7% — are the `|0` form.** The value
-arrives separately through `BONUS:VAR`, at 83,023 uses.
+**37,178 `DEFINE:` fields, and 37,076 of them — 99.7% — are the `|0` form.** The value
+arrives separately through `BONUS:VAR`, at 81,422 uses.
 
 The gap is admitted: `variables-and-formulas.md:125-127` says declaring a variable is not
 covered, `bonuses.md:129` points at the missing page, and `docs/index.md:52` promises

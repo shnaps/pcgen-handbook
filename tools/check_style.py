@@ -18,6 +18,13 @@ BANNED = [
     "it's important to note", "it is important to note", "in order to",
     "please note", "as we can see", "let's dive in", "needless to say",
     "utilize", "plethora", "myriad", "elegant",
+    # formulaic cues: inflated framing that carries no fact
+    "here's where it gets interesting", "here is where it gets interesting",
+    "at the end of the day", "the key takeaway", "it's worth noting",
+    "it is worth noting", "that said", "in today's world",
+    # uncommon words with a plain replacement
+    "commence", "ameliorate", "endeavour", "endeavor", "facilitate",
+    "necessitate", "aforementioned", "subsequent to", "prior to",
 ]
 
 MAX_WORDS = 25

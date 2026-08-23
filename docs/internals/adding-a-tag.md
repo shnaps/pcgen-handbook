@@ -49,8 +49,9 @@ the rest of this page describes.
 | a `BONUS:` subtype | `BonusObj` | `parseToken`, `unparseToken`, `getBonusHandled` | `Bonus` |
 
 The game mode tree holds 157 classes — 66 at its top level and the rest in eleven
-subdirectories, `codecontrol` the largest at 43. `plugin/bonustokens/` holds 55. None of
-them has a `parseNonEmptyToken`.
+subdirectories, `codecontrol` the largest at 43. `plugin/bonustokens/` holds 55, and none
+of those declares a `parseNonEmptyToken`. The game mode side is not so uniform: 33 of its
+157 classes declare one.
 
 The game mode side is a separate registry, not a separate base class on the same one.
 `GameModeLoader` reads `TokenStore`, which `TokenLibrary` knows nothing about.
@@ -220,15 +221,18 @@ data into its current form, each implementing `TokenProcessorPlugin`:
 ```java
 public interface TokenProcessorPlugin extends TokenProcessor
 {
-    Class<? extends CDOMObject> getProcessedClass();
-    String getProcessedToken();
+    public Class<? extends CDOMObject> getProcessedClass();
+
+    public String getProcessedToken();
 }
 ```
 
 A plugin names the object type and the tag it rewrites. The tool that runs them is
 `pcgen/gui2/converter/`, 9 classes, launched from `PCGenDataConvert.main`.
 
-Neither package has tests. Write the plugin when a deprecation has a mechanical
+Neither package has a behaviour test. `plugin/converter` is covered only by
+`code/src/slowtest/plugin/PluginBuildTest.java`, which checks that the package is jarred,
+not that a plugin rewrites anything. Write the plugin when a deprecation has a mechanical
 replacement, and skip it when the fix needs a human decision.
 
 *Source: [`TokenProcessorPlugin.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/converter/event/TokenProcessorPlugin.java)*

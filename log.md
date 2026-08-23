@@ -973,3 +973,63 @@ in 9 of its 25 lessons and `VFEAT` in 6 against `ABILITY:` in 6. Mining it for s
 would import the exact drift this handbook exists to correct.
 
 **Nothing is open.** Thirteen ranked items and four verification items, all done.
+
+## 2026-08-23  auditing the previous day's edits
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No new pages.
+- Two reviewers on disjoint files, then a cross-reviewer sent to attack the contested
+  mechanism claims. Eight errors confirmed, one reviewer finding refuted.
+
+The 2026-08-23 edits had never been reviewed. The three-reviewer pass the day before ran
+against the pages written on 2026-08-22 and found eleven errors, so the untested batch was
+the obvious place to look.
+
+**`formula-system.md`, five errors.** The function table listed `PCLEVEL`, which is not a
+JEP function — it is the default first argument of `CHARBONUSTO`, the function the table
+omitted. The count of fourteen was right and the membership was not. `PJEP` was credited
+with three things it adds; it adds one. The vocabulary is `EvaluatorFactory`'s and the
+result cache is `VariableProcessor`'s, and `PJEP` only reports whether a result may be
+cached. "There are no tests for either package" was false: five command tests and three
+term tests sit in `code/src/slowtest/`, not `code/src/test/`, which is where I looked.
+`cl` was presented as a live fifteenth function; it is `@Deprecated` and logs a warning.
+
+**The mechanism was backwards.** The page said an unmatched name falls through and is
+treated as a variable, taking the same path a `DEFINE`-declared name takes. The order is
+the reverse — `lookupVariable` tries declared variables first, then terms, then export
+tokens — and there is no fall-through. All three miss, it returns null, and the JEP pass
+abandons the whole value. The zero comes from the old fallback parser, where
+`Float.parseFloat` throws into an empty catch.
+
+That correction made the fact sharper, not weaker. The consequence depends on the rest of
+the value: in plain arithmetic the bad name alone reads as zero, and in anything with a
+function, a comparison or nested parentheses the fallback parser fails too and the whole
+value collapses. Both are silent.
+
+**`BONUS:VAR` was 83,023 and is 81,422.** Measured by the method pinned in
+`WIKI-SCHEMA.md`. I could not reproduce 83,023 by any variant — counting commented-out
+lines gets to 82,929, which is the closest wrong answer available. The figure was in
+`BACKLOG.md` twice as well, and `MODIFY` at "a count in the low thousands" is 1,845, so
+the page now gives the number.
+
+**One reviewer finding was refuted.** The `DEFINE` figure was reported as wrong, 37,178
+against the page's 37,076. Re-measuring showed both are right and they count different
+things: 37,178 `DEFINE:` fields in total, 37,076 of them the `|0` form, which is what the
+sentence claims. `declaring-variables.md` already carried both numbers correctly. The
+backlog carried them each one too high and is now fixed.
+
+**`adding-a-tag.md`, two errors.** "None of them has a `parseNonEmptyToken`" was true of
+`plugin/bonustokens/` and false of the game mode tree, where 33 of 157 classes declare
+one. "Neither package has tests" was false for `plugin/converter`, which
+`PluginBuildTest` covers — as a packaging check that the jar exists, not as behaviour, so
+the page now says which. The quoted interface dropped `public` from both methods and is
+now exact.
+
+**`ui-layer.md`, one error.** "The interface goes in `pcgen/facade/core/`, the
+implementation here" is too strong: `Ability`, `Equipment`, `DataSet` and `Spell` in
+`pcgen/core/` implement their facade interfaces directly. It also contradicted the
+paragraph three lines above it, which says the separation was not maintained. A page
+disagreeing with itself within one screen is the clearest sign the second passage was
+written without reading the first.
+
+**`load-pipeline.md`, one label.** The row read `plugin/lsttokens` 496, which is the tree
+minus `gamemode`. Top level alone is 57. The label now says "less `gamemode`".
