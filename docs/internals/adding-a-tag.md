@@ -48,8 +48,9 @@ the rest of this page describes.
 | a game mode tag | `GameModeLstToken` | `parse(GameMode, String, URI)` | `TokenStore` |
 | a `BONUS:` subtype | `BonusObj` | `parseToken`, `unparseToken`, `getBonusHandled` | `Bonus` |
 
-`plugin/lsttokens/gamemode/` holds 77 classes and `gamemode/codecontrol/` a further 43.
-`plugin/bonustokens/` holds 55. None of them has a `parseNonEmptyToken`.
+The game mode tree holds 157 classes — 66 at its top level and the rest in eleven
+subdirectories, `codecontrol` the largest at 43. `plugin/bonustokens/` holds 55. None of
+them has a `parseNonEmptyToken`.
 
 The game mode side is a separate registry, not a separate base class on the same one.
 `GameModeLoader` reads `TokenStore`, which `TokenLibrary` knows nothing about.
@@ -207,6 +208,30 @@ in `code/gradle/plugins.gradle`. `PluginBuildTest` fails when a package has no
 matching task, which is the signal you missed it.
 
 A class in an existing package needs no build change.
+
+## Deprecating a tag
+
+Moving the class to `plugin/lsttokens/deprecated/` marks it. It does not help anyone whose
+data already uses it.
+
+For that there is the converter. `plugin/converter/` holds 28 classes that rewrite old
+data into its current form, each implementing `TokenProcessorPlugin`:
+
+```java
+public interface TokenProcessorPlugin extends TokenProcessor
+{
+    Class<? extends CDOMObject> getProcessedClass();
+    String getProcessedToken();
+}
+```
+
+A plugin names the object type and the tag it rewrites. The tool that runs them is
+`pcgen/gui2/converter/`, 9 classes, launched from `PCGenDataConvert.main`.
+
+Neither package has tests. Write the plugin when a deprecation has a mechanical
+replacement, and skip it when the fix needs a human decision.
+
+*Source: [`TokenProcessorPlugin.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/converter/event/TokenProcessorPlugin.java)*
 
 ## Two-level tags
 

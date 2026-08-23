@@ -139,11 +139,14 @@ detected by whatever pointed at your object.
 Token classes are not registered anywhere. They are jarred per package and claimed at
 startup, which [plugin loading](plugin-loading.md) covers in full.
 
-What matters here is the size of each family:
+What matters here is the size of each family. The first two rows share a directory tree
+and nothing else — they are separate registries with separate contracts, which
+[adding a tag](adding-a-tag.md#three-contracts) sets out.
 
 | Package | Classes | Provides |
 |---|---|---|
-| `plugin/lsttokens` | 653 | data and game mode tags |
+| `plugin/lsttokens` | 496 | data tags, through `TokenLibrary` |
+| `plugin/lsttokens/gamemode` | 157 | game mode tags, through `TokenStore` |
 | `plugin/pretokens` | 215 | `PRExxx`, split into parser, test and writer |
 | `plugin/bonustokens` | 55 | `BONUS:` subtypes |
 | `plugin/primitive` | 23 | chooser primitives |

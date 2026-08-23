@@ -17,12 +17,12 @@ tags. What is missing is explanation for the long tail.
 into pages that already owned the ground. That section below is the record of what was
 decided and why, not a queue.
 
-A three-reviewer verification pass on 2026-08-22 then found eleven errors in the new
-pages and opened the queue again. What is still open is at the top.
+A three-reviewer verification pass on 2026-08-22 found eleven errors in the new pages and
+reopened the queue. All four items it raised are now done, 2026-08-23. Nothing is open.
 
-## Open
+## Closed: the verification pass
 
-From the three-reviewer verification pass, 2026-08-22. Ranked.
+From the three-reviewer verification pass, 2026-08-22. All four done 2026-08-23.
 
 ### 1. The JEP formula engine — done 2026-08-23, `internals/formula-system.md` extended
 
@@ -51,33 +51,24 @@ Scope, as the cross-review settled it:
   `plugin/jepcommands/`, a new term is an enum constant plus a `TermEvaluator` class in
   `pcgen/core/term/`, and `PJEP.java:99` adds `cl` outside both.
 
-### 2. Where facades are implemented — EXTEND `internals/ui-layer.md`
+### 2. Where facades are implemented — done 2026-08-23, `internals/ui-layer.md`
 
 `pcgen/gui2/facade/` is 30 classes, 9 commits, 1 test, and zero handbook citations.
 `CharacterFacadeImpl` is 4,097 lines. `ui-layer.md` names the 33 interfaces and counts the
 package in its leak table, but never says this is where you edit to add a facade method.
 Two sentences.
 
-### 3. The LST converter — EXTEND `internals/adding-a-tag.md`
+### 3. The LST converter — done 2026-08-23, `internals/adding-a-tag.md`
 
 `pcgen/gui2/converter/` 9 classes plus `plugin/converter/` 28, 10 commits, 0 tests, zero
 citations. `adding-a-tag.md` says deprecation means moving the class to `deprecated/`. It
 omits that a `ConvertPlugin` can rewrite the data instead. One paragraph.
 
-### 4. `load-pipeline.md` hides two dispatchers
+### 4. `load-pipeline.md` hides two dispatchers — done 2026-08-23
 
 Its table labels all 653 `plugin/lsttokens` files "data and game mode tags" in one row.
 The count is right. Game mode tokens use a different registry, which
 [adding a tag](docs/internals/adding-a-tag.md) now explains. One row, split in two.
-
-### Corrections owed to this file
-
-- The `data/zen_test/` row below promises "small complete data sets, and broken ones". The
-  broken subset is five files under `pcgen_test_advanced/pcgen_broken_tests/`, most of
-  them commented out, covering two narrow cases. Verified 2026-08-22.
-- The `docs/listfilepages/lstfileclass/` row is safe for topic ordering only. `FEAT:`
-  appears in 9 of its 25 lessons and `VFEAT` in 6, against `ABILITY:` in 6. Never take
-  syntax from it.
 
 ## Ranked, after two cross-reviews
 
@@ -266,8 +257,8 @@ original prose, cites the implementing class, and uses invented example content.
 | `code/src/test/plugin/lsttokens/` — 363 test classes | accepted and rejected syntax, per tag |
 | `installers/release-notes/` — 5.10 to 6.09.05 | what changed, and when |
 | `plugin/lsttokens/deprecated/` — 32 classes | the deprecation map |
-| `data/zen_test/` — 45 files | small complete data sets, and broken ones |
-| `docs/listfilepages/lstfileclass/` — 25 lessons | which tasks a beginner needs, in what order |
+| `data/zen_test/` — 47 files | small complete data sets. The broken subset is five files under `pcgen_test_advanced/pcgen_broken_tests/`, mostly commented out, covering two narrow cases |
+| `docs/listfilepages/lstfileclass/` — 25 lessons | task ordering only. `FEAT:` appears in 9 lessons and `VFEAT` in 6, against `ABILITY:` in 6. Never take syntax from it |
 | `docs/listfilepages/rulesguide/` — 3 worked examples | how rules are modelled in data |
 | `system/gameModes/` — 20 modes | what a game mode is made of |
 

@@ -98,6 +98,13 @@ Treat the separation as an intention that was not maintained. Believing it will 
 you looking for a facade method that nobody wrote. The surrounding code imports the
 core class instead.
 
+### Where the implementations live
+
+`pcgen/gui2/facade/` holds them, 30 classes. `CharacterFacadeImpl` alone is 4,097 lines.
+
+This is the package to edit when a widget needs something the facade does not expose. The
+interface goes in `pcgen/facade/core/`, the implementation here.
+
 ## How a tab binds to a character
 
 `gui2/tabs/` holds 61 classes. Every tab implements one interface:

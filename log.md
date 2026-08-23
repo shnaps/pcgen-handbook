@@ -939,3 +939,37 @@ and this prints a wrong number on a character sheet.
 **For a code changer:** a function is a `PCGenCommand` in `plugin/jepcommands/`; a term is
 an enum constant plus a `TermEvaluator` class in `pcgen/core/term/`, which is 129 classes.
 Neither package has tests, and the page says so.
+
+## 2026-08-23  the last three open items
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Open items 2, 3 and 4.
+- No new pages. Three extensions and two corrections to `BACKLOG.md` itself.
+
+**Where facades are implemented.** `ui-layer.md` named the 33 interfaces and counted
+`gui2/facade` in its leak table without ever saying it is the package you edit. Two
+sentences: 30 classes, `CharacterFacadeImpl` alone 4,097 lines, interface in
+`pcgen/facade/core/` and implementation there.
+
+**The converter.** `adding-a-tag.md` said deprecation means moving the class to
+`deprecated/` and stopped. That marks the tag and helps nobody whose data already uses it.
+`plugin/converter/` holds 28 `TokenProcessorPlugin` classes that rewrite old data, each
+naming the object type and the tag it handles, run by `PCGenDataConvert.main`. Neither
+package has tests, and the section says so, along with when not to bother: a deprecation
+whose fix needs a human decision does not get a plugin.
+
+**The row that hid two dispatchers.** `load-pipeline.md` labelled all 653
+`plugin/lsttokens` files "data and game mode tags" in one row. Split to 496 and 157.
+
+I guessed 533 and 120 for that split from an earlier partial count, then measured before
+committing: 66 classes at the top of the game mode tree and the rest across eleven
+subdirectories, `codecontrol` largest at 43. The guess would have passed every check.
+Third time this week that a plausible number came out of memory rather than measurement,
+which is the habit `WIKI-SCHEMA.md` now exists to break.
+
+**Corrections to the backlog's own sources table.** `data/zen_test/` is 47 files, and the
+row now says what the broken subset actually is rather than promising a corpus.
+`docs/listfilepages/lstfileclass/` is marked task-ordering only, because `FEAT:` appears
+in 9 of its 25 lessons and `VFEAT` in 6 against `ABILITY:` in 6. Mining it for syntax
+would import the exact drift this handbook exists to correct.
+
+**Nothing is open.** Thirteen ranked items and four verification items, all done.
