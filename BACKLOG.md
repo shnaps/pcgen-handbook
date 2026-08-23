@@ -112,11 +112,11 @@ usage: no measurable commit churn on eqmod data files since 2023.
 `cdom/choiceset` or `core/chooser`. `choosers.md` covers the data face only. The tests make
 this cheap to write correctly.
 
-### 10. Spell delivery outside a class list
+### 10. Spell delivery outside a class list — written 2026-08-22, `lst/concepts/granting-spells.md`
 
 `SPELLS:` 8,422 uses, `SPELLKNOWN:` 5,450. Only `SPELLLEVEL:DOMAIN` is explained.
 
-### 11. Tab binding — a section, not a page
+### 11. Tab binding — done 2026-08-22, section in `internals/ui-layer.md`
 
 How a tab binds to `CharacterFacade`, added to `internals/ui-layer.md`, which already owns
 the boundary fact.

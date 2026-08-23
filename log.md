@@ -708,3 +708,45 @@ This also closes the loop on the `!TYPE` asymmetry recorded when the types page 
 written. The chooser path wraps a negated group in a `NegatingPrimitive`; the ordinary
 reference path rejects the same text. The types page owns that fact and this page links
 to it rather than restating it.
+
+## 2026-08-22  granting spells, and tab binding
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Backlog items 10 and 11.
+- New page `lst/concepts/granting-spells.md`. Section added to `internals/ui-layer.md`.
+  65 pages.
+
+### Granting spells
+
+Field-anchored counts: `SPELLS` 10,562 total, `SPELLKNOWN` 5,431, `SPELLLEVEL` 2,628
+(1,651 `CLASS`, 977 `DOMAIN`). The backlog's 8,422 and 5,450 were close on the second and
+low on the first.
+
+**The same tag name has two grammars.** 2,340 of the `SPELLS` uses are the kit form,
+`SPELLS:SPELLBOOK=Prepared Spells|CLASS=...`, parsed by
+`plugin/lsttokens/kit/spells/SpellsToken.java`. The other 8,222 are the ordinary form
+parsed by `SpellsLst`, where the book is positional and comes first. Copying a line
+between the two does not work, and nothing in the tag name says so.
+
+**Options are positional in a way that fails quietly.** `SpellsLst` reads `TIMES=`,
+`TIMEUNIT=` and `CASTERLEVEL=` in a loop and breaks at the first argument that is not
+one. Everything after the break is a spell name. An option written after a spell is
+therefore read as a spell, fails to resolve, and the option is silently absent.
+
+`domain.md` already owns `SPELLLEVEL:DOMAIN`, so the new page names it and links rather
+than repeating the example.
+
+### Tab binding
+
+Kept to a section, as the second cross-review settled. `CharacterInfoTab` is four
+methods, and the three model methods are a lifecycle rather than accessors — create once
+per character, restore to attach and listen, store to detach.
+
+**The restore order is measured, not fixed.** `InfoTabbedPane` restores the visible tab
+directly, then queues the rest on a single-thread executor through a `PriorityQueue`
+whose comparator reads a timing map of how long each tab took last time. Fast tabs go
+first, and a tab never restored sorts ahead of one with a recorded time. So the cost of a
+slow tab is paid while the reader is looking at something else.
+
+That is also the constraint on adding a tab: expensive work belongs in `restoreModels`,
+where it is timed and feeds the ordering, and no character state may live in the tab's
+own fields.

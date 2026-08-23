@@ -98,6 +98,54 @@ Treat the separation as an intention that was not maintained. Believing it will 
 you looking for a facade method that nobody wrote. The surrounding code imports the
 core class instead.
 
+## How a tab binds to a character
+
+`gui2/tabs/` holds 61 classes. Every tab implements one interface:
+
+```java
+public interface CharacterInfoTab
+{
+    ModelMap createModels(CharacterFacade character);
+    void restoreModels(ModelMap models);
+    void storeModels(ModelMap models);
+    TabTitle getTabTitle();
+}
+```
+
+*Source: [`CharacterInfoTab.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/tabs/CharacterInfoTab.java)*
+
+A `ModelMap` is a map keyed by class. A tab builds whatever models it needs, puts them
+in, and gets them back typed. There is no shared base class and no shared model — each
+tab decides its own.
+
+The three verbs are a lifecycle, not accessors. `createModels` runs once per character.
+`restoreModels` attaches the models to the widgets and starts listening.
+`storeModels` detaches. Switching character calls store on the old one and restore on the
+new.
+
+### Restoring is deliberately staggered
+
+`InfoTabbedPane` does not restore every tab at once. It restores the **visible** tab
+directly, then queues the rest on a single-thread executor.
+
+The queue is a `PriorityQueue` ordered by a comparator that reads a timing map — how long
+each tab took to restore last time. **Tabs that were fast go first.** A tab never
+restored yet sorts ahead of one that has a recorded time.
+
+A slow tab therefore cannot delay the tab the user is looking at. The cost of the slow
+ones is paid while the reader is busy elsewhere.
+
+*Source: [`InfoTabbedPane.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/tabs/InfoTabbedPane.java)*
+
+### What this means when you add one
+
+Implement the interface, keep every model in the `ModelMap`, and hold no character state
+in the tab's own fields. The staggered restore means your tab may be constructed long
+before it is restored, and stored while still visible.
+
+Anything expensive belongs in `restoreModels`, where its cost is measured and used to
+order later restores.
+
 ## Observable values
 
 `pcgen/facade/util/` supplies the types the widgets bind to.
