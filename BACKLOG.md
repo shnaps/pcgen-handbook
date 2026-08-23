@@ -24,7 +24,7 @@ pages and opened the queue again. What is still open is at the top.
 
 From the three-reviewer verification pass, 2026-08-22. Ranked.
 
-### 1. The JEP formula engine — EXTEND `internals/formula-system.md`
+### 1. The JEP formula engine — done 2026-08-23, `internals/formula-system.md` extended
 
 **The handbook documents the formula engine the data barely uses and not the one it runs
 on.** `formula-system.md` is 730 words entirely about `PCGen-Formula` and `MODIFY`, with

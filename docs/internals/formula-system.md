@@ -4,13 +4,92 @@ title: The formula system
 
 # The formula system
 
-The formula system is two Gradle subprojects of its own, separate from the main source
-tree. It is what `MODIFY` and `MODIFYOTHER` drive.
+PCGen has **two formula engines**, and both are live. This page covers what each is made
+of. [The rules engine](rules-engine.md) owns which tag reaches which one.
+
+The split matters before you read either half. Almost every formula in shipped data runs
+through the older engine, JEP. The newer one, `PCGen-Formula`, is a separate pair of
+Gradle subprojects and is what `MODIFY` drives.
 
 For the data-side view, see
-[variables and formulas](../lst/concepts/variables-and-formulas.md).
+[declaring a variable](../lst/concepts/declaring-variables.md) for the older engine and
+[variables and formulas](../lst/concepts/variables-and-formulas.md) for the newer.
 
-## Two modules
+## JEP, the engine the data runs on
+
+Every `DEFINE:X|0` and every `BONUS:VAR` value is a JEP expression. That is 37,076 and
+83,023 uses of shipped data respectively, against a `MODIFY` count in the low thousands.
+
+JEP is an external expression parser. PCGen subclasses it as `PJEP` and adds three things:
+its own functions, its own variable vocabulary, and a cache.
+
+*Source: [`PJEP.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/util/PJEP.java)*
+
+### The fourteen functions
+
+`plugin/jepcommands/` holds a closed set, registered through the same
+[plugin mechanism](plugin-loading.md) as LST tags. Each class returns its own name:
+
+| Function | Does |
+|---|---|
+| `MIN`, `MAX` | the smaller or larger of its arguments |
+| `CEIL`, `FLOOR` | round up, round down |
+| `IF` | a condition |
+| `OR` | a boolean |
+| `COUNT`, `COUNTDISTINCT` | how many of something the character has |
+| `VAR` | read a variable by name |
+| `MASTERVAR` | read one from a master, for companions |
+| `CLASSLEVEL` | levels in a named class |
+| `PCLEVEL` | a level total |
+| `SKILLINFO` | a fact about a skill |
+| `ROLL` | dice |
+
+A fifteenth, `cl`, is added directly in `PJEP` rather than through the plugin loader, so
+it does not appear in that package.
+
+### The variable vocabulary is a closed set matched by regex
+
+Names such as `BAB`, `ACCHECK`, `CASTERLEVEL` and `COUNT[CLASSES]` are not variables. They
+are **terms**, and `EvaluatorFactory` holds two vocabularies of them:
+
+| Factory | Built from | Terms |
+|---|---|---|
+| `EvaluatorFactory.PC` | `TermEvaluatorBuilderPCVar` | 80, plus one for statistics |
+| `EvaluatorFactory.EQ` | `TermEvaluatorBuilderEQVar` | 15 |
+
+Each is an enum. A constant carries a regex and the keys it answers to, so
+`COMPLETE_PC_ACCHECK` declares the pattern `AC{1,2}HECK` and matches both `ACCHECK` and
+`ACHECK`. The factory concatenates every pattern into one alternation at construction and
+matches an incoming name against it.
+
+**A name that does not match is not an error.** It falls through and is treated as a
+variable, which is the same path a `DEFINE`-declared name takes. So a misspelt term
+silently becomes a variable nobody declared, and
+[reads as zero](../lst/concepts/declaring-variables.md).
+
+That is the single most useful fact on this page for a data author. The vocabulary is
+closed, and getting a name wrong fails quietly rather than loudly.
+
+*Source: [`EvaluatorFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/term/EvaluatorFactory.java)*
+
+The full lists are in the two enums. They are not reproduced here — 95 rows of name and
+description is transcription, and the enums stay correct on their own.
+
+### Adding to JEP
+
+| To add | Write |
+|---|---|
+| a function | a `PCGenCommand` subclass in `plugin/jepcommands/`, returning its name from `getFunctionName` |
+| a term | an enum constant in `TermEvaluatorBuilderPCVar` or `...EQVar`, plus a `TermEvaluator` class in `pcgen/core/term/` |
+
+`pcgen/core/term/` is 129 classes, one per term family. `VariableProcessorPC` is where a
+name reaches `EvaluatorFactory.PC` and becomes a value.
+
+There are no tests for either package.
+
+## PCGen-Formula, the newer engine
+
+### Two modules
 
 `settings.gradle` is three lines, and two of them are this:
 
@@ -32,7 +111,7 @@ knows nothing about PCGen's game objects. PCGen glues both to its own model in
     `code/src` excludes them entirely, which makes it look as though the formula system
     has no source. Add them explicitly.
 
-## The language is generated
+### The language is generated
 
 `PCGen-Formula/code/src/` has three source roots, not one:
 
@@ -45,7 +124,7 @@ knows nothing about PCGen's game objects. PCGen glues both to its own model in
 So the formula language has a real grammar rather than being parsed by hand. That is
 why formula syntax is stricter and more consistent than tag argument syntax.
 
-## Packages worth knowing
+### Packages worth knowing
 
 Under `PCGen-Formula/code/src/java/pcgen/base/formula/`:
 
@@ -57,7 +136,7 @@ Under `PCGen-Formula/code/src/java/pcgen/base/formula/`:
 | `inst` | concrete implementations |
 | `function`, `library`, `factory`, `analysis` | supporting pieces |
 
-## From string to value
+### From string to value
 
 Three visitors do the work, and they are separate passes over the same tree:
 
@@ -78,7 +157,7 @@ The entry points on PCGen's side:
 Validation happening separately from evaluation is why a bad formula is reported when
 data loads rather than when a character is built.
 
-## Scopes
+### Scopes
 
 A scope is an `ImplementedScope`. PCGen's subinterface is `PCGenScope`, in
 `pcgen/cdom/formula/scope/`, with implementations for the global scope, equipment,
@@ -94,7 +173,7 @@ Two steps bind a variable:
 So the same variable name on two different objects is two different variables. That is
 what `MODIFYOTHER` needs a scope argument for.
 
-## Functions
+### Functions
 
 `code/src/java/plugin/function/` holds eight functions available inside formulas:
 
@@ -110,7 +189,7 @@ Plus `ListAll`, `key` and `INPUT`.
 These are registered by the same plugin mechanism as tags — see
 [plugin loading](plugin-loading.md).
 
-## How the solver orders modifiers
+### How the solver orders modifiers
 
 When several modifiers apply to one variable, each variable gets a `Solver` holding its
 default plus every modifier applied to it.

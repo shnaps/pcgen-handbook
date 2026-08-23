@@ -903,3 +903,39 @@ On priority, the internals reviewer conceded sequence and held severity, which i
 right call: a wrong base class stops the compiler and costs thirty seconds, while a
 misunderstood JEP term compiles, loads, and prints a wrong number. Cost of discovery
 ranks these, not size of gap. JEP is next.
+
+## 2026-08-23  JEP, the engine the data runs on
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Open item 1.
+- `internals/formula-system.md` extended, 730 words to 1,269. No new page.
+
+The page documented `PCGen-Formula` and called itself "the formula system". Almost every
+formula in shipped data runs through the other engine, and `overview.md` pointed here for
+it.
+
+**Reforked rather than appended.** The old opening was Gradle subprojects, so adding JEP
+underneath would have stapled two topics together. It now opens on the fork and hands the
+question of which tag reaches which engine to `rules-engine.md`, which owns it. The
+existing material became `## PCGen-Formula, the newer engine` with its sections demoted a
+level.
+
+**What went in, and what deliberately did not.** The fourteen `plugin/jepcommands/`
+functions are listed — a closed set, plugin-registered, and the answer to "what can I
+write". A fifteenth, `cl`, is added directly in `PJEP` and never appears in that package.
+
+The 95 terms are not listed. `TermEvaluatorBuilderPCVar` declares 80 and
+`TermEvaluatorBuilderEQVar` 15, both enums. The page gives the mechanism instead:
+`EvaluatorFactory` concatenates every constant's regex into one alternation and matches
+incoming names against it. `COMPLETE_PC_ACCHECK` declares `AC{1,2}HECK` and answers to
+both `ACCHECK` and `ACHECK`, which shows why a table of names would be lossy anyway. A
+95-row table is transcription, rejected on the same ground as the 150 tag pages.
+
+**The fact that earns the section.** A name that matches no term is not an error. It falls
+through and is treated as a variable — the same path a `DEFINE`-declared name takes. So a
+misspelt term quietly becomes an undeclared variable and reads as zero. That is why this
+gap ranked above defects that stop the compiler: a wrong base class costs thirty seconds,
+and this prints a wrong number on a character sheet.
+
+**For a code changer:** a function is a `PCGenCommand` in `plugin/jepcommands/`; a term is
+an enum constant plus a `TermEvaluator` class in `pcgen/core/term/`, which is 129 classes.
+Neither package has tests, and the page says so.

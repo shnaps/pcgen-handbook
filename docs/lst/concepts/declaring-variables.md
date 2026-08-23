@@ -106,4 +106,5 @@ form in new data.
 - [Bonuses](bonuses.md) — `BONUS:VAR`, and the stacking rule that decides what adds up
 - [Variables and formulas](variables-and-formulas.md) — the newer system, `MODIFY` and `MODIFYOTHER`
 - [The rules engine](../../internals/rules-engine.md) — two formula systems, and where each keeps its values
+- [The formula system](../../internals/formula-system.md) — JEP, its fourteen functions and its closed term vocabulary
 - [What changed](../../appendix/whats-changed.md) — the deprecated `DEFINE` forms
