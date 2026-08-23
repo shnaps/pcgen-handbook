@@ -100,7 +100,7 @@ page owns at all, while this one deepens a page that exists and is correct.
 arguments. Nothing covers the FreeMarker side from the author's end, and nothing covers
 adding an output token from the code side. One subsystem, one work item — not two.
 
-### 8. Equipment modifiers
+### 8. Equipment modifiers — written 2026-08-22, `lst/files/equipment-modifier.md`
 
 `EQMOD:` 12,086 uses; 26 classes, 14 tests. `equipment.md` gives it a paragraph. Ranked on
 usage: no measurable commit churn on eqmod data files since 2023.

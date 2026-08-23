@@ -649,3 +649,34 @@ The real trap is the reverse and sharper. `pchasvar` calls `hasVariable`, which 
 and false for a built-in. So guarding a block with `pchasvar` can hide a value `pcvar`
 would have printed. Checking the class before committing turned a wrong sentence into the
 page's best gotcha.
+
+## 2026-08-22  equipment modifier files
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Backlog item 8.
+- New page `lst/files/equipment-modifier.md`. 63 pages.
+
+One page covers both halves — the `EQMOD` tag that attaches a modifier and the file that
+defines one — because neither is usable without the other.
+
+**Count corrected again.** The backlog said 12,086 uses. That was raw substring matching.
+Field-anchored, splitting on tabs and skipping comments, it is **9,628**. Three of the
+eight items written so far had an inflated count in the backlog, all from the same cause.
+
+**Two separators, two meanings.** In `EQMOD`, dots separate modifiers and pipes separate
+one modifier's arguments. `EQMOD:MWORKW.PLUS1W` is two modifiers;
+`EQMOD:SPL_CHRG|SPELLNAME[...]...` is one with bracketed values.
+
+**The `=` to `|` conversion.** `EqmodToken` stores each choice as
+`addChoice(token.replace('=', '|'))`. The field separator is already `|`, so data cannot
+write one, and `=` is how the value gets through. Worth stating plainly because nothing
+in the tag's own syntax hints at it.
+
+**Two keys that are not modifiers.** `_WEIGHTADD` and `_DAMAGE` are read by the tag and
+never resolved as references. `EQMOD:NONE` is deprecated and ignored.
+
+**A naming detail worth having.** `NAMEOPT` decides what a modified item is called —
+`NORMAL`, `NOLIST`, `NONAME`, `SPELL` or literal `TEXT=`. It is the answer to a modified
+item reading badly on a sheet, and it had no mention anywhere in the handbook.
+
+Some shipped data uses modifier keys containing spaces, such as `Material ~ Adamantine`.
+Legal. A key containing a dot would not be, since dots separate modifiers.

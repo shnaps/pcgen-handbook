@@ -90,6 +90,9 @@ EQMOD:MWORKW
 Modifiers are how one base item becomes many variants without writing each out.
 `ALTEQMOD` applies to the second head of a double weapon.
 
+Dots separate modifiers and pipes separate one modifier's arguments. See
+[equipment modifier files](equipment-modifier.md) for the grammar and for defining one.
+
 Equipment modifier files are loaded with `EQUIPMOD:` in the PCC and have their own 26
 tags, including several `CHOOSE:` variants specific to building items.
 
