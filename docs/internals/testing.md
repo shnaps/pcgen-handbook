@@ -39,6 +39,12 @@ Reading the rejection cases is usually faster than reading the parser.
 `CDOMTokenLoader`, which let a test register tokens directly instead of going through
 the jar loader.
 
+### Output token tests live elsewhere
+
+Output token tests are not under `code/src/test/`. They live in `code/src/slowtest/`,
+extend `AbstractCharacterTestCase`, and run under `./gradlew slowtest`. A test placed in
+`code/src/test/` will not find them and will not run alongside them.
+
 ## Data tests
 
 ```sh

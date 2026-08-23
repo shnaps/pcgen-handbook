@@ -95,12 +95,17 @@ measured this way, because two scopes produce two numbers for one claim.
 - Scope is **`data/**/*.lst`**. Not `.pcc`, unless the claim is about a `.pcc` tag, and
   then say so.
 - Skip a line whose first character is `#`.
-- Split the line on tabs and test `field.startswith("TAG:")`. **Never count substrings.**
-  `ADD:` matches inside `DONOTADD:`, and `REMOVE:` matches inside `TYPE:.REMOVE.`.
+- Split the line on tabs, **strip each field**, then test `field.startswith("TAG:")`.
+  **Never count substrings.** `ADD:` matches inside `DONOTADD:`, and `REMOVE:` matches
+  inside `TYPE:.REMOVE.`.
+- The strip is not tidiness. `LstUtils.processToken` calls `tok.trim()` before dispatch,
+  so a field with a leading space loads normally. 196 tag fields in shipped data have
+  one. Skipping the strip drops real tags and makes the count disagree with the loader.
 - A subtoken figure counts the text between the tag's colon and the first `|`.
 
-Three published figures were wrong from substring counting and two more from a mixed
-`.lst` and `.pcc` scope. No tool validates a number, so the method is the only guard.
+Three published figures were wrong from substring counting, two more from a mixed `.lst`
+and `.pcc` scope, and three more from not stripping. No tool validates a number, so the
+method is the only guard.
 
 ## One fact, one owner
 

@@ -23,7 +23,7 @@ apart from both being uppercase words with colons in them.
 | Appears in | `.lst` and `.pcc` files | character sheet templates |
 | Direction | file into memory | memory into text |
 | Package | `plugin/lsttokens/` | `plugin/exporttokens/` |
-| Interface | `CDOMToken` | `Token` |
+| Base | `CDOMToken` | `Token` |
 
 The [tag index](../lst/reference/tag-index.md) covers LST tags only. Output tokens are
 not in it.
@@ -65,6 +65,23 @@ public abstract String getToken(String tokenSource, PlayerCharacter pc, ExportHa
 ```
 
 *Source: [`Token.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/exporttoken/Token.java)*
+
+`Token` is an abstract class, not an interface. Extend it.
+
+### Extend `AbstractExportToken` instead
+
+In almost every case this is the base to use. It implements `getToken` and hands you a
+`CharacterDisplay` rather than a `PlayerCharacter`, which is the read-only path
+[facets](facets.md) describes:
+
+```java
+public abstract String getToken(String tokenSource, CharacterDisplay display, ExportHandler eh);
+```
+
+*Source: [`AbstractExportToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/exporttoken/AbstractExportToken.java)*
+
+The test goes in `code/src/slowtest/`, not `code/src/test/`. See
+[testing](testing.md#output-token-tests-live-elsewhere).
 
 Registration works two ways. A dozen core tokens are added directly in
 `populateTokenMap`, and live in `pcgen/io/exporttoken/` — 17 classes. The rest are

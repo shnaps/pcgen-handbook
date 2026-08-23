@@ -8,11 +8,11 @@ Five tags carry the text a player sees on screen and on a character sheet. Four 
 share one placeholder grammar.
 
 `DESC` is one of the five most-used tags in the data language. Shipped data writes it
-**99,993** times, behind `TYPE`, `BONUS`, `SOURCEPAGE` and `CATEGORY`.
+**99,997** times, behind `TYPE`, `BONUS`, `SOURCEPAGE` and `CATEGORY`.
 
 | Tag | Uses | Legal on | Carries |
 |---|---|---|---|
-| `DESC` | 99,993 | anything | the description of the object |
+| `DESC` | 99,997 | anything | the description of the object |
 | `ASPECT` | 11,774 | abilities | a named value a sheet can look up |
 | `SAB` | 11,297 | anything grantable | a special ability line |
 | `BENEFIT` | 5,438 | abilities | what the ability gives, in one line |

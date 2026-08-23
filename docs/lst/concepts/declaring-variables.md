@@ -8,7 +8,7 @@ title: Declaring a variable
 can change it.
 
 This is the older of PCGen's two variable systems, and the one shipped data uses.
-Shipped data writes `DEFINE:` **37,179** times.
+Shipped data writes `DEFINE:` **37,178** times.
 
 ## The one form to write
 
@@ -18,7 +18,7 @@ Sample Feat	CATEGORY:FEAT	TYPE:General	DEFINE:TestPower|0
 
 Declare the variable at zero. Supply the value with a separate bonus.
 
-**37,077 of those 37,179 uses — 99.7% — are exactly this shape.** Treat any other form
+**37,076 of those 37,178 uses — 99.7% — are exactly this shape.** Treat any other form
 as something to read, not something to write.
 
 *Source: [`DefineLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/DefineLst.java)*
@@ -58,6 +58,7 @@ Two objects may declare the same variable. The declared values do not add up.
 
 When a formula reads the variable, PCGen resolves every declaration and keeps the
 **highest** one. Three objects each declaring `DEFINE:TestPower|0` still give zero.
+Output sheets can ask for the lowest instead, with `VAR.MIN`.
 
 Bonuses behave the other way. That is the point of declaring at zero. The declaration
 sets a floor, and bonuses accumulate on top of it under the normal stacking rule.

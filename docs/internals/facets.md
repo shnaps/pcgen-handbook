@@ -136,9 +136,26 @@ public void init()
 ```
 
 `OutputDB.register` is optional and is how a facet becomes a top-level key in a
-[character sheet](../outputsheets/writing-a-sheet.md).
+[character sheet](../outputsheets/writing-a-sheet.md). Its overloads take an `ItemFacet`
+or a `SetFacet` only. A list facet cannot be registered.
 
-**5. Declare the bean** in `code/src/resources/applicationContext.xml`, under the
+**5. Write the two event methods.** They are the work. Everything above is wiring.
+
+```java
+@Override
+public void dataAdded(DataFacetChangeEvent<CharID, Race> dfce)
+{
+    set(dfce.getCharID(), computeFrom(dfce.getCDOMObject()));
+}
+
+@Override
+public void dataRemoved(DataFacetChangeEvent<CharID, Race> dfce)
+{
+    remove(dfce.getCharID());
+}
+```
+
+**6. Declare the bean** in `code/src/resources/applicationContext.xml`, under the
 alphabetical comment for its letter:
 
 ```xml
@@ -150,7 +167,7 @@ alphabetical comment for its letter:
 The file's root element sets `default-init-method="init"`. That single attribute is what
 calls step 4. Without a bean, `FacetLibrary` falls back to reflection and logs an error.
 
-**6. Write the test** against the matching support base, such as
+**7. Write the test** against the matching support base, such as
 `code/src/test/pcgen/cdom/testsupport/AbstractItemFacetTest.java`.
 
 ### `FacetInitialization` is the older path

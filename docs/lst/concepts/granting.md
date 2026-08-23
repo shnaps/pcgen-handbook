@@ -7,7 +7,7 @@ title: Granting things
 Two tags hand something to a character. `AUTO` grants it outright. `ADD` asks the player
 to choose.
 
-Shipped data writes `AUTO:` **7,448** times and `ADD:` **3,678** times. Both take a
+Shipped data writes `AUTO:` **7,449** times and `ADD:` **3,678** times. Both take a
 subtoken naming what is granted.
 
 | Tag | The player | Use it for |
@@ -30,7 +30,7 @@ Five current subtokens. A sixth, `AUTO:FEAT`, is deprecated and used once:
 | `WEAPONPROF` | 3,115 | a weapon proficiency |
 | `EQUIP` | 457 | a piece of equipment |
 | `ARMORPROF` | 236 | an armour proficiency |
-| `SHIELDPROF` | 148 | a shield proficiency |
+| `SHIELDPROF` | 149 | a shield proficiency |
 
 Arguments are separated by `|`. List several in one tag.
 

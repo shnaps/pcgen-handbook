@@ -169,8 +169,9 @@ See [plugin loading](plugin-loading.md) and [the interface layer](ui-layer.md).
 *Source: [`build.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/build.gradle)*
 
 Two formula systems is not a mistake in the list. JEP evaluates the older expression
-syntax while `PCGen-Formula` handles the newer one. Both are live. See
-[the formula system](formula-system.md).
+syntax while `PCGen-Formula` handles the newer one. Both are live. Almost all shipped
+data runs through JEP. See [the formula system](formula-system.md) for both, and
+[the rules engine](rules-engine.md) for which one a given tag reaches.
 
 ## Where to go next
 

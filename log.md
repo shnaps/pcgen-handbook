@@ -858,3 +858,48 @@ while `overview.md:170` points at it for JEP. Every `DEFINE:X|0` and `BONUS:VAR`
 and 83,023 uses — evaluates through PJEP. `core/term` is 129 classes declaring 80 PC
 terms and 15 EQ terms, the vocabulary `writing-a-sheet.md` already uses and nothing
 defines. Verified, ranked first, and queued.
+
+### Cross-review round
+
+All three reviewers verified my fixes and two of them found errors *in the fixes*.
+
+**The counting method I pinned was itself wrong.** It said split on tabs and test
+`startswith`. It did not say strip. `LstUtils.processToken` calls `tok.trim()` before
+dispatch, so a field with a leading space loads normally, and **196 tag fields in shipped
+data have one**. Skipping the strip drops real tags and makes the handbook's counts
+disagree with the loader they describe.
+
+That moved three published figures: `DESC` 99,993 to **99,997**, `AUTO:` 7,448 to
+**7,449**, `AUTO:SHIELDPROF` 148 to **149**. `DEFINE:` also restated as 37,178 with 37,076
+at `|0`, dropping the one `.pcc` use that the old mixed scope had included. The schema now
+carries the strip and the reason for it.
+
+**My corrected test snippet did not compile.** Fixing the test section, I pasted a real
+test verbatim — an integer-token test on `Race` — into a page whose running example is a
+string tag on `Skill`. `AbstractIntegerTokenTestCase` declares four abstract methods the
+snippet omitted. Replaced with `AbstractStringTokenTestCase`, which asks for
+`getStringKey` and `isClearLegal`, and added what `getConsolidationRule` means:
+`OVERWRITE` keeps the second occurrence, `SEPARATE` keeps both.
+
+**My kit correction was wrong in the other direction.** `KitLoader` registers 21 line
+kinds under 21 distinct names, sharing 18 classes. I had written 20 names. The reviewer
+that supplied the original figure caught its own error.
+
+**The facet example was missing the part that does the work.** Six steps of wiring and no
+`dataAdded` or `dataRemoved`. Added both, plus the constraint that `OutputDB.register`
+overloads take an `ItemFacet` or a `SetFacet` and a list facet cannot be registered.
+
+**The output token path is now complete.** `AbstractExportToken` is the real base and was
+named on no page — it implements `getToken` and hands over a `CharacterDisplay` rather
+than a `PlayerCharacter`. `Token` was also called an interface in a table when it is an
+abstract class. And output token tests live in `code/src/slowtest/`, which `testing.md`
+never said.
+
+**Ownership settled for `OutputDB.register`.** It is a facet method called from a facet's
+`init()`, so `facets.md` owns it. `writing-a-sheet.md` now links there instead of saying
+keys are "registered" without saying by what.
+
+On priority, the internals reviewer conceded sequence and held severity, which is the
+right call: a wrong base class stops the compiler and costs thirty seconds, while a
+misunderstood JEP term compiles, loads, and prints a wrong number. Cost of discovery
+ranks these, not size of gap. JEP is next.

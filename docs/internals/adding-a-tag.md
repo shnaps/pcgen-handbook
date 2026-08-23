@@ -4,7 +4,9 @@ title: Adding a tag
 
 # Adding a tag
 
-Writing a new LST tag is one class and one test. There is no registry to update.
+Writing a new LST tag is one class and one test. Two neighbouring systems are not. A
+`PRExxx` is three classes, and a game mode tag or a `BONUS:` subtype uses a different
+contract entirely. See [three contracts](#three-contracts).
 
 Read [the token system](token-system.md) first — this page assumes the interfaces.
 
@@ -160,31 +162,43 @@ Mirror the package under `code/src/test/plugin/lsttokens/` and extend the matchi
 you write is overrides that tell the base what it is testing:
 
 ```java
-public class ExampleTokenTest extends AbstractIntegerTokenTestCase<Race>
+public class ExampleTokenTest extends AbstractStringTokenTestCase<Skill>
 {
-    static HandsToken token = new HandsToken();
-    static CDOMTokenLoader<Race> loader = new CDOMTokenLoader<>();
+    static ExampleToken token = new ExampleToken();
+    static CDOMTokenLoader<Skill> loader = new CDOMTokenLoader<>();
 
     @Override
-    public Class<Race> getCDOMClass() { return Race.class; }
+    public Class<Skill> getCDOMClass() { return Skill.class; }
 
     @Override
-    public CDOMLoader<Race> getLoader() { return loader; }
+    public CDOMLoader<Skill> getLoader() { return loader; }
 
     @Override
-    public CDOMPrimaryToken<Race> getToken() { return token; }
+    public CDOMPrimaryToken<Skill> getToken() { return token; }
+
+    @Override
+    public StringKey getStringKey() { return StringKey.EXAMPLE; }
+
+    @Override
+    public boolean isClearLegal() { return true; }
 }
 ```
 
-`AbstractTokenTestCase` declares the hooks every test supplies: `getCDOMClass`,
-`getLoader`, `getToken`, `isCDOMEqual`, `getLegalValue`, `getAlternateLegalValue` and
-`getConsolidationRule`. A typed base such as `AbstractIntegerTokenTestCase` supplies most
-of them and asks for a key and a few flags instead.
+**Match the base to the tag.** `AbstractStringTokenTestCase` fits a string tag and asks
+for `getStringKey` and `isClearLegal`. `AbstractIntegerTokenTestCase` fits a number and
+asks instead for `getIntegerKey`, `isZeroAllowed`, `isNegativeAllowed` and
+`isPositiveAllowed`. Picking the wrong one leaves abstract methods unimplemented.
+
+Underneath both, `AbstractTokenTestCase` declares the hooks every test supplies:
+`getCDOMClass`, `getLoader`, `getToken`, `isCDOMEqual`, `getLegalValue`,
+`getAlternateLegalValue` and `getConsolidationRule`. The last says what happens when the
+tag appears twice — `ConsolidationRule.OVERWRITE` keeps the second, `SEPARATE` keeps
+both.
 
 The round trip is the assertion that matters, and it is inherited. It catches an
 `unparse` that does not match the parse.
 
-*Source: [`HandsTokenTest.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/test/plugin/lsttokens/race/HandsTokenTest.java)*
+*Source: [`AbstractStringTokenTestCase.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/test/plugin/lsttokens/testsupport/AbstractStringTokenTestCase.java)*
 
 ## 7. Check the build knows the package
 

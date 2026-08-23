@@ -44,9 +44,9 @@ character who qualifies for it, which is how monster defaults stay out of the wa
 
 ## The lines a kit owns
 
-`KitLoader` registers **21 line kinds** under 20 distinct names — `ABILITY` and `FEAT`
-both load through `KitAbilities`, and `NAME`, `GENDER` and `AGE` all through `KitBio`.
-Their tags live in twelve packages under `plugin/lsttokens/kit/`.
+`KitLoader` registers **21 line kinds**, sharing 18 classes — `ABILITY` and `FEAT` both
+load through `KitAbilities`, and `NAME`, `GENDER` and `AGE` all through `KitBio`. Their
+tags live in twelve packages under `plugin/lsttokens/kit/`.
 
 By use in shipped data:
 
