@@ -105,7 +105,7 @@ adding an output token from the code side. One subsystem, one work item — not 
 `EQMOD:` 12,086 uses; 26 classes, 14 tests. `equipment.md` gives it a paragraph. Ranked on
 usage: no measurable commit churn on eqmod data files since 2023.
 
-### 9. Choosers and qualifiers
+### 9. Choosers and qualifiers — written 2026-08-22, `internals/choosers.md`
 
 `cdom/choiceset/`, `core/chooser/`, `plugin/primitive/` and `plugin/qualifier/` — about
 4,300 lines with **40 test files** between the last two, and zero internals citations for

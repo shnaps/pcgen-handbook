@@ -116,6 +116,7 @@ nav:
           - internals/source-selection.md
           - internals/load-pipeline.md
           - internals/token-system.md
+          - internals/choosers.md
           - internals/plugin-loading.md
           - internals/formula-system.md
       - The model:

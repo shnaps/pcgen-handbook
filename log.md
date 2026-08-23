@@ -680,3 +680,31 @@ item reading badly on a sheet, and it had no mention anywhere in the handbook.
 
 Some shipped data uses modifier keys containing spaces, such as `Material ~ Adamantine`.
 Legal. A key containing a dot would not be, since dots separate modifiers.
+
+## 2026-08-22  how a chooser resolves
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Backlog item 9.
+- New page `internals/choosers.md`. 64 pages. `lst/concepts/choosers.md` keeps the tag.
+
+**The grammar has two operators, and they are not obvious.** `getChoiceSet` splits on `|`
+first, then splits each part on `,`. Pipes are alternatives, commas are intersections. So
+`SKILL|TYPE=Knowledge,TYPE=Int` is one alternative requiring both types, not two
+alternatives. Both splits respect `[]` and `()` grouping, so a bracketed argument may
+contain either separator.
+
+**Resolution order is fixed.** Each term is offered to the qualifier factory first, and to
+the primitive factory only if that returns null. A term matching neither logs `Choice
+argument was not valid` and the entire set returns nothing rather than degrading.
+
+**The two contracts differ in one telling way.** `PrimitiveToken.initialize` takes a class
+and a value. `QualifierToken.initialize` also takes a `SelectionCreator` and a `negated`
+flag. A primitive narrows by a property of the object. A qualifier narrows by the
+character's relationship to it, and has to know whether it was inverted.
+
+Counted: 21 primitives across 10 target types, 19 qualifiers across 13. Spells carry nine
+primitives, more than any other target. Skills carry five qualifiers.
+
+This also closes the loop on the `!TYPE` asymmetry recorded when the types page was
+written. The chooser path wraps a negated group in a `NegatingPrimitive`; the ordinary
+reference path rejects the same text. The types page owns that fact and this page links
+to it rather than restating it.

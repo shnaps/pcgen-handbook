@@ -200,4 +200,5 @@ with no question asked, that is what `CHOOSE:NOCHOICE` is for.
 - [Ability files](../files/ability.md) — `MULT`, `STACK` and where choosers are used most
 - [Prerequisites](prerequisites.md) — the other way to gate what a character may take
 - [Tag index](../reference/tag-index.md) — all 30 chooser types
+- [How a chooser resolves](../../internals/choosers.md) — the code path, primitives and qualifiers
 - [The token system](../../internals/token-system.md) — how sub-tokens are dispatched

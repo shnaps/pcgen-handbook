@@ -121,6 +121,7 @@ three in order.
 | [Source selection](internals/source-selection.md) | From the dialog to the loader, and what sets load order |
 | [Load pipeline](internals/load-pipeline.md) | From a `.pcc` on disk to a loaded object, class by class |
 | [The token system](internals/token-system.md) | How every tag is a class, and why that matters |
+| [How a chooser resolves](internals/choosers.md) | `CHOOSE:` from string to list, primitives and qualifiers |
 | [Plugin loading](internals/plugin-loading.md) | Why adding a tag needs no registration |
 | [The formula system](internals/formula-system.md) | The two modules behind `MODIFY` |
 
