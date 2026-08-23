@@ -60,8 +60,12 @@ Four operators, for use with [`.MOD`](modifying-data.md):
 |---|---|
 | `TYPE:.CLEAR` | empties the list |
 | `TYPE:.CLEAR.Weapon` | empties the list, then adds `Weapon` |
-| `TYPE:.ADD.Weapon` | adds without clearing |
-| `TYPE:.REMOVE.Weapon` | drops one type |
+| `TYPE:ADD.Weapon` | adds without clearing |
+| `TYPE:REMOVE.Weapon` | drops one type |
+
+**Only `.CLEAR` takes a leading dot.** It is stripped before the rest of the value is
+checked. `ADD` and `REMOVE` are written without one, and `TYPE:.ADD.Weapon` fails with
+`TYPE arguments may not start with .`.
 
 Three combinations are rejected at parse time, each with its own message:
 

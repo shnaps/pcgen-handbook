@@ -9,7 +9,7 @@ out from elsewhere, and they do different jobs.
 
 | Tag | Uses | Does |
 |---|---|---|
-| `SPELLS` | 8,222 | grants casting outright, with its own caster level and DC |
+| `SPELLS` | 8,206 | grants casting outright, with its own caster level and DC |
 | `SPELLKNOWN` | 5,431 | adds a spell to what a class knows |
 | `SPELLLEVEL` | 2,628 | declares what level a spell is for a class or domain |
 
@@ -88,7 +88,7 @@ tag rather than by position:
 SPELLS:SPELLBOOK=Prepared Spells|CLASS=Sample Caster|Sample Light
 ```
 
-Shipped data has 2,340 of these against 8,222 of the ordinary form. The tag name is the
+Shipped data has 2,356 of these against 8,206 of the ordinary form. The tag name is the
 same and the grammar is not. Check which file you are in before copying a line.
 
 ## Gotchas

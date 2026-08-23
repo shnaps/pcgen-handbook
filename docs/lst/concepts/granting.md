@@ -22,7 +22,7 @@ AUTO:LANG|Sample Tongue
 AUTO:WEAPONPROF|TYPE.Simple
 ```
 
-Five subtokens, all current:
+Five current subtokens. A sixth, `AUTO:FEAT`, is deprecated and used once:
 
 | Subtoken | Uses | Grants |
 |---|---|---|
@@ -70,7 +70,9 @@ becomes conditional on that choice.
 ADD:ABILITY|FEAT|NORMAL|Sample Feat,Sample Other Feat
 ```
 
-Eight subtokens, all current:
+Eight classes register **seven** distinct current subtokens — `ClassSkillsToken` and
+`ClassSkillsLevelToken` both answer to `CLASSSKILLS`. Two more forms in the table below
+are deprecated:
 
 | Subtoken | Uses | Offers |
 |---|---|---|
@@ -81,7 +83,8 @@ Eight subtokens, all current:
 | `EQUIP` | 10 | equipment |
 | `SKILL` | 9 | a skill |
 | `TEMPLATE` | 1 | a template |
-| `VFEAT` | 1 | deprecated, see below |
+| `FEAT` | 9 | deprecated, use `ABILITY` |
+| `VFEAT` | 1 | deprecated, use `ABILITY` with `VIRTUAL` |
 
 ### The shape of `ADD:ABILITY`
 
@@ -101,8 +104,9 @@ The parser tells the two apart by counting pipes. A count must resolve above zer
 **Nature** must be `NORMAL` or `VIRTUAL`. `AUTOMATIC` and `ANY` are both rejected by
 name. A virtual ability is granted without spending from the pool.
 
-PCGen builds the prompt title itself, as the nature and category followed by `Choice` —
-`VIRTUAL FEAT Choice`. There is no tag to override it.
+PCGen builds the prompt title itself. The category is followed by `Choice`, and the
+nature is prepended only when it is not `NORMAL`. So `NORMAL` gives `FEAT Choice` and
+`VIRTUAL` gives `VIRTUAL FEAT Choice`. There is no tag to override it.
 
 ### Repeats
 

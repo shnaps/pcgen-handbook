@@ -87,6 +87,21 @@ what comes before and after · a concrete trace or example · source citations.
 
 Diagrams welcome where they show a real mechanism. Mermaid renders natively.
 
+## Counting shipped data
+
+Every usage figure in the handbook is measured the same way. State nothing that was not
+measured this way, because two scopes produce two numbers for one claim.
+
+- Scope is **`data/**/*.lst`**. Not `.pcc`, unless the claim is about a `.pcc` tag, and
+  then say so.
+- Skip a line whose first character is `#`.
+- Split the line on tabs and test `field.startswith("TAG:")`. **Never count substrings.**
+  `ADD:` matches inside `DONOTADD:`, and `REMOVE:` matches inside `TYPE:.REMOVE.`.
+- A subtoken figure counts the text between the tag's colon and the first `|`.
+
+Three published figures were wrong from substring counting and two more from a mixed
+`.lst` and `.pcc` scope. No tool validates a number, so the method is the only guard.
+
 ## One fact, one owner
 
 Every material fact has exactly one page that explains it. Other pages may name the

@@ -26,7 +26,7 @@ ABILITY:CATEGORY=FEAT|Sample Feat
 next `STARTPACK`. That is the part to get right, because indentation and blank lines mean
 nothing here.
 
-*Source: [`plugin/lsttokens/kit/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/kit)*
+*Source: [`KitLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/KitLoader.java)*
 
 ## The header line
 
@@ -44,7 +44,11 @@ character who qualifies for it, which is how monster defaults stay out of the wa
 
 ## The lines a kit owns
 
-Twelve kinds, in twelve packages under `plugin/lsttokens/kit/`. By use in shipped data:
+`KitLoader` registers **21 line kinds** under 20 distinct names — `ABILITY` and `FEAT`
+both load through `KitAbilities`, and `NAME`, `GENDER` and `AGE` all through `KitBio`.
+Their tags live in twelve packages under `plugin/lsttokens/kit/`.
+
+By use in shipped data:
 
 | Line | Uses | Grants |
 |---|---|---|
@@ -60,6 +64,7 @@ Twelve kinds, in twelve packages under `plugin/lsttokens/kit/`. By use in shippe
 | `TEMPLATE` | 523 | a template |
 | `SELECT` | 420 | how many of the following to take |
 | `CLASS`, `FUNDS`, `GENDER`, `TABLE`, `LANGBONUS` | under 500 each | as named |
+| `AGE`, `DEITY`, `PROF`, `LEVELABILITY`, `FEAT` | rare | `FEAT` is the deprecated spelling of `ABILITY` |
 
 A `KIT` line inside a kit is how the generated monster packs are built. One base kit
 covers the creature type, then a small kit per variant.

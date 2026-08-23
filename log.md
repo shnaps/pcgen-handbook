@@ -797,3 +797,64 @@ what existed.
 
 Six of the thirteen carried a wrong number or a wrong scope, all caught by measuring
 before writing rather than by review afterwards.
+
+## 2026-08-22  three-reviewer verification pass
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No new pages.
+- Three reviewers on disjoint scopes: an accuracy audit of the nine new data pages, a
+  fresh internals gap pass, and a new lens — an engineer who attempts real changes using
+  only the handbook.
+
+**The new lens found what the other two structurally could not.** It did not read pages.
+It tried to add an LST tag, an output token and a facet, and recorded where the docs
+stopped being enough. All three attempts failed, and two of the failures were in text
+written earlier the same day.
+
+Its own summary is the finding worth keeping: an accurate page leaves the reader looking,
+a wrong one leaves them confident and wrong. Accuracy review cannot catch it, because
+each sentence was defensible about `AbstractStorageFacet` in isolation. Only running the
+task exposed it.
+
+### Corrected
+
+- `facets.md` told the reader to implement `copyContents`. All four recommended bases
+  already implement it. It also sent wiring to `FacetInitialization`, which holds 42
+  listener calls while **109** facets self-wire in `init()` under Spring's
+  `default-init-method`. Rewritten as a worked example with the bean declaration and
+  `OutputDB.register`.
+- `adding-a-tag.md` carried an example that does not compile — `put` with an `ObjectKey`,
+  read back with `getString`, which takes a `StringKey`. The key also had to be declared
+  and the page never said so. Its test section described three assertions when real tests
+  write none and override hooks instead.
+- `adding-a-tag.md` routed game mode tags and `BONUS:` subtypes to a contract covering
+  neither. Added a three-contracts table: `GameModeLstToken` through `TokenStore`,
+  `BonusObj` through `Bonus`.
+- **`display-text.md` taught a syntax that does not exist.** `%NAME`, `%CHOICE`, `%LIST`
+  and `%FEAT=` are values in the pipe-separated variable list, not placeholders in the
+  text. `Description.java` recognises only `%{`, `%%` and digits inside the text. Of the
+  135 shipped `DESC` fields using `%CHOICE`, none puts it in the text. Table rewritten.
+- **`types.md` listed two unwritable forms.** Only `.CLEAR` takes a leading dot, because
+  it is stripped before `checkForIllegalSeparator` runs. `TYPE:.ADD.Weapon` fails. The
+  token test parses `ADD.TestWP2` and `REMOVE.TestWP1` without one.
+- `granting.md` said eight current `ADD` subtokens. Eight classes register seven distinct
+  current names, plus deprecated `FEAT` and `VFEAT`. The prompt title also prepends the
+  nature only when it is not `NORMAL`.
+- `kit.md` said twelve line kinds. `KitLoader` registers 21 under 20 names.
+- Counts restated under one scope: `TYPE` 196,931, `DESC` 99,993, `SPELLS` 8,206 ordinary
+  against 2,356 kit. `DESC` is fifth-most-used, not second.
+
+### The method fix
+
+Five of the numeral errors came from two causes: substring counting, and mixing `.lst`
+with `.pcc`. `WIKI-SCHEMA.md` now pins the counting scope — `data/**/*.lst`, skip comment
+lines, split on tabs, test `startswith`, never substrings. No tool validates a number, so
+the written method is the only guard.
+
+### Still open
+
+The largest finding is not yet acted on. `formula-system.md` is 730 words about
+PCGen-Formula and contains **zero** mentions of JEP, PJEP, `jepcommands` or `core/term`,
+while `overview.md:170` points at it for JEP. Every `DEFINE:X|0` and `BONUS:VAR` — 37,077
+and 83,023 uses — evaluates through PJEP. `core/term` is 129 classes declaring 80 PC
+terms and 15 EQ terms, the vocabulary `writing-a-sheet.md` already uses and nothing
+defines. Verified, ranked first, and queued.

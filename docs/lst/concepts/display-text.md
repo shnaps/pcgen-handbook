@@ -7,12 +7,12 @@ title: Text the player reads
 Five tags carry the text a player sees on screen and on a character sheet. Four of them
 share one placeholder grammar.
 
-`DESC` is the most-used tag in the data language after `TYPE`. Shipped data writes it
-**100,395** times.
+`DESC` is one of the five most-used tags in the data language. Shipped data writes it
+**99,993** times, behind `TYPE`, `BONUS`, `SOURCEPAGE` and `CATEGORY`.
 
 | Tag | Uses | Legal on | Carries |
 |---|---|---|---|
-| `DESC` | 100,395 | anything | the description of the object |
+| `DESC` | 99,993 | anything | the description of the object |
 | `ASPECT` | 11,774 | abilities | a named value a sheet can look up |
 | `SAB` | 11,297 | anything grantable | a special ability line |
 | `BENEFIT` | 5,438 | abilities | what the ability gives, in one line |
@@ -36,22 +36,36 @@ DESC:Grants a bonus while wet.|PREVAR:GTEQ,Wet,1
 
 ### The placeholder grammar
 
-| Written | Becomes |
+The text takes numbered placeholders and nothing else:
+
+| In the text | Becomes |
 |---|---|
 | `%1`, `%2` | the first, second variable after the pipes |
 | `%{1}` | the same, bracketed. Numbers only |
 | `%%` | a literal `%` |
-| `%NAME` | the object's name |
+
+**The named forms are variables, not text.** `%NAME`, `%CHOICE`, `%LIST` and `%FEAT=` go
+in the pipe list, and the text refers to them by number:
+
+```
+DESC:Adds a bonus to %1.|%CHOICE
+```
+
+| As a variable | Resolves to |
+|---|---|
+| `%NAME` | the object's output name |
 | `%CHOICE` | what the player chose |
 | `%LIST` | the full selection from a [chooser](choosers.md) |
 | `%FEAT=` | a named feat |
 
-`BENEFIT`, `SAB` and `TEMPDESC` all build the same object as `DESC`, so all four take the
-same placeholders.
+Writing `DESC:Adds a bonus to %CHOICE.` does not work. Shipped data agrees: of the 135
+`DESC` fields using `%CHOICE`, **none** puts it in the text.
 
-**A bare `%` is a trap.** PCGen reads `%` followed by digits as a placeholder. A `%` with
-no digits after it is treated as a literal you forgot to escape. Write `%%` when you mean
-a percent sign.
+`BENEFIT`, `SAB` and `TEMPDESC` all build the same object as `DESC`, so all four take the
+same grammar.
+
+**A bare `%` is caught.** A `%` with no digits after it renders as a literal `%` and logs
+a warning telling you to escape it as `%%`.
 
 *Source: [`Description.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/Description.java)*
 
@@ -131,9 +145,13 @@ the interface needs the text in a particular place.
 **Unbalanced brackets.** `DESC` checks that parentheses match and fails the line if they
 do not.
 
-**A stray `%`.** Not an error. The text renders wrong and nothing is logged.
+**A stray `%`.** Not an error, and not silent. It renders as a literal `%` and logs a
+warning asking you to write `%%`.
 
-**A misspelt aspect name.** Not an error either. The value goes into a key nothing reads.
+**A named form written into the text.** `%CHOICE` in the text is not substituted. Put it
+in the pipe list and write `%1`.
+
+**A misspelt aspect name.** Not an error. The value goes into a key nothing reads.
 
 **Invalid XML characters.** Rejected, because the text reaches sheets that are XML.
 
