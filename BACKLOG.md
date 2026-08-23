@@ -1,340 +1,29 @@
 # Backlog
 
-What the handbook could cover next, and what it should not. From surveys of the PCGen
-repository and PCGen's own documentation on 2026-08-22 and 2026-08-23, at commit
-`d262f8b4`.
+What the handbook could cover next, and what it will not. Decisions here are binding
+until new evidence overturns them — the point of writing a rejection down is that it does
+not get proposed again.
 
-Ranked by how much a developer learning to modify PCGen would gain. Counts are measured,
-not estimated.
+The narrative of how each item was decided is in `log.md`. This file holds the state.
 
 ## Where the handbook stands
 
 **66 pages.** The generated [tag index](docs/lst/reference/tag-index.md) covers all 706
-tags. What is missing is explanation for the long tail.
+tags. `docs/internals/` is 18 pages, larger than every other section combined.
 
-`docs/internals/` is 18 pages — larger than every other section combined.
+**Nothing is open.** Three surveys have run — a repository survey on 2026-08-22, a
+verification pass the same day, and a code survey on 2026-08-23. Every item each raised
+is written, folded into an existing page, or rejected below.
 
-**All thirteen ranked items are done, 2026-08-22.** Nine became pages, four were folded
-into pages that already owned the ground. That section below is the record of what was
-decided and why, not a queue.
+## Decided against, with the evidence
 
-A three-reviewer verification pass on 2026-08-22 found eleven errors in the new pages and
-reopened the queue. All four items it raised are done. A second audit on 2026-08-23 found
-eight more in that day's own edits, all fixed.
-
-Two items came out of the code expert's survey on 2026-08-23. Both were sections on pages
-that already existed, and both are now written. **Nothing is open.**
-
-## Written, from the code survey
-
-A code expert walked the Java tree for what a developer needs and the handbook does not
-carry. The two design reviewers then judged each finding on reader need rather than size,
-and the survey conceded two of its four proposals. What follows is what survived.
-
-### 1. The property vocabulary of the FreeMarker model — done 2026-08-23, `output-and-saving.md`
-
-`pcgen/output/` holds 42 classes across `actor`, `base`, `wrapper`, `factory` and
-`publish`, with **zero handbook citations**. `output-and-saving.md:93` opens the
-FreeMarker engine and stops before the property list, so a sheet author writing
-`<#list pc.skills as skill>` has nowhere to learn what may follow the dot.
-
-The vocabulary is closed and registered in one method. Measured when the section was
-written, `CDOMWrapperInfoFacet.initialize` sets **nine** names, not the six first
-reported: `key`, `displayname`, `type`, `source`, `info` and `visibleto` on `CDOMObject`,
-`desc` and `benefit` on `PObject`, and `outputname` on seventeen concrete classes one at
-a time. `type` is overridden for `Equipment`.
-
-Two facts came out of writing it that the survey did not have. Lookup walks up the
-superclass chain and stops at `Object`, which is why `outputname` is registered
-seventeen times and `key` once. And this half **fails loudly** — an unregistered property
-throws a `TemplateModelException` naming the type and the key, where a missing output
-token substitutes an empty string and an unknown JEP name reads as zero. Of the three
-vocabularies a sheet touches, only this one says you were wrong.
-
-**The fact that earns the section** is the pairing, not the list. Six fixed keys sit
-beside an open set that data grows on its own: `FactDefinition` and
-`FactSetDefinition.java:65-73` register one actor per data-defined `FACT` or `FACTSET`,
-keyed on the lowercased name, so a game mode tag becomes `pc.someobj.factname` with no
-Java written. A name that collides with an existing key is **dropped with an error print**
-rather than merged (`FactSetDefinition.java:70-73`). That is a data-author trap, and it is
-why this is a section rather than a link to the source.
-
-Churn is 2 commits since 2023, both mechanical. Tests are 8, in `code/src/itest/`.
-Low churn is the argument for writing it: a closed vocabulary that nobody edits can be
-enumerated once and stay true.
-
-Home: a section in `output-and-saving.md`, before `## Where sheets live`.
-
-### 2. Solver View, the variable debugger nobody knows ships — done 2026-08-23, `variables-and-formulas.md`
-
-Three classes in `pcgen/gui2/solverview/`, launched from `PCGenActionMap.java:303` under
-Tools, bound to Ctrl-F11. Zero handbook citations. It shows a variable's scope, the
-modifiers applied to it and the resulting value.
-
-The two reviewers split on where it goes and settled it against the survey's proposal.
-`SolverViewFrame` imports only `pcgen.base.formula.*` and `pcgen.base.solver.ProcessStep`,
-so it inspects the **newer** engine alone. It can show a `MODIFY` variable's step stack
-and nothing at all about a `DEFINE:` or `BONUS:VAR` value. Putting it on
-`formula-system.md`, which now opens on the two-engine fork, would invite the exact
-confusion that page exists to prevent. A debugger is also a workflow, and that page is
-anatomy.
-
-So the procedure went beside `MODIFY` on the data side, in
-`lst/concepts/variables-and-formulas.md`, with the launch path stated — a reader who
-cannot find the menu item cannot use the tool. The newer-engine half of
-`formula-system.md` carries one pointer line.
-
-The section gives the five columns it shows — Modification Type, Modification, Resulting
-Value, Priority, Source — because reading Resulting Value down the table is the whole
-technique. It answers which modifier made the number wrong, not what the number is.
-
-This pairs with a fact the 2026-08-23 audit established: JEP fails silently to zero and
-has no inspector, while the newer engine ships one.
-
-## Closed, from the code survey
-
-**`architecture.md` was proposed for deletion and survives, trimmed.** The survey argued
-four of its five tables were re-owned elsewhere. Verified table by table, only one was.
-`:16-25` lists repository directories against `overview.md`'s Java package trees — a
-different subject. `building.md` has no Gradle-file table at all. The data-path package
-table is finer than anything in `overview.md`. The survey conceded.
-
-What was removed instead, 2026-08-23: the Tests table, which restated `testing.md` row for
-row, replaced by the one sentence that matters; and the two-row `pcgen.*`/`plugin.*`
-table, which `overview.md:83-84` owns. The unique passages the cut would have destroyed —
-"Documentation is not built", the `AGENTS.md` note, and `code/src/test` not being `utest`
-— are the reason the page exists.
-
-Cutting it would also have broken eight inbound references and retired a published URL.
-
-**`pcgen/gui2/util` was rejected as a topic and became one line.** 51 classes, 6,292
-lines, and `JTreeTable.java` is the fifth most-touched Java file since 2025. Both
-reviewers rejected it anyway: nobody adding a tag, writing a sheet or authoring LST ever
-opens it, so the churn measures the two people maintaining a table widget, not reader
-demand. The survey's staleness argument was also backwards — `ui-layer.md:19` puts `gui3`
-at 54 classes against `gui2`'s 241, so `gui2` is not dying. Audience killed it, not age.
-
-One line went into `ui-layer.md` saying tab tables render through `JTreeTable`, so a
-reader stops hunting for a framework that does not exist.
-
-## Rejected by the code survey, with measured reasons
-
-| Package | Size | Why not |
-|---|---|---|
-| `pcgen/cdom/content` | 43 classes, 5,522 lines | 9 commits since 2023, **all nine mechanical** — SpotBugs, logging, unicode, build. Its reader-facing half is already `cdom-model.md:47-48,92` |
-| `pcgen/cdom/helper` | 34 classes, 4,189 lines | 5 commits, all mechanical |
-| `pcgen/output/channel` and `cdom/formula` | 33 classes, 3,257 lines | 6 commits since 2023, every one PMD, SpotBugs, a dependency removal or a build change |
-| `pcgen/pluginmgr` | 15 classes | **0 commits since 2023.** `overview.md`'s one line is the whole story |
-| `pcgen/core/character` | 9 classes, 2,591 lines | 4 commits: Java 17, a subproject split, a fork merge, a test fix |
-| `pcgen/core/namegen` | 12 classes | random names, no engine role |
-| `ListContext` | — | 21 callers against `getObjectContext`'s 266. A paragraph in `adding-a-tag.md`, never a page |
-| `Logging.deprecationPrint`, `LST_ERROR`, `LST_WARNING` | `Logging.java:60,66` | uncited, but one paragraph in `adding-a-tag.md`
-
-## Closed: the verification pass
-
-From the three-reviewer verification pass, 2026-08-22. All four done 2026-08-23.
-
-### 1. The JEP formula engine — done 2026-08-23, `internals/formula-system.md` extended
-
-**The handbook documents the formula engine the data barely uses and not the one it runs
-on.** `formula-system.md` is 730 words entirely about `PCGen-Formula` and `MODIFY`, with
-zero mentions of JEP, PJEP, `jepcommands` or `core/term`. `overview.md` points at it for
-JEP. Every `DEFINE:X|0` and `BONUS:VAR` — 37,076 and 81,422 uses — evaluates through PJEP.
-
-Churn 7 commits since 2023. Tests 0.
-
-Scope, as the cross-review settled it:
-
-- Extend, but replace the opening. As it stands the page opens on Gradle subprojects, so
-  appending JEP staples two topics together. Open on the fork instead: two engines, and
-  which one runs is decided when the tag is parsed.
-- **Include** the 14 functions in `plugin/jepcommands/`. A closed set, plugin-registered
-  at `PJEP.java:84-91`, and it answers "what can I write".
-- **Do not** table the 95 terms. `TermEvaluatorBuilderPCVar` declares 80 and
-  `TermEvaluatorBuilderEQVar` 15. Give the mechanism — `EvaluatorFactory` builds two
-  vocabularies, PC and EQ, from regex enums — plus six or eight representative terms and
-  a pointer. A 95-row table is transcription, rejected on the same ground as the 150 tag
-  pages below.
-- The fact a data author needs: the vocabulary inside a `BONUS:` value is closed and
-  matched by regex, so a name that is not in it is not an error, it is a variable.
-- The fact a code changer needs: a new function is a `PCGenCommand` in
-  `plugin/jepcommands/`, a new term is an enum constant plus a `TermEvaluator` class in
-  `pcgen/core/term/`, and `PJEP.java:99` adds `cl` outside both.
-
-### 2. Where facades are implemented — done 2026-08-23, `internals/ui-layer.md`
-
-`pcgen/gui2/facade/` is 30 classes, 9 commits, 1 test, and zero handbook citations.
-`CharacterFacadeImpl` is 4,097 lines. `ui-layer.md` names the 33 interfaces and counts the
-package in its leak table, but never says this is where you edit to add a facade method.
-Two sentences.
-
-### 3. The LST converter — done 2026-08-23, `internals/adding-a-tag.md`
-
-`pcgen/gui2/converter/` 9 classes plus `plugin/converter/` 28, 10 commits, 0 tests, zero
-citations. `adding-a-tag.md` says deprecation means moving the class to `deprecated/`. It
-omits that a `ConvertPlugin` can rewrite the data instead. One paragraph.
-
-### 4. `load-pipeline.md` hides two dispatchers — done 2026-08-23
-
-Its table labels all 653 `plugin/lsttokens` files "data and game mode tags" in one row.
-The count is right. Game mode tokens use a different registry, which
-[adding a tag](docs/internals/adding-a-tag.md) now explains. One row, split in two.
-
-## Ranked, after two cross-reviews
-
-Two reviewers judged this independently — one from the data author's seat, one from the
-seat of a developer changing the Java — then attacked each other's verdicts and had to
-defend or concede each with evidence. Second pass on 2026-08-22, after the first pass's
-internals ranking was found to rest on a broken measurement. This order is what survived.
-
-Counts are measured at commit `d262f8b4`, by the method now pinned in `WIKI-SCHEMA.md`.
-Churn is commits, not file-touches — the distinction that invalidated the first pass.
-
-Some figures quoted in this section predate that method and were restated on the pages
-themselves. The pages are correct; treat this section as the reasoning, not the numbers.
-
-### 1. `TYPE` — written 2026-08-22, `lst/concepts/types.md`
-
-**282,966 uses**: 197,550 as its own field, 21,490 embedded in other fields, 63,926 as
-`TYPE=`. The most-used construct in the data language. It appears in 23 of 57 pages and
-is defined in none of them, internals included.
-
-`equipment.md` tells the reader type decides everything about an item without saying what
-a type is. Both reviewers converged on the principle behind this: **a silent gap outranks
-an admitted one.** An admitted gap sends the reader elsewhere. A silent gap sends them
-into a wrong edit.
-
-Dot syntax is a real grammar, so the page is short and fully citable: `TypeLst.java:47`
-`.CLEAR`, `:76` the dot split, `:83` `.ADD.`, `:92` `.REMOVE.`, `:100` rejecting `.CLEAR`
-mid-string. The owning page must carry the Java half — `ListKey.TYPE` and `TYPE=`
-resolution through `cdom/reference`, 9 commits since 2023 — because no other page can.
-
-### 2. `DEFINE:X|0`, and `BONUS:VAR` with it — written 2026-08-22, `lst/concepts/declaring-variables.md`
-
-**37,178 `DEFINE:` fields, and 37,076 of them — 99.7% — are the `|0` form.** The value
-arrives separately through `BONUS:VAR`, at 81,422 uses.
-
-The gap is admitted: `variables-and-formulas.md:125-127` says declaring a variable is not
-covered, `bonuses.md:129` points at the missing page, and `docs/index.md:52` promises
-`DEFINE`.
-
-**Teach one form.** `DefineLst.java:65-68` hard-fails `UNLOCK.` and `:96-101` hard-fails
-`LOCK.`, both redirecting to `DEFINESTAT`; `:85-90` calls `deprecationPrint` on any
-non-zero, non-`MAXLEVELSTAT=` formula. Those forms go to `appendix/whats-changed.md`. At
-99.7% one shape, this is roughly a third of the page originally planned, which is why it
-sits below `TYPE` without loss.
-
-### 3. Granting: `ADD:`, `AUTO:` and `REMOVE:` — written 2026-08-22, `lst/concepts/granting.md`
-
-`plugin/lsttokens/add/` 8 classes, `auto/` 5, with 8 and 5 tests. The tags appear as
-unexplained examples on twelve pages — race, template, domain, archetypes, new-class.
-
-Ranked above display tags because an ability must work before it reads well.
-
-### 4. Ability display tags — written 2026-08-22, `lst/concepts/display-text.md`
-
-**139 of the 189 commits to `data/` since 2023 touch ability files — 74%.** The single
-strongest churn signal measured anywhere in this backlog. `ASPECT` has 11,861 uses, `SAB`
-11,508; each gets at most a table row today.
-
-One reviewer ranked this second on that churn and the other sixth, arguing display text is
-not what blocks a newcomer. Both hold: the churn is real, and the dependency on item 3 is
-real. It sits directly behind the tags that make an ability do anything.
-
-### 5. Verifying your data loads — done 2026-08-22, folded into `start/when-it-breaks.md`
-
-Nothing above is safe to write without a pass/fail loop, which is the argument that moved
-this up. Absorbs `datatest`, `config.ini`, the `SHOWINMENU` trap, and the deliberately
-broken sets in `data/zen_test/pcgen_broken_tests/`. Replaces the invented symptoms in
-`when-it-breaks.md` with real ones rather than becoming a separate page.
-`internals/testing.md` is 553 words, the shortest internals page.
-
-### 6. Facets, past the concept — done 2026-08-22, `internals/facets.md` extended
-
-`cdom/facet/` is 248 classes and 34,187 lines across **18 commits since 2023**, twelve of
-them since 2025. `internals/facets.md` is 885 words: it gives 4 of 14 base classes and the
-extension pattern in three lines. The largest subsystem-to-page ratio in the handbook.
-
-Highest-ranked internals item. It sits below the data items because those cover facts no
-page owns at all, while this one deepens a page that exists and is correct.
-
-### 7. The output side, both halves — written 2026-08-22, `outputsheets/writing-a-sheet.md`
-
-`docs/outputsheets/` holds only the generated index, which states it cannot give token
-arguments. Nothing covers the FreeMarker side from the author's end, and nothing covers
-adding an output token from the code side. One subsystem, one work item — not two.
-
-### 8. Equipment modifiers — written 2026-08-22, `lst/files/equipment-modifier.md`
-
-`EQMOD:` 12,086 uses; 26 classes, 14 tests. `equipment.md` gives it a paragraph. Ranked on
-usage: no measurable commit churn on eqmod data files since 2023.
-
-### 9. Choosers and qualifiers — written 2026-08-22, `internals/choosers.md`
-
-`cdom/choiceset/`, `core/chooser/`, `plugin/primitive/` and `plugin/qualifier/` — about
-4,300 lines with **40 test files** between the last two, and zero internals citations for
-`cdom/choiceset` or `core/chooser`. `choosers.md` covers the data face only. The tests make
-this cheap to write correctly.
-
-### 10. Spell delivery outside a class list — written 2026-08-22, `lst/concepts/granting-spells.md`
-
-`SPELLS:` 8,422 uses, `SPELLKNOWN:` 5,450. Only `SPELLLEVEL:DOMAIN` is explained.
-
-### 11. Tab binding — done 2026-08-22, section in `internals/ui-layer.md`
-
-How a tab binds to `CharacterFacade`, added to `internals/ui-layer.md`, which already owns
-the boundary fact.
-
-`gui2` out-churns its own replacement: 30 commits since 2023 against `gui3`'s 16, and 21
-against 12 since 2025. One reviewer moved to drop this on staleness and conceded — the old
-layer is still where work lands, and `ui-layer.md:42` already records that nothing suggests
-it is changing soon. The other conceded that a page documenting 39,442 moving lines is
-still wrong. A section is what survived both.
-
-### 12. Kit files — written 2026-08-22, `lst/files/kit.md`
-
-`plugin/lsttokens/kit/` has 49 classes and 47 tests, but **7 data commits since 2023
-across 314 `STARTPACK:` files**, and the files are dominated by machine-generated monster
-packs. Kits consume `TYPE`, `PRE` and `ABILITY` — downstream of items 1 to 4, not a
-substitute for them.
-
-Both reviewers demoted this from fourth independently. Class and test counts measure
-specification size, not reader need.
-
-### 13. How a data set is laid out — done 2026-08-22, merged into `lst/concepts/sources.md`
-
-The `_` and `__` prefix convention and the publisher directory shape. Two paragraphs
-merged into `lst/concepts/sources.md`, which already owns discovery and load order. Not a
-page — a page would break "one fact, one owner".
-
-## Dropped in the second cross-review, with reasons
-
-**Prerequisites as code.** Ranked first among internals gaps in the first pass, on two
-errors. Its 138 "commits" were file-touches; the real figure is **4 commits since 2023**,
-and **130 of the 138 touches are one PMD sweep**, `7f818006e3`, dropping a redundant
-`implements`. The remaining three are a Java 17 move, a file relocation and a fork merge.
-The claim that no internals page cites `plugin/pretokens` was also false —
-`adding-a-tag.md:25`, `load-pipeline.md:147` and `plugin-loading.md:20` all do, and
-`prerequisites.md:144-151` already carries the parser/test/writer table said to be missing.
-Both reviewers dropped it. Nothing is owed here.
-
-**Bonus resolution.** `rules-engine.md:71-107` already owns it: the two-stage
-`buildActiveBonusMap`, static-then-recursive order, the bonus-type key format,
-`getTotalBonusTo`, and per-pass prerequisite re-testing. A second page is the exact
-duplication `WIKI-SCHEMA.md` forbids. The only remainder is `plugin/bonustokens/` — 55
-classes, 3 commits, and **zero tests**, which is the condition used to reject the
-companion-mod page.
-
-**Export tokens as a separate internals item.** `output-and-saving.md:72` already cites
-`plugin/exporttokens/` and its 140 classes and `:89` cites `pcgen/output/model/`. Merged
-into item 7.
-
-## Rejected, with reasons
+These were proposed and refused. Each entry says why, so the argument does not have to be
+had twice.
 
 **~150 hand-written tag pages.** The generated index already gives name, accepting class
-and implementing class. A hand-written page adds what the token test states, and 150 of
-them nearly triple the maintenance surface for the smallest marginal gain on this list.
-Both reviewers rejected it independently.
+and implementing class. A hand-written page adds only what the token test states, and 150
+of them nearly triple the maintenance surface for the smallest marginal gain available.
+Two reviewers rejected it independently.
 
 **A companion-mod page.** `plugin/lsttokens/companionmod/` has 9 classes and **zero
 tests**, so syntax would have to be inferred from token classes alone. `DECISIONS.md`
@@ -342,8 +31,42 @@ records that exact situation producing the `FEAT:`/`ABILITY:` error. Not worth t
 for a narrow feature.
 
 **A full game-mode file reference.** `game-modes.md` plus the generated index cover the
-ground. Reproducing a 120 KB `miscinfo.lst` page is not documentation, it is
-transcription.
+ground. Reproducing a 120 KB `miscinfo.lst` page is transcription, not documentation.
+
+**Prerequisites as code.** Ranked first among internals gaps in the first pass, on two
+errors. Its 138 "commits" were file-touches; the real figure is **4 commits since 2023**,
+and **130 of the 138 touches are one PMD sweep**, `7f818006e3`, dropping a redundant
+`implements`. The claim that no internals page cites `plugin/pretokens` was also false —
+`adding-a-tag.md:25`, `load-pipeline.md:147` and `plugin-loading.md:20` all do, and
+`prerequisites.md:144-151` already carries the table said to be missing.
+
+**Bonus resolution.** `rules-engine.md:71-107` already owns it: the two-stage
+`buildActiveBonusMap`, static-then-recursive order, the bonus-type key format,
+`getTotalBonusTo`, and per-pass prerequisite re-testing. A second page is the exact
+duplication `WIKI-SCHEMA.md` forbids.
+
+**Deleting `architecture.md`.** Proposed on the claim that four of its five tables were
+re-owned elsewhere. Verified table by table, only one was: `:16-25` lists repository
+directories against `overview.md`'s Java package trees, and `building.md` has no
+Gradle-file table at all. The duplicated Tests table was removed and the page kept. A cut
+would also have broken eight inbound references and retired a published URL.
+
+**`pcgen/gui2/util` as a topic.** 51 classes, 6,292 lines, and `JTreeTable.java` is the
+fifth most-touched Java file since 2025 — the strongest churn signal measured anywhere.
+Rejected anyway by both reviewers: nobody adding a tag, writing a sheet or authoring LST
+opens it, so that churn measures the people maintaining a widget. One line went into
+`ui-layer.md` so readers stop hunting for a framework.
+
+| Package | Size | Why not |
+|---|---|---|
+| `pcgen/cdom/content` | 43 classes, 5,522 lines | 9 commits since 2023, **all nine mechanical**. Reader-facing half is `cdom-model.md:47-48,92` |
+| `pcgen/cdom/helper` | 34 classes, 4,189 lines | 5 commits, all mechanical |
+| `pcgen/output/channel`, `cdom/formula` | 33 classes, 3,257 lines | 6 commits, every one PMD, SpotBugs, a dependency removal or a build change |
+| `pcgen/pluginmgr` | 15 classes | **0 commits since 2023.** `overview.md`'s one line is the whole story |
+| `pcgen/core/character` | 9 classes, 2,591 lines | 4 commits: Java 17, a subproject split, a fork merge, a test fix |
+| `pcgen/core/namegen` | 12 classes | random names, no engine role |
+| `ListContext` | — | 21 callers against `getObjectContext`'s 266. A paragraph in `adding-a-tag.md`, never a page |
+| `Logging.deprecationPrint` | `Logging.java:60,66` | uncited, but one paragraph in `adding-a-tag.md` |
 
 ## Not worth covering
 
@@ -359,8 +82,8 @@ transcription.
 
 ## Sources worth mining, with the constraint that applies
 
-Every one of these supplies **topics and facts**, never text. The handbook writes
-original prose, cites the implementing class, and uses invented example content.
+Every one supplies **topics and facts**, never text. The handbook writes original prose,
+cites the implementing class, and uses invented example content.
 
 | Source | Supplies |
 |---|---|
@@ -372,27 +95,44 @@ original prose, cites the implementing class, and uses invented example content.
 | `docs/listfilepages/rulesguide/` — 3 worked examples | how rules are modelled in data |
 | `system/gameModes/` — 20 modes | what a game mode is made of |
 
-## Answered: output tokens can be indexed, up to a point
+## A standing limit: output tokens index only halfway
 
 `tools/scan_tokens.py` works because every LST token declares `getTokenName()` as a
-literal. Output tokens turned out to be the same: of 154 classes, **80 return a literal
-and 74 return a constant declared in the same file. None are computed.** Three abstract
-helpers declare no name and are skipped. Zero duplicate names.
-
-So the scanner was written, and the name, class, package, origin and deprecation flag are
-generated. The FreeMarker model keys came along with it — all 23 are registered under
-literal names, though from 15 or so files scattered across the tree rather than one
-package.
+literal. Output tokens are the same — of 154 classes, 80 return a literal and 74 a
+constant declared in the same file, none computed — so name, class, package, origin and
+deprecation flag are generated. The 23 FreeMarker model keys came with it.
 
 Two things stay hand-written, and this is why the reference is only half solved:
 
-- **Argument grammar.** There is no sub-token registry. `Token.java` declares a
-  separator constant that nothing else uses, and each class parses its own remainder
-  with a tokenizer and an if/else chain. `STAT.0.MOD` is one name and two arguments that
-  exist only as literals inside that chain. Extracting them means reading each class.
+- **Argument grammar.** There is no sub-token registry. Each class parses its own
+  remainder with a tokenizer and an if/else chain. `STAT.0.MOD` is one name and two
+  arguments that exist only as literals inside that chain.
 - **Deprecation replacements.** The only signal is the package name. No annotation, no
-  javadoc tag, no logged message, and nothing naming a successor. Where the LST side gets
-  a migration message from the token itself, this side gets a directory.
+  javadoc tag, no logged message, nothing naming a successor. Where the LST side gets a
+  migration message from the token itself, this side gets a directory.
 
-Both facts are worth keeping: they are the difference between a system designed to be
-read and one that merely can be.
+## Written
+
+Reasoning for each is in `log.md` under its date.
+
+| Item | Landed in | Date |
+|---|---|---|
+| `TYPE`, the most-used construct in the data | `lst/concepts/types.md` | 08-22 |
+| Declaring a variable, and `BONUS:VAR` with it | `lst/concepts/declaring-variables.md` | 08-22 |
+| Granting: `ADD:`, `AUTO:`, `REMOVE:` | `lst/concepts/granting.md` | 08-22 |
+| Ability display tags | `lst/concepts/display-text.md` | 08-22 |
+| Verifying your data loads | folded into `start/when-it-breaks.md` | 08-22 |
+| Facets, past the concept | `internals/facets.md` | 08-22 |
+| The output side, both halves | `outputsheets/writing-a-sheet.md` | 08-22 |
+| Equipment modifiers | `lst/files/equipment-modifier.md` | 08-22 |
+| Choosers and qualifiers | `internals/choosers.md` | 08-22 |
+| Spell delivery outside a class list | `lst/concepts/granting-spells.md` | 08-22 |
+| Tab binding | section in `internals/ui-layer.md` | 08-22 |
+| Kit files | `lst/files/kit.md` | 08-22 |
+| How a data set is laid out | merged into `lst/concepts/sources.md` | 08-22 |
+| JEP, the engine the data runs on | `internals/formula-system.md` | 08-23 |
+| Where facades are implemented | `internals/ui-layer.md` | 08-23 |
+| The LST converter | `internals/adding-a-tag.md` | 08-23 |
+| Two dispatchers, split apart | `internals/load-pipeline.md` | 08-23 |
+| The FreeMarker property vocabulary | `internals/output-and-saving.md` | 08-23 |
+| Solver View, the variable debugger | `lst/concepts/variables-and-formulas.md` | 08-23 |
