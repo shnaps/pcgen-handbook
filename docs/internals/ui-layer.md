@@ -115,7 +115,7 @@ package when you add a facade method. Expect to find existing ones elsewhere.
 `gui2/tabs/` holds 61 classes, 21 of them directly in the folder and the rest in
 subpackages. The tables inside those tabs are not a framework. They render through
 `pcgen/gui2/util/JTreeTable.java`, 844 lines that extend `JTableEx` and then `JTable`.
-Twelve files mention it, six by import. There is no library to look for. Every tab implements one interface:
+Eleven other files reference it, two of them tests. There is no library to look for. Every tab implements one interface:
 
 ```java
 public interface CharacterInfoTab

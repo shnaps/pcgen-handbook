@@ -1203,3 +1203,22 @@ and has been added.
 
 **Method.** Every number in both audits was re-measured before use. That caught one
 auditor error — a non-recursive count reported as recursive — and confirmed the rest.
+
+## 2026-08-23  checking my own corrections
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Two fixes to the fixes.
+
+The corrections written after the audit were themselves unverified prose, which is the
+trap the audit had just demonstrated. Re-measuring them found two.
+
+**`JTreeTable` references.** I wrote "twelve files mention it, six by import". Twelve is
+the total across all source roots and it counts `JTreeTable.java` itself, so it flatters
+the number. Eleven other files reference it, two of them tests. The `gui2/tabs` split —
+61 across subpackages, 21 directly in the folder — was right.
+
+**`outputname`.** Left as "the name after output formatting", which says nothing a reader
+can act on. It is the `OUTPUTNAME` tag with `[BASE]` and `[NAME]` expanded, falling back
+to the display name when the tag is absent.
+
+Two rounds of correction on one section is the cost of writing before measuring. The
+sequence today was: write, audit, fix, audit the fix. Only the last step was cheap.

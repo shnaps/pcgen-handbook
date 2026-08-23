@@ -133,7 +133,7 @@ That vocabulary is closed, and one method sets it.
 |---|---|---|
 | `key` | `CDOMObject` | the object's key |
 | `displayname` | `CDOMObject` | the name as written |
-| `outputname` | 17 named classes | the name after output formatting |
+| `outputname` | 17 named classes | the `OUTPUTNAME` tag, with `[BASE]` and `[NAME]` expanded, falling back to the display name |
 | `type` | `CDOMObject`, overridden for `Equipment` | its types |
 | `source` | `CDOMObject` | a nested model of the source it came from |
 | `info` | `CDOMObject` | a nested model of its info fields |
