@@ -75,8 +75,8 @@ The toolchain targets Java 25.
 
 ## Tests
 
-Six Gradle tasks run them, and [testing](testing.md) lists all six. `datatest` is the
-one worth knowing as a data author: it loads the shipped data and requires it clean.
+[Testing](testing.md) lists the Gradle tasks. `datatest` is the one worth knowing as a
+data author: it loads the shipped data and requires it clean.
 
 ## Documentation is not built
 

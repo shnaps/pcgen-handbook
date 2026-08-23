@@ -114,23 +114,40 @@ movement gets adjusted across a set of modes at once.
 
 ## Seeing what a variable resolved to
 
-PCGen ships a debugger for this system and does not advertise it. Open **Tools > Solver
-View**, or press Ctrl-F11, with a character loaded.
+PCGen ships a debugger for this system and does not advertise it. It is **Tools > View
+Solver Process**, and it has no keyboard shortcut.
 
-Pick a scope from the chooser, type a variable name, and it lists every modifier that
-touched that variable, in the order they were applied:
+Four controls, and the third catches people out:
+
+| Control | Set it to |
+|---|---|
+| character | which loaded character to inspect |
+| scope | the scope the variable lives in |
+| object | the object holding it, needed for any scope but global |
+| variable name | the name itself |
+
+Leave the object unset in a non-global scope and the table empties. A name that matches
+nothing does not clear the table at all. It logs an error you will not see and leaves the
+previous variable's rows on screen. Check the name before you trust what you are reading.
+
+What it lists is every modifier applied to that variable, in the order they were applied:
 
 | Column | Shows |
 |---|---|
 | Modification Type | the kind of modifier |
-| Modification | what it did |
+| Modification | its instructions |
 | Resulting Value | the value after that step |
-| Priority | where [`PRIORITY`](#priority) put it |
-| Source | the object the modifier came from |
+| Priority | the solver's ordering key |
+| Source | where the modifier came from |
 
-This answers the question a `MODIFY` bug actually raises, which is not what the value is
-but which modifier made it that. Reading the Resulting Value column down the table shows
-where a number went wrong.
+The first row is always the default value rather than a modifier from your data.
+
+Reading Resulting Value down the table is the technique. It answers which modifier made
+the number wrong, which is the question a `MODIFY` bug actually raises.
+
+Treat the Priority column as an ordering key and not as your `PRIORITY` value. It is a
+composite of the priority you set and the modifier's own inherent priority, so
+`PRIORITY=100` does not show as 100.
 
 It covers this system only. Solver View reads the newer engine, so a variable declared
 with `DEFINE` and fed by `BONUS:VAR` does not appear here at all. Those have no inspector

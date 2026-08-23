@@ -103,10 +103,16 @@ command tests under `plugin/jepcommands/`, and three under `pcgen/core/term/`.
 
 ## PCGen-Formula, the newer engine
 
-This half has a debugger. **Tools > Solver View** lists every modifier applied to one
-variable and the value after each step, launched from `PCGenActionMap.java:303`. It reads
-this engine only — [variables and formulas](../lst/concepts/variables-and-formulas.md)
+This half has a debugger. **Tools > View Solver Process** lists every modifier applied to
+one variable and the value after each step, launched from `PCGenActionMap.java:303`. It
+reads this engine only — [variables and formulas](../lst/concepts/variables-and-formulas.md)
 covers using it.
+
+Its accelerator does not work, which is worth knowing before you go looking for the key.
+`SolverViewAction` passes `"Ctrl-F11"`, and `PCGenAction` tokenises on whitespace and
+accepts only `shortcut`, `alt`, `shift-shortcut` or a bare `F`-key. One token matching
+none of those falls through to `KeyStroke.getKeyStroke`, which returns null, so
+`ACCELERATOR_KEY` is never set.
 
 ### Two modules
 

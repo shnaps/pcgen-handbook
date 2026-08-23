@@ -120,20 +120,23 @@ the [token index](token-index.md).
 
 What follows the dot on an object is a second and separate vocabulary, closed and
 registered in one place. [Output and saving](../internals/output-and-saving.md#what-a-template-may-ask-an-object-for)
-lists it, including the properties a `FACT:` adds by itself.
+lists it, including the properties a `FACTDEF:` adds by itself.
 
-Treat the top-level keys as untested ground. They are real. Each is registered by the facet that owns
-it, through `OutputDB.register` — see [adding a facet](../internals/facets.md#adding-a-facet).
+Treat the top-level keys as untested ground. They are real. Each is registered by the
+facet that owns it, through `OutputDB.register` — see
+[adding a facet](../internals/facets.md#adding-a-facet).
 Nothing PCGen ships reads them, so there are no working examples to copy, and no sheet
 would break if one changed.
 
 ## What breaks
 
-**A token name that does not exist.** The older engine substitutes an empty string. The
-sheet renders with a gap and nothing is logged.
+**A token name that does not exist.** The older engine writes the token's own text back
+into the output. Inside `pcstring` that echo is caught and raises `Invalid export tag`,
+so the export fails rather than leaving a gap.
 
-**Forgetting `-1` in a loop.** The last pass asks for an index past the end. That is the
-empty-string case again, so it shows up as a stray blank row.
+**Forgetting `-1` in a loop.** The last pass asks for an index past the end. The token
+name is valid and only the index is wrong, so it returns empty and shows up as a stray
+blank row.
 
 **Quoting.** `pcstring` takes a FreeMarker string, and the token inside it often contains
 its own dots and equals signs. Single quotes outside, `${}` inside, is the shipped

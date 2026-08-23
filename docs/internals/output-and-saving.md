@@ -140,38 +140,60 @@ That vocabulary is closed, and one method sets it.
 | `visibleto` | `CDOMObject` | its visibility, queried by view |
 | `desc`, `benefit` | `PObject` | the description and the benefit text |
 
-`outputname` is registered on seventeen concrete classes one at a time while `key` is
-registered once, because lookup walks up the superclass chain. `getActor` tries the
-object's own class, then its parent, and stops at `Object`.
+Lookup walks up the superclass chain. `getActor` tries the object's own class, then its
+parent, and gives up when there is no parent left.
+
+That is why `key` needs only its one registration on `CDOMObject`. It does not explain the
+seventeen for `outputname`. That actor is an `OutputActor<CDOMObject>` and would work
+registered once. The seventeen are a whitelist of the classes allowed to answer to it.
 
 ### Data grows the set
 
-`FACT:` and `FACTSET:` add properties without any Java. Loading either definition calls
-`activateOutput`, which registers an actor under the fact name lowercased, on the class
-the fact applies to. A game mode that defines `FACT:Region` gives every template
-`${obj.region}`.
+A `FACTDEF:` in a data control file adds a property without any Java, but only if it is
+visible to export:
 
-The name is not namespaced, so it can collide with a fixed property or an earlier fact.
-A collision is **not merged**. The second registration is refused and the fact is dropped
-from output with an error print, while the rest of the definition loads normally.
+```text
+FACTDEF:RACE|BaseSize	DATAFORMAT:SIZEADJUSTMENT	VISIBLE:YES
+```
+
+`ContentDefinition.activate` calls `activateOutput` only when the definition's visibility
+includes `VISIBLE_EXPORT`, and the default when none is set is `HIDDEN`. So a fact that
+loads and works everywhere else is still absent from every template until it is made
+visible. That silence is the trap here.
+
+When it does register, the actor goes in under the fact name lowercased, on the class the
+definition names. `FACTDEF:RACE|BaseSize` gives templates `${race.basesize}`.
+
+### What a name collision actually does
+
+The registration map is keyed by class, so collisions are narrower than they look. A fact
+on `SKILL` named `key` does not fight the global `key`, because `getActor` finds the
+`Skill` entry before it ever walks up to `CDOMObject`. Only a global fact, or one named
+`outputname` or `type` on a class that already has those, collides at all.
+
+When one does, the code logs as though it refused and then does the opposite. It prints
+`already exists, ignoring Visibility to EXPORT`, but `set` has already called `put` and
+returned the old value merely as a report. **The new actor is in and the earlier property
+is gone.** The rest of the definition loads normally either way.
 
 *Source: [`FactDefinition.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/content/fact/FactDefinition.java)*
 
 ### This half fails loudly
 
 Ask for a property nothing registered and `CDOMObjectModel.proc` throws a
-`TemplateModelException` naming both the type and the key. Export stops.
+`TemplateModelException` naming both the type and the key. It surfaces as an
+`ExportException`. Whatever the sheet had already written is still flushed, so you get a
+truncated file and a real message rather than a silent gap.
 
-That is worth knowing because the other two paths do the opposite. A missing output token
-substitutes an empty string, and an unknown name in a
-[JEP formula](formula-system.md) reads as zero. Of the three vocabularies a sheet touches,
-only this one tells you that you were wrong.
+That is worth knowing because the other vocabularies do not behave this way. An unknown
+name in a [JEP formula](formula-system.md) reads as zero and says nothing at all. Of the
+vocabularies a sheet touches, this is the one that tells you that you were wrong.
 
 ### Adding one in Java
 
-Write an `OutputActor<T>` in `pcgen/output/actor/` — 16 classes, each a single `process`
-method returning a `TemplateModel` — then register it in `CDOMWrapperInfoFacet`.
-`pcgen/output/` is 42 classes across `actor`, `base`, `wrapper`, `factory` and `publish`.
+Write an `OutputActor<T>` in `pcgen/output/actor/` — 16 classes, each built around a single
+`process` method returning a `TemplateModel` — then register it in `CDOMWrapperInfoFacet`.
+`pcgen/output/` is 71 classes in seven subpackages, of which `model` is the largest at 20.
 Its tests are in `code/src/itest/`.
 
 *Source: [`CDOMWrapperInfoFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/CDOMWrapperInfoFacet.java)*

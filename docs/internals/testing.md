@@ -98,6 +98,7 @@ string, assert success, assert the round trip.
 | `test` | unit tests |
 | `itest` | integration tests, including edit-context round trips |
 | `slowtest` | slow tests |
+| `inttest` | every character export test at once |
 | `pfinttest` and similar | per-game-mode end-to-end character export |
 
 The per-game-mode tasks export a character and compare the output, which catches

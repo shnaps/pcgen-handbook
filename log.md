@@ -1135,3 +1135,71 @@ not there, for the reason the cross-review established — that page is anatomy,
 a `MODIFY` debugger beside the JEP section would undo the separation the page opens with.
 
 **Nothing is open.**
+
+## 2026-08-23  auditing the sections written the same day
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No new pages.
+- Two auditors on disjoint files. **Thirteen errors**, twelve in work written hours
+  earlier and one pre-existing. One auditor number was itself wrong and was re-measured.
+
+Writing a section is not the same as knowing it is right. Both sections written this
+morning went out unchecked, and the audit found more in them than the morning pass found
+across four files.
+
+**`FACT` does not reach a template on its own.** The worst error. `ContentDefinition.activate`
+calls `activateOutput` only when the definition is visible to `VISIBLE_EXPORT`, and the
+default with no visibility set is `HIDDEN`. So a fact that loads and works everywhere else
+is absent from every template until it is made visible. The page had said loading the
+definition was enough. It also named the wrong token — `FACTDEF:` defines a fact in a data
+control file, `FACT:` is what an object then carries.
+
+**The collision claim was backwards.** I wrote that a name collision refuses the second
+registration and drops the fact. `set` calls `put` unconditionally and returns the old
+value only as a report, so the new actor is in and the *earlier* property is the one lost.
+The code logs `already exists, ignoring` and then does not ignore it. Worth documenting
+precisely because the log says the opposite of what happened.
+
+The scope was also wrong. The map is keyed by class, so a fact on `SKILL` named `key`
+never fights the global `key` — `getActor` finds the `Skill` entry before it walks up.
+Only a global fact, or one shadowing `outputname` or `type` on a class that has them,
+collides at all.
+
+**A reason that sounded good and was not.** I had explained the seventeen `outputname`
+registrations by the superclass walk. The walk explains why `key` needs one registration —
+it argues *against* repeating `outputname`, which is an `OutputActor<CDOMObject>` and would
+work registered once. The seventeen are a whitelist. Reasoning that flatters the mechanism
+is the kind that survives review, which is why it needed catching.
+
+**71, not 42.** `pcgen/output/` has seven subpackages. I counted the five I had named and
+wrote the total as though it were the package. `model` alone is 20 classes, and
+`CDOMObjectModel` — cited three lines above the count — lives in it.
+
+**The contrast that anchored the section was half wrong.** I wrote that a missing output
+token substitutes an empty string. The default branch writes the token's own text back
+verbatim, and through `pcstring` that echo raises `Invalid export tag`. That error was
+pre-existing, in `writing-a-sheet.md`, and had been on the site since the page was
+written. Fixed there too, along with the loop bullet that leaned on it.
+
+**Solver View: the shortcut does not exist.** The page said Ctrl-F11. `SolverViewAction`
+passes the string `"Ctrl-F11"`, `PCGenAction` tokenises on whitespace and accepts only
+`shortcut`, `alt`, `shift-shortcut` or a bare F-key, and one token matching none of them
+falls through to `KeyStroke.getKeyStroke`, which returns null. `ACCELERATOR_KEY` is never
+set. No key opens that window. The menu label was wrong too — it reads **View Solver
+Process**, not Solver View.
+
+That one is now on `formula-system.md` as a fact in its own right. A shortcut declared in
+source that silently never registers is worth a reader's attention.
+
+**And the tool has four controls, not two.** Character, scope, object, name. The object is
+required for any non-global scope, and leaving it unset empties the table. A name matching
+nothing does not clear the table at all — it logs where nobody looks and leaves the
+previous variable's rows on screen, which is how you read the wrong answer confidently.
+The Priority column is the solver's composite ordering key, not the `PRIORITY` you set.
+
+**An auditor was wrong once.** `architecture.md` was corrected to say six Gradle test
+tasks. `testing.md` names five and `build.gradle` registers ten, so the sentence now gives
+no count and points at the page that owns the list. `inttest` was missing from that list
+and has been added.
+
+**Method.** Every number in both audits was re-measured before use. That caught one
+auditor error — a non-recursive count reported as recursive — and confirmed the rest.

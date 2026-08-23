@@ -112,9 +112,10 @@ package when you add a facade method. Expect to find existing ones elsewhere.
 
 ## How a tab binds to a character
 
-`gui2/tabs/` holds 61 classes. The tables inside them are not a framework. They render
-through `pcgen/gui2/util/JTreeTable.java`, 844 lines of hand-rolled Swing that 20 files
-reference. There is no library to look for. Every tab implements one interface:
+`gui2/tabs/` holds 61 classes, 21 of them directly in the folder and the rest in
+subpackages. The tables inside those tabs are not a framework. They render through
+`pcgen/gui2/util/JTreeTable.java`, 844 lines that extend `JTableEx` and then `JTable`.
+Twelve files mention it, six by import. There is no library to look for. Every tab implements one interface:
 
 ```java
 public interface CharacterInfoTab
