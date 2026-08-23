@@ -1,7 +1,8 @@
 # Backlog
 
-What the handbook could cover next, and what it should not. From a survey of the PCGen
-repository and PCGen's own documentation on 2026-08-22, at commit `d262f8b4`.
+What the handbook could cover next, and what it should not. From surveys of the PCGen
+repository and PCGen's own documentation on 2026-08-22 and 2026-08-23, at commit
+`d262f8b4`.
 
 Ranked by how much a developer learning to modify PCGen would gain. Counts are measured,
 not estimated.
@@ -18,7 +19,103 @@ into pages that already owned the ground. That section below is the record of wh
 decided and why, not a queue.
 
 A three-reviewer verification pass on 2026-08-22 found eleven errors in the new pages and
-reopened the queue. All four items it raised are now done, 2026-08-23. Nothing is open.
+reopened the queue. All four items it raised are done. A second audit on 2026-08-23 found
+eight more in that day's own edits, all fixed.
+
+**Two items are open**, from the code expert's survey on 2026-08-23. Both are sections on
+pages that already exist, not new pages.
+
+## Open, from the code survey
+
+A code expert walked the Java tree for what a developer needs and the handbook does not
+carry. The two design reviewers then judged each finding on reader need rather than size,
+and the survey conceded two of its four proposals. What follows is what survived.
+
+### 1. The property vocabulary of the FreeMarker model — `output-and-saving.md`
+
+`pcgen/output/` holds 42 classes across `actor`, `base`, `wrapper`, `factory` and
+`publish`, with **zero handbook citations**. `output-and-saving.md:93` opens the
+FreeMarker engine and stops before the property list, so a sheet author writing
+`<#list pc.skills as skill>` has nowhere to learn what may follow the dot.
+
+The vocabulary is closed and registered in one method. `CDOMWrapperInfoFacet.java:81-87`
+sets `key`, `displayname`, `type`, `desc`, `benefit` and `outputname` on
+`CDOMObject`/`PObject`, and `:106` overrides `type` for `Equipment`.
+
+**The fact that earns the section** is the pairing, not the list. Six fixed keys sit
+beside an open set that data grows on its own: `FactDefinition` and
+`FactSetDefinition.java:65-73` register one actor per data-defined `FACT` or `FACTSET`,
+keyed on the lowercased name, so a game mode tag becomes `pc.someobj.factname` with no
+Java written. A name that collides with an existing key is **dropped with an error print**
+rather than merged (`FactSetDefinition.java:70-73`). That is a data-author trap, and it is
+why this is a section rather than a link to the source.
+
+Churn is 2 commits since 2023, both mechanical. Tests are 8, in `code/src/itest/`.
+Low churn is the argument for writing it: a closed vocabulary that nobody edits can be
+enumerated once and stay true.
+
+Home: a section in `output-and-saving.md`, before `## Where sheets live`.
+
+### 2. Solver View, the variable debugger nobody knows ships — the data side
+
+Three classes in `pcgen/gui2/solverview/`, launched from `PCGenActionMap.java:303` under
+Tools, bound to Ctrl-F11. Zero handbook citations. It shows a variable's scope, the
+modifiers applied to it and the resulting value.
+
+The two reviewers split on where it goes and settled it against the survey's proposal.
+`SolverViewFrame` imports only `pcgen.base.formula.*` and `pcgen.base.solver.ProcessStep`,
+so it inspects the **newer** engine alone. It can show a `MODIFY` variable's step stack
+and nothing at all about a `DEFINE:` or `BONUS:VAR` value. Putting it on
+`formula-system.md`, which now opens on the two-engine fork, would invite the exact
+confusion that page exists to prevent. A debugger is also a workflow, and that page is
+anatomy.
+
+So the procedure goes beside `MODIFY` on the data side, in
+`lst/concepts/variables-and-formulas.md`, with the launch path stated — a reader who
+cannot find the menu item cannot use the tool. The newer-engine half of
+`formula-system.md` carries one pointer line.
+
+This pairs with a fact the 2026-08-23 audit established: JEP fails silently to zero and
+has no inspector, while the newer engine ships one.
+
+## Closed, from the code survey
+
+**`architecture.md` was proposed for deletion and survives, trimmed.** The survey argued
+four of its five tables were re-owned elsewhere. Verified table by table, only one was.
+`:16-25` lists repository directories against `overview.md`'s Java package trees — a
+different subject. `building.md` has no Gradle-file table at all. The data-path package
+table is finer than anything in `overview.md`. The survey conceded.
+
+What was removed instead, 2026-08-23: the Tests table, which restated `testing.md` row for
+row, replaced by the one sentence that matters; and the two-row `pcgen.*`/`plugin.*`
+table, which `overview.md:83-84` owns. The unique passages the cut would have destroyed —
+"Documentation is not built", the `AGENTS.md` note, and `code/src/test` not being `utest`
+— are the reason the page exists.
+
+Cutting it would also have broken eight inbound references and retired a published URL.
+
+**`pcgen/gui2/util` was rejected as a topic and became one line.** 51 classes, 6,292
+lines, and `JTreeTable.java` is the fifth most-touched Java file since 2025. Both
+reviewers rejected it anyway: nobody adding a tag, writing a sheet or authoring LST ever
+opens it, so the churn measures the two people maintaining a table widget, not reader
+demand. The survey's staleness argument was also backwards — `ui-layer.md:19` puts `gui3`
+at 54 classes against `gui2`'s 241, so `gui2` is not dying. Audience killed it, not age.
+
+One line went into `ui-layer.md` saying tab tables render through `JTreeTable`, so a
+reader stops hunting for a framework that does not exist.
+
+## Rejected by the code survey, with measured reasons
+
+| Package | Size | Why not |
+|---|---|---|
+| `pcgen/cdom/content` | 43 classes, 5,522 lines | 9 commits since 2023, **all nine mechanical** — SpotBugs, logging, unicode, build. Its reader-facing half is already `cdom-model.md:47-48,92` |
+| `pcgen/cdom/helper` | 34 classes, 4,189 lines | 5 commits, all mechanical |
+| `pcgen/output/channel` and `cdom/formula` | 33 classes, 3,257 lines | 6 commits since 2023, every one PMD, SpotBugs, a dependency removal or a build change |
+| `pcgen/pluginmgr` | 15 classes | **0 commits since 2023.** `overview.md`'s one line is the whole story |
+| `pcgen/core/character` | 9 classes, 2,591 lines | 4 commits: Java 17, a subproject split, a fork merge, a test fix |
+| `pcgen/core/namegen` | 12 classes | random names, no engine role |
+| `ListContext` | — | 21 callers against `getObjectContext`'s 266. A paragraph in `adding-a-tag.md`, never a page |
+| `Logging.deprecationPrint`, `LST_ERROR`, `LST_WARNING` | `Logging.java:60,66` | uncited, but one paragraph in `adding-a-tag.md`
 
 ## Closed: the verification pass
 

@@ -1033,3 +1033,62 @@ written without reading the first.
 
 **`load-pipeline.md`, one label.** The row read `plugin/lsttokens` 496, which is the tree
 minus `gamemode`. Top level alone is 57. The label now says "less `gamemode`".
+
+## 2026-08-23  the code expert's survey, and what the other two did to it
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No new pages.
+- A third reviewer seat, running against the Java tree rather than against the handbook.
+  Its findings then went to the two reviewers who had just audited the pages, for a
+  usability verdict. Two of four proposals were conceded.
+
+The backlog was empty, so the question was what to survey next. The previous survey ran
+from the source's seat — subsystem size, churn, test counts. This one asked a code expert
+a narrower question: which parts of the codebase would a developer need documented. Same
+rules as the other reviewers, and the same authority to say a published page should go.
+
+**Four proposals came back. Two survived.**
+
+The one that survived intact is the FreeMarker property vocabulary — what may follow the
+dot in `<#list pc.skills as skill>`. `output-and-saving.md` opens the engine and stops
+before the property list. The reviewer who audited the formula pages sharpened it: the
+fact worth writing is not the list of six keys but the pairing of a fixed set with an open
+one that data grows by itself, and the collision behaviour when a `FACTSET` name shadows a
+built-in key. It is dropped with an error print rather than merged. I verified that at
+`FactSetDefinition.java:70-73` before accepting it.
+
+**Solver View changed homes on a scoping fact.** The survey wanted two sentences in
+`formula-system.md`. The reviewer who had just spent an audit inside that page refused:
+`SolverViewFrame` imports only `pcgen.base.formula.*` and `pcgen.base.solver.ProcessStep`,
+so the debugger inspects the newer engine and can say nothing about a `DEFINE:` or
+`BONUS:VAR` value. On a page that now opens by separating two engines, that mention would
+teach the opposite of what the page is for. The survey conceded in three sentences.
+
+That is the argument working the way it is supposed to. Neither reviewer could have
+reached it alone — one knew the tool existed, the other knew what the page had just become.
+
+**The page proposed for deletion survives.** The survey wanted `architecture.md` cut, on
+the claim that four of its five tables are re-owned elsewhere. The second reviewer checked
+table by table and found one. The repository-directory table is not the Java package
+table. `building.md` has no Gradle-file table at all to duplicate. I checked both myself
+before ruling, because a deletion is the only irreversible thing on the list, and it would
+have broken eight inbound references and retired a published URL.
+
+The survey conceded and named what should go instead: the Tests table, which restated
+`testing.md` row for row, and the two-row `pcgen.*`/`plugin.*` table that `overview.md`
+owns. Both removed. The page kept the three passages the cut would have destroyed — that
+`docs/` has no build step, the `AGENTS.md` note, and that the test root is `code/src/test`
+and not `utest`.
+
+**A 6,292-line package became one line.** `pcgen/gui2/util` holds the hand-rolled tree
+table every tab renders through, and `JTreeTable.java` is the fifth most-touched Java file
+since 2025. Both reviewers rejected it anyway. Churn there measures the two people
+maintaining a widget, not reader demand, and nobody writing data ever opens it. The
+survey's staleness framing was also backwards, which it conceded: `gui2` is not dying,
+`gui3` is 54 classes against 241.
+
+What went in is the useful residue — `ui-layer.md` now says tab tables render through
+`JTreeTable` so a reader stops looking for a framework that was never there.
+
+**Method note.** Every number in the survey was re-measured before it reached the backlog,
+including the ones nobody disputed. Two of the reviewers' own claims did not survive that:
+one in this round, one in the audit earlier the same day.

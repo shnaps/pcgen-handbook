@@ -42,17 +42,11 @@ It says nothing about documentation.
 
 Note it is `code/src/test`, not `utest`.
 
-## The two package trees that matter for data
+## The packages that matter for data
 
-| Package | Is |
-|---|---|
-| `pcgen.*` | the engine — loading, the object model, rules, the interface |
-| `plugin.*` | the tags. One class per tag, jarred separately |
-
+[The overview](overview.md#four-top-level-packages) sets out the four package trees.
 Nearly everything in this handbook's [tag index](../lst/reference/tag-index.md) lives
-under `plugin/`.
-
-The parts of `pcgen.*` that matter most for data:
+under `plugin/`. These are the parts of `pcgen.*` a data change passes through:
 
 | Package | Does |
 |---|---|
@@ -81,15 +75,8 @@ The toolchain targets Java 25.
 
 ## Tests
 
-| Task | Runs |
-|---|---|
-| `test` | unit tests |
-| `itest` | integration tests |
-| `slowtest` | slow tests |
-| `datatest` | loads the shipped data and requires it clean |
-| `pfinttest` and similar | per-game-mode end-to-end tests |
-
-`datatest` is the one worth knowing as a data author. See [testing](testing.md).
+Six Gradle tasks run them, and [testing](testing.md) lists all six. `datatest` is the
+one worth knowing as a data author: it loads the shipped data and requires it clean.
 
 ## Documentation is not built
 
