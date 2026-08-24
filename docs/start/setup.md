@@ -31,23 +31,36 @@ Everything you care about lives in the folder PCGen was installed to.
 | `docs/` | PCGen's own documentation |
 | `pcgen.log` | error output — you will need this |
 
-Open `data/`. Each subfolder is a game mode: `35e`, `pathfinder`, `5e` and others.
+Open `data/`. Most subfolders are game modes — `35e`, `pathfinder`, `5e` and others.
+The ones starting with `_`, plus `customsources` and `publisher_logos`, are shared
+material rather than modes.
 
 ## Make your own folder
 
 PCGen ships a homebrew starter set at `data/35e/homebrew/my_homebrew/`. Look at it —
 it has a template file for every data type, each with notes inside.
 
-**Do not work in it directly.** Copy it, and rename the copy:
+**Do not work in it, and do not work anywhere under `data/`.** Everything there is
+replaced when you upgrade. PCGen's own Data Installer says so in as many words. A set
+installed there *"will be replaced when upgrading to a new version of PCGen"*.
+
+Work in the **Homebrew Data directory** instead. PCGen scans it for campaigns exactly
+as it scans `data/`, and it survives an upgrade. The installer's note for that location
+reads *"will be available in the new version if you upgrade"*.
+
+Find the path under Preferences, as **PCGen Homebrew Data Directory**. Then copy the
+template out of `data/` and into it, under a name of your own:
 
 ```
-data/35e/homebrew/my_homebrew/    <- shipped template, leave alone
-data/35e/homebrew/testburg/       <- your copy, work here
+data/35e/homebrew/my_homebrew/    <- shipped template, copy from here, never edit
+<homebrew data dir>/testburg/     <- your copy, work here
 ```
 
-Renaming matters. A reinstall or upgrade can overwrite anything PCGen ships, and
-`my_homebrew` is a folder PCGen ships. Work in a folder with your own name on it and
-an upgrade cannot touch it.
+Nothing about a campaign depends on sitting inside `data/`. The `.pcc` names its own
+game mode with `GAMEMODE:`, and `CampaignFileLoader` walks the data, vendor and
+homebrew directories alike.
+
+<!-- src: code/src/java/pcgen/persistence/CampaignFileLoader.java -->
 
 Inside your copy you will find:
 
@@ -75,11 +88,14 @@ whitespace toggle.
 
 ## Check it works
 
-Start PCGen. Go to the source selection screen and look for your campaign under
-**Homebrew**. If it is listed, PCGen has found your `.pcc` and you are set up.
+Start PCGen and go to the source selection screen. On the Advanced tab, sources are
+grouped by publisher, and yours appears under whatever its `.pcc` declares in `TYPE:`.
+The shipped template uses `TYPE:Homebrew.MyCampaign`, so look under **Homebrew** until
+you change it.
 
-If it is not listed, PCGen either did not find the file or rejected it. Check that
-your folder is under a game mode folder inside `data/`.
+If it is not listed, PCGen either did not find the file or rejected it. Check the
+campaign is under your Homebrew Data directory and that its `GAMEMODE:` names a mode
+PCGen has.
 
 ## Next
 

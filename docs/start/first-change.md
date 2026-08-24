@@ -11,8 +11,8 @@ Everything here is invented. Nothing comes from a published book.
 
 ## Before you start
 
-You need a working folder from [Set up](setup.md). This page assumes
-`data/35e/homebrew/testburg/`.
+You need a working folder from [Set up](setup.md). This page calls it `testburg/`, and
+it sits in your Homebrew Data directory rather than under `data/`.
 
 ## 1. Write the feat
 
