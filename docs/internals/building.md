@@ -27,8 +27,9 @@ javafxVersion=25.0.4
 
 *Source: [`gradle.properties`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/gradle.properties)*
 
-`build.gradle` reads that value into a Java toolchain block, so Gradle downloads a
-matching JDK if your own is a different version. The JavaFX major version must match
+`build.gradle` reads that value into a Java toolchain block. No toolchain resolver is
+configured, so Gradle does not download a JDK for you — it fails with `PCGen requires
+JDK 25 to build, but Gradle could not find one`. Install that version yourself. The JavaFX major version must match
 the Java major version, and the file says so in a comment.
 
 You never install Gradle. `./gradlew` on Linux and macOS, `gradlew.bat` on Windows,
@@ -102,7 +103,6 @@ Read from `build.gradle` and `code/gradle/*.gradle`.
 | `testCoverage` | Jacoco report |
 | `qbuild` | copy the jar into `output/` for a quick manual run |
 | `fullJpackage` | native installer bundle |
-| `idea` | generate IntelliJ project files |
 | `buildDist` | the five release zips |
 
 `./gradlew tasks` lists the rest.

@@ -134,7 +134,7 @@ the class. The test extends a shared base:
 
 *Source: [`AbstractTokenTestCase.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/test/plugin/lsttokens/testsupport/AbstractTokenTestCase.java)*
 
-It requires six methods:
+It requires seven methods:
 
 | Method | Returns |
 |---|---|
@@ -161,7 +161,8 @@ quietly:
 
 - No new class in the main module may share a package name with `PCGen-base` or
   `PCGen-Formula`. The module system rejects split packages.
-- Reuse the JavaFX panel and stage rather than creating new ones.
+- Never re-attach a `JFXPanel`'s Scene to a Stage. Use `PanelFromResource` for a
+  standalone dialog and `JFXPanelFromResource` only when embedding in Swing.
 - Do not change how `ConfigurationSettings` finds the install root without
   understanding the packaged layout. See [startup](startup.md).
 

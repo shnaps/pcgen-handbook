@@ -54,13 +54,30 @@ Field 0 is the level number:
 
 ```
 1	BONUS:COMBAT|BASEAB|1
-2	BONUS:COMBAT|BASEAB|2
-3	BONUS:COMBAT|BASEAB|3
+2	BONUS:COMBAT|BASEAB|1
+3	BONUS:COMBAT|BASEAB|1
 ```
 
-Progression is written out level by level. There is no formula that fills it in.
+**Every level a character has reached is still applying.** A third-level character holds
+class levels one, two and three at once, and untyped bonuses stack. Each line above
+contributes its own `+1`, for a total of `+3`.
+
+Write the increment a level adds, never the running total. The numbers `1, 2, 3` down
+those lines would give a third-level character an attack bonus of six.
+
+<!-- src: code/src/java/pcgen/cdom/facet/ClassLevelChangeFacet.java -->
 
 Skip levels where nothing happens — they need not be consecutive.
+
+Shipped data usually avoids the repetition, putting one formula on the class line and
+typing it so it replaces rather than adds:
+
+```
+CLASS:Sample Warrior	BONUS:COMBAT|BASEAB|classlevel("APPLIEDAS=NONEPIC")|TYPE=Base.REPLACE
+```
+
+That form accounts for 1,979 of the 2,110 `BASEAB` bonuses in shipped data. Of the 131
+written on level lines, 98 carry a `TYPE=`, for the same reason.
 
 !!! danger "Attack bonus is `BASEAB`, not `BAB`"
     `BONUS:COMBAT|BAB` was removed. Older tutorials still teach it and PCGen now

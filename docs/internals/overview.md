@@ -120,16 +120,15 @@ Counted at the pinned commit, these pairs import each other in **both** directio
 | Pair | One way | The other |
 |---|---|---|
 | `cdom` and `core` | 288 files | 185 files |
-| `cdom` and `rules` | 55 files | — |
-| `rules` and `persistence` | 36 files | 16 files |
-| `core` and `io` | 8 files | 43 files |
+| `cdom` and `rules` | 55 files | 59 files |
+| `rules` and `persistence` | 16 files | 36 files |
+| `core` and `io` | 8 files | 41 files |
 | `gui2` and `gui3` | 50 files | 15 files |
 | `system` and `gui2` | 4 files | 106 files |
 
-Three edges are genuinely one-directional:
+Two edges are genuinely one-directional:
 
-- `output` depends on `core` and `cdom`, and nothing depends on `output`.
-- `pluginmgr` depends on `core` and `cdom`, not the reverse.
+- `pluginmgr` depends on `core`, not the reverse. It imports nothing from `cdom`.
 - `gui2` and `gui3` depend on `facade`, and `facade` barely depends on them.
 
 The one that surprises people: **`core` imports the Swing interface.** Eight files do,

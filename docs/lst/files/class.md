@@ -124,8 +124,10 @@ most recent class. Reordering a file can silently attach levels to the wrong cla
 **`CSKILL` on a class line applies from level one.** On a level line it applies from
 that level. The difference matters for classes that gain skills partway through.
 
-**Bonus progression is written out, not calculated.** There is no formula for a
-progression across levels — each level line states its own value.
+**Level bonuses accumulate.** A character at level three holds class levels one, two and
+three at once. An untyped bonus on each level line adds to the ones below it, so state
+the increment a level adds rather than the running total. Shipped data more often puts one
+formula on the class line with `TYPE=...REPLACE`, which sidesteps the question.
 
 **`EXCLASS` is easy to forget.** A class with prerequisites that a character can stop
 meeting needs somewhere to go, or the character is left in an invalid state.

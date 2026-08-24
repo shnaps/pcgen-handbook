@@ -70,9 +70,12 @@ ABILITY:FEAT|AUTOMATIC|Sample Feat
 | `AUTOMATIC` | granted, not chosen, and costs nothing |
 | `Sample Feat` | what to grant |
 
-`VIRTUAL` instead of `AUTOMATIC` grants it without checking the ability's own
-prerequisites. The character still possesses it, and it still satisfies a `PREABILITY`
-elsewhere.
+`VIRTUAL` instead of `AUTOMATIC` also grants it for free. The difference is display, not
+effect: virtual abilities render differently and are counted separately by tokens such as
+`VFEAT`. Either way the character possesses it and it satisfies a `PREABILITY` elsewhere.
+
+Neither nature tests the ability's own prerequisites. Only the ones written on the
+`ABILITY:` tag are carried and checked.
 
 To let the reader choose instead:
 

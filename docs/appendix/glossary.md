@@ -41,7 +41,7 @@ use these words loosely — here they mean one thing each.
 
 **key**
 : the identifier an object is looked up by. Defaults to the name; `KEY:` overrides it.
-  Used about 71,500 times in shipped data.
+  Used 74,678 times in shipped data.
 
 **reference**
 : one object naming another. Resolved after all files load, which is why a bad name is

@@ -180,7 +180,7 @@ Every other object type is identified by its key. `Ability` is identified by cat
 plus key.
 
 ```java
-public class Ability extends PObject implements Categorized<Ability>, AbilityFacade
+public final class Ability extends PObject implements Categorized<Ability>, AbilityFacade
 ```
 
 *Source: [`Ability.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/Ability.java)*
