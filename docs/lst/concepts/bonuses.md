@@ -5,7 +5,7 @@ title: Bonuses
 # Bonuses
 
 A bonus is a `BONUS:` tag: a number added to something on the character. It is the most
-used tag in PCGen's data by a wide margin — **174,114 uses across 2,937 files**.
+used tag in PCGen's data by a wide margin — **170,741 uses across 2,753 files**.
 
 There are 55 bonus subtypes. Learning the shape and the stacking rule covers nearly
 all of them.
@@ -72,7 +72,7 @@ Three things change that:
 | no `TYPE=` at all | stacks with everything |
 | `TYPE=<name>` | only the largest of that name applies |
 | `TYPE=<name>.STACK` | always adds, even against the same name |
-| `TYPE=<name>.REPLACE` | overrides the plain bonus of that name rather than adding |
+| `TYPE=<name>.REPLACE` | stacks with other `.REPLACE` bonuses of that name, then the higher of that total and the plain total wins |
 
 The game mode also carries a list of type names that stack anyway. `Dodge` is the
 familiar example in the d20 modes. So a type stacks if the game mode says it does, or
@@ -122,8 +122,8 @@ Ranked by use in shipped data:
 | `ABILITYPOOL` | 9,064 | how many abilities of a category may be taken |
 | `WEAPONPROF=` | 6,569 | a weapon proficiency |
 | `SAVE` | 5,442 | a saving throw |
-| `SPELLCAST` | 1,594 | spells per day |
-| `WEAPON` | 1,485 | a weapon's attack or damage |
+| `WEAPON` | 2,280 | a weapon's attack or damage |
+| `SPELLCAST` | 1,591 | spells per day |
 | `SITUATION` | 1,218 | a situational modifier |
 
 `BONUS:VAR` dominates because it feeds the variable system rather than a fixed
@@ -152,12 +152,12 @@ TEMPBONUS:PC|STAT|STR|4
 | Sub-token | Applies to |
 |---|---|
 | `PC` | the character carrying the ability |
-| `ANYPC` | any character the effect is applied to |
+| `ANYPC` | the same character. The difference is where the effect may be offered from |
 | `EQ` | a piece of equipment |
 
 Note the third is `EQ`, not `EQUIP`.
 
-Shipped data has 3,243 `TEMPBONUS:` uses against 174,114 `BONUS:` uses, so it is a
+Shipped data has 3,225 `TEMPBONUS:` uses against 170,741 `BONUS:` uses, so it is a
 specialist tool rather than a default.
 
 ## Where it is applied

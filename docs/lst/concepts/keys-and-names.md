@@ -26,8 +26,8 @@ Sample Feat	CATEGORY:FEAT	TYPE:General	KEY:SampleFeat
 The first has the key `Sample Feat`. The second has the key `SampleFeat` and still
 displays as `Sample Feat`.
 
-Setting a key is normal practice, not an edge case. Shipped data uses `KEY:` **71,572
-times across 1,296 files**.
+Setting a key is normal practice, not an edge case. Shipped data uses `KEY:` **74,678
+times across 1,299 files**.
 
 ## Why set one
 
@@ -113,14 +113,15 @@ Two substitutions are understood:
 | Written | Produces |
 |---|---|
 | `OUTPUTNAME:[BASE]` | the display name with any `(...)` part removed |
-| `[NAME]` inside a value | the contents of the first `(...)`, reordered |
+| `[NAME]` inside a value | the text between the first `(` and the last `)`, split on `/` and rejoined in reverse |
 
 `[BASE]` is the common one. It turns a family of parenthesised variants into a clean
 printed name.
 
 *Source: [`OutputNameFormatting.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/analysis/OutputNameFormatting.java)*
 
-Equipment modifiers are the exception. `OUTPUTNAME` on one is refused with a warning,
+Equipment modifiers are the exception. `OUTPUTNAME` on one is accepted with a warning
+and rewritten to `NAMEOPT:TEXT=`,
 because naming there is handled by `NAMEOPT`.
 
 ## SORTKEY
@@ -140,14 +141,14 @@ Sorting falls back to the display name when there is no sort key.
 
 ## NAMEISPI
 
-A yes-or-no flag, about 6,496 uses. "PI" is **product identity** — a name the publisher
+A yes-or-no flag, 6,434 uses. "PI" is **product identity** — a name the publisher
 owns.
 
 ```
 Sample Deity	NAMEISPI:YES	ALIGN:LG
 ```
 
-It changes one thing: names marked this way are printed in bold italic on output. It is
+It changes one thing: names marked this way are shown differently in the program. Output sheets ignore it. It is
 a legal marker for third-party material, not a display preference.
 
 Since this handbook uses [invented example content](../../appendix/credits.md), the flag
@@ -162,7 +163,7 @@ categories, fact definitions and size adjustments — declarations, not game obj
 ABILITYCATEGORY:Sample Feat	VISIBLE:YES	CATEGORY:FEAT	DISPLAYNAME:Sample Feat
 ```
 
-About 4,292 uses, in 131 files. On an ordinary race, skill or feat line, field 0 is the
+4,266 uses, in 132 files. On an ordinary race, skill or feat line, field 0 is the
 display name and `DISPLAYNAME:` has no meaning.
 
 ## Gotchas
@@ -175,7 +176,9 @@ it. Put `KEY:` early.
 Any text reference to the old key fails afterwards with an unconstructed reference.
 
 **A key containing `.MOD` confuses the loader.** The suffix is found by substring search,
-so a key such as `Automodule` is a real hazard. Keep keys plain.
+so a key containing a literal `.MOD` is a real hazard. `Sword .MODified` is read as a
+modification of `Sword `. The match is case-sensitive and needs the dot, so `Automodule`
+is safe. Keep keys plain anyway.
 
 **A key containing `|` breaks ability modification.** The category form splits on the
 first pipe.

@@ -7,16 +7,16 @@ title: Modifying existing data
 You often want to change something another data set defined, without editing that set.
 Three suffixes do this, written on the object name in field 0.
 
-`.MOD` is one of the most used mechanisms in the whole format — about 58,600 uses in
+`.MOD` is one of the most used mechanisms in the whole format — 56,744 uses in
 shipped data.
 
 ## The three suffixes
 
 | Suffix | Does | Uses in shipped data |
 |---|---|---|
-| `.MOD` | change an existing object | ~58,600 |
+| `.MOD` | change an existing object | 56,744 |
 | `.COPY=` | make a new object from an existing one | ~3,900 |
-| `.FORGET` | remove an object | ~82 |
+| `.FORGET` | remove an object | 74 |
 
 *Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
 
@@ -43,7 +43,7 @@ Some tags accumulate. Writing another `BONUS` adds a second bonus rather than re
 the first. To clear what is there before setting your own, use `.CLEAR`:
 
 ```
-Sample Feat.MOD	BONUS:.CLEAR	BONUS:SKILL|Sample Athletics|4
+Sample Feat.MOD	BONUS:SKILL|Sample Athletics|4
 ```
 
 Whether a tag accumulates or overwrites depends on the tag. List-valued tags
@@ -75,7 +75,7 @@ Remove an object entirely:
 Sample Feat.FORGET
 ```
 
-Rare — 82 uses across all shipped data. Reach for it when a set you are including
+Rare — 74 uses across all shipped data. Reach for it when a set you are including
 defines something you do not want at all.
 
 Prefer excluding at the file level with `LSTEXCLUDE` in the [PCC](../files/pcc.md) when
@@ -106,8 +106,8 @@ Consequences worth knowing:
 In your own data set, not in the one you are changing.
 
 ```
-data/35e/homebrew/testburg/testburg.pcc
-data/35e/homebrew/testburg/my_overrides.lst
+<homebrew data dir>/testburg/testburg.pcc
+<homebrew data dir>/testburg/my_overrides.lst
 ```
 
 Then load both campaigns together, or pull theirs in with `PCC:` so yours always loads

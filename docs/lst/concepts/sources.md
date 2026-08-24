@@ -8,7 +8,7 @@ A source is one `.pcc` file and the `.lst` files it names. Choosing sources is t
 thing a reader does in PCGen, and the order they load in decides which of two competing
 definitions wins.
 
-Shipped data holds **680** `.pcc` files. This page covers how PCGen finds them, how the
+Shipped data holds **681** `.pcc` files. This page covers how PCGen finds them, how the
 list is built, and what order everything ends up being read in.
 
 ## Where PCGen looks
@@ -39,7 +39,7 @@ same three levels almost everywhere:
 data/<system>/<publisher>/<product>/
 ```
 
-Twenty-three directories sit at the top. Most name a system — `35e`, `3e`, `5e`,
+Twenty-two directories sit at the top. Most name a system — `35e`, `3e`, `5e`,
 `pathfinder`, `modern`, `starfinder`. `35e` alone holds 34 publishers.
 
 Most `.pcc` files land four or five levels deep. A product directory holds its `.pcc` and
@@ -73,7 +73,7 @@ your own work goes if you keep it inside the install.
 
 Parsing a `.pcc` makes a campaign object. It does not make an entry in the list.
 
-Of the 680 shipped files, **55 carry no `CAMPAIGN:` tag**. They are fragments — a race,
+Of the 681 shipped files, **55 carry no `CAMPAIGN:` tag**. They are fragments — a race,
 a chapter, a shared block — pulled in by another file with `PCC:`. They use `KEY:`
 instead, so other files can name them without them appearing as something to choose.
 
@@ -107,7 +107,7 @@ The one-click list above the tree comes from three places:
 
 *Source: [`FacadeFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/FacadeFactory.java)*
 
-Only 11 shipped files set `SHOWINMENU`. It marks a source meant to be loaded on its own.
+Twelve shipped files set `SHOWINMENU`, nine `YES` and three `NO`. It marks a source meant to be loaded on its own.
 
 ## Load order
 
@@ -120,8 +120,8 @@ RANK:202608
 ```
 
 Selected campaigns are sorted by `RANK` **descending**, so a higher number loads
-earlier. Shipped data writes the publication date as `YYYYMM`, which puts older books
-first.
+earlier. Shipped data writes the publication date as `YYYYMM`, so the newest book loads
+first, not the oldest.
 
 ### 2. Within a campaign, tag order
 
@@ -142,7 +142,8 @@ kit → bioset
 
 *Source: [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/SourceFileLoader.java)*
 
-This is why a `.MOD` on a race works from a skill file and not the other way round. See
+A `.MOD` is applied by the loader that owns the file. A race `.MOD` has to sit in a file
+the `.pcc` names with `RACE:`. Putting it in a skill file does nothing. See
 [modifying existing data](modifying-data.md).
 
 !!! warning "Order is not enough on its own"
@@ -218,8 +219,6 @@ reader is not told that it happened. [Keys and names](keys-and-names.md) gives t
 rule in full.
 
 *Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
-
-Turning that preference off makes the clash an error naming both files instead.
 
 Setting `SOURCEDATE` in your PCC is therefore not decoration. It decides who wins.
 

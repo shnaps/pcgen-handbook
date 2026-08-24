@@ -7,7 +7,7 @@ title: Rule toggles
 An optional rule the reader switches on or off. PCGen calls them house rules, defines
 them per game mode, and lets data test them with `PRERULE`.
 
-There are **339** across the 19 shipped game modes, though only 35 distinct names — most
+There are **339** across the shipped game modes. Twenty modes exist and 19 carry a `rules.lst`, though only 35 distinct names — most
 game modes offer the same toggles.
 
 ## Where they are defined
@@ -47,7 +47,7 @@ The difference is intent, stated in the shipped files' own comments:
 | `VAR:` | a toggle data is expected to test with `PRERULE` |
 | `PARM:` | a toggle the engine checks in Java |
 
-Shipped game modes use `PARM:` 221 times against `VAR:` 119. The convention is not
+Shipped game modes use `PARM:` 220 times against `VAR:` 119. The convention is not
 enforced, and several `VAR:` toggles are also checked in Java, so do not read it as a
 guarantee.
 
@@ -83,7 +83,7 @@ It needs no character, so it can gate anything — an ability, a bonus, a whole 
 
 ### Almost always used inside another tag
 
-Measured across shipped data, `PRERULE` appears **12,775 times in 139 files**. Only 148
+Measured across shipped data, `PRERULE` appears **12,376 times in 123 files**. Only 134
 of those are a field of their own. The rest are appended inside another tag's value:
 
 ```
@@ -110,7 +110,7 @@ from the engine. Data cannot add a new toggle of that kind — only a Java chang
 ## Where the reader sees them
 
 Preferences, under **House Rules**. The panel lists every toggle for the loaded game
-mode, using the `DESC:` text as its label.
+mode. A check box is labelled with its `DESC:` text; the 60 `EXCLUDE` toggles render as radio buttons labelled by key.
 
 Choices persist. They are written to `options.ini` under `pcgen.options.ruleChecks`, as a
 list of key and state pairs, and read back at startup. A toggle with no saved state falls
