@@ -15,59 +15,10 @@ Every page has now been through an accuracy audit except `appendix/credits.md`, 
 licences and attribution. The last pass covered the 25 pages written on 2026-08-21 and
 found 34 errors, all fixed.
 
-**Three items are open**, all from what those four reviewers filed as imprecise rather
-than wrong. Two of them are not.
-
-## Open
-
-### 1. `setup.md` tells people their work is safe when it is not
-
-The page says a homebrew set under `data/` is somewhere an upgrade cannot touch. PCGen's
-own Data Installer says the opposite about that location: *"The data set will be replaced
-when upgrading to a new version of PCGen"* (`LanguageBundle.properties:2615`).
-
-The upgrade-safe location is the Homebrew Data directory — `HOMEBREW_DATA_DIR`, default
-`@homebrewdata` (`PCGenSettings.java:91,112`). The handbook never mentions it, on any
-page. `first-change.md` puts the reader's first file in `data/35e/homebrew/` and
-`when-it-breaks.md` already lists "you edited a file PCGen ships and an update replaced
-it" as a symptom without connecting it to the advice that caused it.
-
-Ranked first because it is the only open item that can destroy a reader's work.
-
-### 2. SRD content in examples, against the project's own rule
-
-`CLAUDE.md` requires invented example content and no SRD material, because the site is
-public and this keeps Open Game Licence attribution off it. Two known breaches:
-
-- `new-equipment.md`'s `Sample Blade` carries the SRD longsword's stat block — 1d8, x2,
-  crit range 2, one-handed, `COST:15`, `WT:4`, matching
-  `rsrd_equip_arms_and_armor.lst:93` field for field. Renaming the item does not change
-  where the numbers came from.
-- `BONUS:SKILL|Climb|2` appears on `ability.md` and `first-change.md`, and `Climb` is an
-  SRD skill name. Every other example on those pages uses invented `Sample …` names.
-
-This needs a sweep rather than two edits, since nothing has ever checked for it. A rule
-with no enforcement behind it is how the count estimates got onto the pages.
-
-### 3. The precision list from the four audits
-
-About eighteen findings the reviewers judged imprecise and I did not act on. Individually
-small, and worth one pass rather than eighteen. The substantive ones:
-
-| Page | What is loose |
-|---|---|
-| `pcc.md` | the `*/` search order, and the `&` vendor and `$` homebrew prefixes are absent from the table |
-| `pcc.md` | `BOOKTYPE` is a pipe-separated list, not one free-text value |
-| `class.md` | `SKILLLIST` takes `count\|list-of-lists`; `DONOTADD` accepts only `HITDIE` and `SKILLPOINTS` |
-| `skill.md` | `CLASSES` references `ClassSkillList` objects and supports `ALL` and `!` exclusions |
-| `line-format.md` | tags are trimmed before dispatch, so space padding round a tag is discarded rather than an error |
-| `line-format.md` | omits line continuation, and the separator regex also accepts a bare CR |
-| `prerequisites.md` | `CATEGORY.` is accepted alongside `CATEGORY=` |
-| `whats-changed.md` | the deprecated-by-file-type list omits `CHOOSE` on `CDOMObject` and Domain and Kit `FEAT` |
-| `how-loading-works.md` | "walks the `data/` folder" — it also walks the vendor and homebrew directories |
-| `setup.md` | "each subfolder is a game mode" — `_universal`, `_images` and others are not |
-| `new-equipment.md` | `CONTAINS` is a weight capacity, and neither `COST` nor `WT` is actually required |
-| `new-feat.md` | `OUTPUTNAME` is 15,283 not 14,000, and there are ~131 `PRExxx` kinds not 129 |
+**Nothing is open.** The three items the day-one audit left were closed on 2026-08-23:
+the upgrade-safety advice in `setup.md`, the SRD content in examples, and the precision
+list. The second of those produced `tools/check_srd.py`, so the rule now has enforcement
+behind it rather than good intentions.
 
 ## Decided against, with the evidence
 

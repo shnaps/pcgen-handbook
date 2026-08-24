@@ -112,7 +112,7 @@ The most used prerequisite, and it needs a category:
 PREABILITY:1,CATEGORY=FEAT,Sample Feat
 ```
 
-Without `CATEGORY=` it cannot tell which kind of ability you mean.
+Without a category it cannot tell which kind of ability you mean. `CATEGORY.` is accepted for the same thing.
 
 `PREFEAT` still exists and is handled by the same parser, but new data should use
 `PREABILITY` — see [what changed](../../appendix/whats-changed.md).

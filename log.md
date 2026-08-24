@@ -1280,3 +1280,51 @@ which is the only pattern visible in the results.
 **Rate.** Thirty-four errors across 25 pages, against eleven across nine and thirteen
 across two in earlier passes. Unaudited material runs at roughly one and a half errors per
 page and does not improve on its own.
+
+## 2026-08-23  closing what the audit left
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No new pages.
+- Three backlog items, one new check. Nothing is open.
+
+**Telling people to keep their work where upgrades delete it.** `setup.md` said renaming
+a folder under `data/` put it somewhere an upgrade could not touch. The Data Installer
+says of that location that a set *"will be replaced when upgrading to a new version of
+PCGen"*, and of the Homebrew Data directory that it *"will be available in the new
+version if you upgrade"*. The handbook had never mentioned the second one on any page.
+
+`CampaignFileLoader` walks the data, vendor and homebrew directories alike, so nothing
+about a campaign depends on living under `data/`. The setup page now sends readers to
+the Homebrew Data directory and `first-change.md` follows it there.
+
+This is the worst class of error the handbook can make. A wrong tag fails loudly at load.
+This one works perfectly until an upgrade, and then the reader's work is gone with no
+message and nothing to debug.
+
+**The SRD rule had no enforcement, so it was not being kept.** `tools/check_srd.py` now
+scans fenced blocks and inline code against object names from the shipped RSRD data. It
+found `Climb` used as a skill on six pages, `TYPE=Knowledge` on two, and `Sample
+Toughness` — which reads as invented and is the SRD feat name with a word in front. Now
+`Sample Athletics`, `TYPE=Lore` and `Sample Vigour`.
+
+Three hits are documentation rather than examples: the `Dodge` bonus type, a real key
+quoted to show keys may contain spaces, and an armour prof named to explain why a
+category fails there. Those sit in an `ALLOWED` set keyed by page and name, each with
+its reason, so the same word is still caught anywhere it is used as example content.
+
+Building the check took three passes to tune. Scanning every shipped object name found
+132,778 of them and matched generic words — `String`, `Nothing`, `Order`. Narrowing the
+source to the RSRD tree and stoplisting size codes and armour categories got the noise to
+zero without losing a real hit.
+
+**The precision list, twelve entries.** `BOOKTYPE` is pipe-separated. `SKILLLIST` is
+`count|lists`. `DONOTADD` accepts `HITDIE` and `SKILLPOINTS` and nothing else. `CLASSES`
+takes class skill lists with `ALL` and `!`. `CATEGORY.` works alongside `CATEGORY=`. The
+`*/` prefix is a search across three directories, not a location, and `&` and `$` name
+the vendor and homebrew ones. Line endings may be any of the three styles, lines are not
+continued, and the loader trims a field before looking for its colon.
+
+**And one error introduced while fixing errors.** Extending the deprecation table, I
+wrote that `CHOOSE:NUMBER` is deprecated "without a `MIN` and `MAX`". It is deprecated
+outright and delegates to `TEMPVALUE`. Caught by reading `NumberToken.parseToken` before
+committing, which is the only reason it is not in this repository. Fourth time today that
+checking a claim I had just written found it wrong.

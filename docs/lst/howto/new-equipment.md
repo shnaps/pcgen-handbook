@@ -33,7 +33,7 @@ An item that loads but behaves wrongly nearly always has the wrong type.
 Sample Gear	TYPE:Gear	COST:5	WT:1
 ```
 
-Every item needs both. `WT` accepts decimals for light items.
+Neither is required and both default, but an item without them prices and weighs as nothing. `WT` accepts decimals for light items.
 
 At this point the item exists and can be bought.
 

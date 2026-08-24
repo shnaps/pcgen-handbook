@@ -24,6 +24,10 @@ Three fields: the name `Sample Feat`, then `TYPE:General`, then `DESC:...`.
     Fields are separated by tabs. Spaces do not separate fields — they are ordinary
     characters inside a name or a value. `Sample Feat` is one name containing a space.
 
+    One exception, and it is forgiving rather than strict. The loader trims a field
+    before it looks for the colon, so a stray space around a tag is discarded rather
+    than failing. A space inside the name field is kept.
+
     A file that looks right but loads wrong is usually a file where a tab became
     spaces. Turn on visible whitespace in your editor.
 
@@ -50,6 +54,11 @@ So there are three levels of separator, and mixing them up is a common mistake:
 | tab | fields on a line |
 | `:` | a tag's name from its value |
 | `\|` | arguments inside one tag's value |
+
+Line endings may be Windows, Unix or classic Mac style, so a file written on any
+platform loads. Lines are not continued: one object is one line, however long it
+gets. PCGen has an option that folds tab-led lines onto the previous one, but it is
+off by default and shipped data does not use it.
 
 ## Comments
 

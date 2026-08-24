@@ -39,7 +39,7 @@ here.
 | `GAMEMODE` | which rules system this belongs to, such as `35e` or `Pathfinder`. Required. |
 | `TYPE` | where it sits in the source tree. **Maximum three levels**, separated by `.` |
 | `RANK` | sort order among sources. A number. |
-| `BOOKTYPE` | free-text classification, such as `Homebrew` or `Core Rulebook` |
+| `BOOKTYPE` | classification, pipe-separated for more than one — `Homebrew\|Supplement` |
 | `SHOWINMENU` | whether it appears in the source list. Takes `YES` or `NO`. |
 | `SETTING`, `GENRE` | descriptive grouping |
 | `SOURCELONG`, `SOURCESHORT`, `SOURCEWEB`, `SOURCEDATE` | where the material came from |
@@ -107,10 +107,16 @@ Paths are relative to the PCC's own folder by default.
 |---|---|
 | `my_skills.lst` | same folder as the PCC |
 | `sub/my_skills.lst` | a subfolder |
-| `*/_universal/races.lst` | relative to the **data root**, not this folder |
-| `@/some/path.lst` | relative to the data directory |
+| `*/_universal/races.lst` | searched for: homebrew directory, then vendor, then data |
+| `@/some/path.lst` | the data directory |
+| `&/some/path.lst` | the vendor directory |
+| `$/some/path.lst` | your Homebrew Data directory |
 
-The `*/` form is how shared data is reused across campaigns.
+The `*/` form is how shared data is reused across campaigns. It is a search rather than
+a location, so the same reference resolves differently depending on which of the three
+directories holds a matching file. The other three name one directory and do not search.
+
+<!-- src: code/src/java/pcgen/persistence/lst/URIFactory.java -->
 
 ## Conditional loading
 

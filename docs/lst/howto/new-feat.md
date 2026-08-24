@@ -107,7 +107,7 @@ Set a key whenever the display name might change, contains punctuation, or is cl
 enough to another name to be confused.
 
 `OUTPUTNAME` separately controls the name *shown* to the reader. Older tutorials call
-it the old way of doing things. It is not — shipped data uses it about 14,000 times.
+it the old way of doing things. It is not — shipped data uses it 15,283 times.
 
 ## Prerequisites
 

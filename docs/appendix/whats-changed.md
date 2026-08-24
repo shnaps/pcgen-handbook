@@ -109,9 +109,12 @@ Shipped data uses it 35 times, all `REMOVE:FEAT`. See
 | Race | `FEAT`, `CHOOSE` (language auto form) |
 | Template | `FEAT`, `APPLIEDNAME`, `CHOOSE` (language auto form) |
 | Ability | `APPLIEDNAME`, `MODIFYFEATCHOICE` |
+| Domain | `FEAT` |
+| Kit | `FEAT` |
 | Equipment | `RATEOFFIRE` |
 | Stat | `PENALTYVAR` |
 | Campaign (PCC) | `FEAT` |
+| Any object | `CHOOSE:NUMBER`, which now delegates to `TEMPVALUE`, and `REMOVE` written without a subtoken |
 
 23 distinct tags are marked deprecated in the source, across 32 token classes.
 

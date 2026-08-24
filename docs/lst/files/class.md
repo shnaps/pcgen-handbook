@@ -52,7 +52,7 @@ Levels need not be consecutive. Only write the ones where something happens.
 | `HD` | hit die size |
 | `STARTSKILLPTS` | skill points per level before intelligence |
 | `CSKILL`, `CCSKILL` | class and cross-class skills |
-| `SKILLLIST` | a named skill list to draw from |
+| `SKILLLIST` | `count\|lists` — pick that many from the named class skill lists |
 | `MAXLEVEL` | level cap |
 | `LEVELSPERFEAT` | how often the class grants a bonus feat |
 | `XTRAFEATS` | extra feats at first level |
@@ -86,7 +86,7 @@ Some tags belong on level lines rather than class lines:
 | `HITDIE` | override the hit die at this level |
 | `CSKILL`, `CCSKILL` | add class skills from this level |
 | `ADDDOMAINS`, `DOMAIN` | domains granted |
-| `DONOTADD` | suppress something otherwise granted |
+| `DONOTADD` | suppress `HITDIE` or `SKILLPOINTS`, and nothing else |
 
 Global tags such as `BONUS`, `ABILITY` and `ADD` work on level lines too, and that is
 where most of a class's progression is written.

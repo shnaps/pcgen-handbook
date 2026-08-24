@@ -21,7 +21,7 @@ flowchart LR
 
 ### 1. Find the campaigns
 
-At startup PCGen walks the `data/` folder looking for `.pcc` files. Every one it finds
+At startup PCGen walks three folders looking for `.pcc` files — the data directory, the vendor directory and your Homebrew Data directory. Every one it finds
 becomes an entry in the source selection list.
 
 This is why your campaign appeared as soon as the file existed, before you had loaded

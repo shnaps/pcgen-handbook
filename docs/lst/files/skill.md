@@ -26,7 +26,7 @@ A name, the stat it keys off, and whether you can try it without training.
 | `USEUNTRAINED` | `YES` / `NO` | whether a character with no ranks can attempt it |
 | `EXCLUSIVE` | `YES` / `NO` | whether only certain classes may take it |
 | `ACHECK` | `NONE`, `YES`, `NONPROF` | how armour check penalty applies |
-| `CLASSES` | class list | which classes treat it as a class skill |
+| `CLASSES` | class skill lists | which lists treat it as a class skill. `ALL` for every one, `!` to exclude |
 | `SITUATION` | text | named situational variants of the skill |
 | `VISIBLE` | see [below](#visible) | where the skill shows up |
 
