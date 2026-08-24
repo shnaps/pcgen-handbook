@@ -146,8 +146,10 @@ public interface DeferredToken<T extends Loadable>
 | Interface | Runs |
 |---|---|
 | `DeferredToken` | after loading, before reference resolution |
-| `PostDeferredToken` | after reference resolution, ordered by `getPriority()` |
-| `PostValidationToken` | last, for checks across the finished data set |
+| `PostValidationToken` | after reference resolution, for checks across the finished data set |
+| `PostDeferredToken` | last |
+
+Both of those declare `getPriority()`, and each set runs in that order among itself.
 
 `BONUS` implements both `CDOMPrimaryToken` and `DeferredToken` — it parses at the line
 and validates once everything exists.

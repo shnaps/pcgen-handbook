@@ -73,7 +73,7 @@ The defaults in `config.ini` are written as `@data`, `@system` and so on. The `@
 "relative to the install root", and the install root is discovered rather than
 configured.
 
-`ConfigurationSettings` walks up to six directory levels above `java.home`. It checks
+`ConfigurationSettings` checks six directories: `java.home` itself and five above it. It checks
 each level, and each `app` subdirectory, for one that holds both `data/` and `system/`.
 If none matches, it falls back to the working directory.
 

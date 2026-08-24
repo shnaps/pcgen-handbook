@@ -62,10 +62,13 @@ Fourteen base classes in `pcgen/cdom/facet/base/`. Four cover most cases.
 
 | Base | Holds | Example |
 |---|---|---|
-| `AbstractItemFacet` | one value or none | `RaceFacet`, `DeityFacet` |
-| `AbstractListFacet` | several values, no source tracking | `LanguageFacet` |
-| `AbstractSourcedListFacet` | several values, remembering what granted each | `CDOMObjectConsolidationFacet` |
-| `AbstractQualifiedListFacet` | the same, for things gated by prerequisites | ability facets |
+| `AbstractItemFacet` | one value or none | `RaceFacet` |
+| `AbstractListFacet` | several values, no source tracking | `KitFacet`, `StatFacet` |
+| `AbstractSourcedListFacet` | several values, remembering what granted each | `LanguageFacet` |
+| `AbstractQualifiedListFacet` | the same, for things gated by prerequisites | `AutoLanguageFacet`, `SpellsFacet` |
+
+Ability facets are not in that fourth row, which is the obvious guess and the wrong one.
+They extend `AbstractCNASEnforcingFacet` instead.
 
 Source tracking is the interesting one. If a race and a template both grant the same
 language, a sourced list holds one entry with two sources. It reports the addition once,
@@ -136,8 +139,10 @@ public void init()
 ```
 
 `OutputDB.register` is optional and is how a facet becomes a top-level key in a
-[character sheet](../outputsheets/writing-a-sheet.md). Its overloads take an `ItemFacet`
-or a `SetFacet` only. A list facet cannot be registered.
+[character sheet](../outputsheets/writing-a-sheet.md). Its overloads take an `ItemFacet`,
+a `SetFacet` or a `CControl`. That is an interface test rather than a base-class one, so
+plenty of `AbstractListFacet` subclasses register — `KitFacet`, `CheckFacet`, `StatFacet`
+and `CompanionModFacet` all implement `SetFacet`.
 
 **5. Write the two event methods.** They are the work. Everything above is wiring.
 
@@ -285,7 +290,7 @@ explaining the architecture as a whole. The class comments are what exists.
 ## CharacterDisplay
 
 `CharacterDisplay` is a read-only view over the same facet cache. It holds a `CharID`,
-reads about forty facets, and exposes queries with no setters.
+reads 71 facets, and exposes queries with no setters.
 
 *Source: [`CharacterDisplay.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/display/CharacterDisplay.java)*
 

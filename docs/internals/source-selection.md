@@ -154,7 +154,7 @@ same-key objects that survived and are not equal.
 
 ## Reloading
 
-`PCGenActionMap.ReloadSourcesAction`, on **Sources → Reload** and Shift+R, calls
+`PCGenActionMap.ReloadSourcesAction`, on **Sources → Reload** and Ctrl+Shift+R, calls
 `unloadSources` and then `loadSourceSelection` with the same selection. `unloadSources`
 clears the current data set and calls `Globals.emptyLists()`.
 
