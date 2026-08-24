@@ -99,9 +99,9 @@ which is how classes and races hand out bonus feats.
 # my_abilities.lst - example abilities
 # Invented content, nothing from a published book.
 
-Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a small bonus to Climb.	BONUS:SKILL|Climb|2
+Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a small bonus to Sample Athletics.	BONUS:SKILL|Sample Athletics|2
 Sample Focus	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:NO	CHOOSE:SKILL|ALL	DESC:Grants a bonus to one chosen skill.	BONUS:SKILL|%LIST|2
-Sample Toughness	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:YES	DESC:Grants extra hit points.	BONUS:HP|CURRENTMAX|3
+Sample Vigour	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:YES	DESC:Grants extra hit points.	BONUS:HP|CURRENTMAX|3
 ```
 
 Then in the PCC:

@@ -21,14 +21,14 @@ share one placeholder grammar.
 ## DESC
 
 ```
-Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a bonus to Climb.
+Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a bonus to Sample Athletics.
 ```
 
 The text runs to the first `|`. Everything after that is either a variable or a
 prerequisite.
 
 ```
-DESC:Grants a %1 bonus to Climb.|2
+DESC:Grants a %1 bonus to Sample Athletics.|2
 DESC:Grants a bonus while wet.|PREVAR:GTEQ,Wet,1
 ```
 
@@ -83,7 +83,7 @@ by '.CLEAR' as a middle token`.
 ## ASPECT
 
 ```
-Sample Feat	CATEGORY:FEAT	TYPE:General	ASPECT:Ability Benefit|Adds %1 to Climb.|2
+Sample Feat	CATEGORY:FEAT	TYPE:General	ASPECT:Ability Benefit|Adds %1 to Sample Athletics.|2
 ```
 
 Two required parts, a name and a value, then variables and prerequisites as with `DESC`.

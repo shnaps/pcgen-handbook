@@ -18,7 +18,7 @@ kind. This page covers the patterns you hit after that.
 ## A plain feat
 
 ```
-Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a small bonus to Climb.	BONUS:SKILL|Climb|2
+Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a small bonus to Sample Athletics.	BONUS:SKILL|Sample Athletics|2
 ```
 
 Field order does not matter to PCGen. It matters to you — keep the same order in every
@@ -120,9 +120,9 @@ There are 129 `PRExxx` tags, and they behave the same way wherever they appear. 
 # my_abilities.lst - example feats
 # Invented content. Nothing from a published book.
 
-Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a small bonus to Climb.	BONUS:SKILL|Climb|2
+Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a small bonus to Sample Athletics.	BONUS:SKILL|Sample Athletics|2
 Sample Focus	CATEGORY:FEAT	KEY:SampleFocus_Basic	TYPE:General	MULT:YES	STACK:NO	CHOOSE:SKILL|ALL	DESC:Grants a bonus to one chosen skill.	BONUS:SKILL|%LIST|2
-Sample Toughness	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:YES	CHOOSE:NOCHOICE	DESC:Grants extra hit points.	BONUS:HP|CURRENTMAX|3
+Sample Vigour	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:YES	CHOOSE:NOCHOICE	DESC:Grants extra hit points.	BONUS:HP|CURRENTMAX|3
 ```
 
 ## Check it worked

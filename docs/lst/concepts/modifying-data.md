@@ -25,7 +25,7 @@ shipped data.
 Add tags to something that already exists:
 
 ```
-Sample Feat.MOD	BONUS:SKILL|Climb|2
+Sample Feat.MOD	BONUS:SKILL|Sample Athletics|2
 ```
 
 Everything after field 0 is applied to the existing object. Tags you do not mention are
@@ -43,7 +43,7 @@ Some tags accumulate. Writing another `BONUS` adds a second bonus rather than re
 the first. To clear what is there before setting your own, use `.CLEAR`:
 
 ```
-Sample Feat.MOD	BONUS:.CLEAR	BONUS:SKILL|Climb|4
+Sample Feat.MOD	BONUS:.CLEAR	BONUS:SKILL|Sample Athletics|4
 ```
 
 Whether a tag accumulates or overwrites depends on the tag. List-valued tags
@@ -62,7 +62,7 @@ what makes it different:
 
 ```
 Sample Feat.COPY=Sample Feat, Greater
-Sample Feat, Greater.MOD	BONUS:SKILL|Climb|4
+Sample Feat, Greater.MOD	BONUS:SKILL|Sample Athletics|4
 ```
 
 Note the `=`. `.MOD` and `.FORGET` take no value, `.COPY` requires one.

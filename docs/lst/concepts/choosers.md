@@ -70,7 +70,7 @@ CHOOSE:<type>|<what to choose from>|TITLE=<prompt>
 Two real examples, with their exact grammar taken from the token classes:
 
 ```
-CHOOSE:SKILL|TYPE=Knowledge|TITLE=Choose a Knowledge skill
+CHOOSE:SKILL|TYPE=Lore|TITLE=Choose a Lore skill
 CHOOSE:USERINPUT|TITLE=Name your patron
 ```
 
@@ -87,8 +87,8 @@ The middle part is not a plain list of names. Four forms compose:
 | Written | Means |
 |---|---|
 | `Sample Skill` | that one object |
-| `TYPE=Knowledge` | every object of that type |
-| `!TYPE=Knowledge` | everything except that type |
+| `TYPE=Lore` | every object of that type |
+| `!TYPE=Lore` | everything except that type |
 | `ALL` | everything of the chooser's type |
 | `Sample%` | name pattern match |
 
@@ -118,7 +118,7 @@ Three tags control counting, and they are not the same thing.
 real type is read:
 
 ```
-CHOOSE:NUMCHOICES=2|SKILL|TYPE=Knowledge
+CHOOSE:NUMCHOICES=2|SKILL|TYPE=Lore
 ```
 
 `MULT:YES` requires a `CHOOSE:`, and `MULT:NO` forbids one. Both are checked at load
@@ -137,7 +137,7 @@ It exists because `MULT:YES` demands a chooser. An ability that can be taken rep
 with no sub-choice still needs one, so data writes the chooser that chooses nothing:
 
 ```
-Sample Toughness	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:YES	CHOOSE:NOCHOICE	BONUS:HP|CURRENTMAX|3
+Sample Vigour	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:YES	CHOOSE:NOCHOICE	BONUS:HP|CURRENTMAX|3
 ```
 
 `CHOOSE:NOCHOICE` requires both `MULT:YES` and `STACK:YES`. Without them the line fails

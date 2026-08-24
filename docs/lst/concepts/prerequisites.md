@@ -129,7 +129,7 @@ feat. On a `BONUS` it gates that bonus. On a PCC file line it gates loading the 
 
 ```
 Sample Feat	CATEGORY:FEAT	TYPE:General	PRESTAT:1,INT=13
-Sample Feat	CATEGORY:FEAT	TYPE:General	BONUS:SKILL|Climb|2|PRERACE:1,Sample Folk
+Sample Feat	CATEGORY:FEAT	TYPE:General	BONUS:SKILL|Sample Athletics|2|PRERACE:1,Sample Folk
 ```
 
 The first gates the whole feat. The second grants the feat freely but applies its bonus

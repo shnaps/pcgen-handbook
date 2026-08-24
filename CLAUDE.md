@@ -51,20 +51,26 @@ The full list is `.claude/glossary.md`.
   produce two numbers for one claim, and a number recalled rather than measured has
   been wrong four times on this project.
 - Examples use invented content: `Test Blade`, `Sample Feat`. Never SRD material. The
-  site is public and this keeps licence attribution off it.
+  site is public and this keeps licence attribution off it. `tools/check_srd.py`
+  enforces this against the shipped RSRD data. Naming one shipped object to explain a
+  mechanism is documentation rather than an example, and goes in that script's
+  `ALLOWED` set with its reason.
 - Teach the current form only. A tag in `plugin/lsttokens/deprecated/` is not it.
   Changes go to `appendix/whats-changed.md`, never into a how-to page.
 
 ## Checks
 
-Run all four from the repo root before committing:
+Run all five from the repo root before committing:
 
 ```text
 python tools/check_style.py
 python tools/lint_wiki.py
 python tools/check_examples.py
+python tools/check_srd.py
 python -m mkdocs build --strict
 ```
+
+`check_srd.py` needs the sparse clone and skips without it, as `lint_wiki.py` does.
 
 Fence any non-LST example as `text`. `check_examples.py` reads an untagged fence as
 LST data and rejects `.pcg` or log output as unknown tags.

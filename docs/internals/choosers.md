@@ -22,7 +22,7 @@ behind it.
 Pipes are split first, then each part is split on commas. Terms joined by commas become a
 `CompoundAndPrimitive`. The results are then joined as alternatives.
 
-So `SKILL|TYPE=Knowledge,TYPE=Int` reads as one alternative that must satisfy both types,
+So `SKILL|TYPE=Lore,TYPE=Int` reads as one alternative that must satisfy both types,
 not as two alternatives.
 
 Both splits respect grouping pairs, `[]` and `()`, so a bracketed argument may contain
@@ -38,8 +38,8 @@ primitive only if that fails.
 | Written | Becomes |
 |---|---|
 | `Sample Skill` | a single reference |
-| `TYPE=Knowledge` | a group reference. See [types](../lst/concepts/types.md) |
-| `!TYPE.Knowledge` | a `NegatingPrimitive` wrapping the group |
+| `TYPE=Lore` | a group reference. See [types](../lst/concepts/types.md) |
+| `!TYPE.Lore` | a `NegatingPrimitive` wrapping the group |
 | `PC[...]`, `CLASS[...]` | a qualifier |
 
 A term that resolves to neither logs `Choice argument was not valid` and the whole set

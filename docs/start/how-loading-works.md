@@ -59,7 +59,7 @@ For each line:
    implements that tag.
 
 That last step is the important one. Each tag is implemented by its own small piece of
-code, which validates the value and stores it on the object. `BONUS:SKILL|Climb|2` was
+code, which validates the value and stores it on the object. `BONUS:SKILL|Sample Athletics|2` was
 handed to the bonus code, which parsed the `|` arguments itself.
 
 If no code claims the tag name, that is an error and PCGen logs it. This is why a typo

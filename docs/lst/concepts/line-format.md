@@ -38,7 +38,7 @@ a custom field.
 Values vary by tag. Many use `|` to separate their own arguments:
 
 ```
-BONUS:SKILL|Climb|2
+BONUS:SKILL|Sample Athletics|2
 ```
 
 That is one field. The `|` splits the bonus's arguments; it does not split the line.
@@ -95,7 +95,7 @@ this, read from the source.
 # my_feats.lst - example feats
 # Everything here is invented, not from any published book.
 
-Sample Feat	TYPE:General	DESC:Grants a small climbing bonus.	BONUS:SKILL|Climb|2
+Sample Feat	TYPE:General	DESC:Grants a small climbing bonus.	BONUS:SKILL|Sample Athletics|2
 Second Sample Feat	TYPE:General	DESC:Does nothing at all.
 ```
 

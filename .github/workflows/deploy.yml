@@ -30,6 +30,8 @@ jobs:
         run: python tools/check_style.py
       - name: Lint the wiki
         run: python tools/lint_wiki.py
+      - name: Check for SRD content in examples
+        run: python tools/check_srd.py
       - name: Build
         run: python -m mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3

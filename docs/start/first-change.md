@@ -26,14 +26,14 @@ Open `my_abilities.lst` in your folder. Ignore the commented notes for now.
 Add one line at the bottom:
 
 ```
-Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a small bonus to Climb.	BONUS:SKILL|Climb|2
+Sample Feat	CATEGORY:FEAT	TYPE:General	DESC:Grants a small bonus to Sample Athletics.	BONUS:SKILL|Sample Athletics|2
 ```
 
 !!! danger "Those gaps are tabs"
     Between `Sample Feat` and `TYPE:General` is a **tab**, not spaces. Same between
     every other field. Turn on visible whitespace and check before saving.
 
-    `|` characters inside `BONUS:SKILL|Climb|2` are typed normally. Only the field
+    `|` characters inside `BONUS:SKILL|Sample Athletics|2` are typed normally. Only the field
     separators are tabs.
 
 Reading it left to right:
@@ -44,7 +44,7 @@ Reading it left to right:
 | `CATEGORY:FEAT` | this ability is a feat. Required — see below. |
 | `TYPE:General` | a general feat, so it appears in the normal feat list |
 | `DESC:...` | the description shown in PCGen |
-| `BONUS:SKILL\|Climb\|2` | +2 to Climb while the character has this feat |
+| `BONUS:SKILL\|Sample Athletics\|2` | +2 to that skill while the character has this feat |
 
 `CATEGORY:` is what makes this a feat rather than some other kind of ability. Leave it
 out and the line is rejected outright, with `A Category is required for an Ability` in
@@ -89,7 +89,7 @@ On the source selection screen, find your campaign and load it.
 
 Make a character. Go to the feat selection tab and look for `Sample Feat`.
 
-Select it, then look at the character's Climb skill. It should be 2 higher.
+Select it, then look at the character's Sample Athletics skill. It should be 2 higher.
 
 If it is there and the bonus applies, you have written data PCGen loaded and used.
 Everything else in this handbook is the same two steps: write a line, name the file in
