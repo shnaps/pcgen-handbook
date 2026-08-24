@@ -51,7 +51,7 @@ Anything that lets someone reproduce it without asking you questions:
 ## Check it is not already known
 
 Search Jira before filing. Also check whether a nightly build fixes it. The last tagged
-release is from February 2023, so a bug found in the release may have been fixed long
+release is `7.00.001` from February 2026, so a bug found in a release may have been fixed long
 ago.
 
 ## Fixing it yourself

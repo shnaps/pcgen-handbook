@@ -11,7 +11,7 @@ Use one where a race would be wrong. Something acquired rather than born with,
 something several races can gain, or something that stacks with what the character
 already is.
 
-Templates have **24** tags of their own, more than any other file type in this handbook.
+Templates have **24** tags of their own. Classes and equipment have more.
 
 ## Minimum working line
 
@@ -58,8 +58,8 @@ A character may hold several templates. The same template cannot be applied twic
 | `GENDERLOCK` | force a gender |
 | `HANDS`, `LEGS`, `REACH` | set body values |
 | `BONUSSKILLPOINTS` | add skill points |
-| `LANGBONUS` | grant bonus languages |
-| `WEAPONBONUS` | grant weapon proficiencies |
+| `LANGBONUS` | offer bonus languages to choose from. `AUTO:LANG` is the one that grants |
+| `WEAPONBONUS` | offer weapon proficiencies, of which the character picks one |
 | `NONPP` | set the non-proficiency penalty |
 
 *Source: [`plugin/lsttokens/template/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/template)*
@@ -73,7 +73,7 @@ Four of the most used tags on template lines are global tags that work anywhere:
 | `NATURALATTACKS` | 1,404 | any object |
 | `SAB` | 1,219 | any object |
 | `TEMPLATE` | 444 | any object, grants another template |
-| `ABILITY` | 1,397 | any object |
+| `ABILITY` | 1,745 | any object |
 
 They cluster on templates because that is where the work is done, not because templates
 own them.

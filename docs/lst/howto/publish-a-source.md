@@ -52,7 +52,7 @@ levels become producer, format and setting.
 
 *Source: [`campaign/TypeToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/campaign/TypeToken.java)*
 
-Shipped data uses two levels most often, three in 66 cases and one in 17.
+Shipped data uses two levels most often, at 430 sources, with three in 162 cases and one in 27.
 
 !!! tip "RANK is a date in practice"
     The tag takes any number. Shipped data almost always writes the publication date as
@@ -75,7 +75,7 @@ SOURCEDATE:2026-08
 DESC:An example supplement.
 ```
 
-These fill the panel beside the source list. Every shipped source sets all of them.
+These fill the panel beside the source list. Most shipped sources set the first five; only 386 of 681 set `DESC`.
 
 ## 3. Licensing
 
@@ -132,7 +132,7 @@ it declares at least one `GAMEMODE`. `TYPE` plays no part.
 
 *Source: [`FacadeFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/FacadeFactory.java)*
 
-Only 11 of the 680 shipped `.pcc` files set it. It is for a source meant to be loaded on
+Only 9 of the 681 shipped `.pcc` files set it to `YES`, and three set it to `NO`. It is for a source meant to be loaded on
 its own, not for one supplement among many.
 
 It also matters for testing: whether `datatest` covers your source at all depends on
@@ -197,7 +197,7 @@ Blank lines and `#` comments are ignored, so group the tags for whoever reads it
 
 ## Verify it
 
-1. Put the folder under your data directory. See [setup](../../start/setup.md).
+1. Put the folder under your Homebrew Data directory. See [setup](../../start/setup.md).
 2. Start PCGen and open the source list. Your `CAMPAIGN` name should appear under the
    `TYPE` path you gave it.
 3. Select it and load. Any licence dialogs you configured appear at the end.

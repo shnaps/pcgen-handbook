@@ -61,7 +61,7 @@ domain is no longer offered, the choice is removed on the next load.
 
 ## SPELLLEVEL:DOMAIN
 
-864 uses in 904 lines, so nearly every domain line carries one. It adds spells to the
+864 uses across 605 of the 904 domain lines, so two thirds of domains carry one. It adds spells to the
 domain's spell list:
 
 ```
@@ -91,7 +91,7 @@ See [spell files](spell.md) for the tag on the other side.
 
 ## Granting an ability
 
-509 of 904 domain lines grant something:
+349 of 904 domain lines grant something with `ABILITY:`:
 
 ```
 Sample Domain	ABILITY:FEAT|AUTOMATIC|Sample Feat
@@ -138,7 +138,7 @@ gets the class skill only through the one that granted the domain.
 **Without `BONUS:DOMAIN|NUMBER` on a class, nothing is chosen.** The domains are legal
 and the character picks none.
 
-**A spell listed at level `-1` is removed from the list, not added at a low level.**
+**Level `-1` removes a spell, but only from the spell's side.** `SPELLLEVEL:` on a domain line takes the number as written and adds it. The removal form belongs to `CLASSES:` and `DOMAINS:` on a spell line.
 
 ## Related
 

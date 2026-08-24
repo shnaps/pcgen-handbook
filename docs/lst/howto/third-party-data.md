@@ -10,15 +10,26 @@ Two routes: an installable archive, or copying folders in by hand.
 
 ## Where data lives
 
-Under `data/`, organised by game mode and then by publisher:
+PCGen scans three directories for `.pcc` files, and which one you use decides whether
+your data survives an upgrade:
+
+| Directory | For |
+|---|---|
+| the data directory | what PCGen ships. **Replaced on upgrade** |
+| the vendor data directory | data someone else wrote. Kept |
+| the Homebrew Data directory | data you wrote. Kept |
+
+All three are set under Preferences. Inside any of them the shape is the same, game mode
+then publisher then book:
 
 ```
-data/35e/<publisher>/<book>/
-data/pathfinder/<publisher>/<book>/
+<vendor data dir>/35e/<publisher>/<book>/
 ```
 
-PCGen ships data from many publishers this way. Anything you add follows the same
-shape, and PCGen finds it by scanning for `.pcc` files rather than by being told.
+Third-party data belongs in the vendor directory. Putting it under `data/` works until
+the next upgrade deletes it.
+
+<!-- src: code/src/java/pcgen/persistence/CampaignFileLoader.java -->
 
 ## Installable archives
 
@@ -43,10 +54,11 @@ The installer accepts `.pcz` and `.zip`.
 
 ## Installing by hand
 
-Most third-party data is just folders. Copy them under the right game mode:
+Most third-party data is just folders. Copy them under the right game mode inside your
+vendor data directory:
 
 ```
-data/35e/some_publisher/some_book/
+<vendor data dir>/35e/some_publisher/some_book/
 ```
 
 Restart PCGen. If the folder contains a `.pcc` with a valid `GAMEMODE:`, the campaign
@@ -97,8 +109,9 @@ existing feat starts `Sample Feat.MOD` rather than `Sample Feat`.
 
 ## Gotchas
 
-**A data set that does not appear was not found.** Check it is under a game mode
-folder inside `data/`, and that its `.pcc` names a game mode that exists.
+**A data set that does not appear was not found.** Check it is under a game mode folder
+inside one of the three scanned directories, and that its `.pcc` names a game mode that
+exists.
 
 **Install refused with a version message.** The set needs a newer PCGen than you are
 running. Nightly builds are usually newer than the last release.

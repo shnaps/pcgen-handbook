@@ -1328,3 +1328,60 @@ wrote that `CHOOSE:NUMBER` is deprecated "without a `MIN` and `MAX`". It is depr
 outright and delegates to `TEMPVALUE`. Caught by reading `NumberToken.parseToken` before
 committing, which is the only reason it is not in this repository. Fourth time today that
 checking a claim I had just written found it wrong.
+
+## 2026-08-23  the last 27 pages, and the lens that beat the auditors
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No new pages.
+- Five accuracy reviewers on disjoint sets, plus one building a data set from the
+  handbook alone. **Ninety-one errors.** Not one page came back clean.
+
+Every page has now had an accuracy pass except `credits.md`.
+
+**The task lens found what five accuracy reviewers could not.** It was told to author a
+race, an ability, a class, a skill and a `.pcc` using only the handbook, and forbidden to
+read the source except to check afterwards whether what it had been told was true.
+
+Its worst finding is the worst error the handbook has carried. `new-class.md` taught
+writing an attack progression down successive level lines as `1`, `2`, `3`.
+`ClassLevelChangeFacet.update` adds every `PCClassLevel` from 1 to N, so all those lines
+are live at once and untyped bonuses stack. That example gives a third-level character an
+attack bonus of six. Five reviewers read that page today. None caught it, because every
+sentence in it is defensible alone — the error only appears when you build the thing and
+add up the result.
+
+Its verdict on the whole handbook was no: a homebrew set built from these pages does not
+work, because no page says a data set is not self-contained. It needs the `_universal`
+`DATACONTROL` and `RACE` lines every shipped 35e PCC carries, and a base source for stats,
+sizes and saves, since `statsandchecks.lst` in the game mode defines none of them.
+
+**A correction made this morning was itself wrong.** I had changed `new-race.md` to say
+`VIRTUAL` grants an ability without checking its own prerequisites. The task lens
+contested it, the reviewer who made the original claim was sent the trace, and conceded:
+neither nature checks the ability's own prerequisites, because only those written on the
+`ABILITY:` tag are carried. The gate it had in mind is on `ADD:ABILITY`, between `NORMAL`
+and `VIRTUAL` — a different tag and a different pair. The page lost the distinction
+rather than keeping a real-sounding one that does not exist.
+
+**The owner pages were the worst set, at 27.** `bonuses.md` had `.REPLACE` overriding the
+plain bonus when replace bonuses stack among themselves and then the higher total wins.
+`keys-and-names.md` had `[NAME]` as the first parenthesis when it is first `(` to last
+`)`, split on `/` and reversed. `modifying-data.md` had an example using `BONUS:.CLEAR`,
+which does not exist at all. `sources.md` had `RANK` inverted — descending sort on a
+`YYYYMM` date loads the newest first, not the oldest — and restated one sentence of the
+duplicate-key rule that `keys-and-names.md` owns, complete with a dangling reference to a
+preference the page never introduces.
+
+**Every count on those five pages was comment-inclusive**, and re-measuring moved all of
+them: `BONUS:` 174,114 to 170,741, `KEY:` 71,572 to 74,678, `.MOD` 58,600 to 56,744.
+`BONUS:WEAPON` turned out to outrank `SPELLCAST`, so a frequency table was in the wrong
+order as well as wrong.
+
+**And the data-location error had spread.** `setup.md` was fixed this morning.
+`third-party-data.md` and `publish-a-source.md` were still sending readers to `data/`,
+and `third-party-data.md` contradicted itself doing it — its own gotcha says editing
+shipped data is temporary because updates overwrite it. Third-party data belongs in the
+vendor directory, your own in homebrew, and the page now carries the table.
+
+**Rate.** Ninety-one across 27 pages is 3.4 each, more than double the day-one rate of
+1.4. The difference is what the pages are: these are the dense internals and owner pages,
+where a paragraph makes six checkable claims rather than one.

@@ -6,7 +6,7 @@ title: Spell files
 
 A spell file defines spells. Loaded by `SPELL:` in a [PCC](pcc.md).
 
-Spells are the largest file type in shipped data — 36,510 lines across 359 files. They
+Spells are among the larger file types — 37,360 lines across 360 files, behind abilities, kits and equipment. They
 also work differently from everything else here: a spell is never granted to a
 character. It joins a **spell list**, and the character reaches it through a class or a
 domain.
@@ -35,7 +35,7 @@ Effects belong on the abilities and items that cast the spell, not on the spell 
 
 ## CLASSES puts the spell on a list
 
-The most used spell tag, at 25,399 uses, and the one that matters most.
+The most used spell tag, at 25,738 uses, and the one that matters most.
 
 ```
 CLASSES:Sample Caster=3
@@ -78,9 +78,9 @@ Most of these are display text. Only one is checked against anything.
 | `DESCRIPTOR` | text | no |
 | `COMPS` | text | no |
 | `CASTTIME` | text | no |
-| `RANGE` | text | brackets must balance |
-| `TARGETAREA` | one string | brackets must balance |
-| `DURATION` | text | brackets must balance |
+| `RANGE` | text | parentheses must balance |
+| `TARGETAREA` | one string | parentheses must balance |
+| `DURATION` | text | parentheses must balance |
 | `SAVEINFO` | text | no |
 | `SPELLRES` | text | no |
 
