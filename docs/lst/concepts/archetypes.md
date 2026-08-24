@@ -7,8 +7,8 @@ title: Archetypes
 An archetype swaps some of a class's features for different ones. PCGen has **no
 archetype file type**. It is a pattern built from abilities in a category of their own.
 
-The pattern is well established — `CATEGORY:Archetype` appears about 1,772 times
-across 152 shipped files.
+The pattern is well established — `CATEGORY:Archetype` appears 1,763 times across 151
+shipped files.
 
 ## The shape
 
@@ -30,8 +30,8 @@ ABILITYCATEGORY:Archetype	CATEGORY:Archetype	VISIBLE:NO	EDITABLE:YES	EDITPOOL:YE
 | Tag | Does |
 |---|---|
 | `CATEGORY` | the underlying category the pool draws from |
-| `VISIBLE` | whether it gets its own selection tab |
-| `EDITABLE` | whether entries can be added by data |
+| `VISIBLE` | `YES`, `QUALIFY` or `NO` — whether it is listed among the ability categories |
+| `EDITABLE` | whether the reader may add or remove entries in the program |
 | `EDITPOOL` | whether the number of picks can be changed |
 | `FRACTIONALPOOL` | whether part-picks are allowed |
 

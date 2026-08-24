@@ -43,7 +43,6 @@ Loaded in this order:
 | File | Holds |
 |---|---|
 | `miscinfo.lst` | most of the mode. See below. |
-| `statsandchecks.lst` | bonus spell levels |
 | `level.lst` | experience thresholds and skill rank caps per level |
 | `rules.lst` | optional rules the user can switch on and off |
 | `equipmentslots.lst` | where equipment can be worn |
@@ -51,18 +50,18 @@ Loaded in this order:
 | `bio/traits.lst`, `bio/locations.lst` | character background lists |
 | `load.lst` | carrying capacity and encumbrance |
 | `sizeAdjustment.lst` | size categories |
+| `statsandchecks.lst` | stats, checks and bonus spell levels |
 | `equipIcons.lst` | icons |
 | `codeControl.lst` | switches for engine features |
-| `migration.lst` | renames, so old data keeps working |
 | `pointbuymethods.lst` | point buy configurations |
-| `unitset.lst` | units of measurement |
+| `migration.lst` | renames, so old data keeps working |
 
 Only `miscinfo.lst` and `statsandchecks.lst` are required. A mode includes the rest as
 it needs them.
 
 ## miscinfo.lst
 
-The biggest file, and the one with the most tags. 229 tags in the
+The biggest file, and the one with the most tags. 65 rows in the
 [tag index](../reference/tag-index.md) apply to game mode files, most of them here.
 
 It is not one object per line. Each line starts with a **line type** saying what it

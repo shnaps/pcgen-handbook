@@ -7,7 +7,7 @@ title: Choosers
 A chooser is a `CHOOSE:` tag and the selection it drives. It is how one line of data
 becomes "Skill Focus (any skill)" rather than a separate feat for every skill.
 
-There are **30** chooser types. Shipped data uses `CHOOSE:` about 11,200 times, and
+There are **30** chooser types. Shipped data uses `CHOOSE:` 10,375 times, and
 half of those are one form that presents no choice at all. Read on for why.
 
 ## What a CHOOSE tag does
@@ -44,6 +44,7 @@ Only types implementing `ChooseDriver` drive a choice:
 | `Skill` | yes |
 | `PCTemplate` | yes |
 | `Domain` | yes |
+| `EquipmentModifier` | yes |
 | `Ability` | **no** — the granted instance does |
 
 Abilities are the interesting case. The raw `Ability` object is not the driver.
@@ -74,7 +75,7 @@ CHOOSE:SKILL|TYPE=Lore|TITLE=Choose a Lore skill
 CHOOSE:USERINPUT|TITLE=Name your patron
 ```
 
-`CHOOSE:SKILL` takes a list of things to choose from, comma or pipe separated, then an
+`CHOOSE:SKILL` takes a list of things to choose from, then an
 optional title. `CHOOSE:USERINPUT` takes no list at all — it asks the reader to type
 something.
 
@@ -105,14 +106,18 @@ Both accept a leading `!` to invert them.
 
 ## How many choices
 
-Three tags control counting, and they are not the same thing.
+Four tags control counting, and they are not the same thing.
 
 | Tag | Controls |
 |---|---|
-| `SELECT:` | how many picks the chooser prompts for at once |
-| `CHOOSE:NUMCHOICES=` | how many distinct selections are legal in total |
+| `SELECT:` | how many selections one unit of pool cost buys |
+| `CHOOSE:NUMCHOICES=` | the cap on how many choices are offered |
 | `MULT:` | whether the object may be taken more than once |
 | `STACK:` | whether taking it twice with the *same* selection doubles up |
+
+Separators are not interchangeable. A pipe is OR and a comma is AND, so two plain keys
+joined by a comma asks for something that is both at once. The loader says so:
+`Check that a key is not joined with AND (,)`.
 
 `NUMCHOICES=` is not a chooser type. It is a prefix on the value, stripped before the
 real type is read:
@@ -130,7 +135,7 @@ See [ability files](../files/ability.md) for `MULT` and `STACK` in context.
 
 ## CHOOSE:NOCHOICE
 
-The most used chooser by a wide margin — 5,421 of about 11,200 uses. It presents
+The most used chooser by a wide margin — 5,368 of the 10,375 uses. It presents
 nothing. Its list of options is a single empty string.
 
 It exists because `MULT:YES` demands a chooser. An ability that can be taken repeatedly
@@ -153,15 +158,15 @@ Ranked by use in shipped data:
 
 | Chooser | Uses | Picks |
 |---|---|---|
-| `NOCHOICE` | 5,421 | nothing, see above |
-| `SPELLS` | 590 | a spell |
-| `SKILL` | 580 | a skill |
-| `USERINPUT` | 521 | free text typed by the reader |
-| `STRING` | 476 | one of a fixed list you write |
-| `WEAPONPROFICIENCY` | 407 | a weapon proficiency |
-| `ABILITYSELECTION` | 201 | an ability together with its own choice |
-| `ABILITY` | 192 | an ability |
+| `NOCHOICE` | 5,368 | nothing, see above |
+| `SPELLS` | 574 | a spell |
+| `SKILL` | 559 | a skill |
+| `USERINPUT` | 504 | free text typed by the reader |
+| `STRING` | 445 | one of a fixed list you write |
+| `WEAPONPROFICIENCY` | 395 | a weapon proficiency |
+| `ABILITYSELECTION` | 199 | an ability together with its own choice |
 | `CLASS` | 191 | a class |
+| `ABILITY` | 153 | an ability |
 
 `STRING` and `USERINPUT` are the two that need no game object at all. `STRING` offers a
 list you supply; `USERINPUT` accepts anything typed.
@@ -185,7 +190,7 @@ the choice without asking again.
 something actually grants the object.
 
 **`CHOOSE:FEAT` is deprecated.** Use `CHOOSE:ABILITY` or `CHOOSE:ABILITYSELECTION`. The
-old class still loads and logs a notice.
+old class still loads, and nothing is logged.
 
 **`CHOOSE:USERINPUT|2|TITLE=...` is deprecated.** The count form now belongs in
 `SELECT:`. The parser accepts it and prints a deprecation message.
@@ -199,6 +204,6 @@ with no question asked, that is what `CHOOSE:NOCHOICE` is for.
 
 - [Ability files](../files/ability.md) — `MULT`, `STACK` and where choosers are used most
 - [Prerequisites](prerequisites.md) — the other way to gate what a character may take
-- [Tag index](../reference/tag-index.md) — all 30 chooser types
+- [Tag index](../reference/tag-index.md) — the chooser types, 28 of the 30 listed
 - [How a chooser resolves](../../internals/choosers.md) — the code path, primitives and qualifiers
 - [The token system](../../internals/token-system.md) — how sub-tokens are dispatched

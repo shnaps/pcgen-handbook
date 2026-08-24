@@ -38,7 +38,7 @@ FACTDEF:DEITY|Title	DATAFORMAT:STRING	REQUIRED:NO	VISIBLE:YES	EXPLANATION:The de
 | `FACTDEF:DEITY|Title` | the object type, then the fact name |
 | `DATAFORMAT` | the value type: `STRING`, `NUMBER`, `SIZEADJUSTMENT` and others |
 | `REQUIRED` | whether every object of that type must set it |
-| `VISIBLE` | whether it shows in the program |
+| `VISIBLE` | `YES`, `DISPLAY`, `EXPORT` or `NO`. **Unset means hidden**, so a fact with no `VISIBLE` reaches no output sheet |
 | `EXPLANATION` | text for whoever reads the declaration later |
 
 After that declaration, any deity line may write:
@@ -52,7 +52,7 @@ belongs to one pantheon or to five, so pantheon is a fact set.
 
 *Source: [`plugin/lsttokens/datacontrol/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/datacontrol)*
 
-Shipped data declares facts in 86 files, and fact sets in 16. PCGen ships declarations
+Shipped data declares facts in 83 files, and fact sets in 13. PCGen ships declarations
 for the compatibility facts, which is why the old deity tags still map across.
 
 ## ABILITYCATEGORY
@@ -67,14 +67,17 @@ ABILITYCATEGORY:Sample Talent	VISIBLE:YES	EDITABLE:YES	EDITPOOL:YES	FRACTIONALPO
 |---|---|
 | `CATEGORY` | which underlying pool it draws from |
 | `TYPE` | which abilities belong to it |
-| `EDITPOOL` | whether the reader may spend from the pool by hand |
+| `EDITPOOL` | whether the reader may change the pool total by hand |
 | `FRACTIONALPOOL` | whether half points are allowed |
 | `DISPLAYLOCATION` | where it appears in the program |
 
-Once declared, abilities set `CATEGORY:Sample Talent` and tags such as
-`ABILITY:Sample Talent|AUTOMATIC|...` refer to it. Around 808 files in shipped data
-carry category declarations, so custom categories are ordinary practice rather than an
-advanced trick.
+`CATEGORY:` on the declaration names the pool the new category draws from, which is why
+the example above says `CATEGORY:FEAT`. An ability joins the new category through `TYPE:`
+and keeps `CATEGORY:FEAT`, exactly as the example line shows. Tags such as
+`ABILITY:Sample Talent|AUTOMATIC|...` then refer to the category by name.
+
+403 shipped `.lst` files carry category declarations, so custom categories are ordinary
+practice rather than an advanced trick.
 
 See [ability files](../files/ability.md).
 
