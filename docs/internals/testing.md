@@ -82,6 +82,41 @@ Narrow the run with the usual Gradle filter:
 `DataTest` is separate and checks hygiene rather than correctness — path lengths, and
 a variable report.
 
+## Which source root a test belongs in
+
+The classpath decides this, not how long the test takes.
+
+| Source root | Compiles against |
+|---|---|
+| `code/src/test` | `main` and `testcommon` |
+| `code/src/itest`, `code/src/slowtest` | the same, plus everything in `test` |
+
+`AbstractCharacterTestCase` lives in `code/src/slowtest/pcgen/`. So any test that needs a
+built character has to live in `slowtest` or `itest` as well. Put it in `code/src/test/`
+and it will not compile.
+
+Its `setUp` resets static state — `SettingsHandler.setGame("3.5")` and
+`Globals.emptyLists()` among it. That state is global, which is why both slow tasks set
+`forkEvery = 1`.
+
+*Source: [`build.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/build.gradle), [`AbstractCharacterTestCase.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/slowtest/pcgen/AbstractCharacterTestCase.java)*
+
+## The export tests compare against checked-in XML
+
+`inttest` and the per-game-mode tasks all run `PcgenFtlTestCase.runTest`. For one named
+character it:
+
+1. loads `code/testsuite/PCGfiles/<name>.pcg`,
+2. exports it through `code/testsuite/base-xml.ftl` by calling `Main.main` with
+   `--character` and `--exportsheet`,
+3. XML-diffs the output against `code/testsuite/csheets/<name>.xml` and fails on any
+   difference.
+
+Those `.xml` files are checked into the repository. A deliberate change to how a number
+is computed fails here by design, and the fix is to regenerate them.
+
+*Source: [`PcgenFtlTestCase.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/slowtest/pcgen/inttest/PcgenFtlTestCase.java)*
+
 ## What does not exist
 
 **There is no command that validates a single PCC.** The headless CLI

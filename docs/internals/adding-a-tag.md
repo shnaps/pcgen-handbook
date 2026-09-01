@@ -267,3 +267,4 @@ See [what changed](../appendix/whats-changed.md) for how that looks from the dat
 - [The token system](token-system.md) — the interfaces
 - [Plugin loading](plugin-loading.md) — why one class is enough
 - [Testing](testing.md) — the test harness
+- [Changing behaviour](changing-behaviour.md) — for a change the token framework does not cover

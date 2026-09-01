@@ -219,3 +219,4 @@ A change to the window is verified by running it. See [building](building.md).
 - [The character model](facets.md) — what a `CharacterFacade` wraps
 - [Load pipeline](load-pipeline.md) — what the source dialog starts
 - [Contributing](contributing.md) — the standards a change has to meet
+- [Changing behaviour](changing-behaviour.md) — the two UI threads, and the assertions that name them

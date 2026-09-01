@@ -174,6 +174,10 @@ and reads whatever it finds.
 
 To see more, pass `-v`. That sets the level to `FINER` for the whole run.
 
+A message only reaches the user if a handler is listening at that level, and only three
+places register one. See
+[reading errors instead of stepping](running-and-debugging.md#reading-errors-instead-of-stepping).
+
 ## Headless export
 
 With `-E`, `Main` takes a different branch. It loads settings, validates the

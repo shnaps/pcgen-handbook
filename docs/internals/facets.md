@@ -310,6 +310,13 @@ was parsed. The tag stored data on a `CDOMObject` long before this point.
 `CDOMObjectConsolidationFacet`, registered in `FacetInitialization` and fetched through
 `FacetLibrary`.
 
+## Keeping the caches honest
+
+A facet is not the only place character state lives. `PlayerCharacter` also caches
+derived numbers against a serial, and a mutation that skips `setDirty(true)` leaves those
+caches serving old values. See
+[changing behaviour](changing-behaviour.md#1-a-cached-number-goes-stale-unless-the-serial-moves).
+
 ## Related
 
 - [The object model](cdom-model.md) — what facets store

@@ -1434,3 +1434,59 @@ It also caught the two race entries being named `<none selected>` with `KEY:None
 Selected` rather than `None`, and the phrase "the second field of `MODIFYOTHER`" using
 *field* for a pipe-separated argument. The glossary reserves that word for the
 tab-separated parts of a line.
+
+
+## 2026-09-01  three reviewers on one question: can an engineer change the source?
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. Two new pages,
+  `running-and-debugging.md` and `changing-behaviour.md`. 68 pages.
+- Three seats: the new contributor's onboarding path, a task lens doing three real
+  engineering jobs from the pages alone, and a code expert on mechanisms that bite
+  silently. **Two published errors**, both on pages that had already passed an accuracy
+  audit.
+
+**The task lens found the error, again.** `building.md` said `run` "depends on
+`assemble`, then rewrites the JavaFX module path before launching. The build does that by
+hand because Gradle's application plugin sets the wrong path." None of that is in
+`build.gradle`. The `application` block is three lines setting the main class, the only
+`JavaExec` configuration is `maxHeapSize`, and JavaFX arrives as a plain classpath
+dependency read from `mods/lib`. The module-path rewriting the page described is on
+`Test` tasks.
+
+**A second error in `rules-engine.md`.** The skill trace named
+`PCSkillTotalTermEvaluator.resolve` as "the entry point". It is constructed in exactly one
+place, `TermEvaluatorBuilderPCVar.java:1370`, and serves the JEP term `SKILLTOTAL.`. The
+sheet number comes from `SkillToken`, the GUI number from
+`CharacterLevelsFacadeImpl.getSkillBreakdown`. The trace also showed four summands where
+`SkillModifier.modifier` has three families: `SKILL` by five keys, then `CSKILL` or
+`CCSKILL` by three, then the armour check penalty and the game mode's rank-mod formula.
+The page now also says a breakpoint may not be needed, because
+`SkillCostDisplay.getModifierExplanation` already prints that breakdown.
+
+**The biggest gap was one nobody had asked about.** Two reviewers reached the same first
+answer independently: nothing in `docs/` said how to attach a debugger. `--debug-jvm`
+appeared nowhere. Neither did the fact that a token edit has no effect under
+`./gradlew run` — `PluginClassLoader` reads class bytes out of `plugins/*plugins.jar`, and
+only `jar` declares `dependsOn jarAllPlugins`.
+
+**The code expert's five mechanisms all survived re-measurement**, which has not happened
+before. `setDirty` at `PlayerCharacter.java:993` does five things past the save flag,
+across 87 call sites and 23 `getSerial()` readers. `CControl` has 54 constants and 293
+references, and `getBaseCheck` shows the dual path in one method: a set control reads a
+variable, an unset one falls through to the cached hardcoded sum. So the two mechanisms
+interlock, and section 2 of the new page can point at section 1.
+
+I re-measured the UI numbers rather than copying them: 47 assertion calls across 26 files,
+37 `invokeLater`, 31 `Platform.runLater`, 33 `runOnJavaFXThreadNow`. The reviewer said 27
+files and 41 `invokeLater`. Close enough to look right, different enough to matter.
+
+**One claim I could not verify by running it.** The build wants a JDK 25 toolchain and
+this machine has none, so `./gradlew run --dry-run` could not resolve a task graph. That
+`run` skips `jarAllPlugins` rests on the build files alone: only `jar` declares the
+dependency, and the application plugin's `run` puts `build/classes` on the classpath
+rather than the jar.
+
+**And one number I invented mid-draft.** I wrote that a saving-throw fix would help "the
+seventeen game modes that do not set `BASESAVE`". Nothing measured that. The page now says
+every game mode that leaves it unset, which is what the code supports and the data page
+already counts.

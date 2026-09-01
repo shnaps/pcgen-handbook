@@ -172,3 +172,4 @@ quietly:
 - [Adding a tag](adding-a-tag.md) — the most common first change
 - [Testing](testing.md) — which task proves what
 - [Report a bug](../lst/howto/report-a-bug.md) — the data side of the same tracker
+- [Running it under a debugger](running-and-debugging.md) — before you submit, watch it work

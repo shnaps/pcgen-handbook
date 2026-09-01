@@ -114,6 +114,7 @@ three in order.
 | [How PCGen fits together](internals/overview.md) | The whole program on one page, with the real dependency directions |
 | [Repository layout](internals/architecture.md) | Where everything is, and how it builds |
 | [Building from source](internals/building.md) | Compile it, run it, and what each Gradle task does |
+| [Running it under a debugger](internals/running-and-debugging.md) | Attaching a debugger, running a test from an IDE, and reading the errors |
 | [Startup sequence](internals/startup.md) | Launch to main window, task by task |
 
 **Reading data**
@@ -147,6 +148,7 @@ three in order.
 | Page | What it covers |
 |---|---|
 | [Adding a tag](internals/adding-a-tag.md) | Writing one, with its test |
+| [Changing behaviour](internals/changing-behaviour.md) | Four mechanisms in the engine that fail quietly when a change ignores them |
 | [Testing](internals/testing.md) | Token tests, and checking a dataset loads clean |
 | [Contributing](internals/contributing.md) | The standards a change meets, and the ones nobody checks |
 

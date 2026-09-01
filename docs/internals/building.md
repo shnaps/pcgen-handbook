@@ -46,15 +46,21 @@ downloads Gradle 9.7.0 on first run.
 `build` is the one CI runs on every push. It takes a few minutes cold, because it also
 runs SpotBugs.
 
-`run` is the fastest way to see a change. It depends on `assemble`, then rewrites the
-JavaFX module path before launching. The build does that by hand because Gradle's
-application plugin sets the wrong path.
-
-The program's entry point is `pcgen.system.Main`, named once in the build:
+`run` starts PCGen from the checkout. Its whole configuration is the entry point:
 
 ```groovy
-mainClass.set('pcgen.system.Main')
+application {
+    mainClass.set('pcgen.system.Main')
+}
 ```
+
+Nothing rewrites a module path for it. JavaFX arrives as an ordinary classpath
+dependency, `fileTree(dir: 'mods/lib', include: ['javafx.*.jar'])`, and the only other
+setting on a `JavaExec` task is `maxHeapSize = "2048m"`.
+
+`mods/lib` is not in the repository. `extractJavaFXLocal` unzips the JavaFX SDK into it,
+downloading from gluonhq first, and every `JavaCompile` task depends on that task. A
+fresh clone therefore needs one network fetch before it compiles anything.
 
 *Source: [`build.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/build.gradle)*
 
@@ -138,6 +144,9 @@ request, as two parallel jobs:
    pull request.
 2. `./gradlew itest datatest slowtest`.
 
+A third workflow, `.github/workflows/codeql-analysis.yml`, runs CodeQL on the same
+events and weekly. It is the one gate that can flag a change without any test failing.
+
 They are split because the first takes about four minutes and the second about
 sixteen. Running them in sequence would put the short job behind the long one.
 
@@ -156,9 +165,25 @@ instead. Do not expect the standard application plugin output.
 **`build` does not run the data tests.** A change that breaks data loading passes
 `./gradlew build` and fails in CI's second job. Run `datatest` yourself.
 
+**`run` does not rebuild the plugin jars.** Token classes compile into
+`build/classes`. Eleven tasks in `code/gradle/plugins.gradle` then jar them into
+`plugins/*plugins.jar`. At startup `PluginClassLoader` reads the class bytes back **out
+of those jars**, not out of the compiled classes, so the jar is what runs.
+
+Only `jar` declares `dependsOn jarAllPlugins`. Edit a token, start with `./gradlew run`,
+and the old token loads. Run `./gradlew jarAllPlugins` first.
+
+**A new third-party dependency needs a second edit.** Adding a library to
+`dependencies` is enough to compile and run. `fullJpackage` also needs it in the jlink
+block's `forceMerge` list, and the merged module's `requires` list is maintained by
+hand. Miss that and the failure appears only when someone builds an installer.
+
+*Source: [`plugins.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/gradle/plugins.gradle), [`PluginClassLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/PluginClassLoader.java)*
+
 ## Related
 
 - [Repository layout](architecture.md) — what is in the tree
 - [Startup sequence](startup.md) — what `Main` does once it runs
 - [Testing](testing.md) — which test task proves what
 - [Contributing](contributing.md) — the standards a change has to meet
+- [Running it under a debugger](running-and-debugging.md) — attaching to `run`, and to one test

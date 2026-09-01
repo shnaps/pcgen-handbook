@@ -8,8 +8,8 @@ The narrative of how each item was decided is in `log.md`. This file holds the s
 
 ## Where the handbook stands
 
-**66 pages.** The generated [tag index](docs/lst/reference/tag-index.md) covers all 706
-tags. `docs/internals/` is 18 pages, larger than every other section combined.
+**68 pages.** The generated [tag index](docs/lst/reference/tag-index.md) covers all 706
+tags. `docs/internals/` is 20 pages, larger than every other section combined.
 
 Every page has now been through an accuracy audit except `appendix/credits.md`, which is
 licences and attribution. The last pass covered the 25 pages written on 2026-08-21 and
@@ -147,3 +147,5 @@ Reasoning for each is in `log.md` under its date.
 | Solver View, the variable debugger | `lst/concepts/variables-and-formulas.md` | 08-23 |
 | The `MODIFYOTHER` grouping forms | `lst/concepts/variables-and-formulas.md` | 09-01 |
 | The `GROUP:` tag, and the race every set needs | `lst/concepts/types.md` | 09-01 |
+| Attaching a debugger, and running a test from an IDE | `internals/running-and-debugging.md` | 09-01 |
+| The four engine mechanisms that fail quietly | `internals/changing-behaviour.md` | 09-01 |

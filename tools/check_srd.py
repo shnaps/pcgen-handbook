@@ -52,6 +52,8 @@ ALLOWED = {
     ("lst/howto/new-equipment.md", "Padded"),
     # the variable the PC.MOVEMENT scope declares, shown in a real MODIFYOTHER line
     ("lst/concepts/variables-and-formulas.md", "Speed"),
+    # the Java type a cached character number is held in, not example content
+    ("internals/changing-behaviour.md", "Float"),
 }
 FENCE = re.compile(r"```.*?\n(.*?)```", re.S)
 INLINE = re.compile(r"`([^`\n]+)`")

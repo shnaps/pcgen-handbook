@@ -126,27 +126,44 @@ immediately. The older one is rebuild-and-poll.
 
 ## Worked trace: a skill total
 
+Three callers ask for the same number, and each adds the same two parts:
+
+| Caller | Serves |
+|---|---|
+| `SkillToken` | the character sheet |
+| `CharacterLevelsFacadeImpl.getSkillBreakdown` | the skills tab |
+| `PCSkillTotalTermEvaluator` | the JEP term `SKILLTOTAL.` inside a formula |
+
 ```mermaid
 flowchart TD
-    A["PCSkillTotalTermEvaluator.resolve"] --> B["SkillRankControl.getTotalRank<br/><i>ranks, clamped</i>"]
-    A --> C["SkillModifier.modifier"]
+    S["SkillToken<br/><i>sheet</i>"] --> T
+    G["CharacterLevelsFacadeImpl<br/><i>GUI</i>"] --> T
+    J["PCSkillTotalTermEvaluator<br/><i>SKILLTOTAL.</i>"] --> T
+    T["ranks + modifier"] --> B["SkillRankControl.getTotalRank<br/><i>ranks, clamped</i>"]
+    T --> C["SkillModifier.modifier"]
     C --> D["stat modifier"]
-    C --> E["getTotalBonusTo SKILL.STAT.x"]
-    C --> F["getTotalBonusTo SKILL.&lt;name&gt;"]
-    C --> G["getTotalBonusTo SKILL.TYPE.x"]
+    C --> E["SKILL by stat, name, type, LIST and ALL"]
+    C --> F["CSKILL or CCSKILL, by name, type and LIST"]
     C --> H["armour check penalty"]
-    B --> I["total"]
-    C --> I
+    C --> K["the game mode's rank-mod formula"]
 ```
 
-1. `PCSkillTotalTermEvaluator.resolve` is the entry point.
-2. `SkillRankControl.getTotalRank` returns ranks plus rank bonuses, clamped to the
+1. `SkillRankControl.getTotalRank` returns ranks plus rank bonuses, clamped to the
    maximum.
-3. `SkillModifier.modifier` sums the stat modifier, then several bonus lookups: by stat,
-   by skill name, by skill type, by list, plus the armour check penalty.
-4. The two are added.
+2. `SkillModifier.modifier` adds the stat modifier. It then looks up `SKILL` bonuses
+   by stat, by skill name, by each skill type, by `LIST` and by `ALL`.
+3. It repeats the name, type and `LIST` lookups under `CSKILL` for a class skill. For a
+   skill that is neither a class skill nor exclusive it repeats them under `CCSKILL`. An
+   exclusive skill that is not a class skill gets neither set.
+4. Last come the armour check penalty and, if the game mode defines one, its rank-mod
+   formula.
+5. The two halves are added by the caller, not by either method.
 
-*Source: [`SkillModifier.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/analysis/SkillModifier.java)*
+**You may not need a breakpoint.** `SkillCostDisplay.getModifierExplanation` already
+builds the per-source breakdown that `SkillModifier.modifier` computes. The GUI info
+panel prints it, and so does the sheet token.
+
+*Source: [`SkillModifier.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/analysis/SkillModifier.java), [`SkillCostDisplay.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/display/SkillCostDisplay.java)*
 
 Every one of those bonus lookups reads the map built above. If a number is wrong, it is
 wrong either in the ranks or in one key of that map, and the map is inspectable.
@@ -184,6 +201,10 @@ calculation loop. See [rule toggles](../lst/concepts/rule-toggles.md).
 
 Start with the third. Most "wrong number" reports are a bonus that is present with the
 wrong type, or absent because a prerequisite failed.
+
+**The first will not fire while a character file loads.** `calcActiveBonuses` returns
+immediately when `importing` is set, so a breakpoint there is silent for the whole of a
+`.pcg` load and then hits once afterwards.
 
 ## Related
 

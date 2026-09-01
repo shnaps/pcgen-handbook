@@ -113,6 +113,7 @@ nav:
           - internals/overview.md
           - internals/architecture.md
           - internals/building.md
+          - internals/running-and-debugging.md
           - internals/startup.md
       - Reading data:
           - internals/source-selection.md
@@ -130,6 +131,7 @@ nav:
           - internals/output-and-saving.md
       - Changing PCGen:
           - internals/adding-a-tag.md
+          - internals/changing-behaviour.md
           - internals/testing.md
           - internals/contributing.md
   - Appendix:
