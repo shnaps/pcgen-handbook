@@ -51,7 +51,7 @@ Three at the top level are shared rather than owned by a publisher:
 
 | Directory | Holds |
 |---|---|
-| `_universal` | data any source may load, such as a common race list |
+| `_universal` | data any source may load, including the [race every set needs](types.md#group-is-a-second-label-list) |
 | `_images` | artwork |
 | `publisher_logos` | logos, referenced by `.pcc` files |
 

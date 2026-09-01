@@ -50,6 +50,8 @@ ALLOWED = {
     ("lst/files/equipment-modifier.md", "Adamantine"),
     # named to show armour profs are per item, which is why a category fails
     ("lst/howto/new-equipment.md", "Padded"),
+    # the variable the PC.MOVEMENT scope declares, shown in a real MODIFYOTHER line
+    ("lst/concepts/variables-and-formulas.md", "Speed"),
 }
 FENCE = re.compile(r"```.*?\n(.*?)```", re.S)
 INLINE = re.compile(r"`([^`\n]+)`")

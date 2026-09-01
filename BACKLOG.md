@@ -15,6 +15,10 @@ Every page has now been through an accuracy audit except `appendix/credits.md`, 
 licences and attribution. The last pass covered the 25 pages written on 2026-08-21 and
 found 34 errors, all fixed.
 
+**Every Java package is cited.** All 26 second-level packages under `code/src/java` are
+named by at least one page. `plugin/grouping` was the last that was not, closed on
+2026-09-01.
+
 **Nothing is open.** The three items the day-one audit left were closed on 2026-08-23:
 the upgrade-safety advice in `setup.md`, the SRD content in examples, and the precision
 list. The second of those produced `tools/check_srd.py`, so the rule now has enforcement
@@ -141,3 +145,5 @@ Reasoning for each is in `log.md` under its date.
 | Two dispatchers, split apart | `internals/load-pipeline.md` | 08-23 |
 | The FreeMarker property vocabulary | `internals/output-and-saving.md` | 08-23 |
 | Solver View, the variable debugger | `lst/concepts/variables-and-formulas.md` | 08-23 |
+| The `MODIFYOTHER` grouping forms | `lst/concepts/variables-and-formulas.md` | 09-01 |
+| The `GROUP:` tag, and the race every set needs | `lst/concepts/types.md` | 09-01 |

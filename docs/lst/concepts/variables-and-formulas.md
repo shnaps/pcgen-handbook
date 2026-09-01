@@ -96,12 +96,54 @@ Two extra arguments in front:
 | Argument | Is |
 |---|---|
 | `<scope>` | the scope to reach into. **Must not be the global scope.** |
-| `<grouping>` | which objects within that scope are affected |
+| `<grouping>` | which objects within that scope are affected. Three forms, below. |
 
 The remaining three behave exactly as in `MODIFY`. PCGen rejects the line if the scope
 name is not legal, or if it names the global scope.
 
 *Source: [`ModifyOtherLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/ModifyOtherLst.java)*
+
+## The grouping argument
+
+`<grouping>` picks the objects inside the scope. It takes one of three forms, and each
+form is a separate class under `plugin/grouping/`. Written plain, with no bracket after
+it, each form yields the objects it matches:
+
+| Form | Affects | Matched against |
+|---|---|---|
+| `ALL` | every object in the scope | nothing |
+| `KEY=<key>` | the one object with that key | the object key, exactly |
+| `GROUP=<label>` | objects whose `GROUP:` tag carries that label | the label, exactly |
+
+A bare name with no `=` means `KEY`. `getDynamicGroup` falls back to `KEY` for anything
+that is not the literal `ALL`, so these two lines do the same thing:
+
+```
+MODIFYOTHER:PC.MOVEMENT|Walk|Speed|SET|30
+MODIFYOTHER:PC.MOVEMENT|KEY=Walk|Speed|SET|30
+```
+
+All **192** `MODIFYOTHER` fields in shipped data use the bare form. `ALL` and `GROUP=`
+appear in the token test and nowhere in the data.
+
+`GROUP=` is the only reason a data author writes the [`GROUP:` tag](types.md#group-is-a-second-label-list).
+
+Every form also accepts a bracketed child: `ALL[ALL]`, `KEY=Walk[ALL]`. A child changes
+what the grouping yields. The matched object is not passed on — its children are, and the
+child grouping is applied to those. `ModifyOtherLst` protects `[` and `]` from the `|`
+split, so a child may contain either.
+
+No shipped line uses a child, and this handbook has not verified how the child's object
+type resolves past one level. It is part of the grammar, not part of what is documented
+here.
+
+**What breaks.** Ending the grouping at the `=`, as in `KEY=`, fails in the parser. The
+log carries `Error in parsing Group: Expected target after '=', but string ended`, then
+`MODIFYOTHER unable to build group from: KEY=`. Writing a value after `ALL` fails
+somewhere else — the grouping class throws `Instructions using = prohibited for ALL
+Grouping`, which `getGrouping` does not catch, so the second message never appears.
+
+*Source: [`plugin/grouping/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/grouping), [`GroupingInfoFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/grouping/GroupingInfoFactory.java), [`ChoiceSetLoadUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/persistence/ChoiceSetLoadUtilities.java), [`ModifyOtherLstTest.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/test/plugin/lsttokens/ModifyOtherLstTest.java)*
 
 ## Scopes
 
@@ -109,8 +151,9 @@ A variable exists inside a scope rather than globally. `MODIFY` therefore valida
 variable name against the current scope. `MODIFYOTHER` has to name a scope before it
 can name a variable.
 
-Shipped data uses `MODIFYOTHER` with movement modes as the grouping, which is how
-movement gets adjusted across a set of modes at once.
+Shipped data reaches into one scope only. All **192** `MODIFYOTHER` fields name
+`PC.MOVEMENT` and pick a single movement mode by key, 189 of them `Walk`. Nothing in the
+data modifies a set of modes at once.
 
 ## Seeing what a variable resolved to
 

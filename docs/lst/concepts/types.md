@@ -112,6 +112,42 @@ everything else. Which one runs depends on the file being loaded.
 
 *Source: [`campaign/TypeToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/campaign/TypeToken.java)*
 
+## `GROUP:` is a second label list
+
+`GROUP:` also puts labels on an object, and that is where the resemblance to `TYPE:`
+ends.
+
+```
+Test Blade	TYPE:Weapon.Melee	GROUP:Sample Group|Test Group
+```
+
+Pipes separate the labels, not dots. Any object accepts the tag, because `GroupLst`
+declares `CDOMObject` as its token class.
+
+Exactly two things in the source read the list back:
+
+| Reader | What it does |
+|---|---|
+| `GROUP=<label>` in a grouping | picks the objects to act on — the second argument of [`MODIFYOTHER`](variables-and-formulas.md#the-grouping-argument), and the `Group` formula function |
+| `isUnselected()` | the label `Unselected`, in any case, marks the object as a placeholder |
+
+No prerequisite, chooser or bonus matches on `GROUP:`. For those, use `TYPE:`.
+
+`isUnselected()` is what the shipped data is for, and the loader insists on it. A loaded
+set of sources must contain one race carrying `GROUP:UNSELECTED`, or `SourceFileLoader`
+logs `<mode> did not have required Race with 'Unselected' Group`. With the domain feature
+on it demands exactly one deity carrying it too, and names the count it found.
+
+That is why `data/_universal/races.lst` ships a race called `<none selected>` with
+`KEY:None Selected`, and why eight deity lists ship a deity called `None`. Thirteen call
+sites read the flag: that loader check, the race sort in `DataSet`, `PreRaceTester`,
+`PREBASESIZE`, the `BASEMOVEMENT` export token and the character facades.
+
+Shipped data sets `GROUP:` **22 times**, with two values: `RaceType_Humanoid` 12 times
+and `UNSELECTED` 10. Nothing in the shipped data reads `RaceType_Humanoid` back.
+
+*Source: [`GroupLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/GroupLst.java), [`CDOMObject.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/base/CDOMObject.java), [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/SourceFileLoader.java)*
+
 ## What breaks
 
 **A type that never matches.** Nothing warns you that `TYPE=Weapn` matched no objects.
@@ -134,6 +170,8 @@ behaviour lives in whatever tag matches on it — a [prerequisite](prerequisites
 |---|---|
 | the `TYPE:` tag | `plugin/lsttokens/TypeLst.java` |
 | the `TYPE:` tag in a `.pcc` | `plugin/lsttokens/campaign/TypeToken.java` |
+| the `GROUP:` tag | `plugin/lsttokens/GroupLst.java` |
+| the three grouping forms | `plugin/grouping/` |
 | `TYPE=` in a reference | `pcgen/rules/persistence/TokenUtilities.java` |
 | what a type match means | `pcgen/core/PObject.java`, `isType` |
 | building the matched group | `pcgen/cdom/reference/AbstractReferenceManufacturer.java` |
@@ -145,4 +183,5 @@ behaviour lives in whatever tag matches on it — a [prerequisite](prerequisites
 - [Prerequisites](prerequisites.md) — `PRETYPE`, and testing a type on a character
 - [Choosers](choosers.md) — `TYPE=` as a selection, and negation that works
 - [Modifying existing data](modifying-data.md) — `.MOD`, which the four operators are for
+- [Variables and formulas](variables-and-formulas.md) — where `GROUP=` selects objects
 - [The CDOM model](../../internals/cdom-model.md) — `ListKey` and how a list tag is stored

@@ -211,6 +211,9 @@ what `MODIFYOTHER` needs a scope argument for.
 
 Plus `ListAll`, `key` and `INPUT`.
 
+`Group` takes the same three grouping forms as the second field of `MODIFYOTHER` — `ALL`, `KEY=` and `GROUP=`. They are written up in
+[variables and formulas](../lst/concepts/variables-and-formulas.md#the-grouping-argument).
+
 These are registered by the same plugin mechanism as tags — see
 [plugin loading](plugin-loading.md).
 

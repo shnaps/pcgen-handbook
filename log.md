@@ -1385,3 +1385,52 @@ vendor directory, your own in homebrew, and the page now carries the table.
 **Rate.** Ninety-one across 27 pages is 3.4 each, more than double the day-one rate of
 1.4. The difference is what the pages are: these are the dense internals and owner pages,
 where a paragraph makes six checkable claims rather than one.
+
+
+## 2026-09-01  the grouping grammar, and the tag nobody documented
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No new pages.
+- Two sections. `plugin/grouping` was the only package under `code/src/java` that no page
+  cited.
+
+**What was missing.** `variables-and-formulas.md` described the `<grouping>` argument of
+`MODIFYOTHER` as "which objects within that scope are affected" and stopped. A reader
+could not write the line. The three forms are `ALL`, `KEY=` and `GROUP=`, one class each
+in `plugin/grouping/`, and a bare name with no `=` means `KEY`, because `getDynamicGroup`
+falls back to it for anything but the literal `ALL`.
+
+`GROUP:` itself existed only as a row in the generated tag index. It is a second label
+list on `CDOMObject`, pipe-separated where `TYPE:` is dot-separated, and exactly two
+things in the source read it back.
+
+**A sentence on the same page was wrong.** It said shipped data uses `MODIFYOTHER` with
+movement modes as the grouping, "which is how movement gets adjusted across a set of
+modes at once". Nothing in the data does that. All 192 fields name one mode by key, 189
+of them `Walk`.
+
+**Every number I first wrote was measured the wrong way.** A raw grep over `data/` and
+`system/` gave 209 uses across three scopes. The pinned method — `.lst` only, skip `#`
+lines, split on tabs, strip each field — gives **192**, all in `PC.MOVEMENT`. The
+seventeen that vanished were commented out, including both `STAT` lines, which were the
+only thing making the scope table look varied. Second time this project has taken a
+comment-inclusive count into a draft.
+
+**Two reviewers, five findings, all real.** The first killed a "what breaks" paragraph.
+The messages `KEY must have value following =` and `GROUP must have value following =`
+exist in the source and cannot be reached from LST text, because `GroupingInfoFactory`
+rejects an instruction ending at `=` before the grouping class is ever built
+(`GroupingInfoFactory.java:143-147`). It also found the omission that mattered: every
+form accepts a bracketed child, `KEY=Walk[ALL]`, and a child yields the matched object's
+children rather than the object.
+
+The second found a count wrong by one and a description wrong outright. Thirteen call
+sites read `isUnselected()`, not twelve, and they do not all ask about the character's
+race. `SourceFileLoader.java:749-765` is the loader **requiring** the flag: a loaded set
+of sources must contain a race carrying `GROUP:UNSELECTED`, and with the domain feature
+on, exactly one deity. That is the most useful fact in the section and the first draft
+walked past it.
+
+It also caught the two race entries being named `<none selected>` with `KEY:None
+Selected` rather than `None`, and the phrase "the second field of `MODIFYOTHER`" using
+*field* for a pipe-separated argument. The glossary reserves that word for the
+tab-separated parts of a line.
