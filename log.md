@@ -1534,3 +1534,15 @@ reviewer's 47, 164 and 100.
 
 `facets.md` now opens its walkthrough by saying when a facet is the wrong answer. Derived
 state is a facet. User-set state that has to survive a save is a code control channel.
+
+**Then I ran the rest of the build claims.** `./gradlew build --dry-run` confirms the
+quality-gate table exactly: five SpotBugs tasks in the graph, no Checkstyle and no PMD,
+`test` but not `itest`, `slowtest`, `datatest` or `inttest`. Two things the graph shows
+that the page did not say — `build` compiles the slow and integration tests without
+running them, so a compile error there fails it, and it runs the `PCGen-base` and
+`PCGen-Formula` unit tests too. Both added.
+
+**One more number was loose.** `testing.md` said `code/src/test/plugin/lsttokens/` holds
+"about 398 files, one per tag". 398 is every `.java` under that tree. The tag tests are
+**363** `*Test.java` classes; the other 35 are shared bases, 31 of them in `testsupport/`.
+`BACKLOG.md` had 363 all along, so the handbook disagreed with itself.

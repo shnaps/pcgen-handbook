@@ -146,6 +146,17 @@ Checkstyle and PMD are detached from the normal build by `sourceSets = []`, whic
 unhooks them from `check`. So a change that breaks the style rules still builds
 locally and still passes CI.
 
+The task graph bears this out. `./gradlew build --dry-run` lists five SpotBugs tasks —
+one per source set, including `spotbugsSlowtest` and `spotbugsTestcommon` — and no
+Checkstyle or PMD task at all.
+
+Two things that graph also shows, which the task names do not suggest:
+
+- `build` **compiles** the integration and slow tests without running them. A compile
+  error in `code/src/slowtest/` fails `./gradlew build`. A failing assertion there does
+  not.
+- `build` runs the `PCGen-base` and `PCGen-Formula` unit tests as well as PCGen's own.
+
 Run them yourself before submitting:
 
 ```sh

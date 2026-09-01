@@ -9,8 +9,8 @@ tests load real datasets and require them clean.
 
 ## Token tests
 
-`code/src/test/plugin/lsttokens/` mirrors the token packages — about 398 files, one
-per tag.
+`code/src/test/plugin/lsttokens/` mirrors the token packages: **363** test classes, plus
+35 shared base classes they extend.
 
 They are the most precise statement of what syntax a tag accepts, often more precise
 than the documentation. When this handbook needed to know exactly what a tag takes,
