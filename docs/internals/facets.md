@@ -102,6 +102,15 @@ makes the removal behaviour above work.
 
 ## Adding a facet
 
+!!! note "Check that a facet is what you want"
+    A facet is right for state the engine **derives** — computed from the race, the
+    class, the equipment, and rebuilt when those change.
+
+    It is the wrong tool for a value the **user** sets and the save file has to carry.
+    That is a code control channel, and money is the worked example in
+    [changing behaviour](changing-behaviour.md#4-new-character-state-has-to-survive-the-save).
+    A facet holding user input will not reach the `.pcg` file.
+
 Worked example. A facet that stores one derived value and recomputes it when the race
 changes.
 

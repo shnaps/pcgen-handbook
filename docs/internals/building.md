@@ -46,7 +46,8 @@ downloads Gradle 9.7.0 on first run.
 `build` is the one CI runs on every push. It takes a few minutes cold, because it also
 runs SpotBugs.
 
-`run` starts PCGen from the checkout. Its whole configuration is the entry point:
+`run` is the fastest way to see a change. Its configuration is split across two files.
+`build.gradle` names the entry point:
 
 ```groovy
 application {
@@ -54,15 +55,33 @@ application {
 }
 ```
 
-Nothing rewrites a module path for it. JavaFX arrives as an ordinary classpath
-dependency, `fileTree(dir: 'mods/lib', include: ['javafx.*.jar'])`, and the only other
-setting on a `JavaExec` task is `maxHeapSize = "2048m"`.
+`code/gradle/distribution.gradle` does the rest:
+
+```groovy
+tasks.named("run") {
+    dependsOn assemble, extractJavaFXLocal
+
+    doFirst {
+        jvmArgs = ["-ea", "--enable-preview",
+                   "--module-path", modsLibPath,
+                   "--add-modules", "javafx.controls,javafx.web,javafx.swing,javafx.fxml,javafx.graphics",
+                   "--enable-native-access", "javafx.graphics,javafx.web"]
+    }
+}
+```
+
+It replaces the JVM arguments rather than adding to them, because the application plugin
+sets a module path that does not work. The comment in the file says so.
+
+Two consequences worth knowing. `run` depends on `assemble`, so it rebuilds the plugin
+jars every time — a token edit takes effect. And it runs with assertions enabled, so an
+`assert` in the code you are editing will fire.
 
 `mods/lib` is not in the repository. `extractJavaFXLocal` unzips the JavaFX SDK into it,
-downloading from gluonhq first, and every `JavaCompile` task depends on that task. A
-fresh clone therefore needs one network fetch before it compiles anything.
+downloading from gluonhq first, and every `JavaCompile` task depends on that too. A fresh
+clone therefore needs one network fetch before it compiles anything.
 
-*Source: [`build.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/build.gradle)*
+*Source: [`distribution.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/gradle/distribution.gradle), [`build.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/build.gradle)*
 
 ## What the build produces
 
@@ -165,13 +184,13 @@ instead. Do not expect the standard application plugin output.
 **`build` does not run the data tests.** A change that breaks data loading passes
 `./gradlew build` and fails in CI's second job. Run `datatest` yourself.
 
-**`run` does not rebuild the plugin jars.** Token classes compile into
-`build/classes`. Eleven tasks in `code/gradle/plugins.gradle` then jar them into
-`plugins/*plugins.jar`. At startup `PluginClassLoader` reads the class bytes back **out
-of those jars**, not out of the compiled classes, so the jar is what runs.
+**A token runs from its jar, not from your compiled class.** Eleven tasks in
+`code/gradle/plugins.gradle` jar the token packages into `plugins/*plugins.jar`, and
+`PluginClassLoader` reads the class bytes back out of those jars at startup.
 
-Only `jar` declares `dependsOn jarAllPlugins`. Edit a token, start with `./gradlew run`,
-and the old token loads. Run `./gradlew jarAllPlugins` first.
+`./gradlew run` handles this, because it depends on `assemble` and `jar` depends on
+`jarAllPlugins`. Launching `pcgen.system.Main` any other way does not. Run
+`./gradlew jarAllPlugins` before starting PCGen from an IDE.
 
 **A new third-party dependency needs a second edit.** Adding a library to
 `dependencies` is enough to compile and run. `fullJpackage` also needs it in the jlink

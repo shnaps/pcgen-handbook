@@ -19,20 +19,14 @@ found 34 errors, all fixed.
 named by at least one page. `plugin/grouping` was the last that was not, closed on
 2026-09-01.
 
-**Two items are open**, both raised by the 2026-09-01 developer audit and both
-unverified past the reviewer's citation:
+**Nothing is open.** The two items the developer audit left were closed on 2026-09-01.
+`PropertyContext` namespacing is in `internals/startup.md`, and `internals/facets.md` now
+says when a facet is the wrong mechanism.
 
-- **`PropertyContext` key prefixing.** `PropertyContext.java:108` prefixes `name + '.'`
-  at each parent hop, and `getProperty(key, default)` returns the default on a miss
-  without complaining. A read from the wrong child context is silently wrong. Reported as
-  47 `initProperty` sites against 164 `PCGenSettings.` references. Re-measure before
-  writing.
-- **`facets.md` sends you to the wrong mechanism.** Its "adding a facet" walkthrough is
-  correct for a facet, but a per-character scalar that an output token reads is a code
-  control channel, not a facet. `changing-behaviour.md` now covers the channel route.
-  The two pages should say which case is which.
-
-**Nothing else is open.** The three items the day-one audit left were closed on 2026-08-23:
+The build runs on this machine as of 2026-09-01, so a claim about a Gradle task can be
+checked by running it. The first thing that proved was that a correction made from
+`build.gradle` alone was wrong, because `run` is configured in
+`code/gradle/distribution.gradle`. The three items the day-one audit left were closed on 2026-08-23:
 the upgrade-safety advice in `setup.md`, the SRD content in examples, and the precision
 list. The second of those produced `tools/check_srd.py`, so the rule now has enforcement
 behind it rather than good intentions.

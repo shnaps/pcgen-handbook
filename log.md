@@ -1490,3 +1490,47 @@ rather than the jar.
 seventeen game modes that do not set `BASESAVE`". Nothing measured that. The page now says
 every game mode that leaves it unset, which is what the code supports and the data page
 already counts.
+
+
+## 2026-09-01  the correction that was itself wrong
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. JDK 25 is installed now,
+  so claims about the build can be run rather than read.
+- Both open backlog items closed. One error introduced this morning, found and fixed.
+
+**I broke a correct sentence.** `building.md` said `run` "depends on `assemble`, then
+rewrites the JavaFX module path before launching. The build does that by hand because
+Gradle's application plugin sets the wrong path." A reviewer reported that none of it was
+in `build.gradle`. I checked `build.gradle`, agreed, and replaced the paragraph.
+
+All three of us were reading one file. The configuration is in
+`code/gradle/distribution.gradle:80-92`, and it does all three things: `dependsOn
+assemble, extractJavaFXLocal`, a `doFirst` that assigns `jvmArgs` outright, and a comment
+reading "Required to fixed incorrectly added --module-path". The original sentence was
+right in full.
+
+**The gotcha I built on it was wrong too.** I wrote that `./gradlew run` does not rebuild
+the plugin jars. `./gradlew run --dry-run` prints the graph: `jarAllPlugins` → `jar` →
+`assemble` → `run`. It rebuilds them every time. The true version is narrower and still
+worth having — launching `pcgen.system.Main` from an IDE skips Gradle, so the jars on
+disk are whatever was built last.
+
+**What running it settled.** `./gradlew run --debug-jvm` prints `Listening for transport
+dt_socket at address: 5005` and waits. So `--debug-jvm` survives the `doFirst` that
+replaces `jvmArgs`, because Gradle adds the debug agent separately. The page now quotes
+the line the reader will see rather than describing it.
+
+**The lesson, and it is not a new one.** A reviewer citing `file:line` was trusted for the
+*absence* of something. A citation proves presence. `build.gradle` not containing a `run`
+block says nothing about whether the repository configures `run` elsewhere, and one
+`grep -rn` across `code/gradle/` would have shown it. Every earlier version of this
+mistake on this project has been a number; this one was a negative.
+
+**Both backlog items closed.** `PropertyContext` namespacing went into `startup.md`: one
+`options.ini`, every child context prefixing `name + '.'` at each hop up to the root, and
+a mis-namespaced read returning the default with nothing logged. My measurements were 47
+`initProperty` calls, 222 `PCGenSettings.` and 115 `ConfigurationSettings.`, against the
+reviewer's 47, 164 and 100.
+
+`facets.md` now opens its walkthrough by saying when a facet is the wrong answer. Derived
+state is a facet. User-set state that has to survive a save is a code control channel.

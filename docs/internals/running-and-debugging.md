@@ -17,9 +17,14 @@ All paths are relative to the PCGen repository root, at commit
 ./gradlew run --debug-jvm
 ```
 
-`--debug-jvm` is Gradle's own flag. It suspends the JVM before `main` and listens on port
-5005, so the program does nothing until your debugger connects. Point a remote JVM
-debug configuration at `localhost:5005` and it will run.
+`--debug-jvm` is Gradle's own flag. The task prints
+
+```text
+Listening for transport dt_socket at address: 5005
+```
+
+and then waits. Point a remote JVM debug configuration at `localhost:5005` and the
+program starts. It suspends before `main`, so you can break anywhere in startup.
 
 The same flag works on any test task:
 
@@ -29,17 +34,21 @@ The same flag works on any test task:
 
 Two things about `run` come from [building from source](building.md) and matter here:
 
-- It does **not** rebuild the plugin jars. A token you edited is not the token that runs
-  until `./gradlew jarAllPlugins`.
-- It does not rewrite a module path. JavaFX is an ordinary classpath dependency, read
-  from `mods/lib`.
+- It depends on `assemble`, so the plugin jars are rebuilt first and a token you edited
+  is the token that runs.
+- It replaces the JVM arguments wholesale in a `doFirst` block, so anything you set
+  elsewhere is discarded. `--debug-jvm` still works, because Gradle adds the debug agent
+  separately.
 
 ## Running from an IDE
 
 The repository ships no IDE configuration — no `.idea`, no `.iml`, no eclipse task. You
-import it as a Gradle project and everything comes from `build.gradle`.
+import it as a Gradle project and everything comes from the build files.
 
-Two things then bite.
+Three things then bite.
+
+**The plugin jars must be current.** See below — an IDE launch skips the Gradle task
+that builds them.
 
 **The working directory must be the repository root.** `Main.validateEnvironment` checks
 for `system/`, `data/`, `plugins/`, `outputsheets/` and `preview/` beside the code and
@@ -102,9 +111,11 @@ That makes it the one breakpoint that answers "is my tag reaching a token at all
 
 ## What you cannot do this way
 
-**You cannot debug a token before the jar is rebuilt.** `PluginClassLoader` reads the
-class bytes out of `plugins/*plugins.jar`, so a breakpoint in your edited source file
-sits on code that is not running.
+**You cannot debug a token from an IDE launch without rebuilding its jar.**
+`PluginClassLoader` reads the class bytes out of `plugins/*plugins.jar`, so a breakpoint
+in your edited source sits on code that is not running. `./gradlew run` rebuilds those
+jars on the way through. Starting `pcgen.system.Main` directly does not, so run
+`./gradlew jarAllPlugins` first.
 
 **You cannot step through a character load and watch bonuses recalculate.**
 `calcActiveBonuses` returns immediately while `importing` is set. The recalculation

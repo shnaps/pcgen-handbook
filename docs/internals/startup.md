@@ -105,6 +105,40 @@ The settings directory is per user and per operating system.
 Options are written to `options.ini` in that directory, through `PCGenSettings`. On a
 first run with no `-s` argument, PCGen asks where to put it.
 
+### One file, namespaced by the context that reads it
+
+Everything lands in that single `options.ini`. There is no file per subsystem, because
+every `PropertyContext` shares the root's `Properties` object.
+
+Nesting happens in the key instead. `createChildContext("gameMode")` returns a context
+that prefixes `gameMode.` onto every key, and each hop up to the root adds its own name:
+
+```java
+public String getProperty(String key)
+{
+    if (parent != null)
+    {
+        return parent.getProperty(name + '.' + key);
+    }
+    return properties.getProperty(key);
+}
+```
+
+`GameMode` uses this to make a preference per game mode without the caller doing
+anything. So does every filter button and chooser dialog, keyed by its own preference
+name.
+
+**A read from the wrong context is silent.** `getProperty(key, defaultValue)` returns the
+default when the key is absent, which is exactly what a mis-namespaced read produces. The
+setting looks unset, the default is used, and nothing is logged.
+
+Four classes extend `PropertyContext`: `PCGenSettings`, `ConfigurationSettings`,
+`LegacySettings` and `UIPropertyContext`. Between them the code calls the `initProperty`
+family 47 times, and names `PCGenSettings` 222 times against `ConfigurationSettings`'
+115.
+
+*Source: [`PropertyContext.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/PropertyContext.java)*
+
 ## The three bootstrap tasks
 
 `PCGenTaskExecutor` runs a queue of `PCGenTask` objects in order, weighting each one so
