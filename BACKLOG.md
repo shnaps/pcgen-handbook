@@ -16,10 +16,18 @@ subsystem page ends with a "what bites" section, indexed from
 A structural review on 2026-09-01 split `output-and-saving.md` and left the rest of the
 shape intact.
 
-**Every page has been through an accuracy audit** except `appendix/credits.md`, which is
-licences and attribution. The 2026-09-01 material — four pages and eleven sections — was
-audited the same day by four reviewers and a task lens, which found about thirty-five
-errors, all fixed.
+**Every page has been through an accuracy audit.** The 2026-09-01 material — four pages
+and eleven sections — was audited the same day by four reviewers and a task lens, which
+found about thirty-five errors, all fixed. `appendix/credits.md` was checked on
+2026-09-02: the version string matches what `check_examples.py` prints, `edit_uri` is
+configured and the edit link is in the build, and the licence claims match `LICENSE` and
+`DECISIONS.md`.
+
+**No check guards a measured number.** Counts have been the largest error class in every
+audit this project has run — rounded estimates on day one, comment-inclusive counts on
+08-23, wrong-scope counts on 09-01. Every other recurring failure has a tool behind it:
+`check_srd.py`, `check_examples.py`, the anchor check in `lint_wiki.py`. This one has
+nothing, and `WIKI-SCHEMA.md` says outright that the method is the only guard.
 
 **Every Java package is cited.** All 26 second-level packages under `code/src/java` are
 named by at least one page. `plugin/grouping` was the last that was not, closed on
