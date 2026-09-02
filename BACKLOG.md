@@ -16,25 +16,35 @@ subsystem page ends with a "what bites" section, indexed from
 A structural review on 2026-09-01 split `output-and-saving.md` and left the rest of the
 shape intact.
 
-Every page has now been through an accuracy audit except `appendix/credits.md`, which is
-licences and attribution. The last pass covered the 25 pages written on 2026-08-21 and
-found 34 errors, all fixed.
+**Four new pages and eleven new sections have never been audited.** Written 2026-09-01:
+`internals/design.md`, `internals/changing-behaviour.md`,
+`internals/running-and-debugging.md`, `internals/save-format.md`, plus "what bites"
+sections on seven internals pages and new sections on `cdom-model.md`, `types.md`,
+`variables-and-formulas.md` and `startup.md`.
+
+That is the one thing open. Unaudited material on this project has run at 1.4 errors per
+page, and 3.4 on the dense internals pages. Two errors in this batch were already caught
+by the structural review rather than by an accuracy pass — three conflicting export
+counts, and a trap count that said four after it became five.
+
+Everything written before 2026-09-01 has been audited except `appendix/credits.md`, which
+is licences and attribution.
 
 **Every Java package is cited.** All 26 second-level packages under `code/src/java` are
 named by at least one page. `plugin/grouping` was the last that was not, closed on
 2026-09-01.
 
-**Nothing is open.** The two items the developer audit left were closed on 2026-09-01.
-`PropertyContext` namespacing is in `internals/startup.md`, and `internals/facets.md` now
-says when a facet is the wrong mechanism.
+**Nothing else is open.** The two items the developer audit left were closed on
+2026-09-01: `PropertyContext` namespacing is in `internals/startup.md`, and
+`internals/facets.md` now says when a facet is the wrong mechanism. The three the day-one
+audit left were closed on 2026-08-23 — the upgrade-safety advice in `setup.md`, the SRD
+content in examples, and the precision list. The second of those produced
+`tools/check_srd.py`, so that rule has enforcement behind it rather than good intentions.
 
-The build runs on this machine as of 2026-09-01, so a claim about a Gradle task can be
-checked by running it. The first thing that proved was that a correction made from
-`build.gradle` alone was wrong, because `run` is configured in
-`code/gradle/distribution.gradle`. The three items the day-one audit left were closed on 2026-08-23:
-the upgrade-safety advice in `setup.md`, the SRD content in examples, and the precision
-list. The second of those produced `tools/check_srd.py`, so the rule now has enforcement
-behind it rather than good intentions.
+**The build runs on this machine as of 2026-09-01**, so a claim about a Gradle task can be
+checked by running it rather than read off the build files. The first thing that proved
+was that a correction made from `build.gradle` alone was wrong, because `run` is
+configured in `code/gradle/distribution.gradle`.
 
 ## Decided against, with the evidence
 
