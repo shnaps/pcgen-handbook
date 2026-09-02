@@ -1632,3 +1632,60 @@ as every earlier round.
 
 **One citation was wrong and lint caught it.** `BatchExporter` is in `pcgen/system/`, not
 `pcgen/io/`. That is the check earning its place: I would not have noticed.
+
+
+## 2026-09-01  the structural review, and the check it produced
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. One page split in two:
+  `internals/save-format.md` is new. 70 pages.
+- Three reviewers on the structure — the reader's seat, the maintainer's seat, and a code
+  expert on whether the pages cut along the codebase's seams.
+
+**They cross-agreed on one call, independently.** Both the maintenance seat and the code
+expert said `output-and-saving.md` is two pages. The evidence they each found separately:
+the save half has disjoint code (`PCGVer2Creator` and `PCGVer2Parser`, 242 KB between
+them, against `ExportHandler` and `plugin/exporttokens`), and the page's own "what bites"
+section had a *save* bite filed above the "The save format" heading. Split at that
+heading. The export half keeps the path, so no published URL retires.
+
+**I rejected the other cut.** The code expert wanted `plugin-loading.md` merged into
+`token-system.md`, on the correct observation that registration and dispatch are one
+package and one mechanism. But `plugin-loading.md` has 15 inbound links across 11 pages,
+and the actual defect was the *copy* in `load-pipeline.md` §5, which restated five facts
+`token-system.md` owns. Cutting the copy fixes it. Merging the owner costs 15 link
+rewrites and a retired URL for nothing more. Written down so it is not proposed again.
+
+**Three counts of one thing, all published.** `output-and-saving.md` said 140 export
+classes with 49 deprecated in one place and "92 classes" in another; `design.md` said 56
+plus 57 from a measurement that had silently included the deprecated package. Measured
+once, properly: **140 total, 49 deprecated, 91 live**, and of the 91, **42 extend `Token`
+directly and 22 extend `AbstractExportToken`**. So the sentence I wrote yesterday — "most
+still extend `Token`" — was wrong twice over.
+
+**The `234` had spread to five pages** and `54` to two. Both now name one owner and link.
+Three rows went into the `WIKI-SCHEMA.md` owner table so the linter can grow into them.
+
+**A silent breakage class, now a check.** Every cross-page heading link pointed into
+numbered headings — `changing-behaviour.md#1-a-cached-number-…`. Insert a mechanism above
+and all four inbound links break, and `mkdocs --strict` does not check fragments at all.
+The digits are gone from those headings, and `lint_wiki.py` now validates all **44**
+cross-page anchors against the target page's real headings. Tested by breaking one on
+purpose before committing.
+
+**The reader's seat found the navigation failure I could not see.** Seventeen loose
+concept pages sat directly under "Data files", with `File types`, `How to` and the tag
+index nested below them, so a data author scrolled past everything to reach "Add a feat".
+The concepts are now a group, which makes the four peers peers. I did not take the
+reviewer's reordering — putting `How to` first would have made the nav disagree with
+`index.md`, and the grouping alone fixes the burial.
+
+Also from that seat: `archetypes.md` sat fifth in the nav and fifteenth on the index,
+`startup.md` was filed under "Getting oriented" rather than at the head of "Reading data",
+the index blurb promised `DEFINE` on a page that does not cover it, and
+`running-and-debugging.md` still said "four traps" after I made it five. All fixed.
+
+**And a real drift, found by reading two pages against each other.** `pcc.md` said `PCC:`
+merges a file list "into this one" and `LSTEXCLUDE:` skips entries. `sources.md` says the
+include is recursive, appended to the end, and silent on failure, and that the exclusion
+applies to the whole load. Two pages, one fact, one of them vague enough to mislead.
+`sources.md` owns both now.

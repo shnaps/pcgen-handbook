@@ -126,21 +126,20 @@ Append `|PRExxx` to load a file only when a condition holds:
 CLASS:psionics.lst|PRERULE:1,SYS_PSIONICS
 ```
 
-## Including another campaign
+## Depending on another campaign
 
-`PCC:` pulls in another campaign file, and its file list is merged into this one.
+Two tags reach outside this file.
 
 ```
 PCC:base_set/base_set.pcc
 ```
 
-Use it to split a large data set across folders, or to build a campaign that layers on
-top of another.
+`PCC:` pulls in another campaign file. Use it to split a large data set across folders,
+or to layer one campaign on another. `LSTEXCLUDE:` names `.lst` files to skip.
 
-## Excluding entries
-
-`LSTEXCLUDE:` names a file whose entries should be skipped even though something else
-loaded it. Useful when including a campaign you mostly want.
+Both behave in ways the syntax does not suggest. The include is recursive, a missing one
+is silent, and the exclusion is not limited to this campaign. [Sources and load
+order](../concepts/sources.md#depending-on-another-source) owns both.
 
 ## A complete example
 

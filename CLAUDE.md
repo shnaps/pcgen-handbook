@@ -72,6 +72,8 @@ python -m mkdocs build --strict
 
 `check_srd.py` needs the sparse clone and skips without it, as `lint_wiki.py` does.
 
+`lint_wiki.py` also checks cross-page heading links. `mkdocs --strict` does not.
+
 Fence any non-LST example as `text`. `check_examples.py` reads an untagged fence as
 LST data and rejects `.pcg` or log output as unknown tags.
 

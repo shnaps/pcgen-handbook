@@ -8,10 +8,13 @@ The narrative of how each item was decided is in `log.md`. This file holds the s
 
 ## Where the handbook stands
 
-**69 pages.** The generated [tag index](docs/lst/reference/tag-index.md) covers all 706
-tags. `docs/internals/` is 21 pages, larger than every other section combined. Every
+**70 pages.** The generated [tag index](docs/lst/reference/tag-index.md) covers all 706
+tags. `docs/internals/` is 22 pages, larger than every other section combined. Every
 subsystem page ends with a "what bites" section, indexed from
 `internals/design.md`.
+
+A structural review on 2026-09-01 split `output-and-saving.md` and left the rest of the
+shape intact.
 
 Every page has now been through an accuracy audit except `appendix/credits.md`, which is
 licences and attribution. The last pass covered the 25 pages written on 2026-08-21 and
@@ -42,6 +45,13 @@ had twice.
 and implementing class. A hand-written page adds only what the token test states, and 150
 of them nearly triple the maintenance surface for the smallest marginal gain available.
 Two reviewers rejected it independently.
+
+**Merging `plugin-loading.md` into `token-system.md`.** Proposed by the code expert on
+2026-09-01, on the correct observation that `TokenLibrary` registration and `TokenSupport`
+dispatch are one package and one mechanism. Rejected: the page has **15 inbound links
+across 11 pages**, and the actual defect was the duplicate copy in `load-pipeline.md` §5,
+which restated five facts `token-system.md` owns. The copy was cut. Merging the owner buys
+nothing further and retires a published URL.
 
 **A companion-mod page.** `plugin/lsttokens/companionmod/` has 9 classes and **zero
 tests**, so syntax would have to be inferred from token classes alone. `DECISIONS.md`

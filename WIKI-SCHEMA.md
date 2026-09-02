@@ -40,8 +40,17 @@ Hidden, on `start/` and narrative pages, so a beginner is not reading Java paths
 <!-- src: code/src/java/plugin/lsttokens/skill/KeystatToken.java -->
 ```
 
-`<sha>` is the pin in `PCGEN-SHA`. Both forms are machine-readable; `lint_wiki.py`
+`<sha>` is the pin in `PCGEN-SHA`. Both forms are machine-readable, and `lint_wiki.py`
 treats them identically.
+
+### Linking to a heading
+
+A cross-page link may target a heading, `other-page.md#the-heading`. `mkdocs --strict`
+does **not** check the fragment, so a renamed heading breaks the link in silence.
+`lint_wiki.py` checks every one against the target page's actual headings.
+
+Never number a heading you link to. `## 1. Something` gives the anchor `#1-something`,
+and inserting a step above it renumbers every anchor below.
 
 ## Page types
 
@@ -123,6 +132,9 @@ copy looks exactly like a stale one.
 | `datatest` skips a `.pcc` with no `SHOWINMENU` | `internals/testing.md` |
 | The PCC `FEAT:` tag is deprecated | `appendix/whats-changed.md` |
 | Dots in a `TYPE=` match mean and, not or | `lst/concepts/types.md` |
+| What `PCC:` and `LSTEXCLUDE:` do to the load | `lst/concepts/sources.md` |
+| How many facets and code controls exist | `internals/facets.md`, `lst/concepts/data-controls.md` |
+| The export token class counts | `internals/output-and-saving.md` |
 | `BONUS:VAR` applies only to a declared variable | `lst/concepts/declaring-variables.md` |
 | Aspect names are invented by data, not validated | `lst/concepts/display-text.md` |
 

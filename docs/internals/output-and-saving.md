@@ -1,8 +1,8 @@
 ---
-title: Output and saving
+title: Character sheets and output
 ---
 
-# Output and saving
+# Character sheets and output
 
 Two things happen at the far end of PCGen: a character becomes a sheet, and a character
 becomes a file. They use different code and different tag systems.
@@ -215,9 +215,9 @@ own problem. That is why each class re-parses its remainder with a `StringTokeni
 why no sub-token registry exists.
 
 Discovery is a classpath scan for `Token` subclasses, but `populateTokenMap` also
-hardcodes 13 core tokens. Extend `AbstractExportToken`, which routes through
-`CharacterDisplay`. Most of the 92 classes in `plugin/exporttokens/` still extend `Token`
-directly.
+hardcodes a dozen core tokens. Extend `AbstractExportToken`, which routes through
+`CharacterDisplay`. Of the 91 live classes in `plugin/exporttokens/`, 42 still extend
+`Token` directly and 22 use the newer base.
 
 ### Escaping is opt-in, and driven by file extension
 
@@ -231,20 +231,12 @@ gets no escaping, so a raw `&` reaches FOP.
 `BatchExporter` calls the two-argument `exportCharacter` for the PDF path, which hardcodes
 `base.xml.ftl`. To change what a PDF sheet can read, edit that file rather than the XSLT.
 
-### A save that references a missing object loses it
-
-`PCGVer2Parser` adds a warning and returns from the line, then `PCGIOHandler.read` clears
-the dirty flag. The next save writes the character without that data.
-
-Renames are handled by data. `migration.lst` rules are matched against the file's version
-by `MigrationUtils`, never by Java.
-
 ### None of this runs under `gradle test`
 
 The export tests are in the `slowtest` source set. See
 [testing](testing.md#the-export-tests-compare-against-checked-in-xml).
 
-*Source: [`ExportHandler.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/ExportHandler.java), [`AbstractExportToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/exporttoken/AbstractExportToken.java), [`PatternFilter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/filters/PatternFilter.java), [`BatchExporter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/BatchExporter.java), [`MigrationUtils.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/migration/MigrationUtils.java)*
+*Source: [`ExportHandler.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/ExportHandler.java), [`AbstractExportToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/exporttoken/AbstractExportToken.java), [`PatternFilter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/filters/PatternFilter.java), [`BatchExporter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/BatchExporter.java)*
 
 ## Where sheets live
 
@@ -274,61 +266,9 @@ given by `-o`.
 It needs a character. There is no way to ask it to load a data set and stop, which is
 why checking data uses [the test harness](testing.md) instead.
 
-## The save format
-
-A saved character is a `.pcg` file: plain text, one `TAG:value` per line, `|` inside a
-line for sub-fields, `#` comments marking sections.
-
-```text
-PCGVERSION:2.0
-VERSION:6.09.08
-CHARACTERNAME:Test Hero
-STAT:STR=18
-CLASS:Test Warrior|LEVEL=3
-```
-
-*Source: [`PCGVer2Creator.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Creator.java)*
-
-Two versions appear and they are not the same thing. `PCGVERSION` is the format
-version, fixed at `2.0`. `VERSION` is the PCGen build that wrote the file, and the
-parser splits it to decide how to read what follows.
-
-Reading is the mirror class:
-
-*Source: [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Parser.java)*
-
-It resembles the LST format on the surface. It is a separate parser with its own tag
-set, and none of the LST token classes are involved.
-
-## What a save file refers to
-
-Sources are stored by campaign key, not by path. On load, each key is looked up in the
-loaded campaigns, after passing through `SourceMigration`, which remaps keys that were
-renamed upstream.
-
-A key that resolves to nothing is skipped in silence. If nothing resolves at all, the
-log gets one line:
-
-```text
-Character's campaign entry was empty.
-```
-
-The character still loads. It loads without the data that defined half of it, which is
-the usual cause of a character opening with items and abilities missing.
-
-## Where characters are saved
-
-The default is the platform documents folder, under a PCGen directory, in
-`characters/`. On Windows that is `%USERPROFILE%\Documents`. The path is a setting, so
-the preferences dialog can move it.
-
-*Source: [`PCGenSettings.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/PCGenSettings.java)*
-
-The `characters/` directory in the repository is unrelated. It holds sample characters
-shipped with the program, and the integration tests use them.
-
 ## Related
 
+- [The save format](save-format.md) — the other half of `pcgen/io`
 - [Output token index](../outputsheets/token-index.md) — all 154, read from the source
 - [The character model](facets.md) — what the export reads
 - [Plugin loading](plugin-loading.md) — how output tokens are registered

@@ -158,6 +158,6 @@ a `DEFINE` declared. Built-in variables return false, and the block never render
 ## Related
 
 - [Token index](token-index.md) — all 154 output tokens and the 23 model keys
-- [Output and saving](../internals/output-and-saving.md) — the two engines, and the save format
+- [Character sheets and output](../internals/output-and-saving.md) — the two engines
 - [Declaring a variable](../lst/concepts/declaring-variables.md) — what `pcvar` can read
 - [Facets](../internals/facets.md) — where the model's data comes from

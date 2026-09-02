@@ -190,7 +190,7 @@ Six facets are bridged to the facade layer by hand:
 | `GrantedAbilityFacet` | `CharacterAbilities` |
 | `SkillFacet` | `CharacterLevelsFacadeImpl` |
 
-Six registrations, against **234** facet classes. Everything else updates by a different
+Six registrations, against the [whole facet set](facets.md). Everything else updates by a different
 route. The facade owns thirteen refresh methods — `refreshStatScores`,
 `refreshRaceRelatedFields`, `refreshWeight`, `updateWealthFields` among them — and calls
 one from the same method that made the change.

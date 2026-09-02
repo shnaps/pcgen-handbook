@@ -74,14 +74,14 @@ found by whatever pointed at your object.
 ### 5. Character state lives outside the character
 
 `PlayerCharacter` does not hold the race. A facet does, keyed by `CharID`.
-[The character model](facets.md) covers it: 234 facet classes, wired to each other by
-events with explicit priorities.
+[The character model](facets.md) covers it, and owns the count. The facets are wired to
+each other by events with explicit priorities.
 
 **Buys:** new state needs no change to `PlayerCharacter`, and ordering rules are written
 as priority numbers rather than as method call order.
 
-**Costs:** one character's state is spread across 234 objects. The ordering that matters
-sits in a priority table rather than in any call stack.
+**Costs:** one character's state is spread across hundreds of objects. The ordering that
+matters sits in a priority table rather than in any call stack.
 
 ## The sixth pattern: two live implementations
 
@@ -93,15 +93,16 @@ data chooses between them.
 
 | Where | Old | New | Chosen by |
 |---|---|---|---|
-| saves, AC, reach, initiative and more | hardcoded in Java | a variable | a **code control**, 54 of them |
+| saves, AC, reach, initiative and more | hardcoded in Java | a variable | a **code control** |
 | formulas | JEP | `PCGen-Formula` | which tag you wrote |
 | deity titles and symbols | fields | `FACTDEF` declarations | the data set |
 | superseded tags | 32 classes in `plugin/lsttokens/deprecated/` | their replacements | still parsed, warned about |
 
-Shipped game modes set **five** of the 54 code controls, so for most data the old path is
-the one that runs. That is why the dual path is easy to miss and expensive to forget:
-fixing one branch leaves the other wrong. See
-[changing behaviour](changing-behaviour.md#2-half-the-engine-has-two-implementations).
+Shipped game modes set only a handful of the code controls, so for most data the old path
+is the one that runs. That is why the dual path is easy to miss and expensive to forget:
+fixing one branch leaves the other wrong. [Data controls](../lst/concepts/data-controls.md#code-controls)
+owns the counts. See
+[changing behaviour](changing-behaviour.md#half-the-engine-has-two-implementations).
 
 Read the migration as unfinished rather than as mess. Each pair is one rule that was
 being moved out of Java when the work stopped.
@@ -130,8 +131,9 @@ Three things this table does not tell you.
 **A new package needs a build change.** Each package above is jarred by its own task in
 `code/gradle/plugins.gradle`, and `PluginBuildTest` fails when a package has no task.
 
-**`Token` and `AbstractExportToken` both work.** 56 output tokens extend `Token`
-directly and 57 extend `AbstractExportToken`. Write the second one.
+**`Token` and `AbstractExportToken` both work.** Write the second one. The counts are
+on [output and saving](output-and-saving.md#what-bites-when-you-change-output), which
+owns them.
 
 **`plugin/bonustokens/` has no per-class tests.** Behaviour is covered by `BonusTest`,
 `TempBonusTest` and `BonusManagerTest` in `code/src/slowtest/`. A new bonus category is
@@ -147,8 +149,8 @@ hand-written method, not discovered.
 | To add | See |
 |---|---|
 | character state the engine derives | [adding a facet](facets.md#adding-a-facet) |
-| character state the user sets | [changing behaviour](changing-behaviour.md#4-new-character-state-has-to-survive-the-save) |
-| something a template can read | [output and saving](output-and-saving.md) |
+| character state the user sets | [changing behaviour](changing-behaviour.md#new-character-state-has-to-survive-the-save) |
+| something a template can read | [character sheets and output](output-and-saving.md) |
 
 ## Where the traps are
 
@@ -164,7 +166,8 @@ you start.
 | character state | [facets](facets.md#what-bites-when-you-add-or-change-a-facet) |
 | a choice or selection | [choosers](choosers.md#what-bites-when-you-change-a-choice) |
 | a tab or a widget | [interface layer](ui-layer.md#what-bites-when-you-change-the-interface) |
-| a sheet or the save format | [output and saving](output-and-saving.md#what-bites-when-you-change-output) |
+| a sheet | [character sheets and output](output-and-saving.md#what-bites-when-you-change-output) |
+| the save format | [the save format](save-format.md#what-bites-when-you-change-the-save-format) |
 | `PCClass`, `Equipment` or their neighbours | [object model](cdom-model.md#the-objects-a-character-holds-are-clones) |
 
 Five that cut across all of them are on
@@ -184,7 +187,7 @@ so put new code where a test or the build will notice if it moves.
 
 - [How PCGen fits together](overview.md) — the measured shape, including where the layers do not hold
 - [The object model](cdom-model.md) — keys, references and identity
-- [The character model](facets.md) — the 234 facets and their event graph
+- [The character model](facets.md) — the facets and their event graph
 - [Adding a tag](adding-a-tag.md) — the worked example of pattern 2
 - [Changing behaviour](changing-behaviour.md) — the five traps in engine code
 - [Running it under a debugger](running-and-debugging.md) — watching any of it happen

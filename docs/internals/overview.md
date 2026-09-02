@@ -183,7 +183,7 @@ data runs through JEP. [The formula system](formula-system.md) covers both engin
 | know what an object looks like in memory | [the object model](cdom-model.md) |
 | know how a character is assembled | [the character model](facets.md) |
 | change the window | [the interface layer](ui-layer.md) |
-| change a character sheet | [output and saving](output-and-saving.md) |
+| change a character sheet | [character sheets and output](output-and-saving.md) |
 | submit a change | [contributing](contributing.md) |
 
 ## Related

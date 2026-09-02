@@ -13,7 +13,7 @@ hand. This page covers the changes it does not.
 All paths are relative to the PCGen repository root, at commit
 [`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
 
-## 1. A cached number goes stale unless the serial moves
+## A cached number goes stale unless the serial moves
 
 `PlayerCharacter.setDirty` reads as a save flag. It is also the cache invalidator for the
 whole character:
@@ -52,7 +52,7 @@ character cloning, because conditional abilities get dropped.
 
 *Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PlayerCharacter.java)*
 
-## 2. Half the engine has two implementations
+## Half the engine has two implementations
 
 A **code control** is a switch a game mode sets. On the data side it turns features on
 and off, and [data controls](../lst/concepts/data-controls.md#code-controls) covers that
@@ -80,12 +80,13 @@ live at once, in the same build.
 written to a character file. Turn a feature off and the save stops carrying that field —
 the data is not merely hidden, it is not written.
 
-`CControl` declares **54** controls, referenced **293** times across the source. Shipped
-game modes set five of them, which is why the other branch is the one usually exercised.
+Shipped game modes set only a handful of the controls, which is why the hardcoded branch
+is the one usually exercised. [Data controls](../lst/concepts/data-controls.md#code-controls)
+owns how many exist and which are used.
 
 *Source: [`ControlUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/util/ControlUtilities.java), [`CControl.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/util/CControl.java)*
 
-## 3. Two toolkits, two threads, no exception
+## Two toolkits, two threads, no exception
 
 PCGen runs Swing and JavaFX in the same window. [The UI layer](ui-layer.md#two-toolkits)
 covers which is which. What matters when you edit UI code is that they have **separate**
@@ -114,7 +115,7 @@ loud.
 
 *Source: [`GuiAssertions.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui3/GuiAssertions.java), [`GuiUtility.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui3/GuiUtility.java)*
 
-## 4. New character state has to survive the save
+## New character state has to survive the save
 
 Adding a value to a character is four edits, not one. Miss any of them and the value
 works until the user reopens the file.
@@ -137,18 +138,16 @@ Two more steps if the value is user-visible:
 - **Publish it to output sheets.** `OutputDB.register(String, CControl)` names a channel
   for templates. `FacetInitialization` does this for `deity` and `alignment`.
 - **Mark the character dirty when it changes.** `ChannelUtilities.setDirtyOnChannelChange`
-  wires a channel to the mechanism in section 1, which is how the two connect.
+  wires a channel to the serial mechanism above, which is how the two connect.
 
 *Source: [`ChannelUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/output/channel/ChannelUtilities.java), [`PCGVer2Creator.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Creator.java), [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Parser.java), [`OutputDB.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/output/publish/OutputDB.java)*
 
-## 5. The screen does not listen to the model
+## The screen does not listen to the model
 
-Six facets are bridged to the interface layer by hand, out of 234. Everything else
-reaches a widget because the facade calls one of its own refresh methods from the same
-code path that made the change.
-
-So a correct fix in engine code can leave the tab showing the old number. See
-[how a change reaches a widget](ui-layer.md#how-a-change-reaches-a-widget).
+A correct fix in engine code can leave the tab showing the old number, because almost
+nothing in the interface listens to a facet. See
+[how a change reaches a widget](ui-layer.md#how-a-change-reaches-a-widget), which owns
+this.
 
 ## Before you submit
 

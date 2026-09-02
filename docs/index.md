@@ -54,7 +54,7 @@ How the file format actually works.
 | [Choosers](lst/concepts/choosers.md) | `CHOOSE:`, and why it does nothing on its own |
 | [Archetypes](lst/concepts/archetypes.md) | Swapping out part of a class, the way real data does it |
 | [Declaring a variable](lst/concepts/declaring-variables.md) | `DEFINE`, and the bonus that does nothing without it |
-| [Variables and formulas](lst/concepts/variables-and-formulas.md) | `DEFINE`, `MODIFY` and the newer formula system |
+| [Variables and formulas](lst/concepts/variables-and-formulas.md) | `MODIFY`, `MODIFYOTHER` and the newer formula system |
 
 **File types** — one page per kind of `.lst` file
 
@@ -100,7 +100,8 @@ A separate system from the data files, with its own tags.
 |---|---|
 | [Writing a character sheet](outputsheets/writing-a-sheet.md) | FreeMarker, and the four things a real sheet uses |
 | [Output token index](outputsheets/token-index.md) | All 154 output tokens, read from the source |
-| [Output and saving](internals/output-and-saving.md) | How a sheet is run, and the `.pcg` save format |
+| [Character sheets and output](internals/output-and-saving.md) | How a sheet is run, and what a template may read |
+| [The save format](internals/save-format.md) | What a `.pcg` file holds, and what it points at |
 
 ## Internals
 
@@ -134,7 +135,7 @@ three in order.
 | Page | What it covers |
 |---|---|
 | [The object model](internals/cdom-model.md) | What a race is in memory, and why it has no fields |
-| [The character model](internals/facets.md) | 234 facet classes, and why the character object holds nothing |
+| [The character model](internals/facets.md) | Where a character's state actually lives, and why the character object holds none of it |
 | [The rules engine](internals/rules-engine.md) | How a number is computed, and the loop that repeats until it settles |
 
 **Program and output**
@@ -142,7 +143,8 @@ three in order.
 | Page | What it covers |
 |---|---|
 | [The interface layer](internals/ui-layer.md) | Swing, JavaFX, and a boundary that leaks |
-| [Output and saving](internals/output-and-saving.md) | Character sheets, output tokens and the `.pcg` format |
+| [Character sheets and output](internals/output-and-saving.md) | Character sheets, output tokens and the two engines |
+| [The save format](internals/save-format.md) | The `.pcg` file, and why a character opens with things missing |
 
 **Changing PCGen**
 

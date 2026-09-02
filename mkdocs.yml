@@ -65,23 +65,24 @@ nav:
       - start/how-loading-works.md
       - start/when-it-breaks.md
   - Data files:
-      - lst/concepts/line-format.md
-      - lst/concepts/keys-and-names.md
-      - lst/concepts/types.md
-      - lst/concepts/modifying-data.md
-      - lst/concepts/archetypes.md
-      - lst/concepts/sources.md
-      - lst/concepts/game-modes.md
-      - lst/concepts/data-controls.md
-      - lst/concepts/prerequisites.md
-      - lst/concepts/rule-toggles.md
-      - lst/concepts/bonuses.md
-      - lst/concepts/granting.md
-      - lst/concepts/granting-spells.md
-      - lst/concepts/display-text.md
-      - lst/concepts/choosers.md
-      - lst/concepts/declaring-variables.md
-      - lst/concepts/variables-and-formulas.md
+      - Concepts:
+          - lst/concepts/line-format.md
+          - lst/concepts/keys-and-names.md
+          - lst/concepts/types.md
+          - lst/concepts/modifying-data.md
+          - lst/concepts/sources.md
+          - lst/concepts/game-modes.md
+          - lst/concepts/data-controls.md
+          - lst/concepts/prerequisites.md
+          - lst/concepts/rule-toggles.md
+          - lst/concepts/bonuses.md
+          - lst/concepts/granting.md
+          - lst/concepts/granting-spells.md
+          - lst/concepts/display-text.md
+          - lst/concepts/choosers.md
+          - lst/concepts/archetypes.md
+          - lst/concepts/declaring-variables.md
+          - lst/concepts/variables-and-formulas.md
       - File types:
           - lst/files/pcc.md
           - lst/files/ability.md
@@ -115,8 +116,8 @@ nav:
           - internals/architecture.md
           - internals/building.md
           - internals/running-and-debugging.md
-          - internals/startup.md
       - Reading data:
+          - internals/startup.md
           - internals/source-selection.md
           - internals/load-pipeline.md
           - internals/token-system.md
@@ -130,6 +131,7 @@ nav:
       - Program and output:
           - internals/ui-layer.md
           - internals/output-and-saving.md
+          - internals/save-format.md
       - Changing PCGen:
           - internals/adding-a-tag.md
           - internals/changing-behaviour.md

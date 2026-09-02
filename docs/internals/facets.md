@@ -108,7 +108,7 @@ makes the removal behaviour above work.
 
     It is the wrong tool for a value the **user** sets and the save file has to carry.
     That is a code control channel, and money is the worked example in
-    [changing behaviour](changing-behaviour.md#4-new-character-state-has-to-survive-the-save).
+    [changing behaviour](changing-behaviour.md#new-character-state-has-to-survive-the-save).
     A facet holding user input will not reach the `.pcg` file.
 
 Worked example. A facet that stores one derived value and recomputes it when the race
@@ -356,24 +356,23 @@ The `cdom/facet/input/` package exists for this reason. Prefer it.
 
 *Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PlayerCharacter.java), [`SpringHelper.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/helper/SpringHelper.java), [`AbstractStorageFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/base/AbstractStorageFacet.java), [`AbstractListFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/base/AbstractListFacet.java), [`RaceInputFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/input/RaceInputFacet.java)*
 
-## What this means when you change something
+### Where to look, by symptom
 
-**A value is wrong on the sheet.** Find the facet that owns it, not the place the tag
-was parsed. The tag stored data on a `CDOMObject` long before this point.
+**A value is wrong on the sheet.** Find the facet that owns it, not the place the tag was
+parsed. The tag stored data on a `CDOMObject` long before this point.
 
 **Something is not appearing after a choice.** Check the listener wiring in
-`FacetInitialization`. A facet with no registered listener silently does nothing.
+`FacetInitialization`. A facet with no registered listener does nothing, and says nothing.
 
 **A new derived value needs adding.** The pattern is a new facet listening to
 `CDOMObjectConsolidationFacet`, registered in `FacetInitialization` and fetched through
 `FacetLibrary`.
 
-## Keeping the caches honest
+### The other cache is not a facet
 
-A facet is not the only place character state lives. `PlayerCharacter` also caches
-derived numbers against a serial, and a mutation that skips `setDirty(true)` leaves those
-caches serving old values. See
-[changing behaviour](changing-behaviour.md#1-a-cached-number-goes-stale-unless-the-serial-moves).
+`PlayerCharacter` caches derived numbers against a serial, and a mutation that skips
+`setDirty(true)` leaves those caches serving old values. See
+[changing behaviour](changing-behaviour.md#a-cached-number-goes-stale-unless-the-serial-moves).
 
 ## Related
 

@@ -127,4 +127,4 @@ happens once, after the file is read.
 - [Testing](testing.md) — which source root a test belongs in
 - [The load pipeline](load-pipeline.md) — what happens between a file and an object
 - [The rules engine](rules-engine.md) — where a wrong number comes from
-- [Changing behaviour](changing-behaviour.md) — the four traps in engine code
+- [Changing behaviour](changing-behaviour.md) — the traps in engine code
