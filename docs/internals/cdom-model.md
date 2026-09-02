@@ -180,8 +180,9 @@ that are `equals` hash differently.
 
 **A `hashCode` restored.** `Skill`, `Spell`, `Ability`, `Equipment`, `Language`,
 `ArmorProf`, `ShieldProf` and `WeaponProf` override both, and `Race` overrides only the
-`hashCode`. Every one returns `getKeyName().hashCode()`, which is case-sensitive, against
-an `equals` that is not. A skill keyed `Sample Athletics` and one keyed `sample athletics`
+`hashCode`. All but one return `getKeyName().hashCode()`, which is case-sensitive, against
+an `equals` that is not. `Equipment` is the exception, hashing its display name and
+modifier suffix instead. A skill keyed `Sample Athletics` and one keyed `sample athletics`
 are equal and hash to different buckets.
 
 Nothing normalises case on the way in. `setKeyName` stores the string it is handed.

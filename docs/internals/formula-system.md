@@ -275,11 +275,13 @@ with no error.
 ### A new `FormatManager` must override `equals` and `hashCode`
 
 `VariableID.equals` compares the format manager, and `SimpleSolverManager` keys its
-solvers by `VariableID` in a `HashMap`. The `FormatManager` interface declares no such
-requirement, and every shipped implementation overrides both anyway.
+solvers by `VariableID` in a `HashMap`. `SupplierValueStore` keys a second `HashMap` on
+the format manager itself, which is where its `hashCode` matters. The `FormatManager`
+interface declares neither requirement.
 
 Two instances of a format manager with identity equality make the lookup miss, and the
-variable reads its default.
+variable reads its default. Most shipped implementations override both, but not all —
+`ColumnFormatManager` and `HandedManager` override neither.
 
 ### A wrong default value for a format is never reported
 

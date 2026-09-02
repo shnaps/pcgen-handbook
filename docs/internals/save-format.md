@@ -17,9 +17,11 @@ line for sub-fields, `#` comments marking sections.
 PCGVERSION:2.0
 VERSION:6.09.08
 CHARACTERNAME:Test Hero
-STAT:STR=18
-CLASS:Test Warrior|LEVEL=3
+STAT:STR|SCORE:18
+CLASS:Test Warrior|LEVEL:3|SKILLPOOL:0
 ```
+
+Sub-fields use `:` inside the `|` groups, never `=`.
 
 *Source: [`PCGVer2Creator.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Creator.java)*
 
@@ -52,14 +54,15 @@ the usual cause of a character opening with items and abilities missing.
 
 ## Where characters are saved
 
-The default is the platform documents folder, under a PCGen directory, in
-`characters/`. On Windows that is `%USERPROFILE%\Documents`. The path is a setting, so
-the preferences dialog can move it.
+The default is a PCGen directory holding `characters/`. Its root is the documents folder
+on Windows and on freedesktop Linux, and the user's home directory on macOS and as the
+fallback. The path is a setting, so the preferences dialog can move it.
 
 *Source: [`PCGenSettings.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/PCGenSettings.java)*
 
 The `characters/` directory in the repository is unrelated. It holds sample characters
-shipped with the program, and the integration tests use them.
+shipped with the program. The integration tests do not read it — they use
+`code/testsuite/PCGfiles/`.
 ## What bites when you change the save format
 
 ### A reference to a missing object is lost on the next save

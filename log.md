@@ -1689,3 +1689,58 @@ merges a file list "into this one" and `LSTEXCLUDE:` skips entries. `sources.md`
 include is recursive, appended to the end, and silent on failure, and that the exclusion
 applies to the whole load. Two pages, one fact, one of them vague enough to mislead.
 `sources.md` owns both now.
+
+
+## 2026-09-01  auditing the day's own work
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No new pages. 70 pages.
+- Four accuracy reviewers on disjoint sets, plus the task lens. Everything written today
+  was in scope: four pages and eleven sections. **About thirty-five errors.**
+
+**The clean sections are the tell.** Two came back with nothing:
+`types.md`'s `GROUP:` section and `variables-and-formulas.md`'s grouping section. Those
+are the two I wrote after reading every class myself. Everything written from an expert
+report needed correcting. The reports were right about mechanisms and wrong about numbers,
+which is exactly the split every earlier round found, and I carried the numbers across
+without re-scoping them.
+
+**Counts were the dominant failure, and the failure was scope.** "The file carries 87
+`setDirty(` call sites" — 87 is the figure for `code/src/java`; the file has 59 lines, 52
+of them live calls. The threading table's 37, 31 and 33 counted occurrences including
+declarations and two javadoc `{@link}` references; the real call counts are 36, 29 and 32.
+`GuiAssertions` has six checks, not four. `PropertyContext`'s "47 times" included the
+three declarations, so 44.
+
+I deleted the three crossing-call counts rather than correcting them. They carried no
+meaning that the mechanism did not already carry, and each was a separate thing to keep
+true.
+
+**Second class: true but incomplete in a way that misleads.** The skill breakdown "the GUI
+info panel prints it" — behind a preference defaulting to false. `PatternFilter` picks by
+"the output file's extension" — the **template** file's. `BatchExporter` "for the PDF
+path" — only when the template is `xslt` or `xsl`.
+
+**An example I invented was wrong.** The `.pcg` sample used `STAT:STR=18` and
+`CLASS:...|LEVEL=3`. `PCGVer2Creator` writes `STAT:STR|SCORE:18` and
+`CLASS:<key>|LEVEL:3|SKILLPOOL:n`. Sub-fields use `:`, never `=`. The page now says so
+under the block, because the shape is not guessable.
+
+**The task lens found the damaging one again.** `design.md` presented a new `BONUS:`
+category as complete at one class. The bonus map is write-only until Java asks for the key
+— `getTotalBonusTo("FEAT", "POOL")` and about twenty others. Ship `SAMPLEPOOL`, get no
+error from any check, and the tag does nothing. It also found that `parseToken` must call
+the protected `addBonusInfo` or you get a bonus with no target, and that three steps were
+missing from the channel walkthrough: `CControl` holds code controls and channels as
+different member kinds, `SourceFileLoader.enableBuiltInControl` creates the variable from
+the constant's declared format, and `ChannelUtilities.createVarName` prefixes `CHANNEL*`
+so no sheet can read the plain name.
+
+**Wrong file cited once.** `choosers.md` cited `cdom/base/AssociationSupport.java`, which
+holds a `HashMap` and no owner key. The `IdentityHashMap`s are in
+`core/AssociationSupport.java`. `lint_wiki.py` cannot catch that — both files exist.
+
+**And three that were simply wrong.** `design.md` said 713 tags where the handbook
+elsewhere says 693. Its `FACTDEF` row described a Java-fields "old side" that does not
+exist — `Deity.java` is 37 lines — so the row duplicated the deprecated-package row and is
+gone. `changing-behaviour.md` named `getBaseAttackBonus`, which does not exist; the method
+is `baseAttackBonus()`.

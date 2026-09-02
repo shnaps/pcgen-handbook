@@ -16,19 +16,10 @@ subsystem page ends with a "what bites" section, indexed from
 A structural review on 2026-09-01 split `output-and-saving.md` and left the rest of the
 shape intact.
 
-**Four new pages and eleven new sections have never been audited.** Written 2026-09-01:
-`internals/design.md`, `internals/changing-behaviour.md`,
-`internals/running-and-debugging.md`, `internals/save-format.md`, plus "what bites"
-sections on seven internals pages and new sections on `cdom-model.md`, `types.md`,
-`variables-and-formulas.md` and `startup.md`.
-
-That is the one thing open. Unaudited material on this project has run at 1.4 errors per
-page, and 3.4 on the dense internals pages. Two errors in this batch were already caught
-by the structural review rather than by an accuracy pass — three conflicting export
-counts, and a trap count that said four after it became five.
-
-Everything written before 2026-09-01 has been audited except `appendix/credits.md`, which
-is licences and attribution.
+**Every page has been through an accuracy audit** except `appendix/credits.md`, which is
+licences and attribution. The 2026-09-01 material — four pages and eleven sections — was
+audited the same day by four reviewers and a task lens, which found about thirty-five
+errors, all fixed.
 
 **Every Java package is cited.** All 26 second-level packages under `code/src/java` are
 named by at least one page. `plugin/grouping` was the last that was not, closed on

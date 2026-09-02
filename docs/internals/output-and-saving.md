@@ -215,21 +215,23 @@ own problem. That is why each class re-parses its remainder with a `StringTokeni
 why no sub-token registry exists.
 
 Discovery is a classpath scan for `Token` subclasses, but `populateTokenMap` also
-hardcodes a dozen core tokens. Extend `AbstractExportToken`, which routes through
+hardcodes 13 core tokens. Extend `AbstractExportToken`, which routes through
 `CharacterDisplay`. Of the 91 live classes in `plugin/exporttokens/`, 42 still extend
 `Token` directly and 22 use the newer base.
 
 ### Escaping is opt-in, and driven by file extension
 
 A token returning true from `isEncoded()` has its value passed through `encodeWrite`.
-`PatternFilter` then picks a filter from `system/outputFilters/` by the output file's
-extension, and only `fo`, `htm`, `txt` and `xml` exist. A sheet with any other extension
-gets no escaping, so a raw `&` reaches FOP.
+`PatternFilter` then picks a filter from `system/outputFilters/` by the extension of the
+**template** file, not the output file. Only `fo`, `htm`, `txt` and `xml` exist, so a
+template with any other extension gets no escaping and a raw `&` reaches FOP.
 
 ### A PDF from an XSLT template does not use that template
 
-`BatchExporter` calls the two-argument `exportCharacter` for the PDF path, which hardcodes
-`base.xml.ftl`. To change what a PDF sheet can read, edit that file rather than the XSLT.
+When the template extension is `xslt` or `xsl`, `BatchExporter` calls the two-argument
+`exportCharacter`, which hardcodes `base.xml.ftl`. To change what such a sheet can read,
+edit that file rather than the XSLT. Other PDF templates take the three-argument overload
+and are used as written.
 
 ### None of this runs under `gradle test`
 

@@ -132,10 +132,10 @@ name.
 default when the key is absent, which is exactly what a mis-namespaced read produces. The
 setting looks unset, the default is used, and nothing is logged.
 
-Four classes extend `PropertyContext`: `PCGenSettings`, `ConfigurationSettings`,
-`LegacySettings` and `UIPropertyContext`. Between them the code calls the `initProperty`
-family 47 times, and names `PCGenSettings` 222 times against `ConfigurationSettings`'
-115.
+Four classes in the main source extend `PropertyContext`: `PCGenSettings`,
+`ConfigurationSettings`, `LegacySettings` and `UIPropertyContext`. Between them the code
+calls the `initProperty` family from 44 places, and names `PCGenSettings` 222 times
+against `ConfigurationSettings`' 115.
 
 *Source: [`PropertyContext.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/PropertyContext.java)*
 

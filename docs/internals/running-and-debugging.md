@@ -65,10 +65,15 @@ gets them, and an IDE that runs JUnit directly does not:
 --add-exports javafx.graphics/com.sun.javafx.util=ALL-UNNAMED
 --add-exports javafx.base/com.sun.javafx.logging=ALL-UNNAMED
 --add-opens javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
+--enable-native-access=javafx.graphics
 -Djava.awt.headless=true
 -Dtestfx.headless=true
 -Dprism.order=sw
 ```
+
+Five more properties go with them — `testfx.robot`, `prism.verbose`,
+`javafx.macosx.embedded` and `java.security.manager` among them. Copy the whole
+`tasks.withType(Test)` block rather than this excerpt.
 
 Without them a test that touches JavaFX fails on the module system rather than on
 anything you wrote. `mods/lib` exists only after `extractJavaFXLocal` has run once.
@@ -106,7 +111,7 @@ is often a message that was printed to a level nobody was listening to.
 | a number is wrong | the table in [the rules engine](rules-engine.md#where-to-put-a-breakpoint) |
 | a sheet field is empty | the export token class, from the [output token index](../outputsheets/token-index.md) |
 
-`TokenSupport.processToken` receives the object class, the tag name and the raw value.
+`TokenSupport.processToken` receives the target object, the tag name and the raw value.
 That makes it the one breakpoint that answers "is my tag reaching a token at all".
 
 ## What you cannot do this way

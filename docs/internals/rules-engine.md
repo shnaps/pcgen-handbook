@@ -160,8 +160,11 @@ flowchart TD
 5. The two halves are added by the caller, not by either method.
 
 **You may not need a breakpoint.** `SkillCostDisplay.getModifierExplanation` already
-builds the per-source breakdown that `SkillModifier.modifier` computes. The GUI info
-panel prints it, and so does the sheet token.
+builds the per-source breakdown that `SkillModifier.modifier` computes.
+
+Two things read it, and neither is on by default. The skills info panel prints it only
+when the "show skill modifier breakdown" preference is set, which defaults to false. The
+sheet route is the `SKILL.x.EXPLANATION` output token.
 
 *Source: [`SkillModifier.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/analysis/SkillModifier.java), [`SkillCostDisplay.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/display/SkillCostDisplay.java)*
 
@@ -193,16 +196,28 @@ calculation loop. See [rule toggles](../lst/concepts/rule-toggles.md).
 
 ### A new `BONUS:` target is registered by the class, like a tag
 
-A `BonusObj` subclass declares `getBonusHandled()`, and `TokenLibrary` keys its map on
-that string. `Bonus.newBonus` looks the name up, retries with everything up to `=` for
-`VAR=`-style names, and on a miss logs `Unrecognized bonus:` and returns null. The
+A `BonusObj` subclass declares `getBonusHandled()`, and `TokenLibrary.addBonusClass` keys
+its map on that string. `Bonus.newBonus` looks the name up. On a miss it retries with
+everything up to and including a `=`, which exists for exactly one registration,
+`WEAPONPROF=`. Failing that it logs `Unrecognized bonus:` and returns null. The
 character still builds, without that bonus.
+
+`parseToken` must call the protected `addBonusInfo` for each target it accepts, and return
+`false` to reject one. `Bonus.newBonus` loops the comma-separated targets and abandons the
+whole tag on a `false`, logging `Could not parse token`. Return `true` without calling
+`addBonusInfo` and you get a bonus with no target.
+
+**Registering a category is not enough to make it do anything.** The map is written by the
+data and read only where Java asks for a specific key — `getTotalBonusTo("FEAT", "POOL")`
+and about twenty others. A new category with no reader parses, stores, and is never
+consulted. Nothing reports that.
 
 ### Every bonus is truncated to a whole number
 
 `setActiveBonusStack` casts the value to `int` unless the bonus type starts with
 `ITEMWEIGHT`, `ITEMCOST`, `ITEMCAPACITY`, `LOADMULT` or `FEAT`, or contains `DAMAGEMULT`.
-The line carries a `// TODO: never used` comment and the value is used twice below it.
+The line carries a `// TODO: never used` comment. The value is used five times below
+it.
 
 A new fractional target contributes **zero** until its prefix is added to that list.
 

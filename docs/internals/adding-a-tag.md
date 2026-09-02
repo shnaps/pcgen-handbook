@@ -46,7 +46,7 @@ the rest of this page describes.
 |---|---|---|---|
 | a data tag | `AbstractNonEmptyToken`, `CDOMPrimaryToken` | `parseNonEmptyToken`, `unparse`, `getTokenClass` | `TokenLibrary` |
 | a game mode tag | `GameModeLstToken` | `parse(GameMode, String, URI)` | `TokenStore` |
-| a `BONUS:` subtype | `BonusObj` | `parseToken`, `unparseToken`, `getBonusHandled` | `Bonus` |
+| a `BONUS:` subtype | `BonusObj` | `parseToken`, `unparseToken`, `getBonusHandled` | `TokenLibrary` |
 
 The game mode tree holds 157 classes — 66 at its top level and the rest in eleven
 subdirectories, `codecontrol` the largest at 43. `plugin/bonustokens/` holds 55, and none

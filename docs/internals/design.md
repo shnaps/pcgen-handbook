@@ -30,8 +30,9 @@ Almost every surprise in this codebase is a consequence of that sentence.
 A `Race` has no `size` field. It has a typed key map, and `TYPE:` and `SIZE:` write into
 it. [The object model](cdom-model.md#why-keys-instead-of-fields) covers the mechanics.
 
-**Buys:** a new tag needs no change to `Race`, `Skill` or anything else. 713 tags exist
-and the classes they write to stayed the same size.
+**Buys:** a new tag needs no change to `Race`, `Skill` or anything else. Hundreds of tags
+exist and the classes they write to stayed the same size. The
+[tag index](../lst/reference/tag-index.md) owns the count.
 
 **Costs:** you cannot find what a `Race` holds by reading `Race.java`. You find it by
 reading the tokens that write to it.
@@ -95,7 +96,6 @@ data chooses between them.
 |---|---|---|---|
 | saves, AC, reach, initiative and more | hardcoded in Java | a variable | a **code control** |
 | formulas | JEP | `PCGen-Formula` | which tag you wrote |
-| deity titles and symbols | fields | `FACTDEF` declarations | the data set |
 | superseded tags | 32 classes in `plugin/lsttokens/deprecated/` | their replacements | still parsed, warned about |
 
 Shipped game modes set only a handful of the code controls, so for most data the old path
@@ -121,15 +121,17 @@ filing decision — it is the registration.
 | an output token | extends `AbstractExportToken` | `plugin/exporttokens/` | `code/src/slowtest/pcgen/io/exporttoken/` |
 | a formula function | implements `FormulaFunction` | `plugin/function/` | `code/src/test/…/function/` |
 | a `MODIFY` operator | extends `AbstractNumberModifierFactory` or its siblings | `plugin/modifier/<format>/` | `code/src/test/…/modifier/` |
-| a grouping | implements `GroupingDefinition<T>` | `plugin/grouping/` | `code/src/test/…` |
+| a grouping | implements `GroupingDefinition<T>` | `plugin/grouping/` | no test package exists |
 | a chooser primitive | implements `PrimitiveToken<T>` | `plugin/primitive/<type>/` | `code/src/test/…/primitive/` |
 | a chooser qualifier | extends `AbstractPCQualifierToken<T>` | `plugin/qualifier/<type>/` | `code/src/test/…/qualifier/` |
-| a JEP command | extends `PCGenCommand` | `plugin/jepcommands/` | `code/src/test/…/jepcommands/` |
+| a JEP command | extends `PCGenCommand` | `plugin/jepcommands/` | `code/src/slowtest/plugin/jepcommands/` |
 
 Three things this table does not tell you.
 
 **A new package needs a build change.** Each package above is jarred by its own task in
-`code/gradle/plugins.gradle`, and `PluginBuildTest` fails when a package has no task.
+`code/gradle/plugins.gradle`. `PluginBuildTest` carries its own hardcoded list of the
+plugin packages and fails when the directories on disk do not match it. That list is the
+closest thing PCGen has to a registry.
 
 **`Token` and `AbstractExportToken` both work.** Write the second one. The counts are
 on [output and saving](output-and-saving.md#what-bites-when-you-change-output), which
@@ -138,6 +140,10 @@ owns them.
 **`plugin/bonustokens/` has no per-class tests.** Behaviour is covered by `BonusTest`,
 `TempBonusTest` and `BonusManagerTest` in `code/src/slowtest/`. A new bonus category is
 the one extension point with no template test to copy.
+
+**A new `BONUS:` category does nothing on its own.** Unlike every other row, registering
+the class only makes the tag parse. Something in Java has to read the key back. See
+[the rules engine](rules-engine.md#what-bites-when-you-change-a-calculation).
 
 *Source: [`plugins.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/gradle/plugins.gradle)*
 

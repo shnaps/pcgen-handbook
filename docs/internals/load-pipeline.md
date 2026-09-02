@@ -143,7 +143,7 @@ Counts read from the source at the pinned commit.
 
 ## What bites when you change the loader
 
-Five things the mechanics above do not imply.
+Six things the mechanics above do not imply.
 
 ### `ParseResult.Fail` means "not my syntax", not "stop"
 

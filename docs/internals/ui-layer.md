@@ -179,7 +179,7 @@ listeners on the same objects. That is how one model feeds two toolkits.
 
 ### How a change reaches a widget
 
-Not by listening to the model. `CharacterFacadeImpl` mirrors character state into 33
+Not by listening to the model. `CharacterFacadeImpl` mirrors character state into 32
 `DefaultReferenceFacade` fields of its own, and keeps them current itself.
 
 Six facets are bridged to the facade layer by hand:
@@ -190,10 +190,10 @@ Six facets are bridged to the facade layer by hand:
 | `GrantedAbilityFacet` | `CharacterAbilities` |
 | `SkillFacet` | `CharacterLevelsFacadeImpl` |
 
-Six registrations, against the [whole facet set](facets.md). Everything else updates by a different
-route. The facade owns thirteen refresh methods — `refreshStatScores`,
-`refreshRaceRelatedFields`, `refreshWeight`, `updateWealthFields` among them — and calls
-one from the same method that made the change.
+Six registrations, against the [whole facet set](facets.md). Everything else updates by a
+different route. The facade owns eleven `refresh` methods and five `update` methods —
+`refreshStatScores`, `refreshRaceRelatedFields`, `refreshWeight` and `updateWealthFields`
+among them. It calls one from the same method that made the change.
 
 **A change made below the facade does not reach the screen.** Engine code that mutates a
 facet directly leaves the widget showing the old value until something calls the right
@@ -237,8 +237,8 @@ and `VISIBLE:NO`.
 `fxmlLoader.load()` and log it. An `fx:id` with no matching `@FXML` field, or a `%key`
 with no bundle entry, surfaces there. The dialog then never appears.
 
-Nothing tests this. There are no tab or `InfoTabbedPane` tests at all — the interface
-tests are five `gui2` utility tests and nine `gui3` dialog tests.
+Nothing tests this. There are no tab or `InfoTabbedPane` tests at all. The interface
+tests are five `gui2` utility tests and nine `gui3` tests, four of them on dialogs.
 
 ### A missing translation renders as text
 
@@ -249,8 +249,11 @@ string is passed through untouched.
 ### Todo routing matches on the localised title
 
 `InfoTabbedPane` finds the tab to highlight by comparing the game mode's tab name against
-the displayed title, and the field name is a bare string. Rename either and the highlight
-degrades to a generic dialog without failing.
+the displayed title, and the field name is a bare string.
+
+Rename the tab and nothing happens at all: the lookup logs `Failed to find tab` and
+returns. Rename the field and the tab is found but cannot route it, so the reader gets a
+generic dialog instead of the highlight.
 
 ### Unselected tabs restore lazily and can be cancelled
 

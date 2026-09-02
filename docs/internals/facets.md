@@ -338,8 +338,8 @@ changes the original.
 ### Nothing evicts a character, so a forgotten listener leaks it
 
 The cache is one static `DoubleKeyMap` over a `WeakHashMap` keyed by `CharID`, and
-`removeCache` is only ever called per facet. Closing a character unregisters four
-listeners and never clears the cache.
+`removeCache` is only ever called per facet. Closing a character unregisters the six
+listeners the facade layer registered, and never clears the cache.
 
 Facets are process-wide singletons, so a listener you register and forget holds the
 `CharID`, which holds the whole character's state. Stale interface code can still read

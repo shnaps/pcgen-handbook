@@ -37,15 +37,15 @@ public void setDirty(final boolean dirtyState)
 }
 ```
 
-Readers such as `getBaseCheck` and `getBaseAttackBonus` return a cached `Float` keyed by
+Readers such as `getBaseCheck` and `baseAttackBonus` return a cached `Float` keyed by
 that serial. Mutate character state without calling `setDirty(true)` and they keep
 serving the old number until something unrelated invalidates the cache. The character
 sheet is then wrong in a way no exception marks.
 
-The file carries **87** `setDirty(` call sites and **23** readers of `getSerial()`. Six
-calls are commented out rather than deleted, one of them with the reason — a re-load of
-every tab — written above it. Those comments are the record of an earlier fight with this
-mechanism.
+`PlayerCharacter.java` names `setDirty(` on **59** lines: 52 live calls, the declaration,
+and **six commented out** rather than deleted. One carries its reason — a re-load of every
+tab — written above it. Those comments are the record of an earlier fight with this
+mechanism. Across `code/src/java` the call appears 87 times.
 
 The method's own javadoc warns it is "not a 'safe' call" and must not run during
 character cloning, because conditional abilities get dropped.
@@ -76,9 +76,12 @@ Fix a saving-throw bug in the lower half of that method and you fix it for every
 mode that leaves `BASESAVE` unset. Any mode that sets it keeps the bug. Both branches are
 live at once, in the same build.
 
-`ControlUtilities.isFeatureEnabled` is the boolean form, and it also decides what gets
-written to a character file. Turn a feature off and the save stops carrying that field —
-the data is not merely hidden, it is not written.
+`isFeatureEnabled` is the boolean form, and it also decides what gets written to a
+character file. `PCGVer2Creator` gates the domain and alignment lines on it, so turning a
+feature off stops the save carrying that field. The data is not hidden, it is not written.
+
+Note there are two implementations of that name. `PlayerCharacter.isFeatureEnabled` is the
+one the save uses; `ControlUtilities.isFeatureEnabled` has a single caller.
 
 Shipped game modes set only a handful of the controls, which is why the hardcoded branch
 is the one usually exercised. [Data controls](../lst/concepts/data-controls.md#code-controls)
@@ -92,18 +95,18 @@ PCGen runs Swing and JavaFX in the same window. [The UI layer](ui-layer.md#two-t
 covers which is which. What matters when you edit UI code is that they have **separate**
 UI threads, and the wrong one does not throw.
 
-The codebase says so explicitly. `GuiAssertions` offers four checks —
-`assertIsJavaFXThread`, `assertIsNotJavaFXThread`, `assertIsSwingThread`,
-`assertIsNotSwingThread` — and each throws a `WrongThreadException` naming the thread it
-actually found. They are called **47** times across 26 files.
+The codebase says so explicitly. `GuiAssertions` offers six checks — the JavaFX thread,
+the Swing thread and a general GUI thread, each with a negative form. Every one throws a
+`WrongThreadException` naming the thread it actually found. They are called **47** times
+across 26 files.
 
 Crossing between them is done deliberately:
 
 | Call | Hops to |
 |---|---|
-| `SwingUtilities.invokeLater` | the Swing event dispatch thread, 37 uses |
-| `Platform.runLater` | the JavaFX application thread, 31 uses |
-| `GuiUtility.runOnJavaFXThreadNow` | the JavaFX thread, and waits, 33 uses |
+| `SwingUtilities.invokeLater` | the Swing event dispatch thread |
+| `Platform.runLater` | the JavaFX application thread |
+| `GuiUtility.runOnJavaFXThreadNow` | the JavaFX thread, and waits for the result |
 
 The mixing is real, not historical. `CharacterSheetPanel` *is* a `JFXPanel`, and
 `GuiUtility.wrapParentAsJFXPanel` embeds JavaFX content into Swing containers throughout
@@ -133,6 +136,18 @@ The tag string is a constant in `IOConstants`, so the writer and the reader agre
 construction. Adding one without the other produces a file that saves the value and drops
 it on load, silently.
 
+**`CControl` holds two unrelated kinds of member.** A plain `String` constant is a code
+control, section two's subject. A channel is a `CControl` **instance**, built with the
+constructor that takes `isChannel`. Declaring the wrong one gives you a name nothing
+creates a variable for.
+
+`SourceFileLoader.enableBuiltInControl` walks `CControl.getChannelConstants()` at load
+time and defines the variable, using the format string the constant declares. A wrong
+format fails there rather than at your edit.
+
+The variable is not named what you named it. `ChannelUtilities.createVarName` prefixes
+`CHANNEL*`, so a sheet cannot reach it by the plain name.
+
 Two more steps if the value is user-visible:
 
 - **Publish it to output sheets.** `OutputDB.register(String, CControl)` names a channel
@@ -140,7 +155,7 @@ Two more steps if the value is user-visible:
 - **Mark the character dirty when it changes.** `ChannelUtilities.setDirtyOnChannelChange`
   wires a channel to the serial mechanism above, which is how the two connect.
 
-*Source: [`ChannelUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/output/channel/ChannelUtilities.java), [`PCGVer2Creator.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Creator.java), [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Parser.java), [`OutputDB.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/output/publish/OutputDB.java)*
+*Source: [`CControl.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/util/CControl.java), [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/SourceFileLoader.java), [`ChannelUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/output/channel/ChannelUtilities.java), [`PCGVer2Creator.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Creator.java), [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Parser.java), [`OutputDB.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/output/publish/OutputDB.java)*
 
 ## The screen does not listen to the model
 
