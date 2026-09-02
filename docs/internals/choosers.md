@@ -121,6 +121,45 @@ while an ordinary object reference rejects the same text. That asymmetry is
 **The tests are the specification.** `code/src/test/plugin/primitive/` has 21 files and
 `plugin/qualifier/` has 19, one per class.
 
+## What bites when you change a choice
+
+### A selection is keyed by object identity
+
+`AssociationSupport` holds both of its maps as `IdentityHashMap`s keyed on the owner
+instance. `CNAbilityFactory` exists to intern `CNAbility` objects so this works at all,
+and `Globals.emptyLists()` resets that interning.
+
+Hand `restoreChoice` an owner that is equal but not identical and the selection lands
+under a key nothing reads. No exception. The choice is gone.
+
+### A saved selection re-attaches only on an identical unparse string
+
+Restoring an `ADD:` selection compares the string in the `.pcg` file against
+`choices.getLSTformat()` with `equals`. Change how a choice set unparses and every
+existing character file fails to match, with a warning rather than an error.
+
+This is the constraint that blocks changing unparse output. It is not only the token
+tests.
+
+### The dialog is skipped using the unfiltered count
+
+`ConcreteTransitionChoice.driveChoice` returns early when the number of picks equals
+`set.size()`. That size is the raw set, not the qualifier-filtered list it returns. Add a
+filter and PCGen can auto-grant the shortened list without asking.
+
+The interface has a matching case: with the single-choice preference set, a one-item list
+commits and returns before the dialog is shown. A change that narrows an offer to one
+turns into a silent grant.
+
+### An item missing from the set is dropped without a message
+
+`CDOMChoiceManager` applies a choice only when `info.getSet(pc).contains(item)`, an
+`equals` test. A primitive that returns freshly built value objects without `equals` and
+`hashCode`, or a `getSet` that recomputes differently between calls, makes every
+selection vanish.
+
+*Source: [`AssociationSupport.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/base/AssociationSupport.java), [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Parser.java), [`ConcreteTransitionChoice.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/base/ConcreteTransitionChoice.java), [`CDOMChoiceManager.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/chooser/CDOMChoiceManager.java)*
+
 ## Where to look
 
 | Task | Class |

@@ -111,6 +111,7 @@ nav:
   - Internals:
       - Getting oriented:
           - internals/overview.md
+          - internals/design.md
           - internals/architecture.md
           - internals/building.md
           - internals/running-and-debugging.md

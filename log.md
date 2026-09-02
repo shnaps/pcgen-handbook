@@ -1583,3 +1583,52 @@ cost in the other direction, and it is the fifth entry on `changing-behaviour.md
 
 Neither of these is a defect report. Both are things a developer has to know before their
 correct fix appears to do nothing.
+
+
+## 2026-09-01  eight experts on one question: can you change this thing?
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. One new page,
+  `internals/design.md`. Seven new sections on existing pages. 69 pages.
+- Eight subsystem experts, disjoint scopes, each told what the handbook already covers and
+  asked only what it does not. **Forty findings, every one carrying a `file:line`.**
+
+**The new page states the logic rather than the layout.** PCGen runs 20 game modes from
+one binary, so a rule cannot be a field. `design.md` names the five patterns that follow
+from that, what each buys and costs, and a sixth that explains most of the surprises: when
+a hardcoded rule is replaced by a data-driven one, both implementations stay live and the
+data picks. Code controls, two formula systems, `FACTDEF`, the deprecated package — all
+one migration, unfinished.
+
+It also carries the routing table nothing else had: eleven extension points, what to
+implement, which package registers it, and where the test goes.
+
+**Every page now ends with what bites.** The findings went to their owners rather than
+into one page, so the loader traps sit on `load-pipeline.md` and the bonus traps on
+`rules-engine.md`. `design.md` indexes them.
+
+The seven that changed a page I would have written wrongly:
+
+- `ParseResult.Fail` means "not my syntax", not "stop". `TokenSupport` tries every token
+  registered for a name, and commit or rollback happens once per tag afterwards. A token
+  that writes and then fails has its writes committed when a later one passes.
+- Every bonus is cast to `int` unless its type starts with one of five prefixes or
+  contains `DAMAGEMULT`. The cast carries a `// TODO: never used` comment, and the value
+  is used twice below it.
+- Stacking is decided by the game mode's `BONUSSTACKS` list, not by Java. Untyped,
+  `.STACK`, `.REPLACE` and negative bonuses bypass the lookup entirely.
+- `PlayerCharacter.clone()` copies state by iterating Spring's storage beans. A facet
+  missing from `applicationContext.xml` still runs, via the reflection fallback, and is
+  empty on every clone.
+- Nothing evicts a character's facet storage. Facets are process singletons, so a listener
+  you register and forget holds the `CharID` and leaks the whole character.
+- An unknown output token is written to the sheet as literal text. No exception, no log.
+- The character's `PCClass` is a clone and its levels are cloned again, and `PCClass.clone`
+  re-owns bonuses on the *original* level map before substituting its own.
+
+**Counts I re-measured rather than copied.** 47 assertion calls in 26 files, not 27.
+`PCGenSettings.` 222, not 164. 363 token test classes, not "about 398 files". Three of
+eight experts were off on a count while right on the mechanism, which is the same ratio
+as every earlier round.
+
+**One citation was wrong and lint caught it.** `BatchExporter` is in `pcgen/system/`, not
+`pcgen/io/`. That is the check earning its place: I would not have noticed.

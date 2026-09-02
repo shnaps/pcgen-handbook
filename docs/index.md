@@ -112,6 +112,7 @@ three in order.
 | Page | What it covers |
 |---|---|
 | [How PCGen fits together](internals/overview.md) | The whole program on one page, with the real dependency directions |
+| [Why it is built this way](internals/design.md) | The patterns it repeats, the reason for each, and where a new class goes |
 | [Repository layout](internals/architecture.md) | Where everything is, and how it builds |
 | [Building from source](internals/building.md) | Compile it, run it, and what each Gradle task does |
 | [Running it under a debugger](internals/running-and-debugging.md) | Attaching a debugger, running a test from an IDE, and reading the errors |

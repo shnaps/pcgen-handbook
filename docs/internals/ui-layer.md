@@ -218,6 +218,51 @@ Choosing sources is not a tab. It is a modal dialog:
 
 That dialog is what starts the [load pipeline](load-pipeline.md).
 
+## What bites when you change the interface
+
+### A new tab needs a `Tab` enum constant
+
+`Tab` is a fixed enum of eighteen constants. `InfoTabbedPane.updateTabsForCharacter` asks
+the game mode for `getTabName` and `getTabShown` for every registered tab, so a title
+built without a `Tab` throws on character selection. Registration itself is a hardcoded
+`addTab` sequence.
+
+`GameModeFileLoader.addDefaultTabInfo` walks `Tab.values()` and builds a visible default
+for each, so the game mode's `TAB:` line is optional. It is what sets the display name
+and `VISIBLE:NO`.
+
+### An `.fxml` failure leaves a blank panel
+
+`PanelFromResource` and `JFXPanelFromResource` catch the `IOException` from
+`fxmlLoader.load()` and log it. An `fx:id` with no matching `@FXML` field, or a `%key`
+with no bundle entry, surfaces there. The dialog then never appears.
+
+Nothing tests this. There are no tab or `InfoTabbedPane` tests at all — the interface
+tests are five `gui2` utility tests and nine `gui3` dialog tests.
+
+### A missing translation renders as text
+
+`LanguageBundle` returns `<key> not defined.` for an absent key, which the widget then
+displays. `TabTitle` translates a title only when it starts with `in_`, so a literal
+string is passed through untouched.
+
+### Todo routing matches on the localised title
+
+`InfoTabbedPane` finds the tab to highlight by comparing the game mode's tab name against
+the displayed title, and the field name is a bare string. Rename either and the highlight
+degrades to a generic dialog without failing.
+
+### Unselected tabs restore lazily and can be cancelled
+
+Only the selected tab restores synchronously. The rest are queued, and the queue is
+cancelled on the next character switch. Storing drains only the tabs that finished, so a
+cancelled tab keeps the previous character's models.
+
+Work that must happen when a tab becomes visible belongs in `DisplayAwareTab.tabSelected`,
+which two tabs implement.
+
+*Source: [`Tab.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/util/enumeration/Tab.java), [`InfoTabbedPane.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/tabs/InfoTabbedPane.java), [`PanelFromResource.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui3/PanelFromResource.java), [`LanguageBundle.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/LanguageBundle.java)*
+
 ## Settings and language
 
 Preferences open as a Swing dialog wrapping a JavaFX tree, with JavaFX panels inside.

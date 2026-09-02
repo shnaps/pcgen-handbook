@@ -242,6 +242,59 @@ The consequence is worth stating plainly:
 That is why `PRIORITY` is rarely needed — the default ordering already matches what
 arithmetic expects.
 
+## What bites when you change PCGen-Formula
+
+The formula engine is a separate Gradle project with its own module boundary. Five things
+differ from working inside `pcgen`.
+
+### The parser is generated, and two files are not
+
+`jjtree` and `javacc` run as build tasks and write into `build/generated/`. Nothing under
+them is checked in. Two exceptions are hand-maintained in the source tree:
+`SimpleNode.java` and `Operator.java`. The build deletes JJTree's own stub so the two do
+not collide.
+
+`SimpleNode.java` still carries a "Do not edit this line" banner from the generator. Edit
+the generated copy, or regenerate without that delete, and nothing compiles.
+
+### A function is four visitors, not one method
+
+`FormulaFunction` declares five methods, and each is driven by a different visitor:
+
+| Method | Visitor |
+|---|---|
+| `isStatic` | `StaticVisitor` |
+| `allowArgs` | `SemanticsVisitor` |
+| `evaluate` | `EvaluateVisitor` |
+| `getDependencies` | `DependencyVisitor` |
+
+`allowArgs` and `getDependencies` have to agree. A function that validates but declares
+no dependency runs against a variable the solver never queued. It reads a stale value,
+with no error.
+
+### A new `FormatManager` must override `equals` and `hashCode`
+
+`VariableID.equals` compares the format manager, and `SimpleSolverManager` keys its
+solvers by `VariableID` in a `HashMap`. The `FormatManager` interface declares no such
+requirement, and every shipped implementation overrides both anyway.
+
+Two instances of a format manager with identity equality make the lookup miss, and the
+variable reads its default.
+
+### A wrong default value for a format is never reported
+
+`createSolver` calls `initializeFrom`, whose default implementation looks the value up by
+identifier string and casts it unchecked. The one guard, `SupplierValueStore
+.validateDefaults`, returns a result that `VariableContext.validateDefaults` discards.
+
+### Operator registration order breaks ties
+
+`SimpleOperatorLibrary.addAction` appends, and the lookup returns the **first** action
+that accepts the argument classes. Register one ahead of an existing action that also
+matches and it shadows the old one, changing the result format without an error.
+
+*Source: [`FormulaFunction.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/PCGen-Formula/code/src/java/pcgen/base/formula/base/FormulaFunction.java), [`VariableID.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/PCGen-Formula/code/src/java/pcgen/base/formula/base/VariableID.java), [`SimpleSolverManager.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/PCGen-Formula/code/src/java/pcgen/base/solver/SimpleSolverManager.java), [`SimpleOperatorLibrary.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/PCGen-Formula/code/src/java/pcgen/base/formula/inst/SimpleOperatorLibrary.java), [`FormatManager.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/PCGen-base/code/src/java/pcgen/base/util/FormatManager.java)*
+
 ## Related
 
 - [Variables and formulas](../lst/concepts/variables-and-formulas.md) — the data side

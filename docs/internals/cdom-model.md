@@ -228,6 +228,57 @@ requested and never loaded.
 This is why an error can name a file you did not touch. The complaint comes from
 whatever pointed at the missing object, not from the object itself.
 
+## The objects a character holds are clones
+
+Nothing a character holds is the object the reference context loaded. That matters before
+you edit `PCClass`, `PCClassLevel` or `Equipment`.
+
+### A class is cloned once, and its levels again
+
+Adding a class calls `globalClass.clone()`, with the comment `//Still required :(`. Level
+data then exists twice. `PCClass.getOriginalClassLevel` lazily builds a `PCClassLevel` in
+the class's own map, while `PlayerCharacter.getActiveClassLevel` returns a per-character
+clone held by `ClassFacet`.
+
+Edit the original level and a loaded character never sees it. Edit the globally shared
+class and the change leaks into every character built from it afterwards.
+
+### Cloning a class re-owns bonuses on the shared map first
+
+`PCClass.clone` calls `super.clone()`, which calls `ownBonuses`, which the override runs
+over the original class levels. The clone's own level map is not substituted until
+afterwards. Every clone therefore swaps the global levels' `BonusObj` instances for fresh
+ones, and anything holding a bonus by identity goes stale.
+
+That matters because bonuses are counted by identity — see
+[the rules engine](rules-engine.md#what-bites-when-you-change-a-calculation).
+
+### `CLASS:Foo.MOD` re-enters the same object
+
+`PCClassLoader` fetches the constructed `PCClass` rather than building a new one, and the
+level lines after it write onto the same `PCClassLevel`. A `.MOD` adds to existing level
+data rather than replacing it, so applying one twice doubles it.
+
+### Equipment has three names, and a modifier rewrites two
+
+`getName()` is neither `getDisplayName()` nor `getKeyName()` — it concatenates the display
+name with a modifier suffix. `nameItemFromModifiers` rebuilds both the name and the key
+from the applied modifiers and calls `setKeyName`.
+
+So a customised item has a key derived from its modifier list. A lookup by the base item's
+key misses it.
+
+### `Equipment.isType` answers for whichever head was asked about last
+
+`bonusPrimary` is a private field that selects the primary or secondary head of a double
+weapon. `bonusTo` and `canAddModifier` assign it as a side effect, and `isType(String)`
+reads it.
+
+A prerequisite or an `EQMOD=` check on a double weapon answers for whichever head an
+unrelated earlier call left selected.
+
+*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PlayerCharacter.java), [`PCClass.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PCClass.java), [`PCClassLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/PCClassLoader.java), [`Equipment.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/Equipment.java)*
+
 ## Abilities are keyed by category
 
 Every other object type is identified by its key. `Ability` is identified by category

@@ -156,6 +156,71 @@ and nothing else — they are separate registries with separate contracts, which
 
 Counts read from the source at the pinned commit.
 
+## What bites when you change the loader
+
+Five things the mechanics above do not imply.
+
+### `ParseResult.Fail` means "not my syntax", not "stop"
+
+`TokenSupport` holds a **list** of tokens per name and tries each in turn, returning on
+the first that passes. Commit and rollback happen one level up, once per tag, after that
+whole loop:
+
+```java
+boolean successful = context.processToken(po, key, value);
+if (successful) { context.commit(); } else { context.rollback(); }
+```
+
+So a token can write to the `LoadContext` and then return `Fail`. If a later token for
+that name passes, the failed token's writes are committed with it, and nothing reports
+the fault. Validate before you write.
+
+*Source: [`TokenSupport.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/persistence/TokenSupport.java), [`LstUtils.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstUtils.java)*
+
+### A new `.lst` file type is four edits
+
+| Edit | In |
+|---|---|
+| a `ListKey<CampaignSourceEntry>` | `ListKey.java` |
+| a campaign token returning it | `plugin/lsttokens/campaign/` |
+| an entry in `OBJECT_FILE_LISTKEY` | `CampaignLoader.java` |
+| a `loadLstFiles` call | `SourceFileLoader.java` |
+
+Skip the third and the `.pcc` still parses. `initRecursivePccFiles` walks that list to
+copy a sub-campaign's files up to the base campaign, so files declared in an included
+campaign are never loaded. Nothing reports it.
+
+*Source: [`CampaignLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/CampaignLoader.java)*
+
+### Load order is a hardcoded call sequence
+
+`SourceFileLoader` calls the loaders in a fixed order, with the dependencies written as
+comments: skills before classes, domains before classes, languages before races. Move a
+call and references resolve against a different object rather than failing.
+
+### `.MOD` runs after every file, with completion switched off
+
+`processCopies`, then `processMods`, then `processForgets`, each after the whole list of
+files has been read. `processComplete` is set to `false` before the `.MOD` pass, and
+`completeObject` returns immediately while it is false. An object that a `.MOD` line
+creates is never stored.
+
+Detection is a substring test, `firstToken.indexOf(".MOD") > 0`, not a suffix test.
+
+*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
+
+### Which base loader you subclass changes error handling
+
+`LstObjectFileLoader` catches `Throwable` per line, logs it and carries on. It also
+supports `.MOD`, `.COPY` and `.FORGET`. `LstLineFileLoader` does none of that — one bad
+line ends the file.
+
+### A duplicate key is shelved, not reported
+
+`AbstractReferenceManufacturer.addObject` keeps the first object active and puts the
+second in a duplicates map. The complaint comes later, from `validateDuplicates`, and
+only when the `UnconstructedValidator` disallows it.
+
 ## Verifying a dataset loads
 
 PCGen has no "validate this PCC" command. The test harness is the substitute, and

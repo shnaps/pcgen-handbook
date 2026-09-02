@@ -307,6 +307,55 @@ Output tokens, term evaluators and prerequisite tests go through
 `PlayerCharacter.getDisplay()` rather than the character itself. Anything that only
 reads should do the same.
 
+## What bites when you add or change a facet
+
+### A facet missing from Spring works, until someone copies a character
+
+`PlayerCharacter.clone()` copies state by iterating `SpringHelper.getStorageBeans()`,
+which asks the bean factory for every `AbstractStorageFacet`. A facet not listed in
+`code/src/resources/applicationContext.xml` still runs, because `FacetLibrary` falls back
+to reflection. It is absent from that collection, so its state is **empty on every
+clone**, and nothing reports it.
+
+That is the practical reason the reflection fallback logs an error rather than passing
+quietly.
+
+### Copying fires no events
+
+`copyContents` writes straight into the cache on both the item and list bases. Neither
+calls `fireDataFacetChangeEvent`. A clone is built by bulk copy rather than by replaying
+the adds. So a facet that recomputes only on an event is never rebuilt on the copy.
+
+### A list copy is shallow
+
+`AbstractListFacet.getCopyForNewOwner` hands over the same contents, so the original and
+the clone share mutable objects. `PlayerCharacter.clone` works around this by hand
+afterwards, wiping and re-cloning equipment, level information and spell books.
+
+A new list facet holding mutable objects needs that override, or an edit to the copy
+changes the original.
+
+### Nothing evicts a character, so a forgotten listener leaks it
+
+The cache is one static `DoubleKeyMap` over a `WeakHashMap` keyed by `CharID`, and
+`removeCache` is only ever called per facet. Closing a character unregisters four
+listeners and never clears the cache.
+
+Facets are process-wide singletons, so a listener you register and forget holds the
+`CharID`, which holds the whole character's state. Stale interface code can still read
+it.
+
+### Set the input facet, not the model facet
+
+`RaceInputFacet.set` runs the chooser and, on a change, removes the previous race's entry
+from `RaceSelectionFacet`. Calling `RaceFacet.set` directly skips both, and the old
+selection stays attached. The cleanup is also gated on `isAllowInteraction`, so it does
+not run during an import.
+
+The `cdom/facet/input/` package exists for this reason. Prefer it.
+
+*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PlayerCharacter.java), [`SpringHelper.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/helper/SpringHelper.java), [`AbstractStorageFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/base/AbstractStorageFacet.java), [`AbstractListFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/base/AbstractListFacet.java), [`RaceInputFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/input/RaceInputFacet.java)*
+
 ## What this means when you change something
 
 **A value is wrong on the sheet.** Find the facet that owns it, not the place the tag

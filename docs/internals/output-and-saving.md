@@ -198,6 +198,54 @@ Its tests are in `code/src/itest/`.
 
 *Source: [`CDOMWrapperInfoFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/CDOMWrapperInfoFacet.java)*
 
+## What bites when you change output
+
+### An unknown token is written to the sheet as text
+
+`ExportHandler.replaceToken` has a default branch that writes the token string straight
+to the output. Misspell a name, or fail to register the class, and the sheet contains
+`SKILL.0.MISC` where the value belonged. No exception and no log line.
+
+A registration collision is equally quiet: the second token logs and wins.
+
+### The token map is flat, and 13 tokens are hardcoded
+
+Lookup keys on the first `.`-separated segment only. Everything after it is the token's
+own problem. That is why each class re-parses its remainder with a `StringTokenizer`, and
+why no sub-token registry exists.
+
+Discovery is a classpath scan for `Token` subclasses, but `populateTokenMap` also
+hardcodes 13 core tokens. Extend `AbstractExportToken`, which routes through
+`CharacterDisplay`. Most of the 92 classes in `plugin/exporttokens/` still extend `Token`
+directly.
+
+### Escaping is opt-in, and driven by file extension
+
+A token returning true from `isEncoded()` has its value passed through `encodeWrite`.
+`PatternFilter` then picks a filter from `system/outputFilters/` by the output file's
+extension, and only `fo`, `htm`, `txt` and `xml` exist. A sheet with any other extension
+gets no escaping, so a raw `&` reaches FOP.
+
+### A PDF from an XSLT template does not use that template
+
+`BatchExporter` calls the two-argument `exportCharacter` for the PDF path, which hardcodes
+`base.xml.ftl`. To change what a PDF sheet can read, edit that file rather than the XSLT.
+
+### A save that references a missing object loses it
+
+`PCGVer2Parser` adds a warning and returns from the line, then `PCGIOHandler.read` clears
+the dirty flag. The next save writes the character without that data.
+
+Renames are handled by data. `migration.lst` rules are matched against the file's version
+by `MigrationUtils`, never by Java.
+
+### None of this runs under `gradle test`
+
+The export tests are in the `slowtest` source set. See
+[testing](testing.md#the-export-tests-compare-against-checked-in-xml).
+
+*Source: [`ExportHandler.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/ExportHandler.java), [`AbstractExportToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/exporttoken/AbstractExportToken.java), [`PatternFilter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/filters/PatternFilter.java), [`BatchExporter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/BatchExporter.java), [`MigrationUtils.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/migration/MigrationUtils.java)*
+
 ## Where sheets live
 
 `outputsheets/` is organised by game mode, then output type:

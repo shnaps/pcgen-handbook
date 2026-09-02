@@ -189,6 +189,49 @@ if (Globals.checkRule(RuleConstants.RETROSKILL))
 So an optional rule the reader ticked in preferences changes what runs inside the
 calculation loop. See [rule toggles](../lst/concepts/rule-toggles.md).
 
+## What bites when you change a calculation
+
+### A new `BONUS:` target is registered by the class, like a tag
+
+A `BonusObj` subclass declares `getBonusHandled()`, and `TokenLibrary` keys its map on
+that string. `Bonus.newBonus` looks the name up, retries with everything up to `=` for
+`VAR=`-style names, and on a miss logs `Unrecognized bonus:` and returns null. The
+character still builds, without that bonus.
+
+### Every bonus is truncated to a whole number
+
+`setActiveBonusStack` casts the value to `int` unless the bonus type starts with
+`ITEMWEIGHT`, `ITEMCOST`, `ITEMCAPACITY`, `LOADMULT` or `FEAT`, or contains `DAMAGEMULT`.
+The line carries a `// TODO: never used` comment and the value is used twice below it.
+
+A new fractional target contributes **zero** until its prefix is added to that list.
+
+### Stacking is decided by game-mode data, not by Java
+
+The type is looked up in the game mode's `BONUSSTACKS` list, set in `miscinfo.lst`. Three
+cases bypass the lookup and always stack: an untyped bonus, one ending `.STACK` or
+`.REPLACE`, and any negative bonus.
+
+Changing stacking behaviour in Java changes nothing for a type the game mode already
+lists. [Bonuses](../lst/concepts/bonuses.md) covers the data author's side.
+
+### Equipment stacks through a second implementation
+
+`Equipment.setBonusStackFor` is a parallel copy of the same idea. It splits the type on
+`.` where `BonusManager` splits on `:`, and special-cases `BASE` and `.REPLACE.STACK`.
+Fix stacking in one and equipment totals stay wrong.
+
+### Bonuses are counted by object identity
+
+`getAllActiveBonuses` collects into an `IdentityHashMap`, so two references to the same
+`BonusObj` instance are one entry. Level-indexed bonuses stack only because
+`CDOMObject.ownBonuses` clones every `BonusObj` for its new owner, which `PCClass` and
+`ClassFacet` call per level.
+
+Add a bonus by a path that skips that clone and ten levels of it count once.
+
+*Source: [`BonusManager.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/BonusManager.java), [`Bonus.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/bonus/Bonus.java), [`Equipment.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/Equipment.java), [`CDOMObject.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/base/CDOMObject.java)*
+
 ## Where to put a breakpoint
 
 | Method | Tells you |
