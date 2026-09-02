@@ -1744,3 +1744,43 @@ elsewhere says 693. Its `FACTDEF` row described a Java-fields "old side" that do
 exist — `Deity.java` is 37 lines — so the row duplicated the deprecated-package row and is
 gone. `changing-behaviour.md` named `getBaseAttackBonus`, which does not exist; the method
 is `baseAttackBonus()`.
+
+
+## 2026-09-02  the last recurring failure gets a tool
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No page changes.
+  `tools/check_counts.py` is new. Six checks now, not five.
+- Counts have been the largest error class in every audit this project has run, and the
+  only recurring failure with nothing behind it.
+
+**What the tool does.** It holds 27 published figures beside the command that derives each
+one from the pinned clone or the shipped data, and fails two ways: the source no longer
+produces the number, or the page no longer states it. The second half matters as much as
+the first — it catches a registry that has gone stale because a page was reworded, which
+is how a check quietly stops checking.
+
+Data figures go through the counting method `WIKI-SCHEMA.md` pins, in code rather than in
+prose: `data/**/*.lst`, skip a `#` line, split on tabs, strip each field, test the prefix.
+That method is now executable, so it cannot be misremembered.
+
+**It found two errors on its first run, and both were mine in the tool, not on the pages.**
+The `isUnselected` deriver counted `isUnselected()` and so missed the method reference
+`Deity::isUnselected`, giving 12 against the page's correct 13. The
+`DefaultReferenceFacade` deriver matched `private static class RectangleReference extends
+DefaultReferenceFacade`, giving 33 against the page's correct 32. Both are the same
+mistake in miniature — a pattern that looks like it counts the thing and counts something
+adjacent. That is exactly the mistake the published numbers kept making.
+
+**Four false alarms taught the tool something.** It reported four figures as absent from
+their pages. They were present, spelled as words: "Thirteen call sites", "six commented
+out", "three registrations", "Six registrations". The handbook spells small numbers out,
+so the presence check now accepts either form.
+
+**And an hour lost to the shell.** Patching the file through a quoted heredoc turned every
+`` into a literal backspace byte, so `(?i)%s` became `(?i)<BS>%s<BS>` and matched
+nothing. `inspect.getsource` renders a backspace as nothing, so the source looked correct
+while the compiled constant was wrong. Found it by disassembling the function. Anything
+containing a backslash goes through the file-writing tool from now on, not a heredoc.
+
+**Every published figure now re-derives**, and `BACKLOG.md` is empty with no asterisk on
+it.

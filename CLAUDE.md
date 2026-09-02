@@ -60,17 +60,22 @@ The full list is `.claude/glossary.md`.
 
 ## Checks
 
-Run all five from the repo root before committing:
+Run all six from the repo root before committing:
 
 ```text
 python tools/check_style.py
 python tools/lint_wiki.py
 python tools/check_examples.py
 python tools/check_srd.py
+python tools/check_counts.py
 python -m mkdocs build --strict
 ```
 
-`check_srd.py` needs the sparse clone and skips without it, as `lint_wiki.py` does.
+`check_srd.py` and `check_counts.py` need the sparse clone and skip without it, as
+`lint_wiki.py` does.
+
+Every measured number on a page goes in `check_counts.py`'s registry, with the command
+that derives it. A figure with no entry is a figure nothing guards.
 
 `lint_wiki.py` also checks cross-page heading links. `mkdocs --strict` does not.
 

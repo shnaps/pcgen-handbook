@@ -23,11 +23,13 @@ found about thirty-five errors, all fixed. `appendix/credits.md` was checked on
 configured and the edit link is in the build, and the licence claims match `LICENSE` and
 `DECISIONS.md`.
 
-**No check guards a measured number.** Counts have been the largest error class in every
-audit this project has run — rounded estimates on day one, comment-inclusive counts on
-08-23, wrong-scope counts on 09-01. Every other recurring failure has a tool behind it:
-`check_srd.py`, `check_examples.py`, the anchor check in `lint_wiki.py`. This one has
-nothing, and `WIKI-SCHEMA.md` says outright that the method is the only guard.
+**Every measured number is now checked.** `tools/check_counts.py` re-derives 27 published
+figures from the pinned source and the shipped data, and fails either when the source
+stops producing one or when the page stops stating it. Counts had been the largest error
+class in every audit this project ran, and were the last recurring failure with no tool
+behind it.
+
+**Nothing is open.**
 
 **Every Java package is cited.** All 26 second-level packages under `code/src/java` are
 named by at least one page. `plugin/grouping` was the last that was not, closed on

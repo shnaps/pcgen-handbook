@@ -112,8 +112,13 @@ measured this way, because two scopes produce two numbers for one claim.
 - A subtoken figure counts the text between the tag's colon and the first `|`.
 
 Three published figures were wrong from substring counting, two more from a mixed `.lst`
-and `.pcc` scope, and three more from not stripping. No tool validates a number, so the
-method is the only guard.
+and `.pcc` scope, three more from not stripping, and several from being measured over the
+whole source tree and published as a figure for one file.
+
+`tools/check_counts.py` now holds every published figure beside the command that derives
+it, and fails when the source stops producing it or the page stops stating it. A number
+with no registry entry is a number nothing guards, so add the entry in the same commit as
+the claim.
 
 ## One fact, one owner
 
