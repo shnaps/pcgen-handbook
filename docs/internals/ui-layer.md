@@ -177,6 +177,30 @@ and `DelegatingListFacade`. Listener interfaces sit in `pcgen/facade/util/event/
 Swing table models in `gui2` and JavaFX controllers in `gui3` both register as
 listeners on the same objects. That is how one model feeds two toolkits.
 
+### How a change reaches a widget
+
+Not by listening to the model. `CharacterFacadeImpl` mirrors character state into 33
+`DefaultReferenceFacade` fields of its own, and keeps them current itself.
+
+Six facets are bridged to the facade layer by hand:
+
+| Facet | Listener |
+|---|---|
+| `XPFacet`, `AutoEquipmentFacet`, `TemplateFacet`, `LanguageFacet` | `CharacterFacadeImpl` |
+| `GrantedAbilityFacet` | `CharacterAbilities` |
+| `SkillFacet` | `CharacterLevelsFacadeImpl` |
+
+Six registrations, against **234** facet classes. Everything else updates by a different
+route. The facade owns thirteen refresh methods — `refreshStatScores`,
+`refreshRaceRelatedFields`, `refreshWeight`, `updateWealthFields` among them — and calls
+one from the same method that made the change.
+
+**A change made below the facade does not reach the screen.** Engine code that mutates a
+facet directly leaves the widget showing the old value until something calls the right
+refresh. That is the practical cost of the boundary problem above.
+
+*Source: [`CharacterFacadeImpl.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/facade/CharacterFacadeImpl.java), [`CharacterLevelsFacadeImpl.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/facade/CharacterLevelsFacadeImpl.java)*
+
 ## The main window
 
 `PCGenUIManager` builds `PCGenFrame` and shows it. The tabs live in `pcgen/gui2/tabs/`,

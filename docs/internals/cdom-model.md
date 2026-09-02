@@ -138,6 +138,60 @@ to the display name. So every object has a key whether or not the file
 gives one. Setting `KEY:` is what lets you rename the display name later without
 breaking references.
 
+## Comparing two objects
+
+Three ways to ask whether two objects are the same, and they do not agree.
+
+| Method | Compares |
+|---|---|
+| `==` | identity. Two loads of the same file give two objects |
+| `equals` | the key name, ignoring case |
+| `isCDOMEqual` | every key, list and map the object holds |
+
+`isCDOMEqual` is the deep one. `AbstractReferenceManufacturer` uses it to decide whether a
+duplicate key is a real conflict. The token round-trip tests use it to prove a parse and
+an unparse agree.
+
+### equals and hashCode disagree
+
+`PObject.equals` matches key names across **any** `PObject`, and the matching `hashCode`
+is commented out:
+
+```java
+@Override
+public boolean equals(final Object obj)
+{
+    return obj instanceof PObject && getKeyName().equalsIgnoreCase(((PObject) obj).getKeyName());
+}
+
+//Temporarily commented out since unit tests are badly behaved, see COD#E-1895
+//	@Override
+//	public int hashCode()
+//	{
+//		return getKeyName().hashCode();
+//	}
+```
+
+Which way this bites depends on the type.
+
+**Neither method overridden.** `PCClass`, `Deity`, `Domain`, `PCTemplate`, `Campaign` and
+`Kit` take value equality from `PObject` and identity hashing from `Object`. Two objects
+that are `equals` hash differently.
+
+**A `hashCode` restored.** `Skill`, `Spell`, `Ability`, `Equipment`, `Language`,
+`ArmorProf`, `ShieldProf` and `WeaponProf` override both, and `Race` overrides only the
+`hashCode`. Every one returns `getKeyName().hashCode()`, which is case-sensitive, against
+an `equals` that is not. A skill keyed `Sample Athletics` and one keyed `sample athletics`
+are equal and hash to different buckets.
+
+Nothing normalises case on the way in. `setKeyName` stores the string it is handed.
+
+So do not use a CDOM object as a `HashMap` key or put one in a `HashSet`. The engine does
+not either — `AbstractReferenceManufacturer` holds objects in a `KeyMap` keyed by string,
+and tracks duplicates under a `CaseInsensitiveString` wrapper.
+
+*Source: [`PObject.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PObject.java), [`CDOMObject.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/base/CDOMObject.java), [`AbstractReferenceManufacturer.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/reference/AbstractReferenceManufacturer.java)*
+
 ## References
 
 A tag naming another object cannot look it up while loading, because the target may not

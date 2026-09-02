@@ -4,7 +4,7 @@ title: Changing behaviour
 
 # Changing behaviour
 
-Four mechanisms in PCGen's engine that a change has to respect. Each one is invisible in
+Five mechanisms in PCGen's engine that a change has to respect. Each one is invisible in
 the class you are editing, and each one fails quietly rather than throwing.
 
 [Adding a tag](adding-a-tag.md) covers the common change, where the framework holds your
@@ -140,6 +140,15 @@ Two more steps if the value is user-visible:
   wires a channel to the mechanism in section 1, which is how the two connect.
 
 *Source: [`ChannelUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/output/channel/ChannelUtilities.java), [`PCGVer2Creator.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Creator.java), [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Parser.java), [`OutputDB.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/output/publish/OutputDB.java)*
+
+## 5. The screen does not listen to the model
+
+Six facets are bridged to the interface layer by hand, out of 234. Everything else
+reaches a widget because the facade calls one of its own refresh methods from the same
+code path that made the change.
+
+So a correct fix in engine code can leave the tab showing the old number. See
+[how a change reaches a widget](ui-layer.md#how-a-change-reaches-a-widget).
 
 ## Before you submit
 

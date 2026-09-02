@@ -1546,3 +1546,40 @@ running them, so a compile error there fails it, and it runs the `PCGen-base` an
 "about 398 files, one per tag". 398 is every `.java` under that tree. The tag tests are
 **363** `*Test.java` classes; the other 35 are shared bases, 31 of them in `testsupport/`.
 `BACKLOG.md` had 363 all along, so the handbook disagreed with itself.
+
+
+## 2026-09-01  two things about how the Java actually runs
+
+- upstream: PCGen @ `d262f8b44952860ff857132035fb32d8d11361fa`. No new pages. Sections in
+  `cdom-model.md` and `ui-layer.md`, and a fifth trap on `changing-behaviour.md`.
+- Both were found by asking what the runtime does rather than where the code lives.
+
+**Every CDOM type breaks the `equals`/`hashCode` contract, in one of two ways.**
+`PObject.equals` matches key names case-insensitively across any `PObject`, and the
+matching `hashCode` is commented out in the source with a bug reference,
+`COD#E-1895`.
+
+`PCClass`, `Deity`, `Domain`, `PCTemplate`, `Campaign` and `Kit` override neither, so they
+have value equality and identity hashing. `Skill`, `Spell`, `Ability`, `Equipment`,
+`Language`, `ArmorProf`, `ShieldProf` and `WeaponProf` override both, and `Race` overrides
+only `hashCode` — but every one of those returns `getKeyName().hashCode()`, which is
+case-sensitive, against an `equals` that is not. `setKeyName` stores the string it is
+handed, so nothing normalises the case away.
+
+The engine avoids the problem rather than fixing it. `AbstractReferenceManufacturer` keys
+objects by string in a `KeyMap` and tracks duplicates under a `CaseInsensitiveString`
+wrapper. No CDOM object is ever a hash key.
+
+**The interface does not listen to the model.** `facets.md` already documented the
+facet-to-facet event graph and its priorities. The hop after that was undocumented, and it
+turns out barely to exist: **six** `addDataFacetChangeListener` registrations reach the
+interface layer, against **234** facet classes. `CharacterFacadeImpl` mirrors state into
+33 `DefaultReferenceFacade` fields and keeps them current with thirteen refresh methods it
+calls itself, from the same code path that made the change.
+
+So engine code that mutates a facet directly leaves the widget showing the old value.
+`ui-layer.md` already said the facade boundary leaks in the import direction. This is the
+cost in the other direction, and it is the fifth entry on `changing-behaviour.md`.
+
+Neither of these is a defect report. Both are things a developer has to know before their
+correct fix appears to do nothing.

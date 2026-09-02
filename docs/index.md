@@ -148,7 +148,7 @@ three in order.
 | Page | What it covers |
 |---|---|
 | [Adding a tag](internals/adding-a-tag.md) | Writing one, with its test |
-| [Changing behaviour](internals/changing-behaviour.md) | Four mechanisms in the engine that fail quietly when a change ignores them |
+| [Changing behaviour](internals/changing-behaviour.md) | Five mechanisms in the engine that fail quietly when a change ignores them |
 | [Testing](internals/testing.md) | Token tests, and checking a dataset loads clean |
 | [Contributing](internals/contributing.md) | The standards a change meets, and the ones nobody checks |
 
