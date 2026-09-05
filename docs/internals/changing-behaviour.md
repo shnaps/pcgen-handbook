@@ -11,7 +11,7 @@ the class you are editing, and each one fails quietly rather than throwing.
 hand. This page covers the changes it does not.
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## A cached number goes stale unless the serial moves
 
@@ -50,7 +50,7 @@ mechanism. Across `code/src/java` the call appears 87 times.
 The method's own javadoc warns it is "not a 'safe' call" and must not run during
 character cloning, because conditional abilities get dropped.
 
-*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PlayerCharacter.java)*
+*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/PlayerCharacter.java)*
 
 ## Half the engine has two implementations
 
@@ -87,7 +87,7 @@ Shipped game modes set only a handful of the controls, which is why the hardcode
 is the one usually exercised. [Data controls](../lst/concepts/data-controls.md#code-controls)
 owns how many exist and which are used.
 
-*Source: [`ControlUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/util/ControlUtilities.java), [`CControl.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/util/CControl.java)*
+*Source: [`ControlUtilities.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/util/ControlUtilities.java), [`CControl.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/util/CControl.java)*
 
 ## Two toolkits, two threads, no exception
 
@@ -116,7 +116,7 @@ Touch a widget from the wrong thread and you get a missed repaint or a stale val
 stack trace. Add the matching assertion to any new UI method and the mistake becomes
 loud.
 
-*Source: [`GuiAssertions.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui3/GuiAssertions.java), [`GuiUtility.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui3/GuiUtility.java)*
+*Source: [`GuiAssertions.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui3/GuiAssertions.java), [`GuiUtility.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui3/GuiUtility.java)*
 
 ## New character state has to survive the save
 
@@ -155,7 +155,7 @@ Two more steps if the value is user-visible:
 - **Mark the character dirty when it changes.** `ChannelUtilities.setDirtyOnChannelChange`
   wires a channel to the serial mechanism above, which is how the two connect.
 
-*Source: [`CControl.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/util/CControl.java), [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/SourceFileLoader.java), [`ChannelUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/output/channel/ChannelUtilities.java), [`PCGVer2Creator.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Creator.java), [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Parser.java), [`OutputDB.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/output/publish/OutputDB.java)*
+*Source: [`CControl.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/util/CControl.java), [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/SourceFileLoader.java), [`ChannelUtilities.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/output/channel/ChannelUtilities.java), [`PCGVer2Creator.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/PCGVer2Creator.java), [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/PCGVer2Parser.java), [`OutputDB.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/output/publish/OutputDB.java)*
 
 ## The screen does not listen to the model
 

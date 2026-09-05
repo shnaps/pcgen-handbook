@@ -26,7 +26,7 @@ PRERACE:1,Sample Folk,Sample Large Folk
 That passes if the character is either one. `PRERACE:2,...` would require both, which
 for races is impossible — but for skills or feats, requiring two of a list is common.
 
-*Source: [`AbstractPrerequisiteListParser.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/prereq/AbstractPrerequisiteListParser.java)*
+*Source: [`AbstractPrerequisiteListParser.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/prereq/AbstractPrerequisiteListParser.java)*
 
 ## Negation
 
@@ -148,7 +148,7 @@ Each prerequisite is three classes, not one:
 Useful when checking behaviour: the parser tells you what syntax is accepted, the
 tester tells you what it actually means.
 
-*Source: [`plugin/pretokens/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens)*
+*Source: [`plugin/pretokens/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/pretokens)*
 
 ## Gotchas
 

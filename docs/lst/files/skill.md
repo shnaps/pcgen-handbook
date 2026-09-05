@@ -30,7 +30,7 @@ A name, the stat it keys off, and whether you can try it without training.
 | `SITUATION` | text | named situational variants of the skill |
 | `VISIBLE` | see [below](#visible) | where the skill shows up |
 
-*Source: [`plugin/lsttokens/skill/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/skill)*
+*Source: [`plugin/lsttokens/skill/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/skill)*
 
 ### KEYSTAT
 
@@ -44,7 +44,7 @@ Sample Skill	KEYSTAT:DEX
 The value is resolved as a reference, so a stat that does not exist is reported after
 loading rather than at the line itself.
 
-*Source: [`KeystatToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/skill/KeystatToken.java)*
+*Source: [`KeystatToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/skill/KeystatToken.java)*
 
 ### ACHECK
 
@@ -59,7 +59,7 @@ loading rather than at the line itself.
 Five values, and `YES` is far and away the common one — it is 242 of the 251 uses in
 shipped data.
 
-*Source: [`SkillArmorCheck.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/enumeration/SkillArmorCheck.java)*
+*Source: [`SkillArmorCheck.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/enumeration/SkillArmorCheck.java)*
 
 ### VISIBLE
 
@@ -75,7 +75,7 @@ Controls where the skill appears. Several values are aliases for the same thing:
 A `|READONLY` suffix marks the skill as not directly assignable. It is rejected with
 `EXPORT` and `CSHEET`.
 
-*Source: [`skill/VisibleToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/skill/VisibleToken.java)*
+*Source: [`skill/VisibleToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/skill/VisibleToken.java)*
 
 ### SITUATION
 

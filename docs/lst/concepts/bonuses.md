@@ -35,7 +35,7 @@ A comma-separated target list applies the bonus to each entry separately:
 BONUS:SKILL|Sample Skill,Sample Craft|2
 ```
 
-*Source: [`Bonus.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/bonus/Bonus.java)*
+*Source: [`Bonus.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/bonus/Bonus.java)*
 
 ## The value is a formula
 
@@ -82,7 +82,7 @@ if the data says `.STACK`.
 the same type exists. That asymmetry surprises people who assume the max rule is
 symmetric.
 
-*Source: [`BonusManager.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/BonusManager.java)*
+*Source: [`BonusManager.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/BonusManager.java)*
 
 ## Prerequisites on a bonus
 
@@ -107,7 +107,7 @@ Two refusals:
 - Objects marked `Ungranted` reject it. Spells are the case you will meet.
 - `PREAPPLY:` inside a `BONUS:` is rejected. That belongs to `TEMPBONUS:`.
 
-*Source: [`BonusLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/BonusLst.java)*
+*Source: [`BonusLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/BonusLst.java)*
 
 ## The ones you will actually meet
 

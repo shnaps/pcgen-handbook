@@ -77,7 +77,21 @@ def scan_into(src_dir):
 
 
 def key(t):
-    return (t["full_tag"], t["applies_to"] or "any")
+    """A unique identity for one registration.
+
+    The implementing class belongs in the key. Ten (tag, applies_to) pairs have
+    more than one registration - ADD on CDOMObject has three, one current and
+    two deprecated - so without the class the dict below keeps whichever the
+    filesystem happened to yield last. That reported ADD and DOMAIN as changed
+    every week for a fortnight while nothing upstream had moved.
+
+    The source path is the identity, not the class name: three different
+    qualifier packages each hold an EquipmentToken, and two hold a ClassToken.
+
+    A moved or renamed class now shows as a removal plus an addition rather than
+    a change, which is the honest description of it.
+    """
+    return (t["full_tag"], t["applies_to"] or "any", t["source"])
 
 
 def citing_pages(tag):

@@ -44,7 +44,7 @@ The descriptor carries a few tags of its own:
 | `MINVER` | the minimum PCGen version required |
 | `MINDEVVER` | the minimum development version required |
 
-*Source: [`campaign/installable/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/campaign/installable)*
+*Source: [`campaign/installable/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/campaign/installable)*
 
 If the version you are running is older than `MINVER`, the install is refused and
 PCGen says so. That is the usual reason a data set will not install: it was built for

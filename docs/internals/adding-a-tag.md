@@ -56,9 +56,9 @@ of those declares a `parseNonEmptyToken`. The game mode side is not so uniform: 
 The game mode side is a separate registry, not a separate base class on the same one.
 `GameModeLoader` reads `TokenStore`, which `TokenLibrary` knows nothing about.
 
-*Source: [`GameModeLstToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/GameModeLstToken.java)*
+*Source: [`GameModeLstToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/GameModeLstToken.java)*
 
-*Source: [`BonusObj.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/bonus/BonusObj.java)*
+*Source: [`BonusObj.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/bonus/BonusObj.java)*
 
 ## 2. Pick a base class
 
@@ -132,7 +132,7 @@ compile, which is the mistake to expect when moving between the two.
 preferred over a new `StringKey` token. A fact is declared in data with `FACTDEF` and
 needs no Java at all. Reach for a new key only when the value has behaviour attached.
 
-*Source: [`StringKey.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/enumeration/StringKey.java)*
+*Source: [`StringKey.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/enumeration/StringKey.java)*
 
 ## 4. Four things to get right
 
@@ -200,7 +200,7 @@ both.
 The round trip is the assertion that matters, and it is inherited. It catches an
 `unparse` that does not match the parse.
 
-*Source: [`AbstractStringTokenTestCase.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/test/plugin/lsttokens/testsupport/AbstractStringTokenTestCase.java)*
+*Source: [`AbstractStringTokenTestCase.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/test/plugin/lsttokens/testsupport/AbstractStringTokenTestCase.java)*
 
 ## 7. Check the build knows the package
 
@@ -235,7 +235,7 @@ Neither package has a behaviour test. `plugin/converter` is covered only by
 not that a plugin rewrites anything. Write the plugin when a deprecation has a mechanical
 replacement, and skip it when the fix needs a human decision.
 
-*Source: [`TokenProcessorPlugin.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/converter/event/TokenProcessorPlugin.java)*
+*Source: [`TokenProcessorPlugin.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/converter/event/TokenProcessorPlugin.java)*
 
 ## Two-level tags
 

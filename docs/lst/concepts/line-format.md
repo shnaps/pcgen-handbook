@@ -72,7 +72,7 @@ Sample Feat	TYPE:General
 The comment character is only recognised at the **start of a line**. A `#` in the
 middle of a line is an ordinary character, not the start of a comment.
 
-*Source: [`LstFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstFileLoader.java) — `LINE_COMMENT_CHAR`*
+*Source: [`LstFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstFileLoader.java) — `LINE_COMMENT_CHAR`*
 
 Commenting out a line is how you disable data without deleting it. PCC files ship with
 most of their file references commented out, and you enable one by removing the `#`.
@@ -85,7 +85,7 @@ Ignored. Use them to group related lines.
 
 Both Windows (`\r\n`) and Unix (`\n`) line endings work. PCGen accepts either.
 
-*Source: [`LstFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstFileLoader.java) — `LINE_SEPARATOR_REGEXP`*
+*Source: [`LstFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstFileLoader.java) — `LINE_SEPARATOR_REGEXP`*
 
 ## Which tags are legal where
 

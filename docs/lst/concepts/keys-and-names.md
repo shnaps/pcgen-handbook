@@ -53,7 +53,7 @@ By default PCGen allows the later definition to override the earlier, and settle
 whose `SOURCEDATE` is newer survives, and the other is forgotten. A new
 object with no date, or with an older one, loses. Nothing is reported either way.
 
-*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
+*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
 
 Turning that preference off makes the clash an error naming both files instead.
 
@@ -83,7 +83,7 @@ If the object has a `KEY:`, that is what goes before `.MOD`. Writing the display
 there finds nothing, and a `.MOD` that finds nothing reports an error rather than
 applying.
 
-*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
+*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
 
 Abilities need their category as well:
 
@@ -118,7 +118,7 @@ Two substitutions are understood:
 `[BASE]` is the common one. It turns a family of parenthesised variants into a clean
 printed name.
 
-*Source: [`OutputNameFormatting.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/analysis/OutputNameFormatting.java)*
+*Source: [`OutputNameFormatting.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/analysis/OutputNameFormatting.java)*
 
 Equipment modifiers are the exception. `OUTPUTNAME` on one is accepted with a warning
 and rewritten to `NAMEOPT:TEXT=`,

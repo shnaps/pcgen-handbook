@@ -8,7 +8,7 @@ Where things are in the PCGen repository, for someone landing in it for the firs
 time.
 
 Paths are from the repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa)
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c)
 (version `6.09.08.RC1`).
 
 ## Top level

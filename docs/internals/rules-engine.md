@@ -12,7 +12,7 @@ change, and two formula systems running side by side. Around them sits a loop th
 repeats until the answer stops moving.
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## Two formula systems, both live
 
@@ -25,7 +25,7 @@ Which one runs is decided **when the tag is parsed**, not at runtime. `DEFINE:` 
 `JEPFormula`; `MODIFY:` builds a modifier registered with a `SolverManager`. There is no
 dispatcher choosing between them later.
 
-*Source: [`FormulaFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/base/FormulaFactory.java)*
+*Source: [`FormulaFactory.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/base/FormulaFactory.java)*
 
 Every character carries both. See [the formula system](formula-system.md) for the newer
 one and [variables and formulas](../lst/concepts/variables-and-formulas.md) for the data
@@ -41,7 +41,7 @@ whole bonus map:
 public void calcActiveBonuses()
 ```
 
-*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PlayerCharacter.java)*
+*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/PlayerCharacter.java)*
 
 Most callers invoke it explicitly. Only race changes trigger it through a listener, and
 `CalcBonusFacet` carries a comment saying the other paths were left explicit on purpose.
@@ -77,7 +77,7 @@ Inside each pass, `BonusManager.buildActiveBonusMap` runs in two stages:
    another bonus. `processBonus` resolves those dependencies first, guarding against
    cycles with a set of bonuses already seen.
 
-*Source: [`BonusManager.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/BonusManager.java)*
+*Source: [`BonusManager.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/BonusManager.java)*
 
 The result is a map keyed by strings that encode the whole target:
 
@@ -104,7 +104,7 @@ deactivation event and nothing is logged. The number changes and nothing says wh
 
 `AppliedBonusFacet` tracks which bonuses currently apply, keyed by character.
 
-*Source: [`AppliedBonusFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/AppliedBonusFacet.java)*
+*Source: [`AppliedBonusFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/AppliedBonusFacet.java)*
 
 ## Two variable stores
 
@@ -119,7 +119,7 @@ They are not the same store, and one does not see the other. That is the single 
 useful thing to know when a `MODIFY:` value and a `DEFINE:` value of the same name
 disagree.
 
-*Source: [`SolverManagerFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/SolverManagerFacet.java)*
+*Source: [`SolverManagerFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/SolverManagerFacet.java)*
 
 The newer store is push-based: adding a modifier processes the affected variable
 immediately. The older one is rebuild-and-poll.
@@ -166,7 +166,7 @@ Two things read it, and neither is on by default. The skills info panel prints i
 when the "show skill modifier breakdown" preference is set, which defaults to false. The
 sheet route is the `SKILL.x.EXPLANATION` output token.
 
-*Source: [`SkillModifier.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/analysis/SkillModifier.java), [`SkillCostDisplay.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/display/SkillCostDisplay.java)*
+*Source: [`SkillModifier.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/analysis/SkillModifier.java), [`SkillCostDisplay.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/display/SkillCostDisplay.java)*
 
 Every one of those bonus lookups reads the map built above. If a number is wrong, it is
 wrong either in the ranks or in one key of that map, and the map is inspectable.
@@ -245,7 +245,7 @@ Fix stacking in one and equipment totals stay wrong.
 
 Add a bonus by a path that skips that clone and ten levels of it count once.
 
-*Source: [`BonusManager.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/BonusManager.java), [`Bonus.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/bonus/Bonus.java), [`Equipment.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/Equipment.java), [`CDOMObject.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/base/CDOMObject.java)*
+*Source: [`BonusManager.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/BonusManager.java), [`Bonus.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/bonus/Bonus.java), [`Equipment.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/Equipment.java), [`CDOMObject.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/base/CDOMObject.java)*
 
 ## Where to put a breakpoint
 

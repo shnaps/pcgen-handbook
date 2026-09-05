@@ -235,7 +235,13 @@ def main():
 
     for t in tokens:
         t["full_tag"] = (t["parent"] + ":" + t["tag"]) if t["parent"] else t["tag"]
-    tokens.sort(key=lambda t: (t["family"], t["full_tag"], t["applies_to"] or ""))
+    # The source path is part of the sort key because (family, tag, applies_to)
+    # is not unique - ADD on CDOMObject has three registrations, one current and
+    # two deprecated. Nor is the class name: three qualifier packages each hold
+    # an EquipmentToken. Without a unique key the order of equal entries follows
+    # the filesystem, so tags.json differs between machines and the drift check
+    # cries wolf. It did, every week for a fortnight.
+    tokens.sort(key=lambda t: (t["family"], t["full_tag"], t["applies_to"] or "", t["source"]))
 
     sha = (ROOT / "PCGEN-SHA").read_text(encoding="utf-8").strip()
     ver = re.search(

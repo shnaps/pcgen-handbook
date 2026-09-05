@@ -12,7 +12,7 @@ This handbook is written from three sources. None of its text is copied from the
 here was read from its source code.
 
 - Source: [github.com/PCGen/pcgen](https://github.com/PCGen/pcgen)
-- Pinned commit for this build: [`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa)
+- Pinned commit for this build: [`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c)
 - Version: `6.09.08.RC1`
 
 PCGen's program code is under LGPL-2.1. The game data shipped with it is under the

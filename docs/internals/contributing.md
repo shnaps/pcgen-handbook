@@ -9,7 +9,7 @@ by the PCGen project, so treat this as a reading of the repository rather than a
 policy.
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## There is no CONTRIBUTING file
 
@@ -77,7 +77,7 @@ Checkstyle's rules are short enough to list. These are the ones that reject code
 | Array style | `String[] args`, not `String args[]` |
 | End of file | newline required |
 
-*Source: [`checkstyle.xml`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/standards/checkstyle.xml)*
+*Source: [`checkstyle.xml`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/standards/checkstyle.xml)*
 
 Javadoc is configured but not required. Missing parameter and return tags are allowed.
 
@@ -112,7 +112,7 @@ Checkstyle and PMD are detached with `sourceSets = []`. PMD and SpotBugs both se
 `ignoreFailures`. CI runs `build`, `testCoverage`, `itest`, `datatest` and `slowtest`,
 and never `allReports`.
 
-*Source: [`reporting.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/gradle/reporting.gradle)*
+*Source: [`reporting.gradle`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/gradle/reporting.gradle)*
 
 So a change breaking every style rule in the list above still goes green. Run the
 checks yourself:
@@ -132,7 +132,7 @@ certificate of origin. What gates a change is a maintainer reading it.
 A new LST tag needs a class and a test. [Adding a tag](adding-a-tag.md) walks through
 the class. The test extends a shared base:
 
-*Source: [`AbstractTokenTestCase.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/test/plugin/lsttokens/testsupport/AbstractTokenTestCase.java)*
+*Source: [`AbstractTokenTestCase.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/test/plugin/lsttokens/testsupport/AbstractTokenTestCase.java)*
 
 It requires seven methods:
 

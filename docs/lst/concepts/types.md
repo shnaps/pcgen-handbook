@@ -22,7 +22,7 @@ is now a `Weapon`, a `Melee` and a `Simple`, and matches any of them.
 
 Types are stored as a list on the object under `ListKey.TYPE`.
 
-*Source: [`TypeLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/TypeLst.java)*
+*Source: [`TypeLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/TypeLst.java)*
 
 ## Matching a type
 
@@ -45,12 +45,12 @@ TYPE=Weapon.Melee
 That matches objects carrying `Weapon` **and** `Melee`. Every listed type must be
 present. The check runs one type at a time and stops at the first miss.
 
-*Source: [`TokenUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/persistence/TokenUtilities.java)*
+*Source: [`TokenUtilities.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/rules/persistence/TokenUtilities.java)*
 
 Matching is case-insensitive. The value is upper-cased before lookup and types are held
 in a case-insensitive map, so `TYPE=weapon` finds `TYPE:Weapon`.
 
-*Source: [`PObject.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PObject.java)*
+*Source: [`PObject.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/PObject.java)*
 
 ## Changing a type that already exists
 
@@ -88,7 +88,7 @@ type in a negating primitive. That page owns the chooser syntax.
 
 If a negated type silently does nothing, check which of the two you are writing.
 
-*Source: [`ChoiceSetLoadUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/persistence/ChoiceSetLoadUtilities.java)*
+*Source: [`ChoiceSetLoadUtilities.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/rules/persistence/ChoiceSetLoadUtilities.java)*
 
 ## `TYPE:` in a `.pcc` is a different tag
 
@@ -110,7 +110,7 @@ Leaving out the second or third position resets it rather than leaving it alone.
 Two different token classes register the name `TYPE`, one for campaigns and one for
 everything else. Which one runs depends on the file being loaded.
 
-*Source: [`campaign/TypeToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/campaign/TypeToken.java)*
+*Source: [`campaign/TypeToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/campaign/TypeToken.java)*
 
 ## `GROUP:` is a second label list
 
@@ -146,7 +146,7 @@ sites read the flag: that loader check, the race sort in `DataSet`, `PreRaceTest
 Shipped data sets `GROUP:` **22 times**, with two values: `RaceType_Humanoid` 12 times
 and `UNSELECTED` 10. Nothing in the shipped data reads `RaceType_Humanoid` back.
 
-*Source: [`GroupLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/GroupLst.java), [`CDOMObject.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/base/CDOMObject.java), [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/SourceFileLoader.java)*
+*Source: [`GroupLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/GroupLst.java), [`CDOMObject.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/base/CDOMObject.java), [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/SourceFileLoader.java)*
 
 ## What breaks
 

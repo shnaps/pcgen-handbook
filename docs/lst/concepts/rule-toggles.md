@@ -33,7 +33,7 @@ NAME:SampleLoadPenalty	VAR:SYS_SAMPLELOAD	DEFAULT:Yes	DESC:Apply the sample load
 | `EXCLUDE` | another toggle this one cannot be on with |
 | `DESC` | the label the reader sees |
 
-*Source: [`plugin/lsttokens/rules/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/rules)*
+*Source: [`plugin/lsttokens/rules/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/rules)*
 
 ## VAR and PARM are the same mechanism
 
@@ -77,7 +77,7 @@ passes when at least that many of the listed toggles are on.
     `PRERULE:1,SampleLoadPenalty` does not work. The key is the value of `VAR:` or
     `PARM:`, which is often nothing like the name.
 
-*Source: [`PreRuleTester.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/test/PreRuleTester.java)*
+*Source: [`PreRuleTester.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/pretokens/test/PreRuleTester.java)*
 
 It needs no character, so it can gate anything — an ability, a bonus, a whole object.
 

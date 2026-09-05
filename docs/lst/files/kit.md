@@ -26,7 +26,7 @@ ABILITY:CATEGORY=FEAT|Sample Feat
 next `STARTPACK`. That is the part to get right, because indentation and blank lines mean
 nothing here.
 
-*Source: [`KitLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/KitLoader.java)*
+*Source: [`KitLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/KitLoader.java)*
 
 ## The header line
 

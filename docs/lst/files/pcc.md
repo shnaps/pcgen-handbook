@@ -49,7 +49,7 @@ here.
 `TYPE:Homebrew.Testburg.Rules` produces three nested levels in the source tree. A
 fourth is rejected, not ignored.
 
-*Source: [`campaign/TypeToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/campaign/TypeToken.java)*
+*Source: [`campaign/TypeToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/campaign/TypeToken.java)*
 
 !!! warning "SHOWINMENU matters more than it looks"
     A campaign without `SHOWINMENU:YES` can still be loaded by another PCC, but it will
@@ -93,7 +93,7 @@ public String getTokenName() { return "SKILL"; }
 protected ListKey<CampaignSourceEntry> getListKey() { return ListKey.FILE_SKILL; }
 ```
 
-*Source: [`campaign/SkillToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/campaign/SkillToken.java)*
+*Source: [`campaign/SkillToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/campaign/SkillToken.java)*
 
 So a data file is loaded as skills because the PCC said `SKILL:`, not because of what
 is inside it or what it is called. Name a races file with `SKILL:` and PCGen will try

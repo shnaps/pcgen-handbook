@@ -1784,3 +1784,46 @@ containing a backslash goes through the file-writing tool from now on, not a her
 
 **Every published figure now re-derives**, and `BACKLOG.md` is empty with no asterisk on
 it.
+
+
+## 2026-09-05  the drift check was crying wolf
+
+- upstream: repinned from `d262f8b44952` to `d4ade6d509f4206b1c1789848752e633ec3c134c`,
+  eleven commits on. No page rewritten. 70 pages.
+- Two open drift issues, 2026-08-24 and 2026-08-31, both reporting the same "0 added, 0
+  removed, 2 changed". Nobody had acted on either.
+
+**Both were false, and the check was the thing at fault.** `ingest.py` keyed a
+registration on `(tag, applies_to)` and built a dict from the list, so the last entry won.
+Ten of those pairs have more than one registration: `ADD` on `CDOMObject` has three, one
+current and two deprecated. Which one won depended on the order `rglob` returned files,
+which differs between this machine and the CI runner. So the same two tags were reported
+changed every week while nothing upstream had moved.
+
+That is the worst failure a staleness mechanism can have. `DECISIONS.md` says the point of
+the weekly check is that PCGen's docs went stale and nobody noticed. A check that reports
+the same phantom every Monday trains its reader to close the issue unread, and then the
+real drift arrives and gets closed with it.
+
+**The fix took two goes.** Adding the class name to the key left two collisions: three
+qualifier packages each hold an `EquipmentToken`, and two hold a `ClassToken`. The source
+path is the identity. With it the key is unique across all 873 registrations, and
+`scan_tokens.py` sorts on it too, so `tags.json` no longer depends on filesystem order.
+
+**The real drift was smaller than the noise.** Eleven commits, of which seven are
+dependency bumps. Zero tags added, removed or changed. The token surface is identical, so
+the repin was mechanical: 1,199 SHA references across 60 files, the three scans, and both
+generated indexes. `log.md` keeps its 39 old references, because they record what was
+pinned when each entry was written.
+
+**Everything held at the new pin.** All 240 citations still resolve, and all 27 measured
+figures still re-derive — the first real exercise of `check_counts.py` against a source
+that moved, and the reason the repin took minutes rather than an afternoon.
+
+**One published claim was worth checking by hand.** The perf commit added sixteen lines to
+`PObject.java`, which is where `cdom-model.md` says `hashCode` is commented out. It is an
+`isType(Type)` fast path. The comment and the `COD#E-1895` note are still there, so the
+section stands. `Loadable` gained the matching default method, and
+`AbstractReferenceManufacturer`'s change is an interning loop inside
+`resolveGroupReferences` that leaves every claim about its `KeyMap` and duplicate
+shelving true.

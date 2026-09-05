@@ -18,7 +18,7 @@ normal start, and somewhere else if you launched from a script.
 Cannot find it? PCGen keeps the same messages in memory and shows them in its own log
 window. That is the reliable way to read them.
 
-*Source: [`LoggingRecorder.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/LoggingRecorder.java)*
+*Source: [`LoggingRecorder.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/LoggingRecorder.java)*
 
 ## What the levels mean
 
@@ -40,7 +40,7 @@ you changing anything.
 Deprecation notices arrive as warnings, when the preference for them is on. They mean
 your data works today and will not forever — see [what changed](../appendix/whats-changed.md).
 
-*Source: [`Logging.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/util/Logging.java)*
+*Source: [`Logging.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/util/Logging.java)*
 
 ## Turning up the detail
 
@@ -84,7 +84,7 @@ the loader writes it, so it can be searched for.
 | Reference not found | names a file you may not have edited | name mismatch, including a trailing space |
 | Worked yesterday, fails now | varies | you edited a file PCGen ships and an update replaced it |
 
-*Source: [`LstUtils.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstUtils.java)*
+*Source: [`LstUtils.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstUtils.java)*
 
 ## Lines that are skipped, not failed
 
@@ -101,7 +101,7 @@ has to exist before the line that changes it runs. See
 [sources](../lst/concepts/sources.md) for the order files load in, and
 [keys and names](../lst/concepts/keys-and-names.md) for which duplicate survives.
 
-*Source: [`LanguageBundle.properties`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/resources/pcgen/lang/LanguageBundle.properties)*
+*Source: [`LanguageBundle.properties`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/resources/pcgen/lang/LanguageBundle.properties)*
 
 ## Narrowing it down
 

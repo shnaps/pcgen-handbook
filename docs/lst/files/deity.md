@@ -25,7 +25,7 @@ Sample Deity	ALIGN:LG	DOMAINS:Sample Domain
 | `DOMAINS` | domain list | which domains followers may take |
 | `DEITYWEAP` | weapon list | the favoured weapon |
 
-*Source: [`plugin/lsttokens/deity/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/deity)*
+*Source: [`plugin/lsttokens/deity/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/deity)*
 
 `DOMAINS` and `DEITYWEAP` are the two you will use most, at 4,587 and 1,107 uses
 in shipped data.

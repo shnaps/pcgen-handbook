@@ -21,7 +21,7 @@ Three directories, in this order, each walked to any depth:
 | 2 | `vendordata/` | `pcgen.files.vendordataPath` |
 | 3 | `homebrewdata/` | `pcgen.files.homebrewdataPath` |
 
-*Source: [`CampaignFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/CampaignFileLoader.java)*
+*Source: [`CampaignFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/CampaignFileLoader.java)*
 
 Every `*.pcc` under any of them is parsed at startup. Shipped files sit two to six
 directories deep, so nesting your own is fine.
@@ -93,7 +93,7 @@ TYPE:Sample Publisher.Sample Book.Sample Setting
 Those become producer, format and setting, and they are the folders in the tree.
 `BOOKTYPE` and `STATUS` are columns beside it, not grouping. Names sort alphabetically.
 
-*Source: [`AdvancedSourceSelectionPanel.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/sources/AdvancedSourceSelectionPanel.java)*
+*Source: [`AdvancedSourceSelectionPanel.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/sources/AdvancedSourceSelectionPanel.java)*
 
 ### Quick picks
 
@@ -105,7 +105,7 @@ The one-click list above the tree comes from three places:
 | a game mode's default set | the game mode's own data |
 | a saved selection | the reader, stored in their settings |
 
-*Source: [`FacadeFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/FacadeFactory.java)*
+*Source: [`FacadeFactory.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/FacadeFactory.java)*
 
 Twelve shipped files set `SHOWINMENU`, nine `YES` and three `NO`. It marks a source meant to be loaded on its own.
 
@@ -140,7 +140,7 @@ class → template → equipment modifier → equipment → companion mod →
 kit → bioset
 ```
 
-*Source: [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/SourceFileLoader.java)*
+*Source: [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/SourceFileLoader.java)*
 
 A `.MOD` is applied by the loader that owns the file. A race `.MOD` has to sit in a file
 the `.pcc` names with `RACE:`. Putting it in a skill file does nothing. See
@@ -170,7 +170,7 @@ alone, unless its own PCC keeps it out of the list.
 **A missing include is silent.** The failure is logged and skipped. Nothing tells the
 reader that part of the source did not arrive.
 
-*Source: [`CampaignLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/CampaignLoader.java)*
+*Source: [`CampaignLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/CampaignLoader.java)*
 
 ### PRECAMPAIGN requires one
 
@@ -206,7 +206,7 @@ FORWARDREF:DOMAIN|Sample Domain,Sample Order Domain
 That is how a source refers to content in a book the reader may not own, without
 producing errors for everyone who does not.
 
-*Source: [`LoadValidator.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/context/LoadValidator.java)*
+*Source: [`LoadValidator.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/rules/context/LoadValidator.java)*
 
 `ALLOWDUPES` accepts exactly `SPELL` or `LANGUAGE`. Anything else fails to parse.
 
@@ -218,7 +218,7 @@ Only one survives, and which one is decided by the `SOURCEDATE` your PCC sets. T
 reader is not told that it happened. [Keys and names](keys-and-names.md) gives the
 rule in full.
 
-*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
+*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
 
 Setting `SOURCEDATE` in your PCC is therefore not decoration. It decides who wins.
 

@@ -9,7 +9,7 @@ Read this before your first change. It is the shortest path to guessing right ab
 you have not read yet.
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## The problem the design answers
 
@@ -145,7 +145,7 @@ the one extension point with no template test to copy.
 the class only makes the tag parse. Something in Java has to read the key back. See
 [the rules engine](rules-engine.md#what-bites-when-you-change-a-calculation).
 
-*Source: [`plugins.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/gradle/plugins.gradle)*
+*Source: [`plugins.gradle`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/gradle/plugins.gradle)*
 
 ## Not an extension point
 

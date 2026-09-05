@@ -9,7 +9,7 @@ different thing: a set of choices, plus everything those choices imply. PCGen ho
 in 234 facet classes, and almost none of it in the character object.
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## PlayerCharacter holds a number
 
@@ -20,7 +20,7 @@ not. It holds an identifier and about 107 facet references:
 private final RaceFacet raceFacet = FacetLibrary.getFacet(RaceFacet.class);
 ```
 
-*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PlayerCharacter.java)*
+*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/PlayerCharacter.java)*
 
 Its methods are mostly thin. `setRace` calls a facet and then recalculates bonuses.
 
@@ -30,7 +30,7 @@ The identifier is a `CharID`:
 public final class CharID implements TypeSafeConstant, PCGenIdentifier
 ```
 
-*Source: [`CharID.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/enumeration/CharID.java)*
+*Source: [`CharID.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/enumeration/CharID.java)*
 
 ## Where the state actually is
 
@@ -40,7 +40,7 @@ One static map, at the root of the facet hierarchy:
 private static final DoubleKeyMap<PCGenIdentifier, Class<?>, Object> CACHE
 ```
 
-*Source: [`AbstractStorageFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/base/AbstractStorageFacet.java)*
+*Source: [`AbstractStorageFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/base/AbstractStorageFacet.java)*
 
 Keyed by character and by facet class. So a facet is a singleton holding no fields of
 its own. Asking it for a value means passing the `CharID` of the character you mean:
@@ -196,7 +196,7 @@ Measured at the pinned commit:
 
 Read `FacetInitialization` to see the dependency graph. Write new wiring in `init()`.
 
-*Source: [`AgeSetFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/analysis/AgeSetFacet.java)*
+*Source: [`AgeSetFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/analysis/AgeSetFacet.java)*
 
 ## Getting a facet
 
@@ -208,7 +208,7 @@ The library looks in its own map first, then asks Spring for a bean. Only if Spr
 no bean does it construct the class by reflection, and it logs an error when it does.
 Spring wiring is the intended path.
 
-*Source: [`FacetLibrary.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/FacetLibrary.java)*
+*Source: [`FacetLibrary.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/FacetLibrary.java)*
 
 ## How facets are wired together
 
@@ -220,7 +220,7 @@ raceFacet.addDataFacetChangeListener(bioSetTrackingFacet);
 raceFacet.addDataFacetChangeListener(charObjectFacet);
 ```
 
-*Source: [`FacetInitialization.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/FacetInitialization.java)*
+*Source: [`FacetInitialization.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/FacetInitialization.java)*
 
 Forty-two listener registrations are made there by hand. Reading that method is the
 fastest way to see the dependency graph. It is no longer where most wiring lives. See
@@ -245,7 +245,7 @@ the ordering rules of the character model stated in code:
 A new listener at the default priority runs before all four. If it depends on bonuses
 being active, it needs a number above 1000.
 
-*Source: [`AbstractDataFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/base/AbstractDataFacet.java)*
+*Source: [`AbstractDataFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/base/AbstractDataFacet.java)*
 
 The event contract is two methods and two constants:
 
@@ -257,7 +257,7 @@ public interface DataFacetChangeListener<IDT, T>
 }
 ```
 
-*Source: [`DataFacetChangeListener.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/event/DataFacetChangeListener.java)*
+*Source: [`DataFacetChangeListener.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/event/DataFacetChangeListener.java)*
 
 ## A worked trace: setting a race
 
@@ -291,7 +291,7 @@ design. Gathering every object into one place lets a downstream facet listen to 
 single source. Without it, each would need to know every kind of thing that grants
 something.
 
-*Source: [`CDOMObjectConsolidationFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/CDOMObjectConsolidationFacet.java)*
+*Source: [`CDOMObjectConsolidationFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/CDOMObjectConsolidationFacet.java)*
 
 There is no design document, no `package-info.java` and no note in `AGENTS.md`
 explaining the architecture as a whole. The class comments are what exists.
@@ -301,7 +301,7 @@ explaining the architecture as a whole. The class comments are what exists.
 `CharacterDisplay` is a read-only view over the same facet cache. It holds a `CharID`,
 reads 71 facets, and exposes queries with no setters.
 
-*Source: [`CharacterDisplay.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/display/CharacterDisplay.java)*
+*Source: [`CharacterDisplay.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/display/CharacterDisplay.java)*
 
 Output tokens, term evaluators and prerequisite tests go through
 `PlayerCharacter.getDisplay()` rather than the character itself. Anything that only
@@ -354,7 +354,7 @@ not run during an import.
 
 The `cdom/facet/input/` package exists for this reason. Prefer it.
 
-*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PlayerCharacter.java), [`SpringHelper.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/helper/SpringHelper.java), [`AbstractStorageFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/base/AbstractStorageFacet.java), [`AbstractListFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/base/AbstractListFacet.java), [`RaceInputFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/input/RaceInputFacet.java)*
+*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/PlayerCharacter.java), [`SpringHelper.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/helper/SpringHelper.java), [`AbstractStorageFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/base/AbstractStorageFacet.java), [`AbstractListFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/base/AbstractListFacet.java), [`RaceInputFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/input/RaceInputFacet.java)*
 
 ### Where to look, by symptom
 

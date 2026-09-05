@@ -32,7 +32,7 @@ DESC:Grants a %1 bonus to Sample Athletics.|2
 DESC:Grants a bonus while wet.|PREVAR:GTEQ,Wet,1
 ```
 
-*Source: [`DescLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/DescLst.java)*
+*Source: [`DescLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/DescLst.java)*
 
 ### The placeholder grammar
 
@@ -67,7 +67,7 @@ same grammar.
 **A bare `%` is caught.** A `%` with no digits after it renders as a literal `%` and logs
 a warning telling you to escape it as `%%`.
 
-*Source: [`Description.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/Description.java)*
+*Source: [`Description.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/Description.java)*
 
 ### Clearing
 
@@ -108,7 +108,7 @@ already works.
 
 Several aspects may share a name. They accumulate in a list under that key.
 
-*Source: [`AspectToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/ability/AspectToken.java)*
+*Source: [`AspectToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/ability/AspectToken.java)*
 
 ## BENEFIT and SAB
 
@@ -123,7 +123,7 @@ an `Ungranted` object type.
 Neither may consist of only a prerequisite. `SAB:PRELEVEL:MIN=5` fails with `Cannot have
 only PRExxx subtoken`.
 
-*Source: [`BenefitFormatting.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/BenefitFormatting.java)*
+*Source: [`BenefitFormatting.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/BenefitFormatting.java)*
 
 ## Which one to write
 

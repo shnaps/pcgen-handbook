@@ -26,7 +26,7 @@ is the functions. It sets two variables of its own, `TRUE` and `FALSE`, and
 belongs to `EvaluatorFactory` and the result cache to `VariableProcessor`; `PJEP` only
 reports whether a result may be cached.
 
-*Source: [`PJEP.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/util/PJEP.java)*
+*Source: [`PJEP.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/util/PJEP.java)*
 
 ### The fourteen functions
 
@@ -80,9 +80,9 @@ That is the single most useful fact on this page for a data author. The vocabula
 closed, a misspelt term never announces itself, and the `BONUS:VAR` applies a wrong number
 rather than failing.
 
-*Source: [`VariableProcessor.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/VariableProcessor.java)*
+*Source: [`VariableProcessor.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/VariableProcessor.java)*
 
-*Source: [`EvaluatorFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/term/EvaluatorFactory.java)*
+*Source: [`EvaluatorFactory.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/term/EvaluatorFactory.java)*
 
 The full lists are in the two enums. They are not reproduced here — 95 rows of name and
 description is transcription, and the enums stay correct on their own.
@@ -229,7 +229,7 @@ order. Priority is a single `long`, composed of two parts:
 return ((long) getUserPriority() << 32) + toDo.getInherentPriority();
 ```
 
-*Source: [`CalculationModifier.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/calculation/CalculationModifier.java)*
+*Source: [`CalculationModifier.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/calculation/CalculationModifier.java)*
 
 The consequence is worth stating plainly:
 
@@ -295,7 +295,7 @@ identifier string and casts it unchecked. The one guard, `SupplierValueStore
 that accepts the argument classes. Register one ahead of an existing action that also
 matches and it shadows the old one, changing the result format without an error.
 
-*Source: [`FormulaFunction.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/PCGen-Formula/code/src/java/pcgen/base/formula/base/FormulaFunction.java), [`VariableID.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/PCGen-Formula/code/src/java/pcgen/base/formula/base/VariableID.java), [`SimpleSolverManager.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/PCGen-Formula/code/src/java/pcgen/base/solver/SimpleSolverManager.java), [`SimpleOperatorLibrary.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/PCGen-Formula/code/src/java/pcgen/base/formula/inst/SimpleOperatorLibrary.java), [`FormatManager.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/PCGen-base/code/src/java/pcgen/base/util/FormatManager.java)*
+*Source: [`FormulaFunction.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/PCGen-Formula/code/src/java/pcgen/base/formula/base/FormulaFunction.java), [`VariableID.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/PCGen-Formula/code/src/java/pcgen/base/formula/base/VariableID.java), [`SimpleSolverManager.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/PCGen-Formula/code/src/java/pcgen/base/solver/SimpleSolverManager.java), [`SimpleOperatorLibrary.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/PCGen-Formula/code/src/java/pcgen/base/formula/inst/SimpleOperatorLibrary.java), [`FormatManager.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/PCGen-base/code/src/java/pcgen/base/util/FormatManager.java)*
 
 ## Related
 

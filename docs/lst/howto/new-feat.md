@@ -62,7 +62,7 @@ resolves to nothing and the bonus quietly does nothing.
 MULT:YES Ability … must have choices`. When the point is to stack rather than to choose,
 write `CHOOSE:NOCHOICE`, which is what PCGen's own generated feat template does.
 
-*Source: [`MultToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/ability/MultToken.java), [`StackToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/ability/StackToken.java)*
+*Source: [`MultToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/ability/MultToken.java), [`StackToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/ability/StackToken.java)*
 
 ## Narrowing the choice
 
@@ -93,7 +93,7 @@ Sample Focus, Greater	CATEGORY:FEAT	TYPE:General	PREABILITY:1,CATEGORY=FEAT,Samp
 
 The key is written bare in the reference. There is no prefix.
 
-*Source: [`KeyLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/KeyLst.java)*
+*Source: [`KeyLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/KeyLst.java)*
 
 !!! tip "Setting a key is normal practice, not an edge case"
     `KEY` appears **74,678 times across 1,299 files** in PCGen's shipped data.

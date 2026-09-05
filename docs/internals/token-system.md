@@ -22,7 +22,7 @@ public interface CDOMToken<T> extends LstToken
 }
 ```
 
-*Source: [`CDOMToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/persistence/token/CDOMToken.java)*
+*Source: [`CDOMToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/rules/persistence/token/CDOMToken.java)*
 
 Three things come from that:
 
@@ -128,7 +128,7 @@ rule this handbook states repeatedly:
 
 So "which tags are legal here" is answered by Java's type hierarchy, not by a list.
 
-*Source: [`TokenSupport.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/persistence/TokenSupport.java)*
+*Source: [`TokenSupport.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/rules/persistence/TokenSupport.java)*
 
 ## Work that happens after loading
 
@@ -154,7 +154,7 @@ Both of those declare `getPriority()`, and each set runs in that order among its
 `BONUS` implements both `CDOMPrimaryToken` and `DeferredToken` — it parses at the line
 and validates once everything exists.
 
-*Source: [`DeferredToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/persistence/token/DeferredToken.java)*
+*Source: [`DeferredToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/rules/persistence/token/DeferredToken.java)*
 
 ## Old syntax
 

@@ -8,7 +8,7 @@ What happens between launching PCGen and the main window appearing. The data loa
 that follows has [its own page](load-pipeline.md) — this one stops where that begins.
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## Overview
 
@@ -32,7 +32,7 @@ flowchart TD
 `main`. Before anything else it installs an uncaught exception handler and starts a
 deadlock detector that watches for the event thread wedging against the logger.
 
-*Source: [`Main.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/Main.java)*
+*Source: [`Main.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/Main.java)*
 
 ## Command line arguments
 
@@ -52,7 +52,7 @@ Every option PCGen accepts is declared in one parser.
 | `-o`, `--outputfile` | where the export goes |
 | `--name-generator` | open the random name dialog and nothing else |
 
-*Source: [`CommandLineArguments.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/CommandLineArguments.java)*
+*Source: [`CommandLineArguments.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/CommandLineArguments.java)*
 
 There is no option to check a data set. `--exportsheet` needs a character, so it cannot
 stand in for one. Use `datatest` instead, described in [testing](testing.md).
@@ -77,7 +77,7 @@ configured.
 each level, and each `app` subdirectory, for one that holds both `data/` and `system/`.
 If none matches, it falls back to the working directory.
 
-*Source: [`ConfigurationSettings.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/ConfigurationSettings.java)*
+*Source: [`ConfigurationSettings.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/ConfigurationSettings.java)*
 
 That search is why running from a checkout needs no configuration, and why a jar copied
 somewhere else does not start.
@@ -137,7 +137,7 @@ Four classes in the main source extend `PropertyContext`: `PCGenSettings`,
 calls the `initProperty` family from 44 places, and names `PCGenSettings` 222 times
 against `ConfigurationSettings`' 115.
 
-*Source: [`PropertyContext.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/PropertyContext.java)*
+*Source: [`PropertyContext.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/PropertyContext.java)*
 
 ## The three bootstrap tasks
 
@@ -154,7 +154,7 @@ Plugins come first because nothing can be parsed before the tokens exist. Game m
 come next because a campaign declares which mode it belongs to. Campaign discovery
 comes last.
 
-*Source: [`PCGenTaskExecutor.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/PCGenTaskExecutor.java)*
+*Source: [`PCGenTaskExecutor.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/PCGenTaskExecutor.java)*
 
 Task 1 is the mechanism described in [plugin loading](plugin-loading.md). Task 3 is
 step 1 of the [load pipeline](load-pipeline.md).
@@ -165,7 +165,7 @@ step 1 of the [load pipeline](load-pipeline.md).
 holding **both** `statsandchecks.lst` and `miscinfo.lst`. Each surviving directory is
 read by a series of loaders and becomes one `GameMode` object.
 
-*Source: [`GameModeFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/GameModeFileLoader.java)*
+*Source: [`GameModeFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/GameModeFileLoader.java)*
 
 A game mode directory missing either file is skipped with no message. That is the first
 thing to check when a new mode does not appear.
@@ -192,7 +192,7 @@ the rest:
 - `-c` given: load that character.
 - Otherwise: show the tip of the day, then the source selection dialog.
 
-*Source: [`PCGenFrame.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/PCGenFrame.java)*
+*Source: [`PCGenFrame.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/PCGenFrame.java)*
 
 Choosing sources in that dialog is what constructs a `SourceFileLoader`. Everything in
 the [load pipeline](load-pipeline.md) happens after the window is already up. That is
@@ -204,7 +204,7 @@ why load errors arrive in a dialog rather than on the console.
 `logging.properties` in the working directory first, then up the tree from `java.home`,
 and reads whatever it finds.
 
-*Source: [`Logging.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/util/Logging.java)*
+*Source: [`Logging.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/util/Logging.java)*
 
 To see more, pass `-v`. That sets the level to `FINER` for the whole run.
 
@@ -230,7 +230,7 @@ when needed. Each is wrapped so a failure in one cannot stop the others.
 Exit itself goes through `GracefulExit`, which runs registered interceptors first. Any
 interceptor may veto, which is how an unsaved character prompts before closing.
 
-*Source: [`GracefulExit.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/util/GracefulExit.java)*
+*Source: [`GracefulExit.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/util/GracefulExit.java)*
 
 `System.exit` is banned across the code base for this reason. A Checkstyle rule
 enforces it. See [contributing](contributing.md).

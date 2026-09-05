@@ -21,7 +21,7 @@ Declare the variable at zero. Supply the value with a separate bonus.
 **37,076 of those 37,178 uses — 99.7% — are exactly this shape.** Treat any other form
 as something to read, not something to write.
 
-*Source: [`DefineLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/DefineLst.java)*
+*Source: [`DefineLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/DefineLst.java)*
 
 ## Declare, then bonus
 
@@ -50,7 +50,7 @@ skipped entirely.
 So a `BONUS:VAR|TestPower|2` with no matching `DEFINE:TestPower|0` anywhere in the loaded
 data contributes nothing. Nothing is logged. The number is lower than intended, and nothing says why.
 
-*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PlayerCharacter.java)*
+*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/PlayerCharacter.java)*
 
 ## Declarations do not stack
 
@@ -63,7 +63,7 @@ Output sheets can ask for the lowest instead, with `VAR.MIN`.
 Bonuses behave the other way. That is the point of declaring at zero. The declaration
 sets a floor, and bonuses accumulate on top of it under the normal stacking rule.
 
-*Source: [`VariableFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/analysis/VariableFacet.java)*
+*Source: [`VariableFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/analysis/VariableFacet.java)*
 
 ## What breaks
 

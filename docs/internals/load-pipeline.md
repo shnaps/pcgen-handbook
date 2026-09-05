@@ -9,7 +9,7 @@ step. For the version without Java in it, see
 [how loading works](../start/how-loading-works.md).
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## Overview
 
@@ -27,7 +27,7 @@ flowchart TD
 
 ## 1. Discovery
 
-[`CampaignFileLoader`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/CampaignFileLoader.java)
+[`CampaignFileLoader`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/CampaignFileLoader.java)
 is a `PCGenTask` that walks the configured data directories for `*.pcc`. Every file it
 finds is parsed into a `Campaign` and becomes a source-selection entry.
 
@@ -36,10 +36,10 @@ parsed, not because its data is valid.
 
 ## 2. Parsing the PCC
 
-[`CampaignLoader`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/CampaignLoader.java)
+[`CampaignLoader`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/CampaignLoader.java)
 extends `LstLineFileLoader` and handles one PCC line at a time. Each line is a tag,
 dispatched to a class in
-[`plugin/lsttokens/campaign/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/campaign)
+[`plugin/lsttokens/campaign/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/campaign)
 — 56 of them.
 
 File-reference tags mostly extend `AbstractBasicCampaignToken`, which turns the value
@@ -51,7 +51,7 @@ public String getTokenName() { return "SKILL"; }
 protected ListKey<CampaignSourceEntry> getListKey() { return ListKey.FILE_SKILL; }
 ```
 
-*Source: [`campaign/SkillToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/campaign/SkillToken.java)*
+*Source: [`campaign/SkillToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/campaign/SkillToken.java)*
 
 So `SKILL:my_skills.lst` means "add this path to `FILE_SKILL`". `RACE:` maps to
 `FILE_RACE`, `CLASS:` to `FILE_CLASS`, and so on. The PCC is a routing table.
@@ -66,7 +66,7 @@ sub-campaign file lists into the parent.
 
 ## 3. Dispatching to loaders
 
-[`SourceFileLoader`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/SourceFileLoader.java)
+[`SourceFileLoader`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/SourceFileLoader.java)
 collects the file lists from every selected campaign and runs one loader per `ListKey`:
 
 | ListKey | Loader |
@@ -80,12 +80,12 @@ Classes, abilities, kits and companion mods have their own loaders.
 
 ## 4. Line to object
 
-[`LstObjectFileLoader`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)
+[`LstObjectFileLoader`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)
 reads each file and processes it a line at a time. It also implements `.MOD`, `.COPY`
 and `.FORGET`, and honours a file's `(INCLUDE:` or `(EXCLUDE:` suffix. `LSTEXCLUDE` is applied a stage earlier, by `SourceFileLoader.stripLstExcludes`, which drops those files before any object loader sees them.
 
 Reading is done by
-[`LstFileLoader`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstFileLoader.java),
+[`LstFileLoader`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstFileLoader.java),
 a static utility. Two constants there define the file format:
 
 ```java
@@ -105,7 +105,7 @@ everything while one declared on `Skill` does not.
 contract, writing through `LoadContext`, `unparse` and the round trip, and sub-tokens.
 Only the dispatch's position in this sequence belongs here.
 
-*Source: [`TokenSupport.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/persistence/TokenSupport.java)*
+*Source: [`TokenSupport.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/rules/persistence/TokenSupport.java)*
 
 ## 6. Post-load phases
 
@@ -160,7 +160,7 @@ So a token can write to the `LoadContext` and then return `Fail`. If a later tok
 that name passes, the failed token's writes are committed with it, and nothing reports
 the fault. Validate before you write.
 
-*Source: [`TokenSupport.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/persistence/TokenSupport.java), [`LstUtils.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstUtils.java)*
+*Source: [`TokenSupport.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/rules/persistence/TokenSupport.java), [`LstUtils.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstUtils.java)*
 
 ### A new `.lst` file type is four edits
 
@@ -175,7 +175,7 @@ Skip the third and the `.pcc` still parses. `initRecursivePccFiles` walks that l
 copy a sub-campaign's files up to the base campaign, so files declared in an included
 campaign are never loaded. Nothing reports it.
 
-*Source: [`CampaignLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/CampaignLoader.java)*
+*Source: [`CampaignLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/CampaignLoader.java)*
 
 ### Load order is a hardcoded call sequence
 
@@ -192,7 +192,7 @@ creates is never stored.
 
 Detection is a substring test, `firstToken.indexOf(".MOD") > 0`, not a suffix test.
 
-*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
+*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
 
 ### Which base loader you subclass changes error handling
 

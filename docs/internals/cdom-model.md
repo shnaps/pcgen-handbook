@@ -11,7 +11,7 @@ Read [the token system](token-system.md) first. This page explains what those to
 write into.
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## CDOMObject
 
@@ -22,7 +22,7 @@ public abstract class CDOMObject extends ConcretePrereqObject
     implements BonusContainer, Loadable, Reducible, PCGenScoped, VarHolder
 ```
 
-*Source: [`CDOMObject.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/base/CDOMObject.java)*
+*Source: [`CDOMObject.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/base/CDOMObject.java)*
 
 It has two ordinary fields: the display name, and the URI of the file it was read from.
 Everything else is stored in maps.
@@ -65,7 +65,7 @@ carries three small maps, not thirty empty fields.
 protected IntegerKey integerKey() { return IntegerKey.CREATURE_HANDS; }
 ```
 
-*Source: [`race/HandsToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/race/HandsToken.java)*
+*Source: [`race/HandsToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/race/HandsToken.java)*
 
 `TYPE:` adds to a list:
 
@@ -73,7 +73,7 @@ protected IntegerKey integerKey() { return IntegerKey.CREATURE_HANDS; }
 context.getObjectContext().addToList(cdo, ListKey.TYPE, type);
 ```
 
-*Source: [`TypeLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/TypeLst.java)*
+*Source: [`TypeLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/TypeLst.java)*
 
 `DEFINE:` creates a variable key from the name in the data, at load time:
 
@@ -81,7 +81,7 @@ context.getObjectContext().addToList(cdo, ListKey.TYPE, type);
 context.getObjectContext().put(obj, VariableKey.getConstant(firstItem), f);
 ```
 
-*Source: [`DefineLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/DefineLst.java)*
+*Source: [`DefineLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/DefineLst.java)*
 
 ## Why keys instead of fields
 
@@ -104,7 +104,7 @@ Most game objects go through one intermediate class:
 public class PObject extends CDOMObject
 ```
 
-*Source: [`PObject.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PObject.java)*
+*Source: [`PObject.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/PObject.java)*
 
 Extending `PObject`, in `pcgen/core/`: `Ability`, `Race`, `Skill`, `Equipment`,
 `EquipmentModifier`, `Deity`, `Domain`, `Spell`, `PCTemplate`, `PCClass`, `Kit`,
@@ -131,7 +131,7 @@ Two identities, and data authors meet both.
 po.setName(colToken.nextToken());
 ```
 
-*Source: [`GenericLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/GenericLoader.java)*
+*Source: [`GenericLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/GenericLoader.java)*
 
 `setName` sets the display name. `getKeyName` reads `StringKey.KEY_NAME` and falls back
 to the display name. So every object has a key whether or not the file
@@ -191,7 +191,7 @@ So do not use a CDOM object as a `HashMap` key or put one in a `HashSet`. The en
 not either — `AbstractReferenceManufacturer` holds objects in a `KeyMap` keyed by string,
 and tracks duplicates under a `CaseInsensitiveString` wrapper.
 
-*Source: [`PObject.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PObject.java), [`CDOMObject.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/base/CDOMObject.java), [`AbstractReferenceManufacturer.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/reference/AbstractReferenceManufacturer.java)*
+*Source: [`PObject.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/PObject.java), [`CDOMObject.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/base/CDOMObject.java), [`AbstractReferenceManufacturer.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/reference/AbstractReferenceManufacturer.java)*
 
 ## References
 
@@ -212,7 +212,7 @@ which names were asked for. After every file is read, `SourceFileLoader` calls:
 refContext.resolveReferences(validator);
 ```
 
-*Source: [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/SourceFileLoader.java)*
+*Source: [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/SourceFileLoader.java)*
 
 Every reference is matched to a real object at that moment. A name nobody constructed
 produces the error data authors see most often:
@@ -221,7 +221,7 @@ produces the error data authors see most often:
 Unconstructed Reference: Skill Test Awareness
 ```
 
-*Source: [`CDOMFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/reference/CDOMFactory.java)*
+*Source: [`CDOMFactory.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/reference/CDOMFactory.java)*
 
 A group reference that matches nothing reports separately, naming the type that was
 requested and never loaded.
@@ -278,7 +278,7 @@ reads it.
 A prerequisite or an `EQMOD=` check on a double weapon answers for whichever head an
 unrelated earlier call left selected.
 
-*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PlayerCharacter.java), [`PCClass.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PCClass.java), [`PCClassLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/PCClassLoader.java), [`Equipment.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/Equipment.java)*
+*Source: [`PlayerCharacter.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/PlayerCharacter.java), [`PCClass.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/PCClass.java), [`PCClassLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/PCClassLoader.java), [`Equipment.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/Equipment.java)*
 
 ## Abilities are keyed by category
 
@@ -289,7 +289,7 @@ plus key.
 public final class Ability extends PObject implements Categorized<Ability>, AbilityFacade
 ```
 
-*Source: [`Ability.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/Ability.java)*
+*Source: [`Ability.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/Ability.java)*
 
 `Categorized` overrides the object's class identity so the category takes part in it.
 `AbilityCategory` is both the category value and the factory that builds abilities for

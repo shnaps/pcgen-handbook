@@ -50,7 +50,7 @@ Sample Deity	ALIGN:LG	FACT:Title|The Example
 `FACTSETDEF:` is the same, for a fact that holds several values rather than one. A deity
 belongs to one pantheon or to five, so pantheon is a fact set.
 
-*Source: [`plugin/lsttokens/datacontrol/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/datacontrol)*
+*Source: [`plugin/lsttokens/datacontrol/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/datacontrol)*
 
 Shipped data declares facts in 83 files, and fact sets in 13. PCGen ships declarations
 for the compatibility facts, which is why the old deity tags still map across.

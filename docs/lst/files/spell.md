@@ -29,7 +29,7 @@ caster can ever reach the spell.
 - A spell cannot grant anything else.
 - `BONUS:` on a spell line is refused.
 
-*Source: [`Spell.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/spell/Spell.java)*
+*Source: [`Spell.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/spell/Spell.java)*
 
 Effects belong on the abilities and items that cast the spell, not on the spell itself.
 
@@ -53,7 +53,7 @@ CLASSES:Sample Caster,Sample Adept=3|Sample Priest=4
 
 A trailing `[PREREQ...]` applies to the whole tag.
 
-*Source: [`spell/ClassesToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/spell/ClassesToken.java)*
+*Source: [`spell/ClassesToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/spell/ClassesToken.java)*
 
 `ALL` cannot be mixed with a named class in the same tag. The parser rejects it rather
 than combining them.
@@ -98,7 +98,7 @@ first value, `%2` the second:
 DESC:Deals %1 damage to one target.|1d6
 ```
 
-*Source: [`Description.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/Description.java)*
+*Source: [`Description.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/Description.java)*
 
 Placeholders start at `%1`, not `%0`. `%%` is a literal percent sign.
 

@@ -22,7 +22,7 @@ Nothing.
 A `.pcc` file with no tags at all parses, registers and loads. There is no required tag,
 no validation of the name, and no complaint about a missing game mode.
 
-*Source: [`CampaignLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/CampaignLoader.java)*
+*Source: [`CampaignLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/CampaignLoader.java)*
 
 That is worth knowing because it means every rule below is about being **usable**, not
 about loading. A source with no `CAMPAIGN:` loads fine and is nameless in the list.
@@ -50,7 +50,7 @@ STATUS:RELEASE
 `TYPE` takes at most **three** levels separated by `.`, and a fourth fails to parse. The
 levels become producer, format and setting.
 
-*Source: [`campaign/TypeToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/campaign/TypeToken.java)*
+*Source: [`campaign/TypeToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/campaign/TypeToken.java)*
 
 Shipped data uses two levels most often, at 430 sources, with three in 162 cases and one in 27.
 
@@ -92,7 +92,7 @@ Four tags, and they do something visible:
 The dialogs appear after the selected data finishes loading, before the reader gets
 control. A reader may switch them off in preferences.
 
-*Source: [`PCGenFrame.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/PCGenFrame.java)*
+*Source: [`PCGenFrame.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/PCGenFrame.java)*
 
 ```
 ISOGL:YES
@@ -117,7 +117,7 @@ INFOTEXT:Requires the base Testburg set.
 `URL` takes three parts: a kind, the address, and a description. The kind is `WEBSITE`,
 `SURVEY`, or anything else, which is treated as a purchase link.
 
-*Source: [`campaign/UrlToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/campaign/UrlToken.java)*
+*Source: [`campaign/UrlToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/campaign/UrlToken.java)*
 
 `HELP:` parses and nothing reads it. Skip it.
 
@@ -130,7 +130,7 @@ SHOWINMENU:YES
 The rule is exact: a source gets its own one-click entry when `SHOWINMENU:YES` **and**
 it declares at least one `GAMEMODE`. `TYPE` plays no part.
 
-*Source: [`FacadeFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/FacadeFactory.java)*
+*Source: [`FacadeFactory.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/FacadeFactory.java)*
 
 Only 9 of the 681 shipped `.pcc` files set it to `YES`, and three set it to `NO`. It is for a source meant to be loaded on
 its own, not for one supplement among many.
@@ -158,7 +158,7 @@ are used in shipped data:
 me alongside that one". 967 of them stand as a line of their own; the rest are
 appended inside another tag.
 
-*Source: [`PreCampaignTester.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/pretokens/test/PreCampaignTester.java)*
+*Source: [`PreCampaignTester.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/pretokens/test/PreCampaignTester.java)*
 
 To pull another source in rather than merely require it, use `PCC:`. See
 [sources](../concepts/sources.md).

@@ -9,7 +9,7 @@ starts". For the data author's view of the same ground, see
 [sources](../lst/concepts/sources.md).
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## Overview
 
@@ -34,7 +34,7 @@ load.
 roots in a fixed order: the data path, the vendor path, then the
 homebrew path. The finder is recursive and has no depth limit.
 
-*Source: [`CampaignFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/CampaignFileLoader.java)*
+*Source: [`CampaignFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/CampaignFileLoader.java)*
 
 In batch mode an alternate folder replaces all three.
 
@@ -47,7 +47,7 @@ Still at startup, `initRecursivePccFiles` walks each campaign's `PCC:` list. For
 include it loads the sub-campaign if it is not loaded already. It recurses into that
 one, then **appends its file lists onto the end of the parent's**.
 
-*Source: [`CampaignLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/CampaignLoader.java)*
+*Source: [`CampaignLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/CampaignLoader.java)*
 
 Two consequences worth knowing:
 
@@ -62,7 +62,7 @@ selectable.
 `FacadeFactory.initialize` wraps `Globals.getCampaignList()` and buckets every campaign
 by game mode. No sorting happens here — the order is discovery order.
 
-*Source: [`FacadeFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/FacadeFactory.java)*
+*Source: [`FacadeFactory.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/FacadeFactory.java)*
 
 Quick picks are assembled in the same class, from three places:
 
@@ -83,7 +83,7 @@ The advanced panel builds its tree from `StringKey.DATA_PRODUCER`,
 2. `PCGenFrame.loadSourceSelection` starts a `SourceLoadWorker` on a background thread.
 3. That worker constructs `SourceFileLoader` with the campaigns and the game mode name.
 
-*Source: [`PCGenFrame.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/PCGenFrame.java)*
+*Source: [`PCGenFrame.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/PCGenFrame.java)*
 
 The selection is remembered in two independent places. `LAST_LOADED_GAME` and
 `LAST_LOADED_SOURCES` in `PCGenSettings` drive the auto-load at next start. A
@@ -102,7 +102,7 @@ ever need to explain why a `.MOD` did not apply.
 | 2 | `readPccFiles` | each campaign appends its entries per `ListKey` |
 | 3 | the body of `loadCampaigns` | one `loadLstFiles` call per type, in a fixed sequence |
 
-*Source: [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/SourceFileLoader.java)*
+*Source: [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/SourceFileLoader.java)*
 
 Step 3 is a literal sequence of calls in one method. Data cannot reorder it, and a new
 file type means editing that method.
@@ -129,13 +129,13 @@ name suggests they gate the load; they do not. The data is already in memory.
 load. Whatever it collects is handed to `PCGenStatusBar.setSourceLoadErrors`, which sets
 the status icon to stop, alert or ok.
 
-*Source: [`PCGenStatusBar.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/PCGenStatusBar.java)*
+*Source: [`PCGenStatusBar.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/PCGenStatusBar.java)*
 
 A missing `.lst` file is caught in `LstFileLoader.readFromURI`, logged, and skipped. The
 in-source comment says why plainly: one file not found must not stop every other file
 from loading.
 
-*Source: [`LstFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstFileLoader.java)*
+*Source: [`LstFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstFileLoader.java)*
 
 ## Duplicate objects
 
@@ -150,7 +150,7 @@ With the preference off, neither is dropped and an error names both files.
 A second, later check in `AbstractReferenceManufacturer.validateDuplicates` reports
 same-key objects that survived and are not equal.
 
-*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
+*Source: [`LstObjectFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/lst/LstObjectFileLoader.java)*
 
 ## Reloading
 
@@ -158,7 +158,7 @@ same-key objects that survived and are not equal.
 `unloadSources` and then `loadSourceSelection` with the same selection. `unloadSources`
 clears the current data set and calls `Globals.emptyLists()`.
 
-*Source: [`PCGenActionMap.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/PCGenActionMap.java)*
+*Source: [`PCGenActionMap.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/PCGenActionMap.java)*
 
 The whole load runs again in the same process, which makes it the fastest way to test a
 data edit.
@@ -170,7 +170,7 @@ migrators in `pcgen/io/migration/`, alongside ability, equipment, equipment set,
 and spell. The rules come
 from the game mode's `migration.lst`, filtered by the PCGen version that wrote the file.
 
-*Source: [`SourceMigration.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/migration/SourceMigration.java)*
+*Source: [`SourceMigration.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/migration/SourceMigration.java)*
 
 With no matching rule the campaign is dropped from the character's list without an error
 at that point.

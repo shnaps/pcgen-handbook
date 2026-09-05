@@ -26,7 +26,7 @@ PCGen only treats a folder as a game mode if it contains **both**:
 
 Both must be present. Neither needs to have much in it.
 
-*Source: [`GameModeFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/GameModeFileLoader.java)*
+*Source: [`GameModeFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/GameModeFileLoader.java)*
 
 !!! note "`statsandchecks.lst` is mostly a marker"
     The name suggests it defines stats and saving throws. It does not. Across every

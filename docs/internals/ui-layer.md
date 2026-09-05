@@ -9,7 +9,7 @@ engine is not where the code says it is. Both are worth knowing before changing
 anything on screen.
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## Two toolkits
 
@@ -24,7 +24,7 @@ The main window is Swing:
 public final class PCGenFrame extends JFrame implements UIDelegate, CharacterSelectionListener
 ```
 
-*Source: [`PCGenFrame.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/PCGenFrame.java)*
+*Source: [`PCGenFrame.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/PCGenFrame.java)*
 
 JavaFX is started anyway during [startup](startup.md), with a bare `new JFXPanel()`,
 because the parts written in JavaFX are embedded inside the Swing window.
@@ -47,7 +47,7 @@ are all still Swing. Nothing suggests that is changing soon.
 public static JFXPanel wrapParentAsJFXPanel(Parent parent)
 ```
 
-*Source: [`GuiUtility.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui3/GuiUtility.java)*
+*Source: [`GuiUtility.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui3/GuiUtility.java)*
 
 Swing code calls that to embed a JavaFX component. `GuiAssertions` sits beside it and checks
 which thread you are on. Swing and JavaFX each have their own, and mixing them up is
@@ -65,7 +65,7 @@ sees. The intent is written down:
 > provides a key role in separation of the core and the UI layers. The UI can only
 > operate on this interface, the core provides the implementation.
 
-*Source: [`CharacterFacade.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/facade/core/CharacterFacade.java)*
+*Source: [`CharacterFacade.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/facade/core/CharacterFacade.java)*
 
 | Interface | Is |
 |---|---|
@@ -127,7 +127,7 @@ public interface CharacterInfoTab
 }
 ```
 
-*Source: [`CharacterInfoTab.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/tabs/CharacterInfoTab.java)*
+*Source: [`CharacterInfoTab.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/tabs/CharacterInfoTab.java)*
 
 A `ModelMap` is a map keyed by class. A tab builds whatever models it needs, puts them
 in, and gets them back typed. There is no shared base class and no shared model — each
@@ -150,7 +150,7 @@ restored yet sorts ahead of one that has a recorded time.
 A slow tab therefore cannot delay the tab the user is looking at. The cost of the slow
 ones is paid while the reader is busy elsewhere.
 
-*Source: [`InfoTabbedPane.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/tabs/InfoTabbedPane.java)*
+*Source: [`InfoTabbedPane.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/tabs/InfoTabbedPane.java)*
 
 ### What this means when you add one
 
@@ -199,14 +199,14 @@ among them. It calls one from the same method that made the change.
 facet directly leaves the widget showing the old value until something calls the right
 refresh. That is the practical cost of the boundary problem above.
 
-*Source: [`CharacterFacadeImpl.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/facade/CharacterFacadeImpl.java), [`CharacterLevelsFacadeImpl.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/facade/CharacterLevelsFacadeImpl.java)*
+*Source: [`CharacterFacadeImpl.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/facade/CharacterFacadeImpl.java), [`CharacterLevelsFacadeImpl.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/facade/CharacterLevelsFacadeImpl.java)*
 
 ## The main window
 
 `PCGenUIManager` builds `PCGenFrame` and shows it. The tabs live in `pcgen/gui2/tabs/`,
 and their order is fixed in one place:
 
-*Source: [`InfoTabbedPane.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/tabs/InfoTabbedPane.java)*
+*Source: [`InfoTabbedPane.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/tabs/InfoTabbedPane.java)*
 
 Tab 0 is `SummaryInfoTab`, where a character is created. The others are race, class,
 skills, abilities, domains, spells, inventory, equipping, companions, description,
@@ -214,7 +214,7 @@ temporary bonuses and the character sheet preview.
 
 Choosing sources is not a tab. It is a modal dialog:
 
-*Source: [`SourceSelectionDialog.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/sources/SourceSelectionDialog.java)*
+*Source: [`SourceSelectionDialog.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/sources/SourceSelectionDialog.java)*
 
 That dialog is what starts the [load pipeline](load-pipeline.md).
 
@@ -264,7 +264,7 @@ cancelled tab keeps the previous character's models.
 Work that must happen when a tab becomes visible belongs in `DisplayAwareTab.tabSelected`,
 which two tabs implement.
 
-*Source: [`Tab.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/util/enumeration/Tab.java), [`InfoTabbedPane.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui2/tabs/InfoTabbedPane.java), [`PanelFromResource.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/gui3/PanelFromResource.java), [`LanguageBundle.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/LanguageBundle.java)*
+*Source: [`Tab.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/util/enumeration/Tab.java), [`InfoTabbedPane.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui2/tabs/InfoTabbedPane.java), [`PanelFromResource.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/gui3/PanelFromResource.java), [`LanguageBundle.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/LanguageBundle.java)*
 
 ## Settings and language
 

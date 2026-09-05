@@ -62,7 +62,7 @@ AUTO:WEAPONPROF|%LIST
 The grant happens once the player has picked. With a prerequisite attached, the grant
 becomes conditional on that choice.
 
-*Source: [`auto/LangToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/auto/LangToken.java)*
+*Source: [`auto/LangToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/auto/LangToken.java)*
 
 ## ADD
 
@@ -113,7 +113,7 @@ nature is prepended only when it is not `NORMAL`. So `NORMAL` gives `FEAT Choice
 Add `STACKS` to the ability list to let the same choice be taken more than once, or
 `STACKS=<n>` to cap it. Two stacking specifications in one tag is an error.
 
-*Source: [`add/AbilityToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/add/AbilityToken.java)*
+*Source: [`add/AbilityToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/add/AbilityToken.java)*
 
 ## REMOVE is not a current tag
 

@@ -8,7 +8,7 @@ Getting PCGen to compile and run on your own machine, and what each Gradle task 
 for. Read [repository layout](architecture.md) first if you have not seen the tree.
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## What you need
 
@@ -25,7 +25,7 @@ javaVersion=25
 javafxVersion=25.0.4
 ```
 
-*Source: [`gradle.properties`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/gradle.properties)*
+*Source: [`gradle.properties`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/gradle.properties)*
 
 `build.gradle` reads that value into a Java toolchain block. No toolchain resolver is
 configured, so Gradle does not download a JDK for you — it fails with `PCGen requires
@@ -81,7 +81,7 @@ jars every time — a token edit takes effect. And it runs with assertions enabl
 downloading from gluonhq first, and every `JavaCompile` task depends on that too. A fresh
 clone therefore needs one network fetch before it compiles anything.
 
-*Source: [`distribution.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/gradle/distribution.gradle), [`build.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/build.gradle)*
+*Source: [`distribution.gradle`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/gradle/distribution.gradle), [`build.gradle`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/build.gradle)*
 
 ## What the build produces
 
@@ -103,7 +103,7 @@ directories and exits with an error dialog if one is missing:
 
 `system/` · `data/` · `plugins/` · `outputsheets/` · `preview/`
 
-*Source: [`Main.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/Main.java)*
+*Source: [`Main.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/Main.java)*
 
 Running from a checkout works because those directories are already beside the code.
 Running from a copied jar with nothing else fails at startup, not at load time.
@@ -163,7 +163,7 @@ Run them yourself before submitting:
 ./gradlew allReports
 ```
 
-*Source: [`reporting.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/gradle/reporting.gradle)*
+*Source: [`reporting.gradle`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/gradle/reporting.gradle)*
 
 ## What CI runs
 
@@ -208,7 +208,7 @@ instead. Do not expect the standard application plugin output.
 block's `forceMerge` list, and the merged module's `requires` list is maintained by
 hand. Miss that and the failure appears only when someone builds an installer.
 
-*Source: [`plugins.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/gradle/plugins.gradle), [`PluginClassLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/PluginClassLoader.java)*
+*Source: [`plugins.gradle`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/gradle/plugins.gradle), [`PluginClassLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/PluginClassLoader.java)*
 
 ## Related
 

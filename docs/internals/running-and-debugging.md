@@ -9,7 +9,7 @@ errors it prints. Read [building from source](building.md) first — this page a
 build already works.
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## Attaching from Gradle
 
@@ -78,7 +78,7 @@ Five more properties go with them — `testfx.robot`, `prism.verbose`,
 Without them a test that touches JavaFX fails on the module system rather than on
 anything you wrote. `mods/lib` exists only after `extractJavaFXLocal` has run once.
 
-*Source: [`build.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/build.gradle)*
+*Source: [`build.gradle`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/build.gradle)*
 
 ## Reading errors instead of stepping
 
@@ -99,7 +99,7 @@ for it. There are three registrations in the whole program:
 anything logged outside a load, reaches the log file and nothing else. A silent failure
 is often a message that was printed to a level nobody was listening to.
 
-*Source: [`Logging.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/util/Logging.java), [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/persistence/SourceFileLoader.java)*
+*Source: [`Logging.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/util/Logging.java), [`SourceFileLoader.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/persistence/SourceFileLoader.java)*
 
 ## Where to break, by symptom
 

@@ -43,7 +43,7 @@ deprecated and ignored, with a notice.
 An argument written with `=` is stored with a `|` in its place. The separator inside a
 field is already `|`, so data cannot write one, and this is how the value survives.
 
-*Source: [`EqmodToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/equipment/EqmodToken.java)*
+*Source: [`EqmodToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/equipment/EqmodToken.java)*
 
 ## Defining one
 
@@ -87,7 +87,7 @@ Fifteen tags are current, plus eleven `CHOOSE` variants.
 
 This is the tag to reach for when a modified item reads badly on the sheet.
 
-*Source: [`NameoptToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/equipmentmodifier/NameoptToken.java)*
+*Source: [`NameoptToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/equipmentmodifier/NameoptToken.java)*
 
 ### Choices
 

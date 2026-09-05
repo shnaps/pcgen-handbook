@@ -70,7 +70,7 @@ Spellcasting adds another group: `SPELLSTAT`, `BONUSSPELLSTAT`, `SPELLLIST`,
 `SPELLBOOK`, `MEMORIZE`, `KNOWNSPELLS`, `KNOWNSPELLSFROMSPECIALTY`, `PROHIBITED`,
 `PROHIBITSPELL`, `ITEMCREATE`, `ADDDOMAINS`.
 
-*Source: [`plugin/lsttokens/pcclass/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/pcclass)*
+*Source: [`plugin/lsttokens/pcclass/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/pcclass)*
 
 Three are deprecated: `ABB`, `CLASSTYPE` and `SPELLTYPE`. `DOMAIN` is current — only its bracketed-prerequisite form was retired.
 
@@ -140,7 +140,7 @@ meeting needs somewhere to go, or the character is left in an invalid state.
     Use **`BONUS:COMBAT|BASEAB`** instead. It appears about 2,100 times in shipped
     data, while `BAB` appears nowhere.
 
-    *Source: [`bonustokens/Combat.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/bonustokens/Combat.java)*
+    *Source: [`bonustokens/Combat.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/bonustokens/Combat.java)*
 
 ## Related
 

@@ -15,7 +15,7 @@ Read it if you are following a video, adapting old data, or wondering why a tag 
 tutorial produces a warning.
 
 Checked against PCGen `6.09.08.RC1`, commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## Feats became abilities
 
@@ -84,7 +84,7 @@ A third form still loads but warns. `DEFINE` with a non-zero value logs a deprec
 notice asking for a `DEFINE` of 0 and a bonus instead. `MAXLEVELSTAT=` is exempt. See
 [declaring a variable](../lst/concepts/declaring-variables.md) for the form to write.
 
-*Source: [`DefineLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/DefineLst.java)*
+*Source: [`DefineLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/DefineLst.java)*
 
 ## REMOVE has no current form
 
@@ -98,7 +98,7 @@ There is no `REMOVE:ABILITY`. The feat-to-ability move gave `ADD:FEAT` a success
 Shipped data uses it 35 times, all `REMOVE:FEAT`. See
 [granting things](../lst/concepts/granting.md) for the tags that are current.
 
-*Source: [`RemoveLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/deprecated/RemoveLst.java)*
+*Source: [`RemoveLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/deprecated/RemoveLst.java)*
 
 ## Deprecated by file type
 

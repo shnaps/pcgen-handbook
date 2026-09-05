@@ -11,7 +11,7 @@ For where files live rather than how code is arranged, see
 [repository layout](architecture.md).
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## The shape of a run
 
@@ -47,7 +47,7 @@ PCGen-base  <--  PCGen-Formula  <--  pcgen
 Neither library knows PCGen exists. `PCGen-Formula` declares its dependency on
 `PCGen-base` and nothing more.
 
-*Source: [`PCGen-Formula/build.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/PCGen-Formula/build.gradle)*
+*Source: [`PCGen-Formula/build.gradle`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/PCGen-Formula/build.gradle)*
 
 `PCGen-Formula` is largely generated. Its parser comes from a JavaCC grammar at build
 time, so most of `pcgen.base.formula.parse` has no hand-written source. See
@@ -58,7 +58,7 @@ time, so most of `pcgen.base.formula.parse` has no hand-written source. See
 `code/src/java/module-info.java` declares one module, `pcgen`. It requires the two
 libraries as **modules**, not merely as jars on the classpath.
 
-*Source: [`module-info.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/module-info.java)*
+*Source: [`module-info.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/module-info.java)*
 
 That has a consequence contributors run into:
 
@@ -165,7 +165,7 @@ See [plugin loading](plugin-loading.md) and [the interface layer](ui-layer.md).
 | JavaFX | the newer parts of the interface |
 | argparse4j | command line parsing |
 
-*Source: [`build.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/build.gradle)*
+*Source: [`build.gradle`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/build.gradle)*
 
 Two formula systems is not a mistake in the list. JEP evaluates the older expression
 syntax while `PCGen-Formula` handles the newer one. Both are live. Almost all shipped

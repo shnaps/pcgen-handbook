@@ -99,7 +99,7 @@ Its `setUp` resets static state — `SettingsHandler.setGame("3.5")` and
 `Globals.emptyLists()` among it. That state is global, which is why both slow tasks set
 `forkEvery = 1`.
 
-*Source: [`build.gradle`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/build.gradle), [`AbstractCharacterTestCase.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/slowtest/pcgen/AbstractCharacterTestCase.java)*
+*Source: [`build.gradle`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/build.gradle), [`AbstractCharacterTestCase.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/slowtest/pcgen/AbstractCharacterTestCase.java)*
 
 ## The export tests compare against checked-in XML
 
@@ -115,7 +115,7 @@ character it:
 Those `.xml` files are checked into the repository. A deliberate change to how a number
 is computed fails here by design, and the fix is to regenerate them.
 
-*Source: [`PcgenFtlTestCase.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/slowtest/pcgen/inttest/PcgenFtlTestCase.java)*
+*Source: [`PcgenFtlTestCase.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/slowtest/pcgen/inttest/PcgenFtlTestCase.java)*
 
 ## What does not exist
 

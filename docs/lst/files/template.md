@@ -32,7 +32,7 @@ it is used, not what it is.
 | ability | something the character took |
 | template | something applied on top, possibly more than one |
 
-*Source: [`PCTemplate.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/core/PCTemplate.java)*
+*Source: [`PCTemplate.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/core/PCTemplate.java)*
 
 A character may hold several templates. The same template cannot be applied twice.
 
@@ -62,7 +62,7 @@ A character may hold several templates. The same template cannot be applied twic
 | `WEAPONBONUS` | offer weapon proficiencies, of which the character picks one |
 | `NONPP` | set the non-proficiency penalty |
 
-*Source: [`plugin/lsttokens/template/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/template)*
+*Source: [`plugin/lsttokens/template/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/template)*
 
 ### Tags that look template-specific and are not
 
@@ -92,7 +92,7 @@ values:
 
 Anything else fails to parse.
 
-*Source: [`template/VisibleToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/template/VisibleToken.java)*
+*Source: [`template/VisibleToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/template/VisibleToken.java)*
 
 `VISIBLE:NO` is normal. Templates are used as invisible carriers for effects at least as
 often as they are used as things a reader picks.

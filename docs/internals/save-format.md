@@ -23,7 +23,7 @@ CLASS:Test Warrior|LEVEL:3|SKILLPOOL:0
 
 Sub-fields use `:` inside the `|` groups, never `=`.
 
-*Source: [`PCGVer2Creator.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Creator.java)*
+*Source: [`PCGVer2Creator.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/PCGVer2Creator.java)*
 
 Two versions appear and they are not the same thing. `PCGVERSION` is the format
 version, fixed at `2.0`. `VERSION` is the PCGen build that wrote the file, and the
@@ -31,7 +31,7 @@ parser splits it to decide how to read what follows.
 
 Reading is the mirror class:
 
-*Source: [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Parser.java)*
+*Source: [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/PCGVer2Parser.java)*
 
 It resembles the LST format on the surface. It is a separate parser with its own tag
 set, and none of the LST token classes are involved.
@@ -58,7 +58,7 @@ The default is a PCGen directory holding `characters/`. Its root is the document
 on Windows and on freedesktop Linux, and the user's home directory on macOS and as the
 fallback. The path is a setting, so the preferences dialog can move it.
 
-*Source: [`PCGenSettings.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/PCGenSettings.java)*
+*Source: [`PCGenSettings.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/PCGenSettings.java)*
 
 The `characters/` directory in the repository is unrelated. It holds sample characters
 shipped with the program. The integration tests do not read it — they use
@@ -81,7 +81,7 @@ a Java special case for a renamed object is the wrong layer.
 A channel, an `IOConstants` tag, a writer and a reader. See
 [changing behaviour](changing-behaviour.md#new-character-state-has-to-survive-the-save).
 
-*Source: [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/PCGVer2Parser.java), [`MigrationUtils.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/migration/MigrationUtils.java)*
+*Source: [`PCGVer2Parser.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/PCGVer2Parser.java), [`MigrationUtils.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/migration/MigrationUtils.java)*
 
 ## Related
 

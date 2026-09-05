@@ -29,7 +29,7 @@ flowchart LR
 `ChooseDriverFacet` listens for objects arriving on a character. When one arrives that
 implements `ChooseDriver` and carries a `CHOOSE:`, it runs the chooser.
 
-*Source: [`ChooseDriverFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/ChooseDriverFacet.java)*
+*Source: [`ChooseDriverFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/ChooseDriverFacet.java)*
 
 So a `CHOOSE:` on an object nobody ever grants is dead text. It parses, it loads, and
 it never runs. That is the most common mistake with this tag.
@@ -60,7 +60,7 @@ choice, and mixing an old-style and a new-style chooser is a load error:
 New style CHOOSE and old style CHOOSE both found
 ```
 
-*Source: [`ChooseLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/ChooseLst.java)*
+*Source: [`ChooseLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/ChooseLst.java)*
 
 ## The shape
 
@@ -79,7 +79,7 @@ CHOOSE:USERINPUT|TITLE=Name your patron
 optional title. `CHOOSE:USERINPUT` takes no list at all — it asks the reader to type
 something.
 
-*Source: [`choose/SkillToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/choose/SkillToken.java)*
+*Source: [`choose/SkillToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/choose/SkillToken.java)*
 
 ## Narrowing the list
 
@@ -93,7 +93,7 @@ The middle part is not a plain list of names. Four forms compose:
 | `ALL` | everything of the chooser's type |
 | `Sample%` | name pattern match |
 
-*Source: [`ChoiceSetLoadUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/persistence/ChoiceSetLoadUtilities.java)*
+*Source: [`ChoiceSetLoadUtilities.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/rules/persistence/ChoiceSetLoadUtilities.java)*
 
 Beyond those, two plugin families extend what can appear there:
 
@@ -129,7 +129,7 @@ CHOOSE:NUMCHOICES=2|SKILL|TYPE=Lore
 `MULT:YES` requires a `CHOOSE:`, and `MULT:NO` forbids one. Both are checked at load
 and reported as errors.
 
-*Source: [`ability/MultToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/ability/MultToken.java)*
+*Source: [`ability/MultToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/ability/MultToken.java)*
 
 See [ability files](../files/ability.md) for `MULT` and `STACK` in context.
 
@@ -148,7 +148,7 @@ Sample Vigour	CATEGORY:FEAT	TYPE:General	MULT:YES	STACK:YES	CHOOSE:NOCHOICE	BONU
 `CHOOSE:NOCHOICE` requires both `MULT:YES` and `STACK:YES`. Without them the line fails
 to load.
 
-*Source: [`choose/NoChoiceToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/choose/NoChoiceToken.java)*
+*Source: [`choose/NoChoiceToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/choose/NoChoiceToken.java)*
 
 Read it as "this can be taken again", not as "this asks a question".
 

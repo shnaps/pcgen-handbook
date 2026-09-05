@@ -46,7 +46,7 @@ MODIFY:ItemLevel|SET|2
 Square brackets and parentheses group, so a formula containing `|` inside them is not
 split by the argument separator.
 
-*Source: [`ModifyLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/ModifyLst.java)*
+*Source: [`ModifyLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/ModifyLst.java)*
 
 ## Operators
 
@@ -66,7 +66,7 @@ Each operator is a separate class under `plugin/modifier/`. They are grouped by 
 type of value they act on: `number`, `set`, `bool`, `string`, `dice`, `cdom`,
 `orderedpair` and `dynamic`. Only `number` has the full arithmetic set.
 
-*Source: [`plugin/modifier/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/modifier)*
+*Source: [`plugin/modifier/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/modifier)*
 
 ## PRIORITY
 
@@ -80,7 +80,7 @@ same association twice on one tag is also rejected.
 
 Priority defaults to 0 when not set.
 
-*Source: [`AssociationUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/formula/AssociationUtilities.java)*
+*Source: [`AssociationUtilities.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/formula/AssociationUtilities.java)*
 
 ## MODIFYOTHER
 
@@ -101,7 +101,7 @@ Two extra arguments in front:
 The remaining three behave exactly as in `MODIFY`. PCGen rejects the line if the scope
 name is not legal, or if it names the global scope.
 
-*Source: [`ModifyOtherLst.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/ModifyOtherLst.java)*
+*Source: [`ModifyOtherLst.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/ModifyOtherLst.java)*
 
 ## The grouping argument
 
@@ -143,7 +143,7 @@ log carries `Error in parsing Group: Expected target after '=', but string ended
 somewhere else — the grouping class throws `Instructions using = prohibited for ALL
 Grouping`, which `getGrouping` does not catch, so the second message never appears.
 
-*Source: [`plugin/grouping/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/grouping), [`GroupingInfoFactory.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/grouping/GroupingInfoFactory.java), [`ChoiceSetLoadUtilities.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/rules/persistence/ChoiceSetLoadUtilities.java), [`ModifyOtherLstTest.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/test/plugin/lsttokens/ModifyOtherLstTest.java)*
+*Source: [`plugin/grouping/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/grouping), [`GroupingInfoFactory.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/grouping/GroupingInfoFactory.java), [`ChoiceSetLoadUtilities.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/rules/persistence/ChoiceSetLoadUtilities.java), [`ModifyOtherLstTest.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/test/plugin/lsttokens/ModifyOtherLstTest.java)*
 
 ## Scopes
 

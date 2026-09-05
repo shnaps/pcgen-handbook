@@ -8,7 +8,7 @@ Two things happen at the far end of PCGen: a character becomes a sheet, and a ch
 becomes a file. They use different code and different tag systems.
 
 All paths are relative to the PCGen repository root, at commit
-[`d262f8b4`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa).
+[`d4ade6d5`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c).
 
 ## Output tokens are not LST tags
 
@@ -34,7 +34,7 @@ not in it.
 public static ExportHandler createExportHandler(File templateFile)
 ```
 
-*Source: [`ExportHandler.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/ExportHandler.java)*
+*Source: [`ExportHandler.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/ExportHandler.java)*
 
 The file extension decides everything. A template ending `.ftl` gets
 `FreeMarkerExportHandler`. Anything else gets `PCGenExportHandler`, the older engine
@@ -64,7 +64,7 @@ public abstract String getTokenName();
 public abstract String getToken(String tokenSource, PlayerCharacter pc, ExportHandler eh);
 ```
 
-*Source: [`Token.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/exporttoken/Token.java)*
+*Source: [`Token.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/exporttoken/Token.java)*
 
 `Token` is an abstract class, not an interface. Extend it.
 
@@ -78,7 +78,7 @@ In almost every case this is the base to use. It implements `getToken` and hands
 public abstract String getToken(String tokenSource, CharacterDisplay display, ExportHandler eh);
 ```
 
-*Source: [`AbstractExportToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/exporttoken/AbstractExportToken.java)*
+*Source: [`AbstractExportToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/exporttoken/AbstractExportToken.java)*
 
 The test goes in `code/src/slowtest/`, not `code/src/test/`. See
 [testing](testing.md#output-token-tests-live-elsewhere).
@@ -100,7 +100,7 @@ OutputDB.buildDataModel(aPC.getCharID());
 OutputDB.buildModeDataModel(gamemode);
 ```
 
-*Source: [`FreeMarkerExportHandler.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/FreeMarkerExportHandler.java)*
+*Source: [`FreeMarkerExportHandler.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/FreeMarkerExportHandler.java)*
 
 Note the model is built from a `CharID`, the same identifier the
 [facets](facets.md) are keyed by. The model classes in `pcgen/output/model/` wrap facet
@@ -115,7 +115,7 @@ Six custom directives and functions bridge back to the old world:
 | `pcboolean` | evaluate a condition |
 | `loop`, `equipsetloop` | repeat a block |
 
-*Source: [`PCStringDirective.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/freemarker/PCStringDirective.java)*
+*Source: [`PCStringDirective.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/freemarker/PCStringDirective.java)*
 
 `pcstring` matters most. It means a FreeMarker sheet can call any legacy token, so the
 old system is not going away while sheets still use it.
@@ -176,7 +176,7 @@ When one does, the code logs as though it refused and then does the opposite. It
 returned the old value merely as a report. **The new actor is in and the earlier property
 is gone.** The rest of the definition loads normally either way.
 
-*Source: [`FactDefinition.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/content/fact/FactDefinition.java)*
+*Source: [`FactDefinition.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/content/fact/FactDefinition.java)*
 
 ### This half fails loudly
 
@@ -196,7 +196,7 @@ Write an `OutputActor<T>` in `pcgen/output/actor/` — 16 classes, each built ar
 `pcgen/output/` is 71 classes in seven subpackages, of which `model` is the largest at 20.
 Its tests are in `code/src/itest/`.
 
-*Source: [`CDOMWrapperInfoFacet.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/cdom/facet/CDOMWrapperInfoFacet.java)*
+*Source: [`CDOMWrapperInfoFacet.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/cdom/facet/CDOMWrapperInfoFacet.java)*
 
 ## What bites when you change output
 
@@ -238,7 +238,7 @@ and are used as written.
 The export tests are in the `slowtest` source set. See
 [testing](testing.md#the-export-tests-compare-against-checked-in-xml).
 
-*Source: [`ExportHandler.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/ExportHandler.java), [`AbstractExportToken.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/exporttoken/AbstractExportToken.java), [`PatternFilter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/io/filters/PatternFilter.java), [`BatchExporter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/BatchExporter.java)*
+*Source: [`ExportHandler.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/ExportHandler.java), [`AbstractExportToken.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/exporttoken/AbstractExportToken.java), [`PatternFilter.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/io/filters/PatternFilter.java), [`BatchExporter.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/BatchExporter.java)*
 
 ## Where sheets live
 
@@ -263,7 +263,7 @@ right folder for the game mode and output type.
 `ExportHandler.createExportHandler` exactly as the window does, then writes to the file
 given by `-o`.
 
-*Source: [`BatchExporter.java`](https://github.com/PCGen/pcgen/blob/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/pcgen/system/BatchExporter.java)*
+*Source: [`BatchExporter.java`](https://github.com/PCGen/pcgen/blob/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/pcgen/system/BatchExporter.java)*
 
 It needs a character. There is no way to ask it to load a data set and stop, which is
 why checking data uses [the test harness](testing.md) instead.

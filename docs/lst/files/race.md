@@ -45,7 +45,7 @@ What it is, how big, how fast.
 | `XTRASKILLPTSPERLVL` | a number | extra skill points per level |
 | `ROLE` | text | intended role, for display |
 
-*Source: [`plugin/lsttokens/race/`](https://github.com/PCGen/pcgen/tree/d262f8b44952860ff857132035fb32d8d11361fa/code/src/java/plugin/lsttokens/race)*
+*Source: [`plugin/lsttokens/race/`](https://github.com/PCGen/pcgen/tree/d4ade6d509f4206b1c1789848752e633ec3c134c/code/src/java/plugin/lsttokens/race)*
 
 `FEAT` is deprecated on a race. So is `CHOOSE:LANGAUTO`, but only that form — plain `CHOOSE` is current.
 
